@@ -1,6 +1,7 @@
 package me.alegian.thaumcraft7.item;
 
 import me.alegian.thaumcraft7.Thaumcraft;
+import me.alegian.thaumcraft7.block.BlockIndex;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -18,6 +19,7 @@ public class CreativeModeTabIndex {
             .icon(() -> ItemIndex.EXAMPLE_ITEM.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
                 output.accept(ItemIndex.EXAMPLE_ITEM.get()); // Add the example item to the tab. For your own tabs, this method is preferred over the event
+                output.accept(BlockIndex.EXAMPLE_BLOCK.get()); // Add the example item to the tab. For your own tabs, this method is preferred over the event
             })
             .build()
     );
