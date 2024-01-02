@@ -1,5 +1,7 @@
 {
   "thaumcraft": "Thaumcraft",
   "item.thaumcraft7.example_item": "Example Item",
-  "block.thaumcraft7.example_block": "Example Block"
+  "block.thaumcraft7.example_block": "Example Block",
+  "block.thaumcraft7.iron_cap": "Iron Wand Cap",
+  "block.thaumcraft7.iron_wood_wand": "Iron Capped Wooden Wand"
 }
