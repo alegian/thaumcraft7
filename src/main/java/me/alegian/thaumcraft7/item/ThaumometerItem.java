@@ -1,14 +1,21 @@
 package me.alegian.thaumcraft7.item;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
+import org.joml.Quaternionf;
+
+import java.util.function.Consumer;
 
 public class ThaumometerItem extends Item {
     public ThaumometerItem(Properties props) {
@@ -33,6 +40,19 @@ public class ThaumometerItem extends Item {
 
     @Override
     public UseAnim getUseAnimation(ItemStack itemStack) {
-        return UseAnim.SPYGLASS;
+        return UseAnim.CUSTOM;
+    }
+
+    @Override
+    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+        consumer.accept(new IClientItemExtensions() {
+            @Override
+            public boolean applyForgeHandTransform(PoseStack poseStack, LocalPlayer player, HumanoidArm arm, ItemStack itemInHand, float partialTick, float equipProcess, float swingProcess) {
+                if (player.getUseItem() == itemInHand && player.isUsingItem()) {
+                    poseStack.rotateAround(new Quaternionf(1, 0,0,0), 2, 2, 2);
+                }
+                return true;
+            }
+        });
     }
 }
