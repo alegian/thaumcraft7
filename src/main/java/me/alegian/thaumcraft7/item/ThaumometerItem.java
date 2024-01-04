@@ -10,14 +10,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 
-public class WandItem extends Item {
-    public WandItem(Properties props) {
+public class ThaumometerItem extends Item {
+    public ThaumometerItem(Properties props) {
         super(props);
     }
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
-        if(level.isClientSide()) player.sendSystemMessage(Component.literal("use"));
         player.startUsingItem(hand);
         return InteractionResultHolder.success(player.getItemInHand(hand));
     }
@@ -34,6 +33,6 @@ public class WandItem extends Item {
 
     @Override
     public UseAnim getUseAnimation(ItemStack itemStack) {
-        return UseAnim.BOW;
+        return UseAnim.SPYGLASS;
     }
 }

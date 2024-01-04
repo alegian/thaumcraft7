@@ -22,6 +22,7 @@ public class CreativeModeTabIndex {
                 output.accept(BlockIndex.EXAMPLE_BLOCK.get());
                 output.accept(ItemIndex.IRON_CAP.get());
                 output.accept(ItemIndex.IRON_WOOD_WAND.get());
+                output.accept(ItemIndex.THAUMOMETER.get());
             })
             .build()
     );
