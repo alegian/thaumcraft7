@@ -15,6 +15,7 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import org.joml.AxisAngle4f;
+import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
@@ -72,13 +73,13 @@ public class WandItem extends Item {
             public boolean applyForgeHandTransform(PoseStack poseStack, LocalPlayer player, HumanoidArm arm, ItemStack itemInHand, float partialTick, float equipProcess, float swingProcess) {
                 if (player.getUseItem() == itemInHand && player.isUsingItem()) {
                     float secondsUsing = (float) player.getTicksUsingItem() /20;
-                    poseStack.translate(0.56F, -0.52F, -2F);
-                    Vector3f rotAxis = new Vector3f(0,1,0);
-                    Vector3f rotOrigin = new Vector3f(0,0,0);
-                    Quaternionf tiltq = new Quaternionf(new AxisAngle4f((float) (-1*Math.PI/4), 1,0,0));
-                    poseStack.rotateAround(tiltq, 0, 0, 0);
-                    rotOrigin = rotOrigin.rotate(tiltq);
-                    poseStack.rotateAround(new Quaternionf(new AxisAngle4f((float) (secondsUsing*Math.PI), rotAxis)), rotOrigin.x,rotOrigin.y, rotOrigin.z);
+
+                    Matrix4f transformMatrix = new Matrix4f()
+                        .translate(0.56F, -0.52F, -2F)
+                        .rotateX((float) (-1*Math.PI/4))
+                        .rotateY((float) (secondsUsing*Math.PI));
+
+                    poseStack.mulPoseMatrix(transformMatrix);
                     return true;
                 }
                 return false;
