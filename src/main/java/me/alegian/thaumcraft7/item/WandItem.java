@@ -71,21 +71,25 @@ public class WandItem extends Item {
 
             @Override
             public boolean applyForgeHandTransform(PoseStack poseStack, LocalPlayer player, HumanoidArm arm, ItemStack itemInHand, float partialTick, float equipProcess, float swingProcess) {
+                int i = arm == HumanoidArm.RIGHT ? 1 : -1;
+                Matrix4f transformMatrix = new Matrix4f();
+                boolean using = false;
+
                 if (player.getUseItem() == itemInHand && player.isUsingItem()) {
+                    using = true;
                     float secondsUsing = (float) player.getTicksUsingItem() /20;
 
-                    Matrix4f transformMatrix = new Matrix4f()
-                        .translate(0.56F, -0.52F, -2F)
+                    transformMatrix = transformMatrix
+                        .translate(i * 0.56F, -0.52F, -0.72F)
                         .rotateX((float) (-1*Math.PI/4))
                         .rotateY((float) (secondsUsing*Math.PI))
-                        .translate(0, -1f, 0)
-                        .rotateX((float) (-1*Math.PI/8))
-                        .translate(0, 1f, 0);
-
-                    poseStack.mulPoseMatrix(transformMatrix);
-                    return true;
+                        .translate(0, -0.5F, 0)
+                        .rotateX((float) (-1*Math.PI/16))
+                        .translate(0, 0.5F, 0);
                 }
-                return false;
+
+                poseStack.mulPoseMatrix(transformMatrix);
+                return using;
             }
         });
     }
