@@ -14,10 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
-import org.joml.AxisAngle4f;
 import org.joml.Matrix4f;
-import org.joml.Quaternionf;
-import org.joml.Vector3f;
 
 import java.util.function.Consumer;
 
