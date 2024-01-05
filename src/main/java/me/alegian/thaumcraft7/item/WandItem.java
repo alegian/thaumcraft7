@@ -48,11 +48,13 @@ public class WandItem extends Item {
     @Override
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
         consumer.accept(new IClientItemExtensions() {
-            private static final HumanoidModel.ArmPose EXAMPLE_POSE = HumanoidModel.ArmPose.create("EXAMPLE", false, (model, entity, arm) -> {
+            private static final HumanoidModel.ArmPose WAND_POSE =HumanoidModel.ArmPose.create("WAND", false, (model, entity, arm) -> {
+                model.rightArm.xRot = (float) (-0.8 * Math.PI /2);
+                model.leftArm.xRot = (float) (-0.8 * Math.PI /2);
                 if (arm == HumanoidArm.RIGHT) {
-                    model.rightArm.xRot = (float) (Math.random() * Math.PI * 2);
+                    model.leftArm.yRot = (float) (Math.PI /4);
                 } else {
-                    model.leftArm.xRot = (float) (Math.random() * Math.PI * 2);
+                    model.rightArm.yRot = (float) (Math.PI /4);
                 }
             });
 
@@ -60,7 +62,7 @@ public class WandItem extends Item {
             public HumanoidModel.ArmPose getArmPose(LivingEntity entityLiving, InteractionHand hand, ItemStack itemStack) {
                 if (!itemStack.isEmpty()) {
                     if (entityLiving.getUsedItemHand() == hand && entityLiving.getUseItemRemainingTicks() > 0) {
-                        return EXAMPLE_POSE;
+                        return WAND_POSE;
                     }
                 }
                 return HumanoidModel.ArmPose.EMPTY;
