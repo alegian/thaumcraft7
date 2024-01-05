@@ -77,7 +77,8 @@ public class WandItem extends Item {
                     Matrix4f transformMatrix = new Matrix4f()
                         .translate(0.56F, -0.52F, -2F)
                         .rotateX((float) (-1*Math.PI/4))
-                        .rotateY((float) (secondsUsing*Math.PI));
+                        .rotateY((float) (secondsUsing*Math.PI))
+                        .rotateX((float) (-1*Math.PI/8));
 
                     poseStack.mulPoseMatrix(transformMatrix);
                     return true;
