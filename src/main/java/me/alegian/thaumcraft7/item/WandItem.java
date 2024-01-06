@@ -14,6 +14,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import org.joml.Matrix4f;
 
@@ -26,9 +27,13 @@ public class WandItem extends Item {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
-        var cap = player.getUseItem().getCapability(VisStorage.ITEM);
-        if(cap!=null){
-            player.sendSystemMessage(Component.literal("VIS: " + cap.getMaxVisStored()));
+        var cap1 = player.getUseItem().getCapability(VisStorage.ITEM);
+        var cap2 = player.getUseItem().getCapability(Capabilities.EnergyStorage.ITEM);
+        if(cap1!=null){
+            player.sendSystemMessage(Component.literal("VIS: " + cap1.getMaxVisStored()));
+        }
+        if(cap2!=null){
+            player.sendSystemMessage(Component.literal("energy: " + cap2.getMaxEnergyStored()));
         }
         if(level.isClientSide()) {
             player.sendSystemMessage(Component.literal("use"));

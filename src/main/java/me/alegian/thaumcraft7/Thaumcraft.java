@@ -19,22 +19,20 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import org.slf4j.Logger;
 
-// The value here should match an entry in the META-INF/mods.toml file
+// must match value in META-INF/mods.toml
 @Mod(Thaumcraft.MODID)
 public class Thaumcraft {
-    // Define mod id in a common place for everything to reference
     public static final String MODID = "thaumcraft7";
-    // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
 
-    // The constructor for the mod class is the first code that is run when your mod is loaded.
     // FML will recognize some parameter types like IEventBus or ModContainer and pass them in automatically.
     public Thaumcraft(IEventBus modEventBus) {
-        // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(Thaumcraft::registerCapabilities);
 
         BlockIndex.BLOCKS.register(modEventBus);
         ItemIndex.ITEMS.register(modEventBus);
+
         CreativeModeTabIndex.CREATIVE_MODE_TABS.register(modEventBus);
 
         // Register ourselves for server and other game events we are interested in
@@ -63,12 +61,7 @@ public class Thaumcraft {
         public static void onClientSetup(FMLClientSetupEvent event) {}
     }
 
-    // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
-    @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
-    public static class CommonModEvents {
-        @SubscribeEvent
-        public static void registerCapabilities(RegisterCapabilitiesEvent event) {
-            ItemIndex.registerCapabilities(event);
-        }
+    public static void registerCapabilities(RegisterCapabilitiesEvent event) {
+        ItemIndex.registerCapabilities(event);
     }
 }
