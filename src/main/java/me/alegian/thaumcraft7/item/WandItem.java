@@ -27,17 +27,11 @@ public class WandItem extends Item {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
-        var cap1 = player.getUseItem().getCapability(VisStorage.ITEM);
-        var cap2 = player.getUseItem().getCapability(Capabilities.EnergyStorage.ITEM);
+        var cap1 = player.getItemInHand(hand).getCapability(VisStorage.ITEM);
         if(cap1!=null){
             player.sendSystemMessage(Component.literal("VIS: " + cap1.getMaxVisStored()));
         }
-        if(cap2!=null){
-            player.sendSystemMessage(Component.literal("energy: " + cap2.getMaxEnergyStored()));
-        }
-        if(level.isClientSide()) {
-            player.sendSystemMessage(Component.literal("use"));
-        }
+
         player.startUsingItem(hand);
         return InteractionResultHolder.success(player.getItemInHand(hand));
     }

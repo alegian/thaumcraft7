@@ -16,9 +16,8 @@ public class CreativeModeTabIndex {
         () -> CreativeModeTab
             .builder()
                 .title(Component.translatable("thaumcraft"))
-            .icon(() -> ItemIndex.EXAMPLE_ITEM.get().getDefaultInstance())
+            .icon(() -> ItemIndex.IRON_WOOD_WAND.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
-                output.accept(ItemIndex.EXAMPLE_ITEM.get()); // Add the example item to the tab. For your own tabs, this method is preferred over the event
                 output.accept(BlockIndex.EXAMPLE_BLOCK.get());
                 output.accept(ItemIndex.IRON_CAP.get());
                 output.accept(ItemIndex.IRON_WOOD_WAND.get());
