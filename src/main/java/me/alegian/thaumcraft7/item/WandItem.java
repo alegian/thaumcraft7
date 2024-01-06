@@ -29,7 +29,7 @@ public class WandItem extends Item {
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         var cap1 = player.getItemInHand(hand).getCapability(VisStorage.ITEM);
         if(cap1!=null){
-            player.sendSystemMessage(Component.literal("VIS: " + cap1.getMaxVisStored()));
+            player.sendSystemMessage(Component.literal("VIS: " + cap1.getVisStored()));
         }
 
         player.startUsingItem(hand);
