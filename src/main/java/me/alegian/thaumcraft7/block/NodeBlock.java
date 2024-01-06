@@ -25,9 +25,10 @@ public class NodeBlock extends Block {
         super(properties);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult p_60508_) {
-        if(level.isClientSide() && player instanceof Player) player.sendSystemMessage(Component.literal("use block" + player.getItemInHand(hand).getItem()));
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        if(level.isClientSide()) player.sendSystemMessage(Component.literal("use block" + player.getItemInHand(hand).getItem()));
 
         if(player.getItemInHand(hand).getItem() instanceof WandItem) {
 
@@ -40,7 +41,7 @@ public class NodeBlock extends Block {
 
             }
         }
-        return super.use(state, level, pos, player, hand, p_60508_);
+        return super.use(state, level, pos, player, hand, hitResult);
     }
 
     @Override
@@ -48,11 +49,13 @@ public class NodeBlock extends Block {
 //        super.destroy(p_49860_, p_49861_, p_49862_);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter plevel, BlockPos pPos, CollisionContext pContext) {
         return SHAPE;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public RenderShape getRenderShape(BlockState p_49232_) {
         return RenderShape.MODEL;
