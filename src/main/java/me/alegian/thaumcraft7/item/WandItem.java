@@ -1,6 +1,7 @@
 package me.alegian.thaumcraft7.item;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import me.alegian.thaumcraft7.capability.VisStorage;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
@@ -25,7 +26,13 @@ public class WandItem extends Item {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
-        if(level.isClientSide()) player.sendSystemMessage(Component.literal("use"));
+        var cap = player.getUseItem().getCapability(VisStorage.ITEM);
+        if(cap!=null){
+            player.sendSystemMessage(Component.literal("VIS: " + cap.getMaxVisStored()));
+        }
+        if(level.isClientSide()) {
+            player.sendSystemMessage(Component.literal("use"));
+        }
         player.startUsingItem(hand);
         return InteractionResultHolder.success(player.getItemInHand(hand));
     }
