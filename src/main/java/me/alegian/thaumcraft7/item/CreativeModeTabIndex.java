@@ -19,7 +19,7 @@ public class CreativeModeTabIndex {
             .icon(() -> ItemIndex.IRON_WOOD_WAND.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
                 output.accept(BlockIndex.EXAMPLE_BLOCK.get());
-                output.accept(BlockIndex.AURA_NODE_BLOCK.get());
+                output.accept(BlockIndex.NODE_BLOCK.get());
 
                 output.accept(ItemIndex.IRON_CAP.get());
                 output.accept(ItemIndex.IRON_WOOD_WAND.get());

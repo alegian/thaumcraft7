@@ -11,21 +11,17 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import javax.annotation.Nullable;
-
-public class AuraNodeBlock extends Block {
+public class NodeBlock extends Block {
     public static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 16,16);
 
-    protected AuraNodeBlock(Properties properties) {
+    protected NodeBlock(Properties properties) {
         super(properties);
     }
 
