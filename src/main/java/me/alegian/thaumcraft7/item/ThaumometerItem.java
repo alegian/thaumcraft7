@@ -15,6 +15,7 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import org.joml.AxisAngle4f;
+import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 
 import java.util.function.Consumer;
@@ -48,29 +49,25 @@ public class ThaumometerItem extends Item {
     @Override
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
         consumer.accept(new IClientItemExtensions() {
-            private static final HumanoidModel.ArmPose EXAMPLE_POSE = HumanoidModel.ArmPose.create("EXAMPLE", false, (model, entity, arm) -> {
-                if (arm == HumanoidArm.RIGHT) {
-                    model.rightArm.xRot = (float) (Math.random() * Math.PI * 2);
-                } else {
-                    model.leftArm.xRot = (float) (Math.random() * Math.PI * 2);
-                }
+            private static final HumanoidModel.ArmPose THAUMOMETER_POSE = HumanoidModel.ArmPose.create("THAUMOMETER", true, (model, entity, arm) -> {
+                model.rightArm.xRot = (float) (-0.8 * Math.PI /2);
+                model.leftArm.xRot = (float) (-0.8 * Math.PI /2);
+                model.leftArm.yRot = (float) (Math.PI /8);
+                model.rightArm.yRot = (float) (-1*Math.PI /8);
             });
 
             @Override
             public HumanoidModel.ArmPose getArmPose(LivingEntity entityLiving, InteractionHand hand, ItemStack itemStack) {
-                if (!itemStack.isEmpty()) {
-                    if (entityLiving.getUsedItemHand() == hand && entityLiving.getUseItemRemainingTicks() > 0) {
-                        return EXAMPLE_POSE;
-                    }
-                }
-                return HumanoidModel.ArmPose.EMPTY;
+                return THAUMOMETER_POSE;
             }
 
             @Override
             public boolean applyForgeHandTransform(PoseStack poseStack, LocalPlayer player, HumanoidArm arm, ItemStack itemInHand, float partialTick, float equipProcess, float swingProcess) {
+                // pretty much nullifies the default right click bob
                 if (player.getUseItem() == itemInHand && player.isUsingItem()) {
-                    float secondsUsing = (float) player.getTicksUsingItem() /20;
-                    poseStack.rotateAround(new Quaternionf(new AxisAngle4f((float) (secondsUsing*Math.PI), 0,0,0)), 0, 0, 0);
+                    int i = arm == HumanoidArm.RIGHT ? 1 : -1;
+                    var transformMatrix = new Matrix4f().translate(i * 0.56F, -0.53F, -0.72F);
+                    poseStack.mulPoseMatrix(transformMatrix);
                     return true;
                 }
                 return false;

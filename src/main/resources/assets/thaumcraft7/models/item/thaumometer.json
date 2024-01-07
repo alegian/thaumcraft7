@@ -1,6 +1,18 @@
 {
-  "parent": "minecraft:item/handheld",
-  "textures": {
-    "layer0": "thaumcraft7:item/thaumometer"
-  }
+	"credit": "Made with Blockbench",
+	"parent": "item/generated",
+	"textures": {
+		"layer0": "thaumcraft7:item/thaumometer"
+	},
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [0, -22.5, 0],
+			"translation": [0, 4, 0],
+			"scale": [0.68, 0.68, 0.68]
+		},
+		"firstperson_righthand": {
+			"translation": [-9, 8.25, 4.25],
+			"scale": [0.68, 0.68, 0.68]
+		}
+	}
 }
