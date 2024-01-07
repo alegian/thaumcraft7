@@ -31,14 +31,11 @@ public class NodeBlock extends Block {
         if(level.isClientSide()) player.sendSystemMessage(Component.literal("use block" + player.getItemInHand(hand).getItem()));
 
         if(player.getItemInHand(hand).getItem() instanceof WandItem) {
-
             var cap = player.getItemInHand(hand).getCapability(VisStorage.ITEM);
 
-
             if (cap != null) {
-                player.sendSystemMessage(Component.literal("CAP : " + cap));
                 float test = cap.receiveVis(5);
-
+                player.sendSystemMessage(Component.literal("CAP : " + test));
             }
         }
         return super.use(state, level, pos, player, hand, hitResult);

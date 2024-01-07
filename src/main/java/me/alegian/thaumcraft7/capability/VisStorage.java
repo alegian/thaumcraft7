@@ -1,9 +1,12 @@
 package me.alegian.thaumcraft7.capability;
 
+import net.minecraft.nbt.FloatTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.capabilities.ItemCapability;
+import net.neoforged.neoforge.common.util.INBTSerializable;
 
-public class VisStorage implements IVisStorage{
+public class VisStorage implements IVisStorage, INBTSerializable<Tag> {
     private float vis;
     private final float maxVis;
 
@@ -19,16 +22,16 @@ public class VisStorage implements IVisStorage{
 
     @Override
     public float extractVis(float maxExtract) {
-        float extract = vis - maxExtract < 0 ? vis : maxExtract;
-        this.vis -= extract;
-        return extract;
+        float visExtracted = Math.min(vis, maxExtract);
+        vis -= visExtracted;
+        return visExtracted;
     }
 
     @Override
     public float receiveVis(float maxReceive) {
-        float receive = vis + maxReceive > maxVis ? maxVis-vis : maxReceive;
-        this.vis += receive;
-        return receive;
+        float energyReceived = Math.min(maxVis - vis, maxReceive);
+        vis += energyReceived;
+        return energyReceived;
     }
 
     @Override
@@ -39,5 +42,17 @@ public class VisStorage implements IVisStorage{
     @Override
     public float getMaxVisStored() {
         return maxVis;
+    }
+
+    @Override
+    public Tag serializeNBT() {
+        return FloatTag.valueOf(getVisStored());
+    }
+
+    @Override
+    public void deserializeNBT(Tag nbt) {
+        if (!(nbt instanceof FloatTag floatNbt))
+            throw new IllegalArgumentException("Can not deserialize to an instance that isn't the default implementation");
+        vis = floatNbt.getAsFloat();
     }
 }
