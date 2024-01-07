@@ -2,18 +2,11 @@ package me.alegian.thaumcraft7.capability;
 
 import net.minecraft.nbt.FloatTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.resources.ResourceLocation;
-import net.neoforged.neoforge.capabilities.ItemCapability;
 import net.neoforged.neoforge.common.util.INBTSerializable;
 
 public class VisStorage implements IVisStorage, INBTSerializable<Tag> {
     private float vis;
     private final float maxVis;
-
-    public static final ItemCapability<IVisStorage, Void> ITEM = ItemCapability.createVoid(
-        new ResourceLocation("thaumcraft7", "vis_storage"),
-        IVisStorage.class
-    );
 
     public VisStorage(float maxVis){
         this.vis=0;

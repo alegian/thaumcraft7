@@ -1,6 +1,7 @@
 package me.alegian.thaumcraft7.item;
 
 import me.alegian.thaumcraft7.Thaumcraft;
+import me.alegian.thaumcraft7.capability.ThaumcraftCapabilities;
 import me.alegian.thaumcraft7.capability.VisStorage;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
@@ -15,6 +16,6 @@ public class ItemIndex {
     public static final DeferredItem<Item> THAUMOMETER = ITEMS.registerItem("thaumometer", ThaumometerItem::new);
 
     public static void registerCapabilities(RegisterCapabilitiesEvent event){
-        event.registerItem(VisStorage.ITEM, (itemStack, context)->new VisStorage(50), IRON_WOOD_WAND);
+        event.registerItem(ThaumcraftCapabilities.VisStorage.ITEM, (itemStack, context)->new VisStorage(50), IRON_WOOD_WAND);
     }
 }

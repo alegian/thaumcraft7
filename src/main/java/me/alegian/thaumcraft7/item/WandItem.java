@@ -1,7 +1,7 @@
 package me.alegian.thaumcraft7.item;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import me.alegian.thaumcraft7.capability.VisStorage;
+import me.alegian.thaumcraft7.capability.ThaumcraftCapabilities;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
@@ -14,7 +14,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import org.joml.Matrix4f;
 
@@ -27,7 +26,7 @@ public class WandItem extends Item {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
-        var cap1 = player.getItemInHand(hand).getCapability(VisStorage.ITEM);
+        var cap1 = player.getItemInHand(hand).getCapability(ThaumcraftCapabilities.VisStorage.ITEM);
         if(cap1!=null){
             player.sendSystemMessage(Component.literal("VIS: " + cap1.getVisStored()));
         }

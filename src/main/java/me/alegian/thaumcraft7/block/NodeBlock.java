@@ -1,7 +1,7 @@
 package me.alegian.thaumcraft7.block;
 
 
-import me.alegian.thaumcraft7.capability.VisStorage;
+import me.alegian.thaumcraft7.capability.ThaumcraftCapabilities;
 import me.alegian.thaumcraft7.item.WandItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -31,7 +31,7 @@ public class NodeBlock extends Block {
         if(level.isClientSide()) player.sendSystemMessage(Component.literal("use block" + player.getItemInHand(hand).getItem()));
 
         if(player.getItemInHand(hand).getItem() instanceof WandItem) {
-            var cap = player.getItemInHand(hand).getCapability(VisStorage.ITEM);
+            var cap = player.getItemInHand(hand).getCapability(ThaumcraftCapabilities.VisStorage.ITEM);
 
             if (cap != null) {
                 float test = cap.receiveVis(5);
