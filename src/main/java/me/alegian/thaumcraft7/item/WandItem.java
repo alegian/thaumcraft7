@@ -33,6 +33,7 @@ public class WandItem extends Item {
         if(context.getLevel().getBlockState(context.getClickedPos()).getBlock() instanceof NodeBlock){
             var player = context.getPlayer();
             if(player != null){
+                player.startUsingItem(context.getHand());
                 var stack = player.getItemInHand(context.getHand());
                 var att = stack.getData(ThaumcraftAttachments.VIS);
                 att.vis+=5;
@@ -48,9 +49,10 @@ public class WandItem extends Item {
         if(level.isClientSide){
             player.sendSystemMessage(Component.literal("VIS: " + att.vis));
         }
-
-        player.startUsingItem(hand);
-        return InteractionResultHolder.success(player.getItemInHand(hand));
+        if(player.isUsingItem()){
+            return InteractionResultHolder.consume(player.getItemInHand(hand));
+        }
+        return InteractionResultHolder.fail(player.getItemInHand(hand));
     }
 
     @Override
