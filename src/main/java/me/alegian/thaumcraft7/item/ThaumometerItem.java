@@ -1,10 +1,14 @@
 package me.alegian.thaumcraft7.item;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import me.alegian.thaumcraft7.attachment.ThaumcraftAttachments;
+import me.alegian.thaumcraft7.block.NodeBlock;
+import me.alegian.thaumcraft7.capability.ThaumcraftCapabilities;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
@@ -12,6 +16,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import org.joml.AxisAngle4f;
@@ -29,6 +34,23 @@ public class ThaumometerItem extends Item {
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         player.startUsingItem(hand);
         return InteractionResultHolder.success(player.getItemInHand(hand));
+    }
+
+    @Override
+    public InteractionResult useOn(UseOnContext context) {
+        var level = context.getLevel();
+        var block = level.getBlockState(context.getClickedPos()).getBlock();
+        if(block instanceof NodeBlock){
+            var player = context.getPlayer();
+            if(player != null){
+                var cap = level.getCapability(ThaumcraftCapabilities.ThaumometerScannable.BLOCK, context.getClickedPos(), null);
+                if(cap != null && level.isClientSide){
+                    var aspects = cap.getAspects();
+                    aspects.forEach((a)->player.sendSystemMessage(Component.literal(a.toString())));
+                }
+            }
+        }
+        return InteractionResult.PASS;
     }
 
     @Override
