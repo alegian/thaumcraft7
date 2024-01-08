@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "thaumcraft7:block/node"
+      "model": "thaumcraft7:block/example_block"
     }
   }
 }

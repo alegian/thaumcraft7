@@ -1,4 +1,4 @@
-// 1.20.4	2024-01-08T18:51:52.4072112	vanilla/Block States: thaumcraft7
-326dcdfdf1aab48eb44d4ead31226523a7281aa6 assets/thaumcraft7/blockstates/example_block.json
-0b628dafa51474bbcc89b6850f7c3956c89b2cbf assets/thaumcraft7/models/block/node.json
-4de0100ea0826ea9c6160d7d8c593fc091a58547 assets/thaumcraft7/models/item/example_block.json
+// 1.20.4	2024-01-08T21:44:58.2338786	vanilla/Block States: thaumcraft7
+d42fb62d059aeab8dc1f99840f033be210070e29 assets/thaumcraft7/blockstates/example_block.json
+356d902e64525333f23725ebe9c849523204c4f4 assets/thaumcraft7/models/block/example_block.json
+903ad4986301fb1fa319613c92e3d2b6a206d34c assets/thaumcraft7/models/item/example_block.json
