@@ -1,5 +1,6 @@
 package me.alegian.thaumcraft7.capability;
 
+import me.alegian.thaumcraft7.api.capabilities.IVisStorage;
 import net.minecraft.nbt.FloatTag;
 import net.minecraft.nbt.Tag;
 import net.neoforged.neoforge.common.util.INBTSerializable;

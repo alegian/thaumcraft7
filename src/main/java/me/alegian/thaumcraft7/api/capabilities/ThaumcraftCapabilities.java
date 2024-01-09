@@ -1,4 +1,4 @@
-package me.alegian.thaumcraft7.capability;
+package me.alegian.thaumcraft7.api.capabilities;
 
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.capabilities.BlockCapability;
@@ -13,9 +13,9 @@ public final class ThaumcraftCapabilities {
     }
 
     public static final class ThaumometerScannable {
-        public static final BlockCapability<IThaumometerScannable, Void> BLOCK = BlockCapability.createVoid(
+        public static final BlockCapability<IAspectContainer, Void> BLOCK = BlockCapability.createVoid(
                 new ResourceLocation("thaumcraft7", "thaumometer_scannable"),
-                IThaumometerScannable.class
+                IAspectContainer.class
         );
     }
 }

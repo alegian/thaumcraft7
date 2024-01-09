@@ -3,7 +3,6 @@ package me.alegian.thaumcraft7.item;
 import com.mojang.blaze3d.vertex.PoseStack;
 import me.alegian.thaumcraft7.attachment.ThaumcraftAttachments;
 import me.alegian.thaumcraft7.block.NodeBlock;
-import me.alegian.thaumcraft7.capability.ThaumcraftCapabilities;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;

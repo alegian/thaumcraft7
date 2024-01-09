@@ -1,7 +1,7 @@
 package me.alegian.thaumcraft7.item;
 
 import me.alegian.thaumcraft7.Thaumcraft;
-import me.alegian.thaumcraft7.capability.ThaumcraftCapabilities;
+import me.alegian.thaumcraft7.api.capabilities.ThaumcraftCapabilities;
 import me.alegian.thaumcraft7.capability.VisStorage;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;

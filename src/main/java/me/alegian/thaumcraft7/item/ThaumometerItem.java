@@ -1,9 +1,8 @@
 package me.alegian.thaumcraft7.item;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import me.alegian.thaumcraft7.attachment.ThaumcraftAttachments;
 import me.alegian.thaumcraft7.block.NodeBlock;
-import me.alegian.thaumcraft7.capability.ThaumcraftCapabilities;
+import me.alegian.thaumcraft7.api.capabilities.ThaumcraftCapabilities;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
@@ -19,9 +18,7 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
-import org.joml.AxisAngle4f;
 import org.joml.Matrix4f;
-import org.joml.Quaternionf;
 
 import java.util.function.Consumer;
 
@@ -46,7 +43,7 @@ public class ThaumometerItem extends Item {
                 var cap = level.getCapability(ThaumcraftCapabilities.ThaumometerScannable.BLOCK, context.getClickedPos(), null);
                 if(cap != null && level.isClientSide){
                     var aspects = cap.getAspects();
-                    aspects.forEach((a)->player.sendSystemMessage(Component.literal(a.toString())));
+                    player.sendSystemMessage(Component.literal(aspects.toString()));
                 }
             }
         }
