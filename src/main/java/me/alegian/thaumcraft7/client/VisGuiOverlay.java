@@ -14,13 +14,9 @@ public class VisGuiOverlay {
     public static final IGuiOverlay VIS_OVERLAY = ((gui, guiGraphics, partialTick, screenWidth, screenHeight) -> {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1,1,1,1);
-        dynamicBlit(guiGraphics, DISK, 0.5F, 05.F, 0.1F, 0.1F, 128, 128);
+        float scale = 0.15f;
+        int width = (int)(screenHeight*scale);
+
+        guiGraphics.blit(DISK, (int) (screenHeight*0.02f), (int) (screenHeight*0.02f), 0, 0, width, width, width, width);
     });
-
-    public static void dynamicBlit(GuiGraphics guiGraphics, ResourceLocation texture, float relativePositionX, float relativePositionY, float relativeWidth, float relativeHeight, int textureSizeX, int textureSizeY){
-        var screenWidth = guiGraphics.guiWidth();
-        var screenHeight = guiGraphics.guiHeight();
-
-        guiGraphics.blit(texture, (int) (screenWidth*relativePositionX), (int) (screenHeight*relativePositionY), 0, 0, (int) (screenWidth*relativeWidth), (int) (screenHeight*relativeHeight), textureSizeX, textureSizeY);
-    }
 }
