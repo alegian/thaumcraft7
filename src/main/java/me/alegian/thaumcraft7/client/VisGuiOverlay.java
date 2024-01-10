@@ -15,9 +15,9 @@ public class VisGuiOverlay {
     public static final IGuiOverlay VIS_OVERLAY = ((gui, guiGraphics, partialTick, screenWidth, screenHeight) -> {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1,1,1,1);
-        float scale = 0.15f;
+        float scale = 0.12f;
         float diskSize = (screenHeight*scale);
-        float vialSize = 0.8f*diskSize;
+        float vialSize = 0.7f*diskSize;
 
         guiGraphics.pose().pushPose();
 
@@ -28,11 +28,11 @@ public class VisGuiOverlay {
         // draw the vials
         guiGraphics.pose().mulPoseMatrix(translationMatrix(diskSize/2, diskSize/2));
         guiGraphics.pose().mulPoseMatrix(rotationMatrix(15));
-        float ar = (float) 24/96;
+        float ar = (float) 0.35;
         var aspects = Aspect.PRIMAL_ASPECTS;
         for(Aspect a : aspects){
-            guiGraphics.pose().mulPoseMatrix(rotationMatrix(-20));
             guiGraphics.blit(VIAL, (int)(-1*vialSize*ar/2), (int) (diskSize/2), 0, 0, (int)(vialSize*ar), (int)vialSize, (int)(vialSize*ar), (int)vialSize);
+            guiGraphics.pose().mulPoseMatrix(rotationMatrix(-24));
         }
 
         guiGraphics.pose().popPose();
