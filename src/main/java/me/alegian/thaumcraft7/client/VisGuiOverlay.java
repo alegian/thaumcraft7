@@ -16,23 +16,28 @@ public class VisGuiOverlay {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1,1,1,1);
         float scale = 0.15f;
-        int width = (int)(screenHeight*scale);
+        float width = (screenHeight*scale);
 
         guiGraphics.pose().pushPose();
 
-        var translationMatrix = new Matrix4f()
-                .translate(screenHeight*0.02f, screenHeight*0.02f, 0);
-        guiGraphics.pose().mulPoseMatrix(translationMatrix);
+        guiGraphics.pose().mulPoseMatrix(translationMatrix(screenHeight*0.02f, screenHeight*0.02f));
 
-        guiGraphics.blit(DISK, 0, 0, 0, 0, width, width, width, width);
+        guiGraphics.blit(DISK, 0, 0, 0, 0, (int)width, (int)width, (int)width, (int)width);
 
+        guiGraphics.pose().mulPoseMatrix(translationMatrix(width/2, width/2));
         guiGraphics.pose().mulPoseMatrix(rotationMatrix(15));
-        guiGraphics.blit(VIAL, 0, 0, 0, 0, 24, 24, 96, 96);
+
+        float ar = (float) 24/96;
+        guiGraphics.blit(VIAL, (int)(-1*width*ar/2), (int) (width/2), 0, 0, (int)(width*ar), (int)width, (int)(width*ar), (int)width);
 
         guiGraphics.pose().popPose();
     });
 
-    public static Matrix4f rotationMatrix(int deg){
-        return new Matrix4f().rotateZ(deg);
+    public static Matrix4f translationMatrix(float x, float y){
+        return new Matrix4f().translate(x, y, 0);
+    }
+
+    public static Matrix4f rotationMatrix(float deg){
+        return new Matrix4f().rotateZ((float) (deg/180 * Math.PI));
     }
 }
