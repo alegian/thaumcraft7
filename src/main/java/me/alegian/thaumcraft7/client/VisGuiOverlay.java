@@ -2,7 +2,7 @@ package me.alegian.thaumcraft7.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.alegian.thaumcraft7.Thaumcraft;
-import net.minecraft.client.gui.GuiGraphics;
+import me.alegian.thaumcraft7.api.aspects.Aspect;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.client.gui.overlay.IGuiOverlay;
@@ -16,19 +16,24 @@ public class VisGuiOverlay {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1,1,1,1);
         float scale = 0.15f;
-        float width = (screenHeight*scale);
+        float diskSize = (screenHeight*scale);
+        float vialSize = 0.8f*diskSize;
 
         guiGraphics.pose().pushPose();
 
+        // draw the disk
         guiGraphics.pose().mulPoseMatrix(translationMatrix(screenHeight*0.02f, screenHeight*0.02f));
+        guiGraphics.blit(DISK, 0, 0, 0, 0, (int)diskSize, (int)diskSize, (int)diskSize, (int)diskSize);
 
-        guiGraphics.blit(DISK, 0, 0, 0, 0, (int)width, (int)width, (int)width, (int)width);
-
-        guiGraphics.pose().mulPoseMatrix(translationMatrix(width/2, width/2));
+        // draw the vials
+        guiGraphics.pose().mulPoseMatrix(translationMatrix(diskSize/2, diskSize/2));
         guiGraphics.pose().mulPoseMatrix(rotationMatrix(15));
-
         float ar = (float) 24/96;
-        guiGraphics.blit(VIAL, (int)(-1*width*ar/2), (int) (width/2), 0, 0, (int)(width*ar), (int)width, (int)(width*ar), (int)width);
+        var aspects = Aspect.PRIMAL_ASPECTS;
+        for(Aspect a : aspects){
+            guiGraphics.pose().mulPoseMatrix(rotationMatrix(-20));
+            guiGraphics.blit(VIAL, (int)(-1*vialSize*ar/2), (int) (diskSize/2), 0, 0, (int)(vialSize*ar), (int)vialSize, (int)(vialSize*ar), (int)vialSize);
+        }
 
         guiGraphics.pose().popPose();
     });

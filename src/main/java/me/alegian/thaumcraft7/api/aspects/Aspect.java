@@ -56,6 +56,7 @@ public class Aspect {
     public static final Aspect AQUA = new Aspect("aqua", 0x3cd4fc, null);
     public static final Aspect ORDO = new Aspect("ordo", 0xd5d4ec, null);
     public static final Aspect PERDITIO = new Aspect("perditio", 0x404040, null);
+    public static final Aspect[] PRIMAL_ASPECTS = {IGNIS, AER, TERRA, AQUA, ORDO, PERDITIO};
 
     public static final Aspect LUX = new Aspect("lux", 0xffffc0, new Aspect[]{IGNIS, AER});
     public static final Aspect POTENTIA = new Aspect("potentia", 0xc0ffff, new Aspect[]{IGNIS, ORDO});
