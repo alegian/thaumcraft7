@@ -52,5 +52,13 @@
 		"fixed": {
 			"rotation": [0, 0, 45]
 		}
-	}
+	},
+	"overrides": [
+		{
+			"predicate": {
+				"thaumcraft7:using": 1
+			},
+			"model": "thaumcraft7:item/iron_wood_wand_using"
+		}
+	]
 }
