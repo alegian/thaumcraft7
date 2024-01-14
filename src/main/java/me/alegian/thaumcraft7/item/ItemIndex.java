@@ -3,7 +3,10 @@ package me.alegian.thaumcraft7.item;
 import me.alegian.thaumcraft7.Thaumcraft;
 import me.alegian.thaumcraft7.api.capabilities.ThaumcraftCapabilities;
 import me.alegian.thaumcraft7.capability.VisStorage;
+import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -17,5 +20,12 @@ public class ItemIndex {
 
     public static void registerCapabilities(RegisterCapabilitiesEvent event){
         event.registerItem(ThaumcraftCapabilities.VisStorage.ITEM, (itemStack, context)->new VisStorage(50), IRON_WOOD_WAND);
+    }
+
+    static {
+        ItemProperties.registerGeneric(new ResourceLocation("thaumcraft7", "using"), (itemStack, clientLevel, livingEntity, seed) ->
+            livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack
+            ? 1.0F : 0.0F
+        );
     }
 }
