@@ -22,16 +22,16 @@ public class Aspect {
         if(existing != null) throw new IllegalArgumentException("Thaumcraft Aspect Exception: Duplicate ID: "+id);
     }
 
+    /*
+     * DON'T use this constructor, as it hardcodes asset locations to the thaumcraft folder.
+     * Shortcut used for the default Thaumcraft Aspects.
+     */
     public Aspect(String id, int color, Aspect[] components){
        this(id, color, components, new ResourceLocation("thaumcraft7", "aspects/"+id));
     }
 
     public boolean isPrimal(){
         return getComponents() == null;
-    }
-
-    public Aspect(String id, int color){
-        this(id, color, null);
     }
 
     public String getId() {
