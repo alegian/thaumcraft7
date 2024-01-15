@@ -3,18 +3,24 @@ package me.alegian.thaumcraft7.client;
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.alegian.thaumcraft7.Thaumcraft;
 import me.alegian.thaumcraft7.api.aspects.Aspect;
+import me.alegian.thaumcraft7.api.aspects.AspectList;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.ColorRGBA;
 import net.neoforged.neoforge.client.gui.overlay.IGuiOverlay;
 import org.joml.Matrix4f;
-
-import java.awt.*;
 
 public class VisGuiOverlay {
     private static final ResourceLocation DISK = new ResourceLocation(Thaumcraft.MODID, "textures/overlay/disk.png");
     private static final ResourceLocation VIAL = new ResourceLocation(Thaumcraft.MODID, "textures/overlay/vial.png");
     private static final ResourceLocation VIAL_CONTENT = new ResourceLocation(Thaumcraft.MODID, "textures/overlay/vial_content.png");
+
+    public static AspectList vis = new AspectList()
+            .add(Aspect.PERDITIO, 40)
+            .add(Aspect.ORDO, 20)
+            .add(Aspect.AQUA, 20)
+            .add(Aspect.IGNIS, 100)
+            .add(Aspect.TERRA, 50)
+            .add(Aspect.AER, 50);
 
     public static final IGuiOverlay VIS_OVERLAY = ((gui, guiGraphics, partialTick, screenWidth, screenHeight) -> {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
@@ -33,11 +39,11 @@ public class VisGuiOverlay {
         guiGraphics.pose().mulPoseMatrix(translationMatrix(diskSize/2, diskSize/2));
         guiGraphics.pose().mulPoseMatrix(rotationMatrix(15));
         float ar = (float) 0.35;
-        var aspects = Aspect.PRIMAL_ASPECTS;
-        for(Aspect a : aspects){
+
+        for(Aspect a : vis.aspects.keySet()){
             var color = a.getColorRGB();
             RenderSystem.setShaderColor((float) color[0] /255, (float) color[1] /255, (float) color[2] /255,1);
-            guiGraphics.blit(VIAL_CONTENT, (int)(-1*vialSize*ar/2), (int) (diskSize/2), 0, 0, (int)(vialSize*ar), (int)vialSize/2, (int)(vialSize*ar), (int)vialSize);
+            guiGraphics.blit(VIAL_CONTENT, (int)(-1*vialSize*ar/2), (int) (diskSize/2), 0, 0, (int)(vialSize*ar), (int)vialSize*vis.aspects.get(a)/100, (int)(vialSize*ar), (int)vialSize);
             RenderSystem.setShaderColor(1,1,1,1);
             guiGraphics.blit(VIAL, (int)(-1*vialSize*ar/2), (int) (diskSize/2), 0, 0, (int)(vialSize*ar), (int)vialSize, (int)(vialSize*ar), (int)vialSize);
             guiGraphics.pose().mulPoseMatrix(rotationMatrix(-24));
