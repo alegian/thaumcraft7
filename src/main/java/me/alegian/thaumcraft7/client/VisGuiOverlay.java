@@ -11,6 +11,7 @@ import org.joml.Matrix4f;
 public class VisGuiOverlay {
     private static final ResourceLocation DISK = new ResourceLocation(Thaumcraft.MODID, "textures/overlay/disk.png");
     private static final ResourceLocation VIAL = new ResourceLocation(Thaumcraft.MODID, "textures/overlay/vial.png");
+    private static final ResourceLocation VIAL_CONTENT = new ResourceLocation(Thaumcraft.MODID, "textures/overlay/vial_content.png");
 
     public static final IGuiOverlay VIS_OVERLAY = ((gui, guiGraphics, partialTick, screenWidth, screenHeight) -> {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
@@ -31,6 +32,7 @@ public class VisGuiOverlay {
         float ar = (float) 0.35;
         var aspects = Aspect.PRIMAL_ASPECTS;
         for(Aspect a : aspects){
+            guiGraphics.blit(VIAL_CONTENT, (int)(-1*vialSize*ar/2), (int) (diskSize/2), 0, 0, (int)(vialSize*ar), (int)vialSize/2, (int)(vialSize*ar), (int)vialSize);
             guiGraphics.blit(VIAL, (int)(-1*vialSize*ar/2), (int) (diskSize/2), 0, 0, (int)(vialSize*ar), (int)vialSize, (int)(vialSize*ar), (int)vialSize);
             guiGraphics.pose().mulPoseMatrix(rotationMatrix(-24));
         }
