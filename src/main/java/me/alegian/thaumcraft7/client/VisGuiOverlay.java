@@ -5,8 +5,11 @@ import me.alegian.thaumcraft7.Thaumcraft;
 import me.alegian.thaumcraft7.api.aspects.Aspect;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.ColorRGBA;
 import net.neoforged.neoforge.client.gui.overlay.IGuiOverlay;
 import org.joml.Matrix4f;
+
+import java.awt.*;
 
 public class VisGuiOverlay {
     private static final ResourceLocation DISK = new ResourceLocation(Thaumcraft.MODID, "textures/overlay/disk.png");
@@ -32,7 +35,10 @@ public class VisGuiOverlay {
         float ar = (float) 0.35;
         var aspects = Aspect.PRIMAL_ASPECTS;
         for(Aspect a : aspects){
+            var color = a.getColorRGB();
+            RenderSystem.setShaderColor((float) color[0] /255, (float) color[1] /255, (float) color[2] /255,1);
             guiGraphics.blit(VIAL_CONTENT, (int)(-1*vialSize*ar/2), (int) (diskSize/2), 0, 0, (int)(vialSize*ar), (int)vialSize/2, (int)(vialSize*ar), (int)vialSize);
+            RenderSystem.setShaderColor(1,1,1,1);
             guiGraphics.blit(VIAL, (int)(-1*vialSize*ar/2), (int) (diskSize/2), 0, 0, (int)(vialSize*ar), (int)vialSize, (int)(vialSize*ar), (int)vialSize);
             guiGraphics.pose().mulPoseMatrix(rotationMatrix(-24));
         }
