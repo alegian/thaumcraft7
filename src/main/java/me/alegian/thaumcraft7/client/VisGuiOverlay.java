@@ -4,8 +4,10 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import me.alegian.thaumcraft7.Thaumcraft;
 import me.alegian.thaumcraft7.api.aspects.Aspect;
 import me.alegian.thaumcraft7.api.aspects.AspectList;
+import me.alegian.thaumcraft7.api.capabilities.VisStorageHelper;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.client.gui.overlay.IGuiOverlay;
 import org.joml.Matrix4f;
 
@@ -48,6 +50,23 @@ public class VisGuiOverlay {
             guiGraphics.pose().popPose();
         }
     });
+
+    public static void update(Player player){
+        var visItem = VisStorageHelper.getVisItemInHand(player);
+        if(visItem != null){
+            var amount = VisStorageHelper.getVisStored(visItem) / VisStorageHelper.getMaxVisStored(visItem);
+            visible = true;
+            vis = new AspectList()
+                    .add(Aspect.PERDITIO, (int) (100*amount))
+                    .add(Aspect.ORDO, (int) (100*amount))
+                    .add(Aspect.AQUA, (int) (100*amount))
+                    .add(Aspect.IGNIS, (int) (100*amount))
+                    .add(Aspect.TERRA, (int) (100*amount))
+                    .add(Aspect.AER, (int) (100*amount));
+        }else{
+            visible = false;
+        }
+    }
 
     public static Matrix4f translationMatrix(float x, float y){
         return new Matrix4f().translate(x, y, 0);
