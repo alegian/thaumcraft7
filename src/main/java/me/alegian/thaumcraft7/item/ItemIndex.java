@@ -19,7 +19,7 @@ public class ItemIndex {
     public static final DeferredItem<ThaumometerItem> THAUMOMETER = ITEMS.registerItem("thaumometer", ThaumometerItem::new);
 
     public static void registerCapabilities(RegisterCapabilitiesEvent event){
-        event.registerItem(ThaumcraftCapabilities.VisStorage.ITEM, (itemStack, context)->new VisStorage(50), IRON_WOOD_WAND);
+        event.registerItem(ThaumcraftCapabilities.VisStorage.ITEM, (itemStack, context)->new VisStorage(50, itemStack), IRON_WOOD_WAND);
     }
 
     static {

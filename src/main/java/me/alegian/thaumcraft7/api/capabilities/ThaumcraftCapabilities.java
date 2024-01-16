@@ -12,9 +12,9 @@ public final class ThaumcraftCapabilities {
         );
     }
 
-    public static final class ThaumometerScannable {
+    public static final class AspectContainer {
         public static final BlockCapability<IAspectContainer, Void> BLOCK = BlockCapability.createVoid(
-                new ResourceLocation("thaumcraft7", "thaumometer_scannable"),
+                new ResourceLocation("thaumcraft7", "aspect_container"),
                 IAspectContainer.class
         );
     }

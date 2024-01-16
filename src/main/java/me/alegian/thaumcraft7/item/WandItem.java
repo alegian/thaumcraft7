@@ -1,7 +1,7 @@
 package me.alegian.thaumcraft7.item;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import me.alegian.thaumcraft7.attachment.ThaumcraftAttachments;
+import me.alegian.thaumcraft7.api.capabilities.VisStorageHelper;
 import me.alegian.thaumcraft7.block.NodeBlock;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.player.LocalPlayer;
@@ -32,11 +32,11 @@ public class WandItem extends Item {
         if(context.getLevel().getBlockState(context.getClickedPos()).getBlock() instanceof NodeBlock){
             var player = context.getPlayer();
             if(player != null){
-                player.startUsingItem(context.getHand());
                 var stack = player.getItemInHand(context.getHand());
-                var att = stack.getData(ThaumcraftAttachments.VIS);
-                att.vis+=5;
-                stack.setData(ThaumcraftAttachments.VIS, att);
+                var received = VisStorageHelper.receiveVis(stack, 5);
+
+                if(received == 0f) return InteractionResult.PASS;
+                else player.startUsingItem(context.getHand());
             }
         }
         return InteractionResult.PASS;
@@ -44,14 +44,10 @@ public class WandItem extends Item {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
-        var att = player.getItemInHand(hand).getData(ThaumcraftAttachments.VIS);
         if(level.isClientSide){
-            player.sendSystemMessage(Component.literal("VIS: " + att.vis));
+            player.sendSystemMessage(Component.literal("VIS: " + VisStorageHelper.getVisStored(player.getItemInHand(hand))));
         }
-        if(player.isUsingItem()){
-            return InteractionResultHolder.consume(player.getItemInHand(hand));
-        }
-        return InteractionResultHolder.fail(player.getItemInHand(hand));
+        return InteractionResultHolder.consume(player.getItemInHand(hand));
     }
 
     @Override

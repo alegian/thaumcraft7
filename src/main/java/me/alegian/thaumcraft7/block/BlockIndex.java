@@ -26,6 +26,6 @@ public class BlockIndex {
 
     public static void registerCapabilities(RegisterCapabilitiesEvent event){
         AspectList contents = new AspectList().add(Aspect.AER, 2).add(Aspect.POTENTIA, 4);
-        event.registerBlock(ThaumcraftCapabilities.ThaumometerScannable.BLOCK, (level, pos, state, be, context)->new AspectContainer(contents), NODE_BLOCK.get());
+        event.registerBlock(ThaumcraftCapabilities.AspectContainer.BLOCK, (level, pos, state, be, context)->new AspectContainer(contents), NODE_BLOCK.get());
     }
 }

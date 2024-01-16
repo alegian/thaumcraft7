@@ -1,6 +1,7 @@
 package me.alegian.thaumcraft7.item;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import me.alegian.thaumcraft7.api.capabilities.AspectContainerHelper;
 import me.alegian.thaumcraft7.block.NodeBlock;
 import me.alegian.thaumcraft7.api.capabilities.ThaumcraftCapabilities;
 import net.minecraft.client.model.HumanoidModel;
@@ -40,10 +41,8 @@ public class ThaumometerItem extends Item {
         if(block instanceof NodeBlock){
             var player = context.getPlayer();
             if(player != null){
-                var cap = level.getCapability(ThaumcraftCapabilities.ThaumometerScannable.BLOCK, context.getClickedPos(), null);
-                if(cap != null && level.isClientSide){
-                    var aspects = cap.getAspects();
-                    player.sendSystemMessage(Component.literal(aspects.toString()));
+                if(level.isClientSide){
+                    player.sendSystemMessage(Component.literal(AspectContainerHelper.getAspects(level, context.getClickedPos()).toString()));
                 }
             }
         }
