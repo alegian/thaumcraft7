@@ -17,6 +17,7 @@ public class ItemIndex {
     public static final DeferredItem<Item> IRON_CAP = ITEMS.registerSimpleItem("iron_cap", new Item.Properties());
     public static final DeferredItem<WandItem> IRON_WOOD_WAND = ITEMS.registerItem("iron_wood_wand", WandItem::new, new Item.Properties().stacksTo(1));
     public static final DeferredItem<ThaumometerItem> THAUMOMETER = ITEMS.registerItem("thaumometer", ThaumometerItem::new);
+    public static final DeferredItem<ThaumonomiconItem> THAUMONOMICON = ITEMS.registerItem("thaumonomicon", ThaumonomiconItem::new);
 
     public static void registerCapabilities(RegisterCapabilitiesEvent event){
         event.registerItem(ThaumcraftCapabilities.VisStorage.ITEM, (itemStack, context)->new VisStorage(50, itemStack), IRON_WOOD_WAND);
