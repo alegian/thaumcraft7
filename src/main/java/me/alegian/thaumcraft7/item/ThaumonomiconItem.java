@@ -18,7 +18,9 @@ public class ThaumonomiconItem extends Item {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
-        if(level.isClientSide()) Minecraft.getInstance().pushGuiLayer(new ThaumonomiconScreen(Component.literal("TEST")));
+        if(level.isClientSide())
+            Minecraft.getInstance().setScreen(new ThaumonomiconScreen(Component.literal("TEST")));
+
         return InteractionResultHolder.sidedSuccess(player.getItemInHand(hand), level.isClientSide);
     }
 }
