@@ -21,6 +21,6 @@ public class ThaumonomiconItem extends Item {
         if(level.isClientSide())
             Minecraft.getInstance().setScreen(new ThaumonomiconScreen(Component.literal("TEST")));
 
-        return InteractionResultHolder.sidedSuccess(player.getItemInHand(hand), level.isClientSide);
+        return InteractionResultHolder.consume(player.getItemInHand(hand));
     }
 }
