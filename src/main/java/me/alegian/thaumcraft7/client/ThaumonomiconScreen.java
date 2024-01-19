@@ -83,8 +83,7 @@ class Tab implements Renderable{
         final float scaleY = (float) screenHeight / 512;
 
         guiGraphics.enableScissor((int) (16*scaleX), (int) (16*scaleY), (int) (screenWidth-16*scaleX), (int) (screenHeight-16*scaleY));
-        guiGraphics.fill(0, 0, screenWidth, screenHeight, 0xff17161e); // ARGB color
-        guiGraphics.blit(STARS, 0, 0, scrollX, scrollY, screenWidth, screenHeight, screenWidth/4, screenHeight/4);
+        guiGraphics.blit(STARS, 0, 0, scrollX, scrollY, screenWidth, screenHeight, screenWidth/4, screenWidth/4);
         guiGraphics.disableScissor();
     }
 }
