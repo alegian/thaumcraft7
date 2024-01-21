@@ -12,8 +12,8 @@ public class ThaumonomiconScreen extends Screen {
     private final Tab tab = new Tab(300, 300);
     private boolean isScrolling;
 
-    public ThaumonomiconScreen(Component title) {
-        super(title);
+    public ThaumonomiconScreen() {
+        super(Component.literal("Thaumonomicon"));
     }
 
     @Override
@@ -46,13 +46,21 @@ public class ThaumonomiconScreen extends Screen {
 }
 
 class Frame implements Renderable{
-    private static final ResourceLocation TEXTURE = new ResourceLocation(Thaumcraft.MODID, "textures/gui/thaumonomicon/frame.png");
+    private static final ResourceLocation FRAME = new ResourceLocation(Thaumcraft.MODID, "textures/gui/thaumonomicon/frame.png");
 
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float tickDelta) {
         final int screenHeight = guiGraphics.guiHeight();
         final int screenWidth = guiGraphics.guiWidth();
-        guiGraphics.blit(TEXTURE, 0, 0, 0, 0, screenWidth, screenHeight, screenWidth, screenHeight);
+        final GuiGraphicsWrapper graphics = new GuiGraphicsWrapper(guiGraphics);
+
+        graphics.drawSimpleTexture(
+            FRAME,
+            0,
+            0,
+            screenWidth,
+            screenHeight
+        );
     }
 }
 
@@ -79,11 +87,21 @@ class Tab implements Renderable{
         int screenHeight = guiGraphics.guiHeight();
         int screenWidth = guiGraphics.guiWidth();
 
-        final float scaleX = (float) screenWidth / 1024;
-        final float scaleY = (float) screenHeight / 512;
+        final GuiGraphicsWrapper graphics = new GuiGraphicsWrapper(guiGraphics);
 
-        guiGraphics.enableScissor((int) (16*scaleX), (int) (16*scaleY), (int) (screenWidth-16*scaleX), (int) (screenHeight-16*scaleY));
-        guiGraphics.blit(STARS, 0, 0, scrollX, scrollY, screenWidth, screenHeight, screenWidth/4, screenWidth/4);
-        guiGraphics.disableScissor();
+        graphics.enableCrop(screenWidth/64, screenHeight/32);
+        graphics.drawTexture(
+            STARS,
+            0,
+            0,
+            0,
+            scrollX,
+            scrollY,
+            screenWidth,
+            screenHeight,
+            screenWidth/4,
+            screenWidth/4
+        );
+        graphics.disableCrop();
     }
 }
