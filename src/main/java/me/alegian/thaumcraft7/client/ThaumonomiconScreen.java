@@ -40,6 +40,12 @@ public class ThaumonomiconScreen extends Screen {
     }
 
     @Override
+    public boolean mouseScrolled(double p_94686_, double p_94687_, double x, double y) {
+        tab.zoom((float) y);
+        return true;
+    }
+
+    @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float tickDelta) {
         super.render(guiGraphics, mouseX, mouseY, tickDelta);
     }
@@ -69,6 +75,7 @@ class Tab implements Renderable{
     private float scrollY = 0;
     private final float maxScrollX;
     private final float maxScrollY;
+    private float zoom = 3;
 
     public Tab(float maxScrollX, float maxScrollY) {
         this.maxScrollX = maxScrollX;
@@ -78,6 +85,10 @@ class Tab implements Renderable{
     public void scroll(float x, float y){
         scrollX = Mth.clamp(scrollX-x, -1*maxScrollX, maxScrollX);
         scrollY = Mth.clamp(scrollY-y, -1*maxScrollY, maxScrollY);
+    }
+
+    public void zoom(float y){
+        zoom = Mth.clamp(zoom+y, 0, 5);
     }
 
     @Override
@@ -99,8 +110,8 @@ class Tab implements Renderable{
             scrollY,
             screenWidth,
             screenHeight,
-            screenWidth/4,
-            screenWidth/4
+            (int) (Math.pow(1.25f, zoom-5)*screenWidth),
+            (int) (Math.pow(1.25f, zoom-5)*screenWidth)
         );
         graphics.disableCrop();
     }
