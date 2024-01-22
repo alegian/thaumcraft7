@@ -7,7 +7,7 @@ import me.alegian.thaumcraft7.api.capabilities.VisStorageHelper;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.client.gui.overlay.IGuiOverlay;
-import org.joml.Matrix4f;
+
 
 public class VisGuiOverlay {
     private static final ResourceLocation DISK = new ResourceLocation(Thaumcraft.MODID, "textures/gui/overlay/disk.png");
@@ -22,17 +22,18 @@ public class VisGuiOverlay {
             float scale = 0.12f;
             float diskSize = (screenHeight*scale);
             float vialSize = 0.7f*diskSize;
+            final var graphics = new GuiGraphicsWrapper(guiGraphics);
 
             guiGraphics.pose().pushPose();
 
             // draw the disk
-            guiGraphics.pose().mulPoseMatrix(translationMatrix(screenHeight*0.02f, screenHeight*0.02f));
+            graphics.translateXY(screenHeight*0.02f, screenHeight*0.02f);
             guiGraphics.setColor(1,1,1,1);
             guiGraphics.blit(DISK, 0, 0, 0, 0, (int)diskSize, (int)diskSize, (int)diskSize, (int)diskSize);
 
             // draw the vials
-            guiGraphics.pose().mulPoseMatrix(translationMatrix(diskSize/2, diskSize/2));
-            guiGraphics.pose().mulPoseMatrix(rotationMatrix(15));
+            graphics.translateXY(diskSize/2, diskSize/2);
+            graphics.rotateZ(15);
             float ar = (float) 0.35;
 
             for(Aspect a : vis.aspects.keySet()){
@@ -41,7 +42,7 @@ public class VisGuiOverlay {
                 guiGraphics.blit(VIAL_CONTENT, (int)(-1*vialSize*ar/2), (int) (diskSize/2), 0, 0, (int)(vialSize*ar), (int)vialSize*vis.aspects.get(a)/100, (int)(vialSize*ar), (int)vialSize);
                 guiGraphics.setColor(1,1,1,1);
                 guiGraphics.blit(VIAL, (int)(-1*vialSize*ar/2), (int) (diskSize/2), 0, 0, (int)(vialSize*ar), (int)vialSize, (int)(vialSize*ar), (int)vialSize);
-                guiGraphics.pose().mulPoseMatrix(rotationMatrix(-24));
+                graphics.rotateZ(-24);
             }
 
             guiGraphics.pose().popPose();
@@ -63,13 +64,5 @@ public class VisGuiOverlay {
         }else{
             visible = false;
         }
-    }
-
-    public static Matrix4f translationMatrix(float x, float y){
-        return new Matrix4f().translate(x, y, 0);
-    }
-
-    public static Matrix4f rotationMatrix(float deg){
-        return new Matrix4f().rotateZ((float) (deg/180 * Math.PI));
     }
 }

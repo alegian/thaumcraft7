@@ -3,13 +3,11 @@ package me.alegian.thaumcraft7.client;
 import me.alegian.thaumcraft7.Thaumcraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Renderable;
-import net.minecraft.client.gui.components.events.GuiEventListener;
-import net.minecraft.client.gui.narration.NarratableEntry;
-import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+
 
 public class ThaumonomiconScreen extends Screen {
     private final Tab tab = new Tab(300, 300);
@@ -24,7 +22,6 @@ public class ThaumonomiconScreen extends Screen {
         super.init();
         this.addRenderableOnly(tab);
         this.addRenderableOnly(new Frame());
-        this.addRenderableWidget(new Node());
     }
 
     @Override
@@ -70,8 +67,8 @@ class Frame implements Renderable{
 }
 
 class Tab implements Renderable{
-    private float scrollX = 0;
-    private float scrollY = 0;
+    public float scrollX = 0;
+    public float scrollY = 0;
     private final float maxScrollX;
     private final float maxScrollY;
     private float zoom = 3;
@@ -91,6 +88,15 @@ class Tab implements Renderable{
         zoom = Mth.clamp(zoom+y, 0, 5);
     }
 
+
+    private double getBGSize(int screenWidth){
+        return Math.pow(1.25f, zoom-5)*screenWidth;
+    }
+
+    public double getTileSize(int screenWidth){
+        return getBGSize(screenWidth)/16;
+    }
+
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float tickDelta) {
         int screenHeight = guiGraphics.guiHeight();
@@ -98,7 +104,10 @@ class Tab implements Renderable{
 
         final var graphics = new GuiGraphicsWrapper(guiGraphics);
 
+        graphics.push();
         graphics.enableCrop(screenWidth/64, screenHeight/32);
+
+        // background stars
         graphics.drawTexture(
             STARS,
             0,
@@ -108,36 +117,53 @@ class Tab implements Renderable{
             scrollY,
             screenWidth,
             screenHeight,
-            (int) (Math.pow(1.25f, zoom-5)*screenWidth),
-            (int) (Math.pow(1.25f, zoom-5)*screenWidth)
+            (int) getBGSize(screenWidth),
+            (int) getBGSize(screenWidth)
         );
+        // research nodes
+        graphics.push();
+        graphics.translateXY(screenWidth*0.5f, screenHeight*0.5f);
+        new Node(this, 0,0).render(guiGraphics, mouseX, mouseY, tickDelta);
+        new Node(this, 1,2).render(guiGraphics, mouseX, mouseY, tickDelta);
+        new Node(this, -2,3).render(guiGraphics, mouseX, mouseY, tickDelta);
+        new Node(this, -3,-3).render(guiGraphics, mouseX, mouseY, tickDelta);
+        new Node(this, -6,-3).render(guiGraphics, mouseX, mouseY, tickDelta);
+        graphics.pop();
+
         graphics.disableCrop();
+        graphics.pop();
     }
 }
 
-class Node implements Renderable, GuiEventListener, NarratableEntry{
+class Node implements Renderable{
     private static final ResourceLocation NODE = new ResourceLocation(Thaumcraft.MODID, "textures/gui/thaumonomicon/node.png");
+    private final Tab tab;
+    private final int x;
+    private final int y;
+
+    public Node(Tab tab, int x, int y) {
+        this.tab = tab;
+        this.x = x;
+        this.y = y;
+    }
 
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float tickDelta) {
         final var graphics = new GuiGraphicsWrapper(guiGraphics);
+        int screenWidth = guiGraphics.guiWidth();
+        var size = tab.getTileSize(screenWidth);
+        var scrollX = tab.scrollX;
+        var scrollY = tab.scrollY;
 
-        graphics.drawSimpleTexture(NODE, 100, 100, 32, 32);
+        graphics.push();
+        graphics.translateXY((float) (-size/2), (float) (-size/2));
+        graphics.drawSimpleTexture(
+            NODE,
+            (int) (size*x-scrollX),
+            (int) (size*y-scrollY),
+            (int) size,
+            (int) size
+        );
+        graphics.pop();
     }
-
-    @Override
-    public void setFocused(boolean p_265728_) {}
-
-    @Override
-    public boolean isFocused() {
-        return false;
-    }
-
-    @Override
-    public NarrationPriority narrationPriority() {
-        return NarrationPriority.NONE;
-    }
-
-    @Override
-    public void updateNarration(NarrationElementOutput p_169152_) {}
 }

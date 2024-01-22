@@ -2,6 +2,8 @@ package me.alegian.thaumcraft7.client;
 
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
+import org.joml.Matrix4f;
+
 
 public class GuiGraphicsWrapper {
     private final GuiGraphics graphics;
@@ -51,5 +53,21 @@ public class GuiGraphicsWrapper {
 
     public void disableCrop(){
         graphics.disableScissor();
+    }
+
+    public void translateXY(float x, float y){
+        graphics.pose().mulPoseMatrix(new Matrix4f().translate(x, y, 0));
+    }
+
+    public void rotateZ(float deg){
+        graphics.pose().mulPoseMatrix(new Matrix4f().rotateZ((float) (deg/180 * Math.PI)));
+    }
+
+    public void push(){
+        graphics.pose().pushPose();
+    }
+
+    public void pop(){
+        graphics.pose().popPose();
     }
 }
