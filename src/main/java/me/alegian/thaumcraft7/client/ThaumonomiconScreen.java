@@ -33,7 +33,7 @@ public class ThaumonomiconScreen extends Screen {
             if (!this.isScrolling) {
                 this.isScrolling = true;
             } else {
-                tab.scroll((float) x, (float) y);
+                tab.handleScroll((float) x, (float) y);
             }
 
             return true;
@@ -67,11 +67,11 @@ class Frame implements Renderable{
 }
 
 class Tab implements Renderable{
-    public float scrollX = 0;
-    public float scrollY = 0;
+    public double scrollX = 0;
+    public double scrollY = 0;
     private final float maxScrollX;
     private final float maxScrollY;
-    private float zoom = 3;
+    private float zoom = 2;
     private static final ResourceLocation STARS = new ResourceLocation(Thaumcraft.MODID, "textures/gui/thaumonomicon/stars_layer1.png");
 
     public Tab(float maxScrollX, float maxScrollY) {
@@ -79,22 +79,25 @@ class Tab implements Renderable{
         this.maxScrollY = maxScrollY;
     }
 
-    public void scroll(float x, float y){
-        scrollX = Mth.clamp(scrollX-x, -1*maxScrollX, maxScrollX);
-        scrollY = Mth.clamp(scrollY-y, -1*maxScrollY, maxScrollY);
+    public void handleScroll(double x, double y){
+        scrollTo(scrollX-x, scrollY-y);
+    }
+
+    public void scrollTo(double x, double y){
+        scrollX = Mth.clamp(x, -1*maxScrollX, maxScrollX);
+        scrollY = Mth.clamp(y, -1*maxScrollY, maxScrollY);
     }
 
     public void zoom(float y){
-        zoom = Mth.clamp(zoom+y, 0, 5);
+        zoom = Mth.clamp(zoom-y, 0, 5);
     }
 
-
     private double getBGSize(int screenWidth){
-        return Math.pow(1.25f, zoom-5)*screenWidth;
+        return 4*screenWidth/Math.pow(1.25f, zoom);
     }
 
     public double getTileSize(int screenWidth){
-        return getBGSize(screenWidth)/16;
+        return getBGSize(screenWidth)/64;
     }
 
     @Override
@@ -108,21 +111,21 @@ class Tab implements Renderable{
         graphics.enableCrop(screenWidth/64, screenHeight/32);
 
         // background stars
-        graphics.drawTexture(
-            STARS,
-            0,
-            0,
-            0,
-            scrollX,
-            scrollY,
-            screenWidth,
-            screenHeight,
-            (int) getBGSize(screenWidth),
-            (int) getBGSize(screenWidth)
-        );
-        // research nodes
         graphics.push();
         graphics.translateXY(screenWidth*0.5f, screenHeight*0.5f);
+        graphics.drawTexture(
+            STARS,
+            (int) getBGSize(screenWidth)/-2,
+            (int) getBGSize(screenWidth)/-2,
+            0,
+            (float) scrollX,
+            (float) scrollY,
+            (int) getBGSize(screenWidth),
+            (int) getBGSize(screenWidth),
+            (int) getBGSize(screenWidth)/8,
+            (int) getBGSize(screenWidth)/8
+        );
+        // research nodes
         new Node(this, 0,0).render(guiGraphics, mouseX, mouseY, tickDelta);
         new Node(this, 1,2).render(guiGraphics, mouseX, mouseY, tickDelta);
         new Node(this, -2,3).render(guiGraphics, mouseX, mouseY, tickDelta);
