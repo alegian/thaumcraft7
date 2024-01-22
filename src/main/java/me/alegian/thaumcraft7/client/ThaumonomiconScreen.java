@@ -3,6 +3,9 @@ package me.alegian.thaumcraft7.client;
 import me.alegian.thaumcraft7.Thaumcraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Renderable;
+import net.minecraft.client.gui.components.events.GuiEventListener;
+import net.minecraft.client.gui.narration.NarratableEntry;
+import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -21,6 +24,7 @@ public class ThaumonomiconScreen extends Screen {
         super.init();
         this.addRenderableOnly(tab);
         this.addRenderableOnly(new Frame());
+        this.addRenderableWidget(new Node());
     }
 
     @Override
@@ -44,11 +48,6 @@ public class ThaumonomiconScreen extends Screen {
         tab.zoom((float) y);
         return true;
     }
-
-    @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float tickDelta) {
-        super.render(guiGraphics, mouseX, mouseY, tickDelta);
-    }
 }
 
 class Frame implements Renderable{
@@ -58,7 +57,7 @@ class Frame implements Renderable{
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float tickDelta) {
         final int screenHeight = guiGraphics.guiHeight();
         final int screenWidth = guiGraphics.guiWidth();
-        final GuiGraphicsWrapper graphics = new GuiGraphicsWrapper(guiGraphics);
+        final var graphics = new GuiGraphicsWrapper(guiGraphics);
 
         graphics.drawSimpleTexture(
             FRAME,
@@ -76,6 +75,7 @@ class Tab implements Renderable{
     private final float maxScrollX;
     private final float maxScrollY;
     private float zoom = 3;
+    private static final ResourceLocation STARS = new ResourceLocation(Thaumcraft.MODID, "textures/gui/thaumonomicon/stars_layer1.png");
 
     public Tab(float maxScrollX, float maxScrollY) {
         this.maxScrollX = maxScrollX;
@@ -93,12 +93,10 @@ class Tab implements Renderable{
 
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float tickDelta) {
-        final ResourceLocation STARS = new ResourceLocation(Thaumcraft.MODID, "textures/gui/thaumonomicon/stars_layer1.png");
-
         int screenHeight = guiGraphics.guiHeight();
         int screenWidth = guiGraphics.guiWidth();
 
-        final GuiGraphicsWrapper graphics = new GuiGraphicsWrapper(guiGraphics);
+        final var graphics = new GuiGraphicsWrapper(guiGraphics);
 
         graphics.enableCrop(screenWidth/64, screenHeight/32);
         graphics.drawTexture(
@@ -115,4 +113,31 @@ class Tab implements Renderable{
         );
         graphics.disableCrop();
     }
+}
+
+class Node implements Renderable, GuiEventListener, NarratableEntry{
+    private static final ResourceLocation NODE = new ResourceLocation(Thaumcraft.MODID, "textures/gui/thaumonomicon/node.png");
+
+    @Override
+    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float tickDelta) {
+        final var graphics = new GuiGraphicsWrapper(guiGraphics);
+
+        graphics.drawSimpleTexture(NODE, 100, 100, 32, 32);
+    }
+
+    @Override
+    public void setFocused(boolean p_265728_) {}
+
+    @Override
+    public boolean isFocused() {
+        return false;
+    }
+
+    @Override
+    public NarrationPriority narrationPriority() {
+        return NarrationPriority.NONE;
+    }
+
+    @Override
+    public void updateNarration(NarrationElementOutput p_169152_) {}
 }
