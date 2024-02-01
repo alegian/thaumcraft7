@@ -3,6 +3,7 @@ package me.alegian.thaumcraft7;
 import com.mojang.logging.LogUtils;
 import me.alegian.thaumcraft7.attachment.ThaumcraftAttachments;
 import me.alegian.thaumcraft7.block.BlockIndex;
+import me.alegian.thaumcraft7.blockentity.BlockEntityIndex;
 import me.alegian.thaumcraft7.item.CreativeModeTabIndex;
 import me.alegian.thaumcraft7.item.ItemIndex;
 import net.neoforged.bus.api.IEventBus;
@@ -27,6 +28,7 @@ public class Thaumcraft {
 
         BlockIndex.BLOCKS.register(modEventBus);
         ItemIndex.ITEMS.register(modEventBus);
+        BlockEntityIndex.BLOCK_ENTITIES.register(modEventBus);
         ThaumcraftAttachments.ATTACHMENTS.register(modEventBus);
 
         CreativeModeTabIndex.CREATIVE_MODE_TABS.register(modEventBus);

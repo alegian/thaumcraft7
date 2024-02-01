@@ -2,7 +2,7 @@ package me.alegian.thaumcraft7.item;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import me.alegian.thaumcraft7.api.capabilities.VisStorageHelper;
-import me.alegian.thaumcraft7.block.NodeBlock;
+import me.alegian.thaumcraft7.block.AuraNodeBlock;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
@@ -29,7 +29,7 @@ public class WandItem extends Item {
 
     @Override
     public InteractionResult useOn(UseOnContext context) {
-        if(context.getLevel().getBlockState(context.getClickedPos()).getBlock() instanceof NodeBlock){
+        if(context.getLevel().getBlockState(context.getClickedPos()).getBlock() instanceof AuraNodeBlock){
             var player = context.getPlayer();
             if(player != null){
                 var stack = player.getItemInHand(context.getHand());

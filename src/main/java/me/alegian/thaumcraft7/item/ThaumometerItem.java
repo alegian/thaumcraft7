@@ -2,8 +2,7 @@ package me.alegian.thaumcraft7.item;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import me.alegian.thaumcraft7.api.capabilities.AspectContainerHelper;
-import me.alegian.thaumcraft7.block.NodeBlock;
-import me.alegian.thaumcraft7.api.capabilities.ThaumcraftCapabilities;
+import me.alegian.thaumcraft7.block.AuraNodeBlock;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
@@ -38,7 +37,7 @@ public class ThaumometerItem extends Item {
     public InteractionResult useOn(UseOnContext context) {
         var level = context.getLevel();
         var block = level.getBlockState(context.getClickedPos()).getBlock();
-        if(block instanceof NodeBlock){
+        if(block instanceof AuraNodeBlock){
             var player = context.getPlayer();
             if(player != null){
                 if(level.isClientSide){

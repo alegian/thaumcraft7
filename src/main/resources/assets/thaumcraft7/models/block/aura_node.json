@@ -1,8 +1,8 @@
 {
   "credit": "Made with Blockbench",
   "textures": {
-    "0": "thaumcraft7:block/node",
-    "particle": "thaumcraft7:block/node"
+    "0": "thaumcraft7:block/aura_node",
+    "particle": "thaumcraft7:block/aura_node"
   },
   "elements": [
     {
