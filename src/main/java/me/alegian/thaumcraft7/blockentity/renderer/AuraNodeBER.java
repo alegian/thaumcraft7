@@ -33,12 +33,15 @@ public class AuraNodeBER implements BlockEntityRenderer<AuraNodeBE> {
         // origin
         Matrix4f matrix = poseStack.last().pose();
 
-        buff.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
-        buff.vertex(matrix, -0.5f, -0.5f, 0).color(0, 0, 1, 0.2f).endVertex();
-        buff.vertex(matrix, -0.5f, 0.5f, 0).color(0, 0, 1, 0.2f).endVertex();
-        buff.vertex(matrix, 0.5f, 0.5f, 0).color(0, 0, 1, 0.2f).endVertex();
-        buff.vertex(matrix, 0.5f, -0.5f, 0).color(0, 0, 1, 0.2f).endVertex();
-        t.end();
+        var numTriangles = 16;
+        var andleDelta = 2*Math.PI / numTriangles;
+        for (int i = 0; i < numTriangles; i++) {
+            buff.begin(VertexFormat.Mode.TRIANGLES, DefaultVertexFormat.POSITION_COLOR);
+            buff.vertex(matrix, (float) Math.cos(andleDelta * i)/2, (float) Math.sin(andleDelta * i)/2, 0).color(0, 0, 1, 0.2f).endVertex();
+            buff.vertex(matrix, 0, 0, 0).color(0, 0, 1, 0.2f).endVertex();
+            buff.vertex(matrix, (float) Math.cos(andleDelta * (i + 1))/2, (float) Math.sin(andleDelta * (i + 1))/2, 0).color(0, 0, 1, 0.2f).endVertex();
+            t.end();
+        }
 
         poseStack.popPose();
     }
