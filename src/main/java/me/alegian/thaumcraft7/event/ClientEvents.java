@@ -1,14 +1,17 @@
 package me.alegian.thaumcraft7.event;
 import me.alegian.thaumcraft7.Thaumcraft;
+import me.alegian.thaumcraft7.block.AuraNodeB;
 import me.alegian.thaumcraft7.blockentity.BlockEntityIndex;
-import me.alegian.thaumcraft7.blockentity.renderer.AuraNodeBER;
-import me.alegian.thaumcraft7.client.VisGuiOverlay;
+import me.alegian.thaumcraft7.client.blockentity.renderer.AuraNodeBER;
+import me.alegian.thaumcraft7.client.gui.VisGuiOverlay;
+import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterGuiOverlaysEvent;
+import net.neoforged.neoforge.client.event.RenderHighlightEvent;
 import net.neoforged.neoforge.event.TickEvent;
 
 public class ClientEvents {
@@ -30,6 +33,13 @@ public class ClientEvents {
         @SubscribeEvent
         public static void playerTick(TickEvent.PlayerTickEvent event){
             VisGuiOverlay.update(event.player);
+        }
+
+        @SubscribeEvent
+        public static void renderBlockHighlightEvent(RenderHighlightEvent.Block event){
+            var level = Minecraft.getInstance().level;
+                if(level != null && level.getBlockState(event.getTarget().getBlockPos()).getBlock() instanceof AuraNodeB)
+                    event.setCanceled(true);
         }
     }
 }

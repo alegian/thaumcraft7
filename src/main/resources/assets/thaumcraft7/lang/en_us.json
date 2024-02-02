@@ -1,9 +1,8 @@
 {
   "thaumcraft": "Thaumcraft",
-  "block.thaumcraft7.example_block": "Example Block",
   "item.thaumcraft7.iron_cap": "Iron Wand Cap",
   "item.thaumcraft7.iron_wood_wand": "Iron Capped Wooden Wand",
   "item.thaumcraft7.thaumometer": "Thaumometer",
-  "block.thaumcraft7.node": "Aura Node",
+  "block.thaumcraft7.aura_node": "Aura Node",
   "item.thaumcraft7.thaumonomicon": "Thaumonomicon"
 }

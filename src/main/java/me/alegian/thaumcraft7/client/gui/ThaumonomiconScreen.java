@@ -1,4 +1,4 @@
-package me.alegian.thaumcraft7.client;
+package me.alegian.thaumcraft7.client.gui;
 
 import me.alegian.thaumcraft7.Thaumcraft;
 import net.minecraft.client.gui.GuiGraphics;

@@ -1,3 +1,6 @@
 {
-	"parent": "thaumcraft7:block/aura_node"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "thaumcraft7:item/aura_node"
+  }
 }
