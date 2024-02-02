@@ -3,9 +3,9 @@ package me.alegian.thaumcraft7.block;
 import me.alegian.thaumcraft7.Thaumcraft;
 import me.alegian.thaumcraft7.api.aspects.Aspect;
 import me.alegian.thaumcraft7.api.aspects.AspectList;
-import me.alegian.thaumcraft7.api.capabilities.ThaumcraftCapabilities;
+import me.alegian.thaumcraft7.api.capabilities.TCCapabilities;
 import me.alegian.thaumcraft7.capability.AspectContainer;
-import me.alegian.thaumcraft7.item.ItemIndex;
+import me.alegian.thaumcraft7.item.TCItems;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -15,17 +15,17 @@ import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-public class BlockIndex {
+public class TCBlocks {
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(Thaumcraft.MODID);
 
     public static final DeferredBlock<Block> EXAMPLE_BLOCK = BLOCKS.registerSimpleBlock("example_block", BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLESTONE));
-    public static final DeferredItem<BlockItem> EXAMPLE_BLOCK_ITEM = ItemIndex.ITEMS.registerSimpleBlockItem("example_block", EXAMPLE_BLOCK);
-    public static final DeferredBlock<AuraNodeBlock> AURA_NODE_BLOCK = BLOCKS.register("aura_node",
-            () -> new AuraNodeBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK).noCollission()));
-    public static final DeferredItem<BlockItem> AURA_NODE_BLOCK_ITEM = ItemIndex.ITEMS.registerSimpleBlockItem("aura_node", AURA_NODE_BLOCK);
+    public static final DeferredItem<BlockItem> EXAMPLE_BLOCK_ITEM = TCItems.ITEMS.registerSimpleBlockItem("example_block", EXAMPLE_BLOCK);
+    public static final DeferredBlock<AuraNodeB> AURA_NODE_BLOCK = BLOCKS.register("aura_node",
+            () -> new AuraNodeB(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK).noCollission()));
+    public static final DeferredItem<BlockItem> AURA_NODE_BLOCK_ITEM = TCItems.ITEMS.registerSimpleBlockItem("aura_node", AURA_NODE_BLOCK);
 
     public static void registerCapabilities(RegisterCapabilitiesEvent event){
         AspectList contents = new AspectList().add(Aspect.AER, 2).add(Aspect.POTENTIA, 4);
-        event.registerBlock(ThaumcraftCapabilities.AspectContainer.BLOCK, (level, pos, state, be, context)->new AspectContainer(contents), AURA_NODE_BLOCK.get());
+        event.registerBlock(TCCapabilities.AspectContainer.BLOCK, (level, pos, state, be, context)->new AspectContainer(contents), AURA_NODE_BLOCK.get());
     }
 }

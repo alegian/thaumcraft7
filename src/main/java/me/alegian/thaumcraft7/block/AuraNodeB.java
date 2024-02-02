@@ -1,7 +1,7 @@
 package me.alegian.thaumcraft7.block;
 
 
-import me.alegian.thaumcraft7.blockentity.AuraNodeBlockEntity;
+import me.alegian.thaumcraft7.blockentity.AuraNodeBE;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
@@ -13,10 +13,10 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
-public class AuraNodeBlock extends Block implements EntityBlock {
+public class AuraNodeB extends Block implements EntityBlock {
     public static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 16,16);
 
-    protected AuraNodeBlock(Properties properties) {
+    protected AuraNodeB(Properties properties) {
         super(properties);
     }
 
@@ -35,6 +35,6 @@ public class AuraNodeBlock extends Block implements EntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState blockState) {
-        return new AuraNodeBlockEntity(pos, blockState);
+        return new AuraNodeBE(pos, blockState);
     }
 }

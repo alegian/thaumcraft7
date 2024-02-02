@@ -6,7 +6,7 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 @Mod.EventBusSubscriber(modid = Thaumcraft.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
-public class ThaumcraftDataGenerators {
+public class TCDataGenerators {
 
     @SubscribeEvent
     public static void onGatherData(GatherDataEvent event) {

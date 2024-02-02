@@ -1,8 +1,8 @@
 package me.alegian.thaumcraft7.item;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import me.alegian.thaumcraft7.api.capabilities.VisStorageHelper;
-import me.alegian.thaumcraft7.block.AuraNodeBlock;
+import me.alegian.thaumcraft7.api.capabilities.AspectContainerHelper;
+import me.alegian.thaumcraft7.block.AuraNodeB;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
@@ -22,32 +22,30 @@ import org.joml.Matrix4f;
 
 import java.util.function.Consumer;
 
-public class WandItem extends Item {
-    public WandItem(Properties props) {
+public class ThaumometerI extends Item {
+    public ThaumometerI(Properties props) {
         super(props);
     }
 
     @Override
-    public InteractionResult useOn(UseOnContext context) {
-        if(context.getLevel().getBlockState(context.getClickedPos()).getBlock() instanceof AuraNodeBlock){
-            var player = context.getPlayer();
-            if(player != null){
-                var stack = player.getItemInHand(context.getHand());
-                var received = VisStorageHelper.receiveVis(stack, 5);
-
-                if(received == 0f) return InteractionResult.PASS;
-                else player.startUsingItem(context.getHand());
-            }
-        }
-        return InteractionResult.PASS;
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+        player.startUsingItem(hand);
+        return InteractionResultHolder.success(player.getItemInHand(hand));
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
-        if(level.isClientSide){
-            player.sendSystemMessage(Component.literal("VIS: " + VisStorageHelper.getVisStored(player.getItemInHand(hand))));
+    public InteractionResult useOn(UseOnContext context) {
+        var level = context.getLevel();
+        var block = level.getBlockState(context.getClickedPos()).getBlock();
+        if(block instanceof AuraNodeB){
+            var player = context.getPlayer();
+            if(player != null){
+                if(level.isClientSide){
+                    player.sendSystemMessage(Component.literal(AspectContainerHelper.getAspects(level, context.getClickedPos()).toString()));
+                }
+            }
         }
-        return InteractionResultHolder.consume(player.getItemInHand(hand));
+        return InteractionResult.PASS;
     }
 
     @Override
@@ -68,47 +66,28 @@ public class WandItem extends Item {
     @Override
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
         consumer.accept(new IClientItemExtensions() {
-            private static final HumanoidModel.ArmPose WAND_POSE =HumanoidModel.ArmPose.create("WAND", false, (model, entity, arm) -> {
+            private static final HumanoidModel.ArmPose THAUMOMETER_POSE = HumanoidModel.ArmPose.create("THAUMOMETER", true, (model, entity, arm) -> {
                 model.rightArm.xRot = (float) (-0.8 * Math.PI /2);
                 model.leftArm.xRot = (float) (-0.8 * Math.PI /2);
-                if (arm == HumanoidArm.RIGHT) {
-                    model.leftArm.yRot = (float) (Math.PI /4);
-                } else {
-                    model.rightArm.yRot = (float) (Math.PI /4);
-                }
+                model.leftArm.yRot = (float) (Math.PI /8);
+                model.rightArm.yRot = (float) (-1*Math.PI /8);
             });
 
             @Override
             public HumanoidModel.ArmPose getArmPose(LivingEntity entityLiving, InteractionHand hand, ItemStack itemStack) {
-                if (!itemStack.isEmpty()) {
-                    if (entityLiving.getUsedItemHand() == hand && entityLiving.getUseItemRemainingTicks() > 0) {
-                        return WAND_POSE;
-                    }
-                }
-                return HumanoidModel.ArmPose.EMPTY;
+                return THAUMOMETER_POSE;
             }
 
             @Override
             public boolean applyForgeHandTransform(PoseStack poseStack, LocalPlayer player, HumanoidArm arm, ItemStack itemInHand, float partialTick, float equipProcess, float swingProcess) {
-                int i = arm == HumanoidArm.RIGHT ? 1 : -1;
-                Matrix4f transformMatrix = new Matrix4f();
-                boolean using = false;
-
+                // pretty much nullifies the default right click bob
                 if (player.getUseItem() == itemInHand && player.isUsingItem()) {
-                    using = true;
-                    float secondsUsing = (float) player.getTicksUsingItem() /20;
-
-                    transformMatrix = transformMatrix
-                        .translate(i * 0.56F, -0.52F, -0.72F)
-                        .rotateX((float) (-1*Math.PI/4))
-                        .rotateY((float) (secondsUsing*Math.PI))
-                        .translate(0, -0.5F, 0)
-                        .rotateX((float) (-1*Math.PI/16))
-                        .translate(0, 0.5F, 0);
+                    int i = arm == HumanoidArm.RIGHT ? 1 : -1;
+                    var transformMatrix = new Matrix4f().translate(i * 0.56F, -0.53F, -0.72F);
+                    poseStack.mulPoseMatrix(transformMatrix);
+                    return true;
                 }
-
-                poseStack.mulPoseMatrix(transformMatrix);
-                return using;
+                return false;
             }
         });
     }

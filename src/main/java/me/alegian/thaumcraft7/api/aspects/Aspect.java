@@ -3,9 +3,10 @@ package me.alegian.thaumcraft7.api.aspects;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class Aspect {
-    public static LinkedHashMap<String,Aspect> aspects = new LinkedHashMap<>();
+    public static Map<String,Aspect> aspects = new LinkedHashMap<>();
 
     String id;
     int color;

@@ -2,7 +2,7 @@ package me.alegian.thaumcraft7.blockentity.renderer;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
-import me.alegian.thaumcraft7.blockentity.AuraNodeBlockEntity;
+import me.alegian.thaumcraft7.blockentity.AuraNodeBE;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -10,10 +10,10 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 
-public class AuraNodeBER implements BlockEntityRenderer<AuraNodeBlockEntity> {
+public class AuraNodeBER implements BlockEntityRenderer<AuraNodeBE> {
 
     @Override
-    public void render(AuraNodeBlockEntity be, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int combinedLight, int combinedOverlay) {
+    public void render(AuraNodeBE be, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int combinedLight, int combinedOverlay) {
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         // what type of data our vertices contain

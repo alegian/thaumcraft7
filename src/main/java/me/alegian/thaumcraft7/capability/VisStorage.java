@@ -1,7 +1,7 @@
 package me.alegian.thaumcraft7.capability;
 
 import me.alegian.thaumcraft7.api.capabilities.IVisStorage;
-import me.alegian.thaumcraft7.attachment.ThaumcraftAttachments;
+import me.alegian.thaumcraft7.attachment.TCAttachments;
 import net.neoforged.neoforge.attachment.AttachmentHolder;
 
 public class VisStorage implements IVisStorage{
@@ -15,31 +15,31 @@ public class VisStorage implements IVisStorage{
 
     @Override
     public float extractVis(float maxExtract) {
-        var attachment = holder.getData(ThaumcraftAttachments.VIS);
+        var attachment = holder.getData(TCAttachments.VIS);
 
         float visExtracted = Math.min(attachment.vis, maxExtract);
         attachment.vis -= visExtracted;
 
-        holder.setData(ThaumcraftAttachments.VIS, attachment);
+        holder.setData(TCAttachments.VIS, attachment);
 
         return visExtracted;
     }
 
     @Override
     public float receiveVis(float maxReceive) {
-        var attachment = holder.getData(ThaumcraftAttachments.VIS);
+        var attachment = holder.getData(TCAttachments.VIS);
 
         float energyReceived = Math.min(maxVis - attachment.vis, maxReceive);
         attachment.vis += energyReceived;
 
-        holder.setData(ThaumcraftAttachments.VIS, attachment);
+        holder.setData(TCAttachments.VIS, attachment);
 
         return energyReceived;
     }
 
     @Override
     public float getVisStored() {
-        return holder.getData(ThaumcraftAttachments.VIS).vis;
+        return holder.getData(TCAttachments.VIS).vis;
     }
 
     @Override

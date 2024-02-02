@@ -1,9 +1,10 @@
 package me.alegian.thaumcraft7.api.aspects;
 
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class AspectList {
-    public LinkedHashMap<Aspect,Integer> aspects = new LinkedHashMap<>();
+    public Map<Aspect,Integer> aspects = new LinkedHashMap<>();
 
     public AspectList add(Aspect aspect, int amount){
         aspects.put(aspect, amount);

@@ -1,7 +1,7 @@
 package me.alegian.thaumcraft7.datagen;
 
 import me.alegian.thaumcraft7.Thaumcraft;
-import me.alegian.thaumcraft7.block.BlockIndex;
+import me.alegian.thaumcraft7.block.TCBlocks;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
@@ -14,7 +14,7 @@ public class TCBlockStateProvider extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
-        simpleBlockWithItem(BlockIndex.EXAMPLE_BLOCK.get());
+        simpleBlockWithItem(TCBlocks.EXAMPLE_BLOCK.get());
     }
 
     public void simpleBlockWithItem(Block block) {

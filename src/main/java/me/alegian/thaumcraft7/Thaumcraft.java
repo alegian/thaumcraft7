@@ -1,11 +1,11 @@
 package me.alegian.thaumcraft7;
 
 import com.mojang.logging.LogUtils;
-import me.alegian.thaumcraft7.attachment.ThaumcraftAttachments;
-import me.alegian.thaumcraft7.block.BlockIndex;
+import me.alegian.thaumcraft7.attachment.TCAttachments;
+import me.alegian.thaumcraft7.block.TCBlocks;
 import me.alegian.thaumcraft7.blockentity.BlockEntityIndex;
-import me.alegian.thaumcraft7.item.CreativeModeTabIndex;
-import me.alegian.thaumcraft7.item.ItemIndex;
+import me.alegian.thaumcraft7.item.TCCreativeModeTabs;
+import me.alegian.thaumcraft7.item.TCItems;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
@@ -26,12 +26,12 @@ public class Thaumcraft {
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(Thaumcraft::registerCapabilities);
 
-        BlockIndex.BLOCKS.register(modEventBus);
-        ItemIndex.ITEMS.register(modEventBus);
+        TCBlocks.BLOCKS.register(modEventBus);
+        TCItems.ITEMS.register(modEventBus);
         BlockEntityIndex.BLOCK_ENTITIES.register(modEventBus);
-        ThaumcraftAttachments.ATTACHMENTS.register(modEventBus);
+        TCAttachments.ATTACHMENTS.register(modEventBus);
 
-        CreativeModeTabIndex.CREATIVE_MODE_TABS.register(modEventBus);
+        TCCreativeModeTabs.CREATIVE_MODE_TABS.register(modEventBus);
 
         NeoForge.EVENT_BUS.register(this);
     }
@@ -42,7 +42,7 @@ public class Thaumcraft {
     public void onServerStarting(ServerStartingEvent event) {}
 
     public static void registerCapabilities(RegisterCapabilitiesEvent event) {
-        ItemIndex.registerCapabilities(event);
-        BlockIndex.registerCapabilities(event);
+        TCItems.registerCapabilities(event);
+        TCBlocks.registerCapabilities(event);
     }
 }

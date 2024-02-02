@@ -1,11 +1,8 @@
 package me.alegian.thaumcraft7.event;
 import me.alegian.thaumcraft7.Thaumcraft;
-import me.alegian.thaumcraft7.blockentity.AuraNodeBlockEntity;
 import me.alegian.thaumcraft7.blockentity.BlockEntityIndex;
 import me.alegian.thaumcraft7.blockentity.renderer.AuraNodeBER;
 import me.alegian.thaumcraft7.client.VisGuiOverlay;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
-import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
