@@ -19,6 +19,14 @@ public class Grid{
         }
     }
 
+    public void renderDebug(GuiGraphics guiGraphics, double scrollX, double scrollY) {
+        for (int i = -31; i < 32; i++)
+            guiGraphics.hLine(-1000, 1000, (int) (i*cellSize-scrollY), 0xFFFFFFFF);
+
+        for (int i = -31; i < 32; i++)
+            guiGraphics.vLine((int) (i*cellSize-scrollX), -1000, 1000, 0xFFFFFFFF);
+    }
+
     public void addCell(GridRenderable r){
         contents.add(r);
     }
