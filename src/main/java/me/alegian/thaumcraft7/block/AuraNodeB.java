@@ -5,14 +5,20 @@ import me.alegian.thaumcraft7.blockentity.AuraNodeBE;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.TransparentBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 public class AuraNodeB extends TransparentBlock implements EntityBlock {
-    protected AuraNodeB(Properties properties) {
-        super(properties);
+    protected AuraNodeB() {
+        super(Properties.of()
+            .noTerrainParticles()
+            .strength(2F)
+            .sound(SoundType.WOOL)
+            .noCollission()
+        );
     }
 
     @Override

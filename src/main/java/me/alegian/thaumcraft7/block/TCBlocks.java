@@ -20,8 +20,7 @@ public class TCBlocks {
 
     public static final DeferredBlock<Block> EXAMPLE_BLOCK = BLOCKS.registerSimpleBlock("example_block", BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLESTONE));
     public static final DeferredItem<BlockItem> EXAMPLE_BLOCK_ITEM = TCItems.ITEMS.registerSimpleBlockItem("example_block", EXAMPLE_BLOCK);
-    public static final DeferredBlock<AuraNodeB> AURA_NODE_BLOCK = BLOCKS.register("aura_node",
-            () -> new AuraNodeB(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK).noCollission()));
+    public static final DeferredBlock<AuraNodeB> AURA_NODE_BLOCK = BLOCKS.register("aura_node", AuraNodeB::new);
     public static final DeferredItem<BlockItem> AURA_NODE_BLOCK_ITEM = TCItems.ITEMS.registerSimpleBlockItem("aura_node", AURA_NODE_BLOCK);
 
     public static void registerCapabilities(RegisterCapabilitiesEvent event){
