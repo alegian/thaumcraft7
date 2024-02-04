@@ -25,15 +25,15 @@ public class ThaumonomiconScreen extends Screen {
     }
 
     @Override
-    public boolean mouseDragged(double p_97347_, double p_97348_, int p_97349_, double x, double y) {
-        if (p_97349_ != 0) {
+    public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
+        if (button != 0) {
             this.isScrolling = false;
             return false;
         } else {
             if (!this.isScrolling) {
                 this.isScrolling = true;
             } else {
-                tab.handleScroll((float) x, (float) y);
+                tab.handleScroll((float) dragX, (float) dragY);
             }
 
             return true;
@@ -41,8 +41,8 @@ public class ThaumonomiconScreen extends Screen {
     }
 
     @Override
-    public boolean mouseScrolled(double p_94686_, double p_94687_, double x, double y) {
-        tab.zoom((float) y);
+    public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
+        tab.zoom((float) scrollY);
         return true;
     }
 }
