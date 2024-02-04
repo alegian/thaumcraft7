@@ -63,6 +63,10 @@ public class GuiGraphicsWrapper {
         graphics.pose().mulPoseMatrix(new Matrix4f().rotateZ((float) (deg/180 * Math.PI)));
     }
 
+    public void scaleXY(float scale){
+        graphics.pose().mulPoseMatrix(new Matrix4f().scale(scale, scale, 1));
+    }
+
     public void push(){
         graphics.pose().pushPose();
     }

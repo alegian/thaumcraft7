@@ -72,6 +72,7 @@ class Tab implements Renderable{
     private final float maxScrollX;
     private final float maxScrollY;
     private float zoom = 2;
+    private static final float ZOOM_MULTIPLIER = 1.25F;
     private static final ResourceLocation STARS = new ResourceLocation(Thaumcraft.MODID, "textures/gui/thaumonomicon/stars_layer1.png");
 
     public Tab(float maxScrollX, float maxScrollY) {
@@ -80,7 +81,7 @@ class Tab implements Renderable{
     }
 
     public void handleScroll(double x, double y){
-        scrollTo(scrollX-x, scrollY-y);
+        scrollTo(scrollX-Math.pow(ZOOM_MULTIPLIER, zoom)*x, scrollY-Math.pow(ZOOM_MULTIPLIER, -zoom)*y);
     }
 
     public void scrollTo(double x, double y){
@@ -92,38 +93,30 @@ class Tab implements Renderable{
         zoom = Mth.clamp(zoom-y, 0, 5);
     }
 
-    private double getBGSize(int screenWidth){
-        return 4*screenWidth/Math.pow(1.25f, zoom);
-    }
-
-    public double getTileSize(int screenWidth){
-        return getBGSize(screenWidth)/64;
-    }
-
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float tickDelta) {
+        final var graphics = new GuiGraphicsWrapper(guiGraphics);
+        graphics.push();
+
         int screenHeight = guiGraphics.guiHeight();
         int screenWidth = guiGraphics.guiWidth();
 
-        final var graphics = new GuiGraphicsWrapper(guiGraphics);
-
-        graphics.push();
-        graphics.enableCrop(screenWidth/64, screenHeight/32);
+        graphics.enableCrop(screenWidth/128, screenHeight/64);
 
         // background stars
-        graphics.push();
         graphics.translateXY(screenWidth*0.5f, screenHeight*0.5f);
+        graphics.scaleXY((float) Math.pow(ZOOM_MULTIPLIER, -zoom));
         graphics.drawTexture(
             STARS,
-            (int) getBGSize(screenWidth)/-2,
-            (int) getBGSize(screenWidth)/-2,
+            -3840,
+            -2160,
             0,
             (float) scrollX,
             (float) scrollY,
-            (int) getBGSize(screenWidth),
-            (int) getBGSize(screenWidth),
-            (int) getBGSize(screenWidth)/8,
-            (int) getBGSize(screenWidth)/8
+            3840*2,
+            2160*2,
+            512,
+            512
         );
         // research nodes
         new Node(this, 0,0).render(guiGraphics, mouseX, mouseY, tickDelta);
@@ -131,7 +124,6 @@ class Tab implements Renderable{
         new Node(this, -2,3).render(guiGraphics, mouseX, mouseY, tickDelta);
         new Node(this, -3,-3).render(guiGraphics, mouseX, mouseY, tickDelta);
         new Node(this, -6,-3).render(guiGraphics, mouseX, mouseY, tickDelta);
-        graphics.pop();
 
         graphics.disableCrop();
         graphics.pop();
@@ -153,19 +145,18 @@ class Node implements Renderable{
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float tickDelta) {
         final var graphics = new GuiGraphicsWrapper(guiGraphics);
-        int screenWidth = guiGraphics.guiWidth();
-        var size = tab.getTileSize(screenWidth);
         var scrollX = tab.scrollX;
         var scrollY = tab.scrollY;
+        var size = 48;
 
         graphics.push();
-        graphics.translateXY((float) (-size/2), (float) (-size/2));
+        graphics.translateXY((float) -size /2, (float) -size /2);
         graphics.drawSimpleTexture(
             NODE,
             (int) (size*x-scrollX),
             (int) (size*y-scrollY),
-            (int) size,
-            (int) size
+            size,
+            size
         );
         graphics.pop();
     }
