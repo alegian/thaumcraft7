@@ -1,6 +1,6 @@
 package me.alegian.thaumcraft7.item;
 
-import me.alegian.thaumcraft7.client.gui.ThaumonomiconScreen;
+import me.alegian.thaumcraft7.client.gui.thaumonomicon.ThaumonomiconScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;

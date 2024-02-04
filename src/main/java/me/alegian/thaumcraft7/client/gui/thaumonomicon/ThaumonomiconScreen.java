@@ -1,6 +1,9 @@
-package me.alegian.thaumcraft7.client.gui;
+package me.alegian.thaumcraft7.client.gui.thaumonomicon;
 
 import me.alegian.thaumcraft7.Thaumcraft;
+import me.alegian.thaumcraft7.client.gui.GuiGraphicsWrapper;
+import me.alegian.thaumcraft7.client.gui.thaumonomicon.grid.Grid;
+import me.alegian.thaumcraft7.client.gui.thaumonomicon.grid.GridRenderable;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.screens.Screen;
@@ -73,11 +76,18 @@ class Tab implements Renderable{
     private final float maxScrollY;
     private float zoom = 2;
     private static final float ZOOM_MULTIPLIER = 1.25F;
+    private final Grid grid = new Grid(48);
     private static final ResourceLocation STARS = new ResourceLocation(Thaumcraft.MODID, "textures/gui/thaumonomicon/stars_layer1.png");
 
     public Tab(float maxScrollX, float maxScrollY) {
         this.maxScrollX = maxScrollX;
         this.maxScrollY = maxScrollY;
+        // test research nodes
+        grid.addCell(new Node(0,0));
+        grid.addCell(new ArrowCorner2x2(1, 0));
+        grid.addCell(new ArrowHead(2, -1));
+        grid.addCell(new Node(2,-2));
+        grid.addCell(new Node(-1,4));
     }
 
     public void handleScroll(double x, double y){
@@ -118,46 +128,43 @@ class Tab implements Renderable{
             512,
             512
         );
-        // research nodes
-        new Node(this, 0,0).render(guiGraphics, mouseX, mouseY, tickDelta);
-        new Node(this, 1,2).render(guiGraphics, mouseX, mouseY, tickDelta);
-        new Node(this, -2,3).render(guiGraphics, mouseX, mouseY, tickDelta);
-        new Node(this, -3,-3).render(guiGraphics, mouseX, mouseY, tickDelta);
-        new Node(this, -6,-3).render(guiGraphics, mouseX, mouseY, tickDelta);
+
+        // contains research nodes and their connections
+        grid.render(guiGraphics, mouseX, mouseY, tickDelta, scrollX, scrollY);
 
         graphics.disableCrop();
         graphics.pop();
     }
 }
 
-class Node implements Renderable{
+class Node extends GridRenderable {
     private static final ResourceLocation NODE = new ResourceLocation(Thaumcraft.MODID, "textures/gui/thaumonomicon/node.png");
-    private final Tab tab;
-    private final int x;
-    private final int y;
 
-    public Node(Tab tab, int x, int y) {
-        this.tab = tab;
-        this.x = x;
-        this.y = y;
+    public Node(int x, int y) {
+        super(NODE, x, y);
     }
+}
 
-    @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float tickDelta) {
-        final var graphics = new GuiGraphicsWrapper(guiGraphics);
-        var scrollX = tab.scrollX;
-        var scrollY = tab.scrollY;
-        var size = 48;
+class ArrowHead extends GridRenderable {
+    private static final ResourceLocation ARROW_HEAD = new ResourceLocation(Thaumcraft.MODID, "textures/gui/thaumonomicon/arrow_head.png");
 
-        graphics.push();
-        graphics.translateXY((float) -size /2, (float) -size /2);
-        graphics.drawSimpleTexture(
-            NODE,
-            (int) (size*x-scrollX),
-            (int) (size*y-scrollY),
-            size,
-            size
-        );
-        graphics.pop();
+    public ArrowHead(int x, int y) {
+        super(ARROW_HEAD, x, y);
+    }
+}
+
+class ArrowCorner1x1 extends GridRenderable {
+    private static final ResourceLocation CORNER = new ResourceLocation(Thaumcraft.MODID, "textures/gui/thaumonomicon/corner1.png");
+
+    public ArrowCorner1x1(int x, int y) {
+        super(CORNER, x, y);
+    }
+}
+
+class ArrowCorner2x2 extends GridRenderable {
+    private static final ResourceLocation CORNER = new ResourceLocation(Thaumcraft.MODID, "textures/gui/thaumonomicon/corner2.png");
+
+    public ArrowCorner2x2(int x, int y) {
+        super(CORNER, x, y, 2, 2);
     }
 }
