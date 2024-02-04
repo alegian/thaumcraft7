@@ -18,13 +18,14 @@ public class AuraNodeB extends TransparentBlock implements EntityBlock {
             .strength(2F)
             .sound(SoundType.WOOL)
             .noCollission()
+            .noOcclusion()
         );
     }
 
     @Override
     @SuppressWarnings("deprecation")
     public RenderShape getRenderShape(BlockState blockState) {
-        return RenderShape.INVISIBLE;
+        return RenderShape.ENTITYBLOCK_ANIMATED;
     }
 
     @Nullable

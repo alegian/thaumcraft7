@@ -22,6 +22,8 @@ public class TCItems {
         event.registerItem(TCCapabilities.VisStorage.ITEM, (itemStack, context)->new VisStorage(50, itemStack), IRON_WOOD_WAND);
     }
 
+    // "using" predicate to switch item models
+    // used in wand
     static {
         ItemProperties.registerGeneric(new ResourceLocation("thaumcraft7", "using"), (itemStack, clientLevel, livingEntity, seed) ->
             livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack
