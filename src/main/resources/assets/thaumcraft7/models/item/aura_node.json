@@ -1,5 +1,6 @@
 {
   "parent": "minecraft:item/generated",
+  "render_type": "translucent",
   "textures": {
     "layer0": "thaumcraft7:item/aura_node"
   }
