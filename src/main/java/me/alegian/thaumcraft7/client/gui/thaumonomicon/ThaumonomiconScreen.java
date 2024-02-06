@@ -151,7 +151,7 @@ class ArrowHead extends GridRenderable {
     private static final ResourceLocation ARROW_HEAD = new ResourceLocation(Thaumcraft.MODID, "textures/gui/thaumonomicon/arrow_head.png");
 
     public ArrowHead(int x, int y) {
-        super(ARROW_HEAD, x, y);
+        super(ARROW_HEAD, x, y, 1, 1, false, true);
     }
 }
 
@@ -159,7 +159,7 @@ class ArrowCorner1x1 extends GridRenderable {
     private static final ResourceLocation CORNER = new ResourceLocation(Thaumcraft.MODID, "textures/gui/thaumonomicon/corner1.png");
 
     public ArrowCorner1x1(int x, int y) {
-        super(CORNER, x, y, 2, 2, true);
+        super(CORNER, x, y, 2, 2, true, true);
     }
 }
 
@@ -167,6 +167,6 @@ class ArrowCorner2x2 extends GridRenderable {
     private static final ResourceLocation CORNER = new ResourceLocation(Thaumcraft.MODID, "textures/gui/thaumonomicon/corner2.png");
 
     public ArrowCorner2x2(int x, int y) {
-        super(CORNER, x, y, 4, 4, true);
+        super(CORNER, x, y, 4, 4, true, true);
     }
 }
