@@ -1,7 +1,7 @@
 package me.alegian.thaumcraft7.event;
 import me.alegian.thaumcraft7.Thaumcraft;
 import me.alegian.thaumcraft7.block.AuraNodeB;
-import me.alegian.thaumcraft7.blockentity.BlockEntityIndex;
+import me.alegian.thaumcraft7.blockentity.TCBlockEntities;
 import me.alegian.thaumcraft7.client.blockentity.renderer.AuraNodeBER;
 import me.alegian.thaumcraft7.client.gui.VisGuiOverlay;
 import net.minecraft.client.Minecraft;
@@ -24,7 +24,7 @@ public class ClientEvents {
 
         @SubscribeEvent
         public static void registerBlockEntityRenderers(EntityRenderersEvent.RegisterRenderers event){
-            event.registerBlockEntityRenderer(BlockEntityIndex.AURA_NODE.get(), ctx -> new AuraNodeBER());
+            event.registerBlockEntityRenderer(TCBlockEntities.AURA_NODE.get(), ctx -> new AuraNodeBER());
         }
     }
 
