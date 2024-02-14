@@ -84,7 +84,7 @@ class Tab implements Renderable{
         this.maxScrollY = maxScrollY;
         // test research nodes
         grid.addCell(new Node(0,0));
-        grid.addCell(new ArrowCorner3x3(0, -2));
+        grid.addCell(new ArrowCorner3x3(1, -1));
         grid.addCell(new ArrowHead(2, -1));
         grid.addCell(new Node(2,-2));
         grid.addCell(new ArrowCorner1x1(3, -2));
@@ -151,7 +151,7 @@ class ArrowHead extends GridRenderable {
     private static final ResourceLocation ARROW_HEAD = new ResourceLocation(Thaumcraft.MODID, "textures/gui/thaumonomicon/arrow_head.png");
 
     public ArrowHead(int x, int y) {
-        super(ARROW_HEAD, x, y, 1, 1, false);
+        super(ARROW_HEAD, x, y);
     }
 }
 
@@ -159,7 +159,7 @@ class ArrowCorner1x1 extends GridRenderable {
     private static final ResourceLocation CORNER = new ResourceLocation(Thaumcraft.MODID, "textures/gui/thaumonomicon/corner1x1.png");
 
     public ArrowCorner1x1(int x, int y) {
-        super(CORNER, x, y, 1, 1, false);
+        super(CORNER, x, y);
     }
 }
 
@@ -167,6 +167,6 @@ class ArrowCorner3x3 extends GridRenderable {
     private static final ResourceLocation CORNER = new ResourceLocation(Thaumcraft.MODID, "textures/gui/thaumonomicon/corner3x3.png");
 
     public ArrowCorner3x3(int x, int y) {
-        super(CORNER, x, y, 3, 3, false);
+        super(CORNER, x, y, 3, 3);
     }
 }

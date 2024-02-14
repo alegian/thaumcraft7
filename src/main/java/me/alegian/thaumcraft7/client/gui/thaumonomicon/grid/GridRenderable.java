@@ -10,19 +10,13 @@ public class GridRenderable {
     private final int y;
     private final int sizeX;
     private final int sizeY;
-    private final boolean flip;
 
-    public GridRenderable(ResourceLocation texture, int x, int y, int sizeX, int sizeY, boolean flip) {
+    public GridRenderable(ResourceLocation texture, int x, int y, int sizeX, int sizeY) {
         this.texture = texture;
         this.x = x;
         this.y = y;
         this.sizeX = sizeX;
         this.sizeY = sizeY;
-        this.flip = flip;
-    }
-
-    public GridRenderable(ResourceLocation texture, int x, int y, int sizeX, int sizeY) {
-        this(texture, x, y, sizeX, sizeY, false);
     }
 
     public GridRenderable(ResourceLocation texture, int x, int y) {
@@ -33,11 +27,10 @@ public class GridRenderable {
         final var graphics = new GuiGraphicsWrapper(guiGraphics);
 
         graphics.push();
-        if(flip) graphics.scaleXY(-1f, -1f);
         graphics.drawSimpleTexture(
                 texture,
-                (int) (cellSize*x-scrollX),
-                (int) (cellSize*y-scrollY),
+                (int) (cellSize*(x-sizeX/2f)-scrollX),
+                (int) (cellSize*(y-sizeY/2f)-scrollY),
                 cellSize*sizeX,
                 cellSize*sizeY
         );
