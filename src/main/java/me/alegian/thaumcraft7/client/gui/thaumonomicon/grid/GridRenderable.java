@@ -10,13 +10,27 @@ public class GridRenderable {
     private final int y;
     private final int sizeX;
     private final int sizeY;
+    private final int rotationDegrees;
 
-    public GridRenderable(ResourceLocation texture, int x, int y, int sizeX, int sizeY) {
+    public GridRenderable(ResourceLocation texture, int x, int y, int sizeX, int sizeY, boolean flip, int rotationDegrees) {
         this.texture = texture;
         this.x = x;
         this.y = y;
-        this.sizeX = sizeX;
-        this.sizeY = sizeY;
+        this.sizeX = flip ? -sizeX : sizeX;
+        this.sizeY = flip ? -sizeY : sizeY;
+        this.rotationDegrees = rotationDegrees;
+    }
+
+    public GridRenderable(ResourceLocation texture, int x, int y, int sizeX, int sizeY) {
+        this(texture, x, y, sizeX, sizeY, false, 0);
+    }
+
+    public GridRenderable(ResourceLocation texture, int x, int y, int rotationDegrees) {
+        this(texture, x, y, 1, 1, false, rotationDegrees);
+    }
+
+    public GridRenderable(ResourceLocation texture, int x, int y, boolean flip, int rotationDegrees) {
+        this(texture, x, y, 1, 1, flip, rotationDegrees);
     }
 
     public GridRenderable(ResourceLocation texture, int x, int y) {
@@ -25,12 +39,16 @@ public class GridRenderable {
 
     public void render(GuiGraphics guiGraphics, int cellSize, double scrollX, double scrollY, boolean hovered, float tickDelta) {
         final var graphics = new GuiGraphicsWrapper(guiGraphics);
+        double xPos = cellSize * (x - sizeX / 2f) - scrollX;
+        double yPos = cellSize * (y - sizeY / 2f) - scrollY;
 
         graphics.push();
+        graphics.rotateZ(rotationDegrees);
+        graphics.translateXY((float) xPos, (float) yPos);
         graphics.drawSimpleTexture(
                 texture,
-                (int) (cellSize*(x-sizeX/2f)-scrollX),
-                (int) (cellSize*(y-sizeY/2f)-scrollY),
+                0,
+                0,
                 cellSize*sizeX,
                 cellSize*sizeY
         );

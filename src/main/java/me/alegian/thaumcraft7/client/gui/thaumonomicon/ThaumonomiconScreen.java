@@ -84,16 +84,16 @@ class Tab implements Renderable{
         this.maxScrollY = maxScrollY;
         // test research nodes
         grid.addCell(new Node(0,0));
-        grid.addCell(new ArrowCorner3x3(1, -1));
-        grid.addCell(new ArrowHead(2, -1));
+        grid.addCell(new ArrowCorner3x3(1, -1, false, 90));
+        grid.addCell(new ArrowHead(2, -1, 0));
         grid.addCell(new Node(2,-2));
-        grid.addCell(new ArrowCorner1x1(3, -2));
-        grid.addCell(new ArrowHead(3, -2));
+        grid.addCell(new ArrowCorner1x1(3, -2, false, 0));
+        grid.addCell(new ArrowHead(3, -2, 0));
         grid.addCell(new Node(3,-3));
     }
 
     public void handleScroll(double x, double y){
-        scrollTo(scrollX-Math.pow(ZOOM_MULTIPLIER, zoom)*x, scrollY-Math.pow(ZOOM_MULTIPLIER, -zoom)*y);
+        scrollTo(scrollX-Math.pow(ZOOM_MULTIPLIER, zoom)*x, scrollY-Math.pow(ZOOM_MULTIPLIER, zoom)*y);
     }
 
     public void scrollTo(double x, double y){
@@ -150,23 +150,23 @@ class Node extends GridRenderable {
 class ArrowHead extends GridRenderable {
     private static final ResourceLocation ARROW_HEAD = new ResourceLocation(Thaumcraft.MODID, "textures/gui/thaumonomicon/arrow_head.png");
 
-    public ArrowHead(int x, int y) {
-        super(ARROW_HEAD, x, y);
+    public ArrowHead(int x, int y, int rotationDegrees) {
+        super(ARROW_HEAD, x, y, rotationDegrees);
     }
 }
 
 class ArrowCorner1x1 extends GridRenderable {
     private static final ResourceLocation CORNER = new ResourceLocation(Thaumcraft.MODID, "textures/gui/thaumonomicon/corner1x1.png");
 
-    public ArrowCorner1x1(int x, int y) {
-        super(CORNER, x, y);
+    public ArrowCorner1x1(int x, int y, boolean flip, int rotationDegrees) {
+        super(CORNER, x, y, flip, rotationDegrees);
     }
 }
 
 class ArrowCorner3x3 extends GridRenderable {
     private static final ResourceLocation CORNER = new ResourceLocation(Thaumcraft.MODID, "textures/gui/thaumonomicon/corner3x3.png");
 
-    public ArrowCorner3x3(int x, int y) {
-        super(CORNER, x, y, 3, 3);
+    public ArrowCorner3x3(int x, int y, boolean flip, int rotationDegrees) {
+        super(CORNER, x, y, 3, 3, flip, rotationDegrees);
     }
 }
