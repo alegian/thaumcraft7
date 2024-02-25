@@ -1,14 +1,12 @@
 package me.alegian.thaumcraft7.client.gui.thaumonomicon.widget;
 
-import me.alegian.thaumcraft7.Thaumcraft;
 import me.alegian.thaumcraft7.client.gui.GuiGraphicsWrapper;
+import me.alegian.thaumcraft7.client.texture.TCTextures;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Renderable;
-import net.minecraft.resources.ResourceLocation;
 
 // the wooden frame around the contents
 public class Frame implements Renderable {
-    private static final ResourceLocation FRAME = new ResourceLocation(Thaumcraft.MODID, "textures/gui/thaumonomicon/frame.png");
 
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float tickDelta) {
@@ -17,7 +15,7 @@ public class Frame implements Renderable {
         final var graphics = new GuiGraphicsWrapper(guiGraphics);
 
         graphics.drawSimpleTexture(
-                FRAME,
+                TCTextures.Thaumonomicon.FRAME.location(),
                 0,
                 0,
                 screenWidth,

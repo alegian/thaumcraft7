@@ -1,12 +1,11 @@
 package me.alegian.thaumcraft7.client.gui.thaumonomicon.widget;
 
-import me.alegian.thaumcraft7.Thaumcraft;
 import me.alegian.thaumcraft7.client.gui.GuiGraphicsWrapper;
 import me.alegian.thaumcraft7.client.gui.thaumonomicon.grid.Grid;
 import me.alegian.thaumcraft7.client.gui.thaumonomicon.grid.GridRenderable;
+import me.alegian.thaumcraft7.client.texture.TCTextures;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Renderable;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
 // represents the renderable content of a tab in the book
@@ -18,7 +17,6 @@ public class Tab implements Renderable {
     private float zoom = 2;
     private static final float ZOOM_MULTIPLIER = 1.25F;
     private final Grid grid = new Grid(48);
-    private static final ResourceLocation STARS = new ResourceLocation(Thaumcraft.MODID, "textures/gui/thaumonomicon/stars_layer1.png");
 
     public Tab(float maxScrollX, float maxScrollY) {
         this.maxScrollX = maxScrollX;
@@ -63,7 +61,7 @@ public class Tab implements Renderable {
         graphics.translateXY(screenWidth * 0.5f, screenHeight * 0.5f);
         graphics.scaleXY((float) Math.pow(ZOOM_MULTIPLIER, -zoom));
         graphics.drawTexture(
-                STARS,
+                TCTextures.Thaumonomicon.TAB_BG.location(),
                 -3840,
                 -2160,
                 0,
@@ -83,42 +81,32 @@ public class Tab implements Renderable {
     }
 
     private static class Node extends GridRenderable {
-        private static final ResourceLocation NODE = new ResourceLocation(Thaumcraft.MODID, "textures/gui/thaumonomicon/node.png");
-
         public Node(int x, int y) {
-            super(NODE, x, y);
+            super(TCTextures.Thaumonomicon.NODE.location(), x, y);
         }
     }
 
     private static class ArrowHead extends GridRenderable {
-        private static final ResourceLocation ARROW_HEAD = new ResourceLocation(Thaumcraft.MODID, "textures/gui/thaumonomicon/arrow_head.png");
-
         public ArrowHead(int x, int y, int rotationDegrees) {
-            super(ARROW_HEAD, x, y, rotationDegrees);
+            super(TCTextures.Thaumonomicon.ARROW_HEAD.location(), x, y, rotationDegrees);
         }
     }
 
     private static class Line extends GridRenderable {
-        private static final ResourceLocation LINE = new ResourceLocation(Thaumcraft.MODID, "textures/gui/thaumonomicon/line.png");
-
         public Line(int x, int y, int rotationDegrees) {
-            super(LINE, x, y, rotationDegrees);
+            super(TCTextures.Thaumonomicon.LINE.location(), x, y, rotationDegrees);
         }
     }
 
     private static class ArrowCorner1x1 extends GridRenderable {
-        private static final ResourceLocation CORNER = new ResourceLocation(Thaumcraft.MODID, "textures/gui/thaumonomicon/corner1x1.png");
-
         public ArrowCorner1x1(int x, int y, boolean flip, int rotationDegrees) {
-            super(CORNER, x, y, flip, rotationDegrees);
+            super(TCTextures.Thaumonomicon.CORNER_1X1.location(), x, y, flip, rotationDegrees);
         }
     }
 
     private static class ArrowCorner3x3 extends GridRenderable {
-        private static final ResourceLocation CORNER = new ResourceLocation(Thaumcraft.MODID, "textures/gui/thaumonomicon/corner3x3.png");
-
         public ArrowCorner3x3(int x, int y, boolean flip, int rotationDegrees) {
-            super(CORNER, x, y, 3, 3, flip, rotationDegrees);
+            super(TCTextures.Thaumonomicon.CORNER_3X3.location(), x, y, 3, 3, flip, rotationDegrees);
         }
     }
 }
