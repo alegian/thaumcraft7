@@ -4,6 +4,7 @@ import me.alegian.thaumcraft7.client.gui.GuiGraphicsWrapper;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 
+// represents any element drawn in the Grid, even if it doesn't directly snap to it
 public class GridRenderable {
     private final ResourceLocation texture;
     private final int x;

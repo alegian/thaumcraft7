@@ -5,6 +5,11 @@ import net.minecraft.client.gui.GuiGraphics;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+ * The invisible grid that renders the contents of the Thaumonomicon.
+ * The research nodes are by definition 1x1.
+ * Contains a list of GridRenderable objects that are drawn.
+ */
 public class Grid{
     private final int cellSize;
     private final List<GridRenderable> contents = new ArrayList<>();
