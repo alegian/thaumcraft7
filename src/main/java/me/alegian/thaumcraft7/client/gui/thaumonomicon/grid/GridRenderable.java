@@ -39,10 +39,11 @@ public class GridRenderable {
 
     public void render(GuiGraphics guiGraphics, int cellSize, double scrollX, double scrollY, boolean hovered, float tickDelta) {
         final var graphics = new GuiGraphicsWrapper(guiGraphics);
-        double xPos = cellSize * (x - sizeX / 2f) - scrollX;
-        double yPos = cellSize * (y - sizeY / 2f) - scrollY;
+        double xPos = cellSize * (x - sizeX / 2f);
+        double yPos = cellSize * (y - sizeY / 2f);
 
         graphics.push();
+        graphics.translateXY((float) -scrollX, (float) -scrollY);
         graphics.rotateZ(rotationDegrees);
         graphics.translateXY((float) xPos, (float) yPos);
         graphics.drawSimpleTexture(
