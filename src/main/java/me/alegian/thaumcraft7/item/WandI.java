@@ -1,7 +1,7 @@
 package me.alegian.thaumcraft7.item;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import me.alegian.thaumcraft7.api.capabilities.VisStorageHelper;
+import me.alegian.thaumcraft7.api.capability.VisStorageHelper;
 import me.alegian.thaumcraft7.block.AuraNodeB;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.player.LocalPlayer;

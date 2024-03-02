@@ -1,9 +1,9 @@
 package me.alegian.thaumcraft7.block;
 
 import me.alegian.thaumcraft7.Thaumcraft;
-import me.alegian.thaumcraft7.api.aspects.Aspect;
-import me.alegian.thaumcraft7.api.aspects.AspectList;
-import me.alegian.thaumcraft7.api.capabilities.TCCapabilities;
+import me.alegian.thaumcraft7.api.aspect.Aspect;
+import me.alegian.thaumcraft7.api.aspect.AspectList;
+import me.alegian.thaumcraft7.api.capability.TCCapabilities;
 import me.alegian.thaumcraft7.capability.AspectContainer;
 import me.alegian.thaumcraft7.item.TCItems;
 import net.minecraft.world.item.BlockItem;

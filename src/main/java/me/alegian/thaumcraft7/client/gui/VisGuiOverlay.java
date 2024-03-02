@@ -1,9 +1,9 @@
 package me.alegian.thaumcraft7.client.gui;
 
 import me.alegian.thaumcraft7.Thaumcraft;
-import me.alegian.thaumcraft7.api.aspects.Aspect;
-import me.alegian.thaumcraft7.api.aspects.AspectList;
-import me.alegian.thaumcraft7.api.capabilities.VisStorageHelper;
+import me.alegian.thaumcraft7.api.aspect.Aspect;
+import me.alegian.thaumcraft7.api.aspect.AspectList;
+import me.alegian.thaumcraft7.api.capability.VisStorageHelper;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.client.gui.overlay.IGuiOverlay;

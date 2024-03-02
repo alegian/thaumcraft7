@@ -1,4 +1,4 @@
-package me.alegian.thaumcraft7.api.capabilities;
+package me.alegian.thaumcraft7.api.capability;
 
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;

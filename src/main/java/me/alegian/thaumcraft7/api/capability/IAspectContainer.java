@@ -1,6 +1,6 @@
-package me.alegian.thaumcraft7.api.capabilities;
+package me.alegian.thaumcraft7.api.capability;
 
-import me.alegian.thaumcraft7.api.aspects.AspectList;
+import me.alegian.thaumcraft7.api.aspect.AspectList;
 
 /*
  * WARNING: this differs from the old Thaumcraft API

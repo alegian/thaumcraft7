@@ -1,6 +1,6 @@
 package me.alegian.thaumcraft7.capability;
 
-import me.alegian.thaumcraft7.api.capabilities.IVisStorage;
+import me.alegian.thaumcraft7.api.capability.IVisStorage;
 import me.alegian.thaumcraft7.attachment.TCAttachments;
 import net.neoforged.neoforge.attachment.AttachmentHolder;
 

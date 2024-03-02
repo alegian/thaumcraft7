@@ -1,4 +1,4 @@
-package me.alegian.thaumcraft7.api.capabilities;
+package me.alegian.thaumcraft7.api.capability;
 
 public interface IVisStorage {
     float extractVis(float maxExtract);

@@ -1,4 +1,4 @@
-package me.alegian.thaumcraft7.api.aspects;
+package me.alegian.thaumcraft7.api.aspect;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

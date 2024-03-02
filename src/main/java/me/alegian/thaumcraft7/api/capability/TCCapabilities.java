@@ -1,4 +1,4 @@
-package me.alegian.thaumcraft7.api.capabilities;
+package me.alegian.thaumcraft7.api.capability;
 
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.capabilities.BlockCapability;
