@@ -7,8 +7,8 @@
 	"elements": [
 		{
 			"name": "bottom cap",
-			"from": [7.2, 1, 7.2],
-			"to": [8.8, 2.6, 8.8],
+			"from": [7.4, 1.8, 7.4],
+			"to": [8.6, 3, 8.6],
 			"faces": {
 				"north": {"uv": [0, 0, 2, 2], "texture": "#0"},
 				"east": {"uv": [0, 0, 2, 2], "texture": "#0"},
@@ -20,8 +20,8 @@
 		},
 		{
 			"name": "top cap",
-			"from": [7.2, 15, 7.2],
-			"to": [8.8, 16.6, 8.8],
+			"from": [7.4, 15, 7.4],
+			"to": [8.6, 16.2, 8.6],
 			"faces": {
 				"north": {"uv": [0, 0, 2, 2], "texture": "#0"},
 				"east": {"uv": [0, 0, 2, 2], "texture": "#0"},
@@ -33,8 +33,8 @@
 		},
 		{
 			"name": "core",
-			"from": [7.4, 2, 7.4],
-			"to": [8.6, 16, 8.6],
+			"from": [7.5, 2.5, 7.5],
+			"to": [8.5, 15.5, 8.5],
 			"faces": {
 				"north": {"uv": [0, 0, 2, 16], "texture": "#1"},
 				"east": {"uv": [0, 0, 2, 16], "texture": "#1"},
@@ -45,6 +45,9 @@
 			}
 		}
 	],
+	"overrides": [
+		{"predicate": {"thaumcraft7:using": 1}, "model": "thaumcraft7:item/iron_wood_wand_using"}
+	],
 	"display": {
 		"gui": {
 			"rotation": [0, 0, -45]
@@ -52,13 +55,5 @@
 		"fixed": {
 			"rotation": [0, 0, 45]
 		}
-	},
-	"overrides": [
-		{
-			"predicate": {
-				"thaumcraft7:using": 1
-			},
-			"model": "thaumcraft7:item/iron_wood_wand_using"
-		}
-	]
+	}
 }
