@@ -31,7 +31,7 @@ public class ClientEvents {
     @EventBusSubscriber(modid = Thaumcraft.MODID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.GAME)
     public static class ClientForgeEvents{
         @SubscribeEvent
-        public static void playerTick(PlayerTickEvent event){
+        public static void playerTick(PlayerTickEvent.Pre event){
             VisGuiOverlay.update(event.getEntity());
         }
 

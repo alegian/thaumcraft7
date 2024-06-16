@@ -7,18 +7,22 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 
 public class VisDataComponent {
-    public record Vis(int value1, boolean value2) {}
+    public record Vis(float vis) {
+
+        public Vis(){
+            this(0);
+        }
+    }
 
     public static final Codec<Vis> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
-                    Codec.INT.fieldOf("value1").forGetter(Vis::value1),
-                    Codec.BOOL.fieldOf("value2").forGetter(Vis::value2)
+                    Codec.FLOAT.fieldOf("vis").forGetter(Vis::vis)
             ).apply(instance, Vis::new)
     );
 
     public static final StreamCodec<ByteBuf, Vis> STREAM_CODEC = StreamCodec.composite(
-            ByteBufCodecs.INT, Vis::value1,
-            ByteBufCodecs.BOOL, Vis::value2,
+            ByteBufCodecs.FLOAT,
+            Vis::vis,
             Vis::new
     );
 }
