@@ -26,10 +26,10 @@ public class Thaumcraft {
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(Thaumcraft::registerCapabilities);
 
-        TCBlocks.BLOCKS.register(modEventBus);
-        TCItems.ITEMS.register(modEventBus);
-        TCBlockEntities.BLOCK_ENTITIES.register(modEventBus);
-        TCAttachments.ATTACHMENTS.register(modEventBus);
+        TCBlocks.REGISTRAR.register(modEventBus);
+        TCItems.REGISTRAR.register(modEventBus);
+        TCBlockEntities.REGISTRAR.register(modEventBus);
+        TCAttachments.REGISTRAR.register(modEventBus);
 
         TCCreativeModeTabs.CREATIVE_MODE_TABS.register(modEventBus);
 
