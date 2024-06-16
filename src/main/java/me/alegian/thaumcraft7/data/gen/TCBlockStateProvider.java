@@ -1,4 +1,4 @@
-package me.alegian.thaumcraft7.datagen;
+package me.alegian.thaumcraft7.data.gen;
 
 import me.alegian.thaumcraft7.Thaumcraft;
 import me.alegian.thaumcraft7.block.TCBlocks;

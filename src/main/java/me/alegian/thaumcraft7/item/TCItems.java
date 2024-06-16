@@ -2,7 +2,7 @@ package me.alegian.thaumcraft7.item;
 
 import me.alegian.thaumcraft7.Thaumcraft;
 import me.alegian.thaumcraft7.api.capability.TCCapabilities;
-import me.alegian.thaumcraft7.capability.VisStorage;
+import me.alegian.thaumcraft7.data.capability.VisStorage;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;

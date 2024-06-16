@@ -4,7 +4,7 @@ import me.alegian.thaumcraft7.Thaumcraft;
 import me.alegian.thaumcraft7.api.aspect.Aspect;
 import me.alegian.thaumcraft7.api.aspect.AspectList;
 import me.alegian.thaumcraft7.api.capability.TCCapabilities;
-import me.alegian.thaumcraft7.capability.AspectContainer;
+import me.alegian.thaumcraft7.data.capability.AspectContainer;
 import me.alegian.thaumcraft7.item.TCItems;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;

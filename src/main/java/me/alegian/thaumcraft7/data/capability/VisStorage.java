@@ -1,7 +1,7 @@
-package me.alegian.thaumcraft7.capability;
+package me.alegian.thaumcraft7.data.capability;
 
 import me.alegian.thaumcraft7.api.capability.IVisStorage;
-import me.alegian.thaumcraft7.attachment.TCAttachments;
+import me.alegian.thaumcraft7.data.attachment.TCAttachments;
 import net.neoforged.neoforge.attachment.AttachmentHolder;
 
 public class VisStorage implements IVisStorage{

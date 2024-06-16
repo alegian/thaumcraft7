@@ -1,4 +1,4 @@
-package me.alegian.thaumcraft7.capability;
+package me.alegian.thaumcraft7.data.capability;
 
 import me.alegian.thaumcraft7.api.aspect.AspectList;
 import me.alegian.thaumcraft7.api.capability.IAspectContainer;

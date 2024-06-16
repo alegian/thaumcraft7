@@ -1,7 +1,7 @@
 package me.alegian.thaumcraft7;
 
 import com.mojang.logging.LogUtils;
-import me.alegian.thaumcraft7.attachment.TCAttachments;
+import me.alegian.thaumcraft7.data.attachment.TCAttachments;
 import me.alegian.thaumcraft7.block.TCBlocks;
 import me.alegian.thaumcraft7.blockentity.TCBlockEntities;
 import me.alegian.thaumcraft7.item.TCCreativeModeTabs;

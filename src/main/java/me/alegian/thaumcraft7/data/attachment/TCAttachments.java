@@ -1,4 +1,4 @@
-package me.alegian.thaumcraft7.attachment;
+package me.alegian.thaumcraft7.data.attachment;
 
 import me.alegian.thaumcraft7.Thaumcraft;
 import net.minecraft.core.HolderLookup;
