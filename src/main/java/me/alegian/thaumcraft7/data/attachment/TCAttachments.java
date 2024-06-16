@@ -11,7 +11,7 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import java.util.function.Supplier;
 
 public class TCAttachments {
-    public static final DeferredRegister<AttachmentType<?>> ATTACHMENTS = DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, Thaumcraft.MODID);
+    public static final DeferredRegister<AttachmentType<?>> REGISTRAR = DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, Thaumcraft.MODID);
 
     public static class Vis implements INBTSerializable<FloatTag> {
         public float vis = 0;
@@ -27,6 +27,6 @@ public class TCAttachments {
         }
     }
 
-    public static final Supplier<AttachmentType<Vis>> VIS = ATTACHMENTS.register(
+    public static final Supplier<AttachmentType<Vis>> VIS = REGISTRAR.register(
             "vis", () -> AttachmentType.serializable(Vis::new).build());
 }
