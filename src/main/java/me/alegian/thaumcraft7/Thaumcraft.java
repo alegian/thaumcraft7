@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import me.alegian.thaumcraft7.data.attachment.TCAttachments;
 import me.alegian.thaumcraft7.block.TCBlocks;
 import me.alegian.thaumcraft7.blockentity.TCBlockEntities;
+import me.alegian.thaumcraft7.data.component.TCDataComponents;
 import me.alegian.thaumcraft7.item.TCCreativeModeTabs;
 import me.alegian.thaumcraft7.item.TCItems;
 import net.neoforged.bus.api.IEventBus;
@@ -30,6 +31,7 @@ public class Thaumcraft {
         TCItems.REGISTRAR.register(modEventBus);
         TCBlockEntities.REGISTRAR.register(modEventBus);
         TCAttachments.REGISTRAR.register(modEventBus);
+        TCDataComponents.REGISTRAR.register(modEventBus);
 
         TCCreativeModeTabs.CREATIVE_MODE_TABS.register(modEventBus);
 
