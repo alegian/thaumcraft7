@@ -1,6 +1,7 @@
 package me.alegian.thaumcraft7.attachment;
 
 import me.alegian.thaumcraft7.Thaumcraft;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.FloatTag;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.common.util.INBTSerializable;
@@ -16,12 +17,12 @@ public class TCAttachments {
         public float vis = 0;
 
         @Override
-        public FloatTag serializeNBT() {
+        public FloatTag serializeNBT(HolderLookup.Provider provider) {
             return FloatTag.valueOf(vis);
         }
 
         @Override
-        public void deserializeNBT(FloatTag nbt) {
+        public void deserializeNBT(HolderLookup.Provider provider, FloatTag nbt) {
             vis = nbt.getAsFloat();
         }
     }

@@ -107,7 +107,7 @@ public class WandI extends Item {
                         .translate(0, 0.5F, 0);
                 }
 
-                poseStack.mulPoseMatrix(transformMatrix);
+                poseStack.mulPose(transformMatrix);
                 return using;
             }
         });

@@ -8,17 +8,17 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
-import net.neoforged.neoforge.client.event.RegisterGuiOverlaysEvent;
+import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import net.neoforged.neoforge.client.event.RenderHighlightEvent;
-import net.neoforged.neoforge.event.TickEvent;
+import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
 public class ClientEvents {
-    @Mod.EventBusSubscriber(modid = Thaumcraft.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
+    @EventBusSubscriber(modid = Thaumcraft.MODID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
     public static class ClientModEvents{
         @SubscribeEvent
-        public static void registerGuiOverlays(RegisterGuiOverlaysEvent event){
+        public static void registerGuiOverlays(RegisterGuiLayersEvent event){
             event.registerAboveAll(new ResourceLocation(Thaumcraft.MODID, "vis_overlay"), VisGuiOverlay.VIS_OVERLAY);
         }
 
@@ -28,11 +28,11 @@ public class ClientEvents {
         }
     }
 
-    @Mod.EventBusSubscriber(modid = Thaumcraft.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
+    @EventBusSubscriber(modid = Thaumcraft.MODID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.GAME)
     public static class ClientForgeEvents{
         @SubscribeEvent
-        public static void playerTick(TickEvent.PlayerTickEvent event){
-            VisGuiOverlay.update(event.player);
+        public static void playerTick(PlayerTickEvent event){
+            VisGuiOverlay.update(event.getEntity());
         }
 
         @SubscribeEvent

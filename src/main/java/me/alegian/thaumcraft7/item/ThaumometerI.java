@@ -84,7 +84,7 @@ public class ThaumometerI extends Item {
                 if (player.getUseItem() == itemInHand && player.isUsingItem()) {
                     int i = arm == HumanoidArm.RIGHT ? 1 : -1;
                     var transformMatrix = new Matrix4f().translate(i * 0.56F, -0.53F, -0.72F);
-                    poseStack.mulPoseMatrix(transformMatrix);
+                    poseStack.mulPose(transformMatrix);
                     return true;
                 }
                 return false;

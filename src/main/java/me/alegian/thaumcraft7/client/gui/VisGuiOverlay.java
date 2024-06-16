@@ -4,9 +4,9 @@ import me.alegian.thaumcraft7.Thaumcraft;
 import me.alegian.thaumcraft7.api.aspect.Aspect;
 import me.alegian.thaumcraft7.api.aspect.AspectList;
 import me.alegian.thaumcraft7.api.capability.VisStorageHelper;
+import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.client.gui.overlay.IGuiOverlay;
 
 
 public class VisGuiOverlay {
@@ -17,9 +17,10 @@ public class VisGuiOverlay {
     public static boolean visible = false;
     public static AspectList vis;
 
-    public static final IGuiOverlay VIS_OVERLAY = ((gui, guiGraphics, partialTick, screenWidth, screenHeight) -> {
+    public static final LayeredDraw.Layer VIS_OVERLAY = ((guiGraphics, partialTick) -> {
         if(visible && vis!=null){
             float scale = 0.12f;
+            int screenHeight = guiGraphics.guiHeight();
             float diskSize = (screenHeight*scale);
             float vialSize = 0.7f*diskSize;
             final var graphics = new GuiGraphicsWrapper(guiGraphics);

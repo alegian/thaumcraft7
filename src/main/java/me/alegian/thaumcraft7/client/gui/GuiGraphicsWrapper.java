@@ -56,19 +56,19 @@ public class GuiGraphicsWrapper {
     }
 
     public void translateXY(float x, float y){
-        graphics.pose().mulPoseMatrix(new Matrix4f().translate(x, y, 0));
+        graphics.pose().mulPose(new Matrix4f().translate(x, y, 0));
     }
 
     public void rotateZ(float deg){
-        graphics.pose().mulPoseMatrix(new Matrix4f().rotateZ((float) (deg/180 * Math.PI)));
+        graphics.pose().mulPose(new Matrix4f().rotateZ((float) (deg/180 * Math.PI)));
     }
 
     public void scaleXY(float scale){
-        graphics.pose().mulPoseMatrix(new Matrix4f().scale(scale, scale, 1));
+        graphics.pose().mulPose(new Matrix4f().scale(scale, scale, 1));
     }
 
     public void scaleXY(float scaleX, float scaleY){
-        graphics.pose().mulPoseMatrix(new Matrix4f().scale(scaleX, scaleY, 1));
+        graphics.pose().mulPose(new Matrix4f().scale(scaleX, scaleY, 1));
     }
 
     public void push(){
