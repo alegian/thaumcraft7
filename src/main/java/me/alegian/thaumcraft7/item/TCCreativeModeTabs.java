@@ -20,6 +20,7 @@ public class TCCreativeModeTabs {
                 .displayItems((parameters, output) -> {
                     output.accept(TCBlocks.EXAMPLE_BLOCK.get());
                     output.accept(TCBlocks.AURA_NODE_BLOCK.get());
+                    output.accept(TCBlocks.CRUCIBLE.get());
 
                     output.accept(TCItems.IRON_CAP.get());
                     output.accept(TCItems.IRON_WOOD_WAND.get());
