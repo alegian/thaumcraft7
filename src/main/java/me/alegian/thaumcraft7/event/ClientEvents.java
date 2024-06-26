@@ -1,15 +1,18 @@
 package me.alegian.thaumcraft7.event;
 import me.alegian.thaumcraft7.Thaumcraft;
 import me.alegian.thaumcraft7.block.AuraNodeB;
+import me.alegian.thaumcraft7.block.TCBlocks;
 import me.alegian.thaumcraft7.blockentity.TCBlockEntities;
 import me.alegian.thaumcraft7.client.blockentity.renderer.AuraNodeBER;
 import me.alegian.thaumcraft7.client.gui.VisGuiOverlay;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import net.neoforged.neoforge.client.event.RenderHighlightEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
@@ -25,6 +28,12 @@ public class ClientEvents {
         @SubscribeEvent
         public static void registerBlockEntityRenderers(EntityRenderersEvent.RegisterRenderers event){
             event.registerBlockEntityRenderer(TCBlockEntities.AURA_NODE.get(), ctx -> new AuraNodeBER());
+        }
+
+        @SubscribeEvent
+        public static void registerBlockColorHandlers(RegisterColorHandlersEvent.Block event) {
+            event.register((state, level, pos, tintIndex) -> level != null && pos != null ? BiomeColors.getAverageWaterColor(level, pos) : -1,
+                    TCBlocks.WATER_CRUCIBLE.get());
         }
     }
 
