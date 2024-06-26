@@ -24,7 +24,7 @@ public class LayeredCrucibleB extends LayeredCauldronBlock {
 
     public static void lowerFillLevel(BlockState pState, Level pLevel, BlockPos pPos) {
         int i = pState.getValue(LEVEL) - 1;
-        BlockState blockstate = i == 0 ? TCBlocks.WATER_CRUCIBLE.get().defaultBlockState() : pState.setValue(LEVEL, Integer.valueOf(i));
+        BlockState blockstate = i == 0 ? TCBlocks.CRUCIBLE.get().defaultBlockState() : pState.setValue(LEVEL, i);
         pLevel.setBlockAndUpdate(pPos, blockstate);
         pLevel.gameEvent(GameEvent.BLOCK_CHANGE, pPos, GameEvent.Context.of(blockstate));
     }
