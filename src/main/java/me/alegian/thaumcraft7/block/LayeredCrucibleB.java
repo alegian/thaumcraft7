@@ -5,6 +5,7 @@ import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
@@ -20,9 +21,13 @@ public class LayeredCrucibleB extends LayeredCauldronBlock {
 
     @Override
     protected void entityInside(BlockState pState, Level pLevel, BlockPos pPos, Entity pEntity) {
-        pEntity.kill();
-        pLevel.playSound(pEntity, pPos, SoundEvents.GENERIC_SPLASH, SoundSource.BLOCKS, 1F, 1.0F);
-        lowerFillLevel(pState, pLevel, pPos);
+        if (!pLevel.isClientSide && pEntity instanceof ItemEntity && this.isEntityInsideContent(pState, pPos, pEntity)) {
+            if (pEntity.mayInteract(pLevel, pPos)) {
+                pEntity.kill();
+                pLevel.playSound(pEntity, pPos, SoundEvents.GENERIC_SPLASH, SoundSource.BLOCKS, 1F, 1.0F);
+                lowerFillLevel(pState, pLevel, pPos);
+            }
+        }
     }
 
     public static void lowerFillLevel(BlockState pState, Level pLevel, BlockPos pPos) {
