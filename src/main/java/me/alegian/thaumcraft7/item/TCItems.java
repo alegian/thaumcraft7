@@ -5,6 +5,8 @@ import me.alegian.thaumcraft7.api.capability.TCCapabilities;
 import me.alegian.thaumcraft7.data.capability.VisStorage;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ArmorMaterials;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -17,6 +19,7 @@ public class TCItems {
     public static final DeferredItem<WandI> IRON_WOOD_WAND = REGISTRAR.registerItem("iron_wood_wand", WandI::new, new Item.Properties().stacksTo(1));
     public static final DeferredItem<ThaumometerI> THAUMOMETER = REGISTRAR.registerItem("thaumometer", ThaumometerI::new);
     public static final DeferredItem<ThaumonomiconI> THAUMONOMICON = REGISTRAR.registerItem("thaumonomicon", ThaumonomiconI::new);
+    public static final DeferredItem<ArmorItem> GOGGLES = REGISTRAR.registerItem("goggles", (props) -> new ArmorItem(ArmorMaterials.LEATHER, ArmorItem.Type.HELMET, props));
 
     public static void registerCapabilities(RegisterCapabilitiesEvent event){
         event.registerItem(TCCapabilities.VisStorage.ITEM, (itemStack, context)->new VisStorage(50, itemStack), IRON_WOOD_WAND);

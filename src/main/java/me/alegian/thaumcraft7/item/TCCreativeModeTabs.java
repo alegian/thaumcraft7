@@ -26,6 +26,7 @@ public class TCCreativeModeTabs {
                     output.accept(TCItems.IRON_WOOD_WAND.get());
                     output.accept(TCItems.THAUMOMETER.get());
                     output.accept(TCItems.THAUMONOMICON.get());
+                    output.accept(TCItems.GOGGLES.get());
                 })
                 .build()
         );
