@@ -7,6 +7,7 @@ import me.alegian.thaumcraft7.blockentity.TCBlockEntities;
 import me.alegian.thaumcraft7.data.component.TCDataComponents;
 import me.alegian.thaumcraft7.item.TCCreativeModeTabs;
 import me.alegian.thaumcraft7.item.TCItems;
+import me.alegian.thaumcraft7.item.equipable.TCArmorMaterials;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
@@ -27,6 +28,7 @@ public class Thaumcraft {
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(Thaumcraft::registerCapabilities);
 
+        TCArmorMaterials.REGISTRAR.register(modEventBus);
         TCBlocks.REGISTRAR.register(modEventBus);
         TCItems.REGISTRAR.register(modEventBus);
         TCBlockEntities.REGISTRAR.register(modEventBus);
