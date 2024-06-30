@@ -16,6 +16,7 @@ public class AspectsParticle extends TextureSheetParticle {
         super(pLevel, pX, pY, pZ);
         this.gravity = 0;
         this.lifetime = Integer.MAX_VALUE;
+        this.quadSize = .4f;
         this.pickSprite(spriteSet);
     }
 
