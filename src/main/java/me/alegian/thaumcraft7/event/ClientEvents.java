@@ -9,8 +9,6 @@ import me.alegian.thaumcraft7.particle.AspectsParticle;
 import me.alegian.thaumcraft7.particle.TCParticleTypes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BiomeColors;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -57,7 +55,11 @@ public class ClientEvents {
             if(level != null) {
                 var blockPos = event.getTarget().getBlockPos();
                 var block = level.getBlockState(blockPos).getBlock();
-                if (block instanceof AuraNodeB) level.addParticle(TCParticleTypes.ASPECTS.get(), blockPos.getX()+0.5, blockPos.getY()+1.5, blockPos.getZ()+0.5, 0, 0, 0);
+                if (block instanceof AuraNodeB) {
+                    AspectsParticle.toRemove = false;
+                    level.addParticle(TCParticleTypes.ASPECTS.get(), blockPos.getX() + 0.5, blockPos.getY() + 1.25, blockPos.getZ() + 0.5, 0, 0, 0);
+                }
+                else AspectsParticle.toRemove = true;
 
                 if (level.getBlockState(event.getTarget().getBlockPos()).getBlock() instanceof AuraNodeB)
                     event.setCanceled(true);

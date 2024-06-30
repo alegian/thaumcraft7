@@ -7,10 +7,20 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
 public class AspectsParticle extends TextureSheetParticle {
+    public static boolean toRemove = false;
+
     public AspectsParticle(ClientLevel pLevel, double pX, double pY, double pZ) {
         super(pLevel, pX, pY, pZ);
         this.gravity = 0;
         this.lifetime = Integer.MAX_VALUE;
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if(toRemove) {
+            this.remove();
+        }
     }
 
     @Override
