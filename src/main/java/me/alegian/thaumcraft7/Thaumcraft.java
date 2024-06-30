@@ -8,6 +8,7 @@ import me.alegian.thaumcraft7.data.component.TCDataComponents;
 import me.alegian.thaumcraft7.item.TCCreativeModeTabs;
 import me.alegian.thaumcraft7.item.TCItems;
 import me.alegian.thaumcraft7.item.equipable.TCArmorMaterials;
+import me.alegian.thaumcraft7.particle.TCParticleTypes;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
@@ -34,6 +35,7 @@ public class Thaumcraft {
         TCBlockEntities.REGISTRAR.register(modEventBus);
         TCAttachments.REGISTRAR.register(modEventBus);
         TCDataComponents.REGISTRAR.register(modEventBus);
+        TCParticleTypes.REGISTRAR.register(modEventBus);
 
         TCCreativeModeTabs.CREATIVE_MODE_TABS.register(modEventBus);
 
