@@ -2,24 +2,40 @@ package me.alegian.thaumcraft7.particle;
 
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
 public class AspectsParticle extends TextureSheetParticle {
-    public static boolean toRemove = false;
+    public static boolean kill = false;
+    public static BlockPos blockPos = null;
+    public static AspectsParticle instance = null;
 
-    public AspectsParticle(ClientLevel pLevel, double pX, double pY, double pZ) {
+    private AspectsParticle(ClientLevel pLevel, double pX, double pY, double pZ, SpriteSet spriteSet) {
         super(pLevel, pX, pY, pZ);
         this.gravity = 0;
         this.lifetime = Integer.MAX_VALUE;
+        this.pickSprite(spriteSet);
+    }
+
+    public static AspectsParticle getInstance(ClientLevel pLevel, double pX, double pY, double pZ, SpriteSet spriteSet) {
+        if(instance == null){
+            instance = new AspectsParticle(pLevel, pX, pY, pZ, spriteSet);
+        }else{
+            instance.x = pX;
+            instance.y = pY;
+            instance.z = pZ;
+        }
+        return instance;
     }
 
     @Override
     public void tick() {
         super.tick();
-        if(toRemove) {
+        if(kill) {
             this.remove();
+            instance = null;
         }
     }
 
@@ -47,9 +63,7 @@ public class AspectsParticle extends TextureSheetParticle {
                 double pYSpeed,
                 double pZSpeed
         ) {
-            AspectsParticle particle = new AspectsParticle(pLevel, pX, pY, pZ);
-            particle.pickSprite(this.spriteSet);
-            return particle;
+            return getInstance(pLevel, pX, pY, pZ, spriteSet);
         }
     }
 }
