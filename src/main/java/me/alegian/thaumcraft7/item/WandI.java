@@ -3,6 +3,7 @@ package me.alegian.thaumcraft7.item;
 import com.mojang.blaze3d.vertex.PoseStack;
 import me.alegian.thaumcraft7.api.capability.VisStorageHelper;
 import me.alegian.thaumcraft7.block.AuraNodeB;
+import me.alegian.thaumcraft7.enumextension.WandArmPose;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
@@ -68,21 +69,11 @@ public class WandI extends Item {
     @Override
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
         consumer.accept(new IClientItemExtensions() {
-            private static final HumanoidModel.ArmPose WAND_POSE = HumanoidModel.ArmPose.create("WAND", false, (model, entity, arm) -> {
-                model.rightArm.xRot = (float) (-0.8 * Math.PI /2);
-                model.leftArm.xRot = (float) (-0.8 * Math.PI /2);
-                if (arm == HumanoidArm.RIGHT) {
-                    model.leftArm.yRot = (float) (Math.PI /4);
-                } else {
-                    model.rightArm.yRot = (float) (Math.PI /4);
-                }
-            });
-
             @Override
             public HumanoidModel.ArmPose getArmPose(LivingEntity entityLiving, InteractionHand hand, ItemStack itemStack) {
                 if (!itemStack.isEmpty()) {
                     if (entityLiving.getUsedItemHand() == hand && entityLiving.getUseItemRemainingTicks() > 0) {
-                        return WAND_POSE;
+                        return WandArmPose.value();
                     }
                 }
                 return HumanoidModel.ArmPose.EMPTY;

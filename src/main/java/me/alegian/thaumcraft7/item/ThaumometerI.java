@@ -3,6 +3,7 @@ package me.alegian.thaumcraft7.item;
 import com.mojang.blaze3d.vertex.PoseStack;
 import me.alegian.thaumcraft7.api.capability.AspectContainerHelper;
 import me.alegian.thaumcraft7.block.AuraNodeB;
+import me.alegian.thaumcraft7.enumextension.ThaumometerArmPose;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
@@ -66,16 +67,9 @@ public class ThaumometerI extends Item {
     @Override
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
         consumer.accept(new IClientItemExtensions() {
-            private static final HumanoidModel.ArmPose THAUMOMETER_POSE = HumanoidModel.ArmPose.create("THAUMOMETER", true, (model, entity, arm) -> {
-                model.rightArm.xRot = (float) (-0.8 * Math.PI /2);
-                model.leftArm.xRot = (float) (-0.8 * Math.PI /2);
-                model.leftArm.yRot = (float) (Math.PI /8);
-                model.rightArm.yRot = (float) (-1*Math.PI /8);
-            });
-
             @Override
             public HumanoidModel.ArmPose getArmPose(LivingEntity entityLiving, InteractionHand hand, ItemStack itemStack) {
-                return THAUMOMETER_POSE;
+                return ThaumometerArmPose.value();
             }
 
             @Override
