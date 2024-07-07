@@ -12,17 +12,14 @@ public class BERHelper {
         // what type of data our vertices contain
         RenderSystem.setShader(GameRenderer::getPositionColorShader);
 
-        // origin
-        Matrix4f matrix = poseStack.last().pose();
-
         Tesselator t = Tesselator.getInstance();
         BufferBuilder builder = t.begin(VertexFormat.Mode.TRIANGLES, DefaultVertexFormat.POSITION_COLOR);
 
         var andleDelta = 2 * Math.PI / triangleResolution;
         for (int i = 0; i < triangleResolution; i++) {
-            builder.addVertex(matrix, (float) Math.cos(andleDelta * i)*radius, (float) Math.sin(andleDelta * i)*radius, 0).setColor(r, g, b, 0.2f);
-            builder.addVertex(matrix, 0, 0, 0).setColor(r, g, b, 0.2f);
-            builder.addVertex(matrix, (float) Math.cos(andleDelta * (i + 1))*radius, (float) Math.sin(andleDelta * (i + 1))*radius, 0).setColor(r, g, b, 0.2f);
+            builder.addVertex(poseStack.last(), (float) Math.cos(andleDelta * i)*radius, (float) Math.sin(andleDelta * i)*radius, 0).setColor(r, g, b, 0.2f);
+            builder.addVertex(poseStack.last(), 0, 0, 0).setColor(r, g, b, 0.2f);
+            builder.addVertex(poseStack.last(), (float) Math.cos(andleDelta * (i + 1))*radius, (float) Math.sin(andleDelta * (i + 1))*radius, 0).setColor(r, g, b, 0.2f);
         }
 
         BufferUploader.drawWithShader(builder.buildOrThrow());
