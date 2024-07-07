@@ -2,8 +2,10 @@ package me.alegian.thaumcraft7.client.blockentity.renderer;
 
 import com.mojang.blaze3d.vertex.*;
 import me.alegian.thaumcraft7.blockentity.AuraNodeBE;
+import me.alegian.thaumcraft7.client.TCRenderTypes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -17,14 +19,18 @@ public class AuraNodeBER implements BlockEntityRenderer<AuraNodeBE> {
         poseStack.pushPose();
 
         // at the center of the block
-        poseStack.translate(0.5f, 0.5f, 0.5f);
+        //poseStack.translate(0.5f, 0.5f, 0.5f);
+        VertexConsumer buffer = bufferSource.getBuffer(RenderType.DEBUG_FILLED_BOX);
+        buffer.addVertex(poseStack.last(), 0, 0, 0).setColor(1, 0, 0, .5f);
+        buffer.addVertex(poseStack.last(), 0, 0, 1).setColor(1, 0, 0, .5f);
+        buffer.addVertex(poseStack.last(), 1, 1, 0.5f).setColor(1, 0, 0, .5f);
 
         // follows the camera like a particle
         Quaternionf rotation = Minecraft.getInstance().gameRenderer.getMainCamera().rotation();
         poseStack.mulPose(rotation);
 
-        BERHelper.renderAuraNodeLayer(poseStack, 0.45f, 16, 0, 0, 1);
-        BERHelper.renderAuraNodeLayer(poseStack, 0.2f, 16, 0, 1, 1);
+        BERHelper.renderAuraNodeLayer(poseStack, bufferSource, 0.45f, 16, 0, 0, 1);
+        BERHelper.renderAuraNodeLayer(poseStack, bufferSource, 0.2f, 16, 0, 1, 1);
 
         poseStack.popPose();
     }
