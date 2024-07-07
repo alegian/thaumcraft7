@@ -1,21 +1,21 @@
 {
   "entries": [
     {
-      "enum": "net/minecraft/client/model/HumanoidModel.ArmPose",
+      "enum": "net/minecraft/client/model/HumanoidModel$ArmPose",
       "name": "thaumcraft7_WAND",
-      "constructor": "(BLnet/neoforged/neoforge/client/IArmPoseTransformer;)V",
+      "constructor": "(ZLnet/neoforged/neoforge/client/IArmPoseTransformer;)V",
       "parameters": {
         "class": "me/alegian/thaumcraft7/enumextension/WandArmPose",
-        "method": "getParameters"
+        "field": "ENUM_PARAMS"
       }
     },
     {
-      "enum": "net/minecraft/client/model/HumanoidModel.ArmPose",
+      "enum": "net/minecraft/client/model/HumanoidModel$ArmPose",
       "name": "thaumcraft7_THAUMOMETER",
-      "constructor": "(BLnet/neoforged/neoforge/client/IArmPoseTransformer;)V",
+      "constructor": "(ZLnet/neoforged/neoforge/client/IArmPoseTransformer;)V",
       "parameters": {
         "class": "me/alegian/thaumcraft7/enumextension/ThaumometerArmPose",
-        "method": "getParameters"
+        "field": "ENUM_PARAMS"
       }
     }
   ]

@@ -21,6 +21,7 @@ import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import org.joml.Matrix4f;
 
+import java.util.Arrays;
 import java.util.function.Consumer;
 
 public class WandI extends Item {
