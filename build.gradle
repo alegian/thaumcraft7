@@ -49,9 +49,16 @@ runs {
         modSource project.sourceSets.main
     }
 
-    client {
-        // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
+    // multiple client runs to test multiplayer
+    client1 {
+        configure('client')
         systemProperty 'forge.enabledGameTestNamespaces', project.mod_id
+        programArguments.addAll '--username', 'alegian'
+    }
+    client2 {
+        configure('client')
+        systemProperty 'forge.enabledGameTestNamespaces', project.mod_id
+        programArguments.addAll '--username', 'azanor'
     }
 
     server {
