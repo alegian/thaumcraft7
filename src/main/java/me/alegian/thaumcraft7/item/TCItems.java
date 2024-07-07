@@ -29,7 +29,7 @@ public class TCItems {
     // "using" predicate to switch item models
     // used in wand
     static {
-        ItemProperties.registerGeneric(new ResourceLocation("thaumcraft7", "using"), (itemStack, clientLevel, livingEntity, seed) ->
+        ItemProperties.registerGeneric( ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "using"), (itemStack, clientLevel, livingEntity, seed) ->
             livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack
             ? 1.0F : 0.0F
         );

@@ -1,5 +1,6 @@
 package me.alegian.thaumcraft7.api.aspect;
 
+import me.alegian.thaumcraft7.Thaumcraft;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.LinkedHashMap;
@@ -28,7 +29,7 @@ public class Aspect {
      * Shortcut used for the default Thaumcraft Aspects.
      */
     public Aspect(String id, int color, Aspect[] components){
-       this(id, color, components, new ResourceLocation("thaumcraft7", "aspects/"+id));
+       this(id, color, components, ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "aspects/"+id));
     }
 
     public boolean isPrimal(){

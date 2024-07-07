@@ -54,7 +54,7 @@ public class ThaumometerI extends Item {
     }
 
     @Override
-    public int getUseDuration(ItemStack itemStack) {
+    public int getUseDuration(ItemStack pStack, LivingEntity pEntity) {
         return 72000;
     }
 

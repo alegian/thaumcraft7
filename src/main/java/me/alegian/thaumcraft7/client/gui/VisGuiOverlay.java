@@ -10,9 +10,9 @@ import net.minecraft.world.entity.player.Player;
 
 
 public class VisGuiOverlay {
-    private static final ResourceLocation DISK = new ResourceLocation(Thaumcraft.MODID, "textures/gui/overlay/disk.png");
-    private static final ResourceLocation VIAL = new ResourceLocation(Thaumcraft.MODID, "textures/gui/overlay/vial.png");
-    private static final ResourceLocation VIAL_CONTENT = new ResourceLocation(Thaumcraft.MODID, "textures/gui/overlay/vial_content.png");
+    private static final ResourceLocation DISK = ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "textures/gui/overlay/disk.png");
+    private static final ResourceLocation VIAL = ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "textures/gui/overlay/vial.png");
+    private static final ResourceLocation VIAL_CONTENT = ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "textures/gui/overlay/vial_content.png");
 
     public static boolean visible = false;
     public static AspectList vis;

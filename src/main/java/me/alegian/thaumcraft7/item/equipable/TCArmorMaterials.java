@@ -26,7 +26,7 @@ public class TCArmorMaterials {
             Ingredient::of,
             List.of(
                     new ArmorMaterial.Layer(
-                            new ResourceLocation(Thaumcraft.MODID, "goggles")
+                            ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "goggles")
                     )
             ),
             0,

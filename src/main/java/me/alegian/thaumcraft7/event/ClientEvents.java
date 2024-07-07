@@ -22,7 +22,7 @@ public class ClientEvents {
     public static class ClientModEvents{
         @SubscribeEvent
         public static void registerGuiOverlays(RegisterGuiLayersEvent event){
-            event.registerAboveAll(new ResourceLocation(Thaumcraft.MODID, "vis_overlay"), VisGuiOverlay.VIS_OVERLAY);
+            event.registerAboveAll(ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "vis_overlay"), VisGuiOverlay.VIS_OVERLAY);
         }
 
         @SubscribeEvent

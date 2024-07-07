@@ -56,7 +56,7 @@ public class WandI extends Item {
     }
 
     @Override
-    public int getUseDuration(ItemStack itemStack) {
+    public int getUseDuration(ItemStack pStack, LivingEntity pEntity) {
         return 72000;
     }
 
@@ -68,7 +68,7 @@ public class WandI extends Item {
     @Override
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
         consumer.accept(new IClientItemExtensions() {
-            private static final HumanoidModel.ArmPose WAND_POSE =HumanoidModel.ArmPose.create("WAND", false, (model, entity, arm) -> {
+            private static final HumanoidModel.ArmPose WAND_POSE = HumanoidModel.ArmPose.create("WAND", false, (model, entity, arm) -> {
                 model.rightArm.xRot = (float) (-0.8 * Math.PI /2);
                 model.leftArm.xRot = (float) (-0.8 * Math.PI /2);
                 if (arm == HumanoidArm.RIGHT) {
