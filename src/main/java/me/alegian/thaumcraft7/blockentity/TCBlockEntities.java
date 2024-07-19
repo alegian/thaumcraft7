@@ -12,10 +12,19 @@ public class TCBlockEntities {
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<AuraNodeBE>> AURA_NODE =
             REGISTRAR.register(
-            "aura_node",
-            () -> BlockEntityType.Builder.of(
-                AuraNodeBE::new,
-                TCBlocks.AURA_NODE_BLOCK.get()
-            ).build(null)
-        );
+                "aura_node",
+                () -> BlockEntityType.Builder.of(
+                    AuraNodeBE::new,
+                    TCBlocks.AURA_NODE_BLOCK.get()
+                ).build(null)
+            );
+
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<CrucibleBE>> CRUCIBLE =
+            REGISTRAR.register(
+                    "crucible",
+                    () -> BlockEntityType.Builder.of(
+                            CrucibleBE::new,
+                            TCBlocks.CRUCIBLE.get()
+                    ).build(null)
+            );
 }
