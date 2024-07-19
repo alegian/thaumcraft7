@@ -4,7 +4,10 @@ import me.alegian.thaumcraft7.block.AuraNodeB;
 import me.alegian.thaumcraft7.block.TCBlocks;
 import me.alegian.thaumcraft7.blockentity.TCBlockEntities;
 import me.alegian.thaumcraft7.client.blockentity.renderer.AuraNodeBER;
+import me.alegian.thaumcraft7.client.extension.ThaumometerItemExtensions;
+import me.alegian.thaumcraft7.client.extension.WandItemExtensions;
 import me.alegian.thaumcraft7.client.gui.VisGuiOverlay;
+import me.alegian.thaumcraft7.item.TCItems;
 import me.alegian.thaumcraft7.particle.AspectsParticle;
 import me.alegian.thaumcraft7.particle.TCParticleTypes;
 import net.minecraft.client.Minecraft;
@@ -15,6 +18,7 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.*;
+import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
 public class ClientEvents {
@@ -40,6 +44,12 @@ public class ClientEvents {
         public static void registerParticleProviders(RegisterParticleProvidersEvent event) {
             event.registerSpriteSet(TCParticleTypes.ASPECTS.get(), AspectsParticle.Provider::new);
             // and #registerSpecial, which maps to a Supplier<Particle>. See the source code of the event for further info.
+        }
+
+        @SubscribeEvent
+        public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
+            event.registerItem(new WandItemExtensions(), TCItems.IRON_WOOD_WAND.get());
+            event.registerItem(new ThaumometerItemExtensions(), TCItems.THAUMOMETER.get());
         }
     }
 
