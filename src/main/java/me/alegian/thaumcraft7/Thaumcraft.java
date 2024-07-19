@@ -26,9 +26,6 @@ public class Thaumcraft {
 
     // FML will recognize some parameter types like IEventBus or ModContainer and pass them in automatically.
     public Thaumcraft(IEventBus modEventBus) {
-        modEventBus.addListener(this::commonSetup);
-        modEventBus.addListener(Thaumcraft::registerCapabilities);
-
         TCArmorMaterials.REGISTRAR.register(modEventBus);
         TCBlocks.REGISTRAR.register(modEventBus);
         TCItems.REGISTRAR.register(modEventBus);
@@ -42,13 +39,6 @@ public class Thaumcraft {
         NeoForge.EVENT_BUS.register(this);
     }
 
-    private void commonSetup(final FMLCommonSetupEvent event) { }
-
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {}
-
-    public static void registerCapabilities(RegisterCapabilitiesEvent event) {
-        TCItems.registerCapabilities(event);
-        TCBlocks.registerCapabilities(event);
-    }
 }
