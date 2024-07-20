@@ -3,6 +3,7 @@ import me.alegian.thaumcraft7.Thaumcraft;
 import me.alegian.thaumcraft7.block.AuraNodeB;
 import me.alegian.thaumcraft7.blockentity.TCBlockEntities;
 import me.alegian.thaumcraft7.client.blockentity.renderer.AuraNodeBER;
+import me.alegian.thaumcraft7.client.blockentity.renderer.CrucibleBER;
 import me.alegian.thaumcraft7.client.extension.ThaumometerItemExtensions;
 import me.alegian.thaumcraft7.client.extension.WandItemExtensions;
 import me.alegian.thaumcraft7.client.gui.VisGuiOverlay;
@@ -30,6 +31,7 @@ public class ClientEvents {
         @SubscribeEvent
         public static void registerBlockEntityRenderers(EntityRenderersEvent.RegisterRenderers event){
             event.registerBlockEntityRenderer(TCBlockEntities.AURA_NODE.get(), ctx -> new AuraNodeBER());
+            event.registerBlockEntityRenderer(TCBlockEntities.CRUCIBLE.get(), ctx -> new CrucibleBER());
         }
 
         @SubscribeEvent

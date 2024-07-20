@@ -18,7 +18,7 @@ public class AuraNodeBER implements BlockEntityRenderer<AuraNodeBE> {
         poseStack.pushPose();
 
         // at the center of the block
-        poseStack.translate(0.5f, 0.5f, 0.5f);
+        poseStack.translate(0.5d, 0.5d, 0.5d);
 
         // follows the camera like a particle
         Quaternionf rotation = Minecraft.getInstance().gameRenderer.getMainCamera().rotation();
