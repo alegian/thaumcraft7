@@ -1,7 +1,6 @@
 package me.alegian.thaumcraft7.event;
 import me.alegian.thaumcraft7.Thaumcraft;
 import me.alegian.thaumcraft7.block.AuraNodeB;
-import me.alegian.thaumcraft7.block.TCBlocks;
 import me.alegian.thaumcraft7.blockentity.TCBlockEntities;
 import me.alegian.thaumcraft7.client.blockentity.renderer.AuraNodeBER;
 import me.alegian.thaumcraft7.client.extension.ThaumometerItemExtensions;
@@ -11,7 +10,6 @@ import me.alegian.thaumcraft7.item.TCItems;
 import me.alegian.thaumcraft7.particle.AspectsParticle;
 import me.alegian.thaumcraft7.particle.TCParticleTypes;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
