@@ -35,12 +35,6 @@ public class ClientEvents {
         }
 
         @SubscribeEvent
-        public static void registerBlockColorHandlers(RegisterColorHandlersEvent.Block event) {
-            event.register((state, level, pos, tintIndex) -> level != null && pos != null ? BiomeColors.getAverageWaterColor(level, pos) : -1,
-                    TCBlocks.WATER_CRUCIBLE.get());
-        }
-
-        @SubscribeEvent
         public static void registerParticleProviders(RegisterParticleProvidersEvent event) {
             event.registerSpriteSet(TCParticleTypes.ASPECTS.get(), AspectsParticle.Provider::new);
             // and #registerSpecial, which maps to a Supplier<Particle>. See the source code of the event for further info.
