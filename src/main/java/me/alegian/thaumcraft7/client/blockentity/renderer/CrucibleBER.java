@@ -7,8 +7,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
-import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.util.FastColor;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.api.distmarker.Dist;
@@ -38,47 +38,47 @@ public class CrucibleBER implements BlockEntityRenderer<CrucibleBE> {
         pPoseStack.popPose();
     }
 
-    private static void renderWaterQuad(PoseStack.Pose pose, VertexConsumer buffer, float percent, int packedLight) {
-        var sprite = getWaterSprite();
+    private static void renderWaterQuad(PoseStack.Pose pose, VertexConsumer buffer, float height, int packedLight) {
+        IClientFluidTypeExtensions waterClientExtensions = IClientFluidTypeExtensions.of(Fluids.WATER);
 
-        float width = 16 / 16f;
-        float height = percent * 10 / 16f;
+        var sprite = getFluidSprite(waterClientExtensions);
+        int color = waterClientExtensions.getTintColor();
 
-        float minU = sprite.getU(0);
-        float maxU = sprite.getU(16);
-        float minV = sprite.getV(0);
-        float maxV = sprite.getV(16);
+        float width = 1f;
 
-        buffer.addVertex(pose, -width / 2, height, -width / 2).setColor(1,1,1,1)
+        float minU = sprite.getU0();
+        float maxU = sprite.getU1();
+        float minV = sprite.getV0();
+        float maxV = sprite.getV1();
+
+        buffer.addVertex(pose, -width / 2, height, -width / 2)
+                .setColor(color)
                 .setUv(minU, minV)
-                .setOverlay(OverlayTexture.NO_OVERLAY)
                 .setLight(packedLight)
                 .setNormal(pose, 0, 1, 0);
 
-        buffer.addVertex(pose, -width / 2, height, width / 2).setColor(1,1,1,1)
+        buffer.addVertex(pose, -width / 2, height, width / 2)
+                .setColor(color)
                 .setUv(minU, maxV)
-                .setOverlay(OverlayTexture.NO_OVERLAY)
                 .setLight(packedLight)
                 .setNormal(pose, 0, 1, 0);
 
-        buffer.addVertex(pose, width / 2, height, width / 2).setColor(1,1,1,1)
+        buffer.addVertex(pose, width / 2, height, width / 2)
+                .setColor(color)
                 .setUv(maxU, maxV)
-                .setOverlay(OverlayTexture.NO_OVERLAY)
                 .setLight(packedLight)
                 .setNormal(pose, 0, 1, 0);
 
-        buffer.addVertex(pose, width / 2, height, -width / 2).setColor(1,1,1,1)
+        buffer.addVertex(pose, width / 2, height, -width / 2)
+                .setColor(color)
                 .setUv(maxU, minV)
-                .setOverlay(OverlayTexture.NO_OVERLAY)
                 .setLight(packedLight)
                 .setNormal(pose, 0, 1, 0);
     }
 
-    private static TextureAtlasSprite getWaterSprite() {
-        IClientFluidTypeExtensions waterClientExtensions = IClientFluidTypeExtensions.of(Fluids.WATER);
-
+    private static TextureAtlasSprite getFluidSprite(IClientFluidTypeExtensions fluidTypeExtensions) {
         return Minecraft.getInstance()
                 .getTextureAtlas(InventoryMenu.BLOCK_ATLAS)
-                .apply(waterClientExtensions.getStillTexture());
+                .apply(fluidTypeExtensions.getStillTexture());
     }
 }
