@@ -3,6 +3,7 @@ package me.alegian.thaumcraft7.client.blockentity.renderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import me.alegian.thaumcraft7.blockentity.CrucibleBE;
+import me.alegian.thaumcraft7.data.capability.CrucibleFluidHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -13,13 +14,12 @@ import net.minecraft.world.level.material.Fluids;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
-import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 
 @OnlyIn(Dist.CLIENT)
 public class CrucibleBER implements BlockEntityRenderer<CrucibleBE> {
     @Override
     public void render(CrucibleBE pBlockEntity, float pPartialTick, PoseStack pPoseStack, MultiBufferSource pBufferSource, int pPackedLight, int pPackedOverlay) {
-        FluidTank tank = pBlockEntity.getFluidHandler();
+        CrucibleFluidHandler tank = pBlockEntity.getFluidHandler();
 
         if (tank.isEmpty()) return;
 
@@ -41,7 +41,7 @@ public class CrucibleBER implements BlockEntityRenderer<CrucibleBE> {
         var sprite = getFluidSprite(waterClientExtensions);
         int color = waterClientExtensions.getTintColor();
 
-        float width = 1f;
+        float width = 12/16f;
         float height = 3/16f + 12/16f * percent;
 
         float minU = sprite.getU0();

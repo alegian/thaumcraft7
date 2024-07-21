@@ -51,8 +51,8 @@ public class CrucibleBE extends BlockEntity {
 
     @Override
     public CompoundTag getUpdateTag(HolderLookup.Provider pRegistries) {
-        var tag = super.getUpdateTag(pRegistries);
-        loadAdditional(tag, pRegistries);
+        CompoundTag tag = new CompoundTag();
+        saveAdditional(tag, pRegistries);
         return tag;
     }
 
