@@ -4,6 +4,7 @@ import me.alegian.thaumcraft7.data.capability.CrucibleFluidHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -12,6 +13,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 import javax.annotation.Nullable;
 import java.util.Objects;
@@ -33,14 +35,20 @@ public class CrucibleBE extends BlockEntity {
         if (Objects.requireNonNull(this.getLevel()).isClientSide) {
             return;
         }
-        ServerLevel world = (ServerLevel) this.getLevel();
-        Stream<ServerPlayer> entities = world.getChunkSource().chunkMap.getPlayers(new ChunkPos(this.worldPosition), false).stream();
+        ServerLevel level = (ServerLevel) this.getLevel();
+
         Packet<ClientGamePacketListener> updatePacket = this.getUpdatePacket();
-        entities.forEach(e -> {
-            if (updatePacket != null) {
-                e.connection.send(updatePacket);
-            }
-        });
+        for (ServerPlayer player : level.getChunkSource().chunkMap.getPlayers(new ChunkPos(this.worldPosition), false)) {
+            assert updatePacket != null;
+            player.connection.send(updatePacket);
+        }
+    }
+
+    @Override
+    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt, HolderLookup.Provider lookupProvider) {
+        // empty fluidstacks make empty tags, which are normally not handled
+        // however we need to still update when tank empties
+        this.loadAdditional(Objects.requireNonNull(pkt.getTag()), lookupProvider);
     }
 
     @Nullable
