@@ -7,7 +7,7 @@ import net.neoforged.neoforge.fluids.FluidType;
 import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 
 public class CrucibleFluidHandler extends FluidTank {
-    private CrucibleBE crucibleBE;
+    private final CrucibleBE crucibleBE;
 
     public CrucibleFluidHandler(CrucibleBE crucibleBE) {
         super(FluidType.BUCKET_VOLUME, (fluidStack)-> fluidStack.is(Fluids.WATER));
