@@ -1,10 +1,14 @@
 package me.alegian.thaumcraft7.data.capability;
 
+import me.alegian.thaumcraft7.block.TCBlocks;
 import me.alegian.thaumcraft7.blockentity.CrucibleBE;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidType;
 import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
+
+import java.util.Objects;
 
 public class CrucibleFluidHandler extends FluidTank {
     private final CrucibleBE crucibleBE;
@@ -22,7 +26,10 @@ public class CrucibleFluidHandler extends FluidTank {
     @Override
     protected void onContentsChanged() {
         crucibleBE.setChanged();
-        crucibleBE.clientSync();
+
+        var state = TCBlocks.CRUCIBLE.get().defaultBlockState();
+        var level = Objects.requireNonNull(crucibleBE.getLevel());
+        level.sendBlockUpdated(crucibleBE.getBlockPos(), state, state, Block.UPDATE_CLIENTS);
     }
 
     // returns true if any water was drained
@@ -35,6 +42,7 @@ public class CrucibleFluidHandler extends FluidTank {
         return true;
     }
 
+    // returns true if any water was filled
     public boolean fillUp(){
         if(getSpace() == 0) return false;
 

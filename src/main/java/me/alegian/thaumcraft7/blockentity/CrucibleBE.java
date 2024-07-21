@@ -5,12 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -27,19 +22,6 @@ public class CrucibleBE extends BlockEntity {
 
     public CrucibleFluidHandler getFluidHandler() {
         return fluidHandler;
-    }
-
-    public void clientSync() {
-        if (Objects.requireNonNull(this.getLevel()).isClientSide) {
-            return;
-        }
-        ServerLevel level = (ServerLevel) this.getLevel();
-
-        Packet<ClientGamePacketListener> updatePacket = this.getUpdatePacket();
-        for (ServerPlayer player : level.getChunkSource().chunkMap.getPlayers(new ChunkPos(this.worldPosition), false)) {
-            assert updatePacket != null;
-            player.connection.send(updatePacket);
-        }
     }
 
     @Override
