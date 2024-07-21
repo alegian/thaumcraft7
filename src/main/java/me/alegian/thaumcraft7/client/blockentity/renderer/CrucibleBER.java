@@ -13,7 +13,6 @@ import net.minecraft.world.level.material.Fluids;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
-import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 
 @OnlyIn(Dist.CLIENT)
@@ -21,11 +20,10 @@ public class CrucibleBER implements BlockEntityRenderer<CrucibleBE> {
     @Override
     public void render(CrucibleBE pBlockEntity, float pPartialTick, PoseStack pPoseStack, MultiBufferSource pBufferSource, int pPackedLight, int pPackedOverlay) {
         FluidTank tank = pBlockEntity.getFluidHandler();
-        FluidStack fluidStack = tank.getFluid();
 
-        if (fluidStack.isEmpty()) return;
+        if (tank.isEmpty()) return;
 
-        int amount = fluidStack.getAmount();
+        int amount = tank.getFluidAmount();
         int total = tank.getCapacity();
 
         pPoseStack.pushPose();

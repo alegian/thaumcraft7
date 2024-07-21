@@ -1,18 +1,28 @@
 package me.alegian.thaumcraft7.data.capability;
 
+import me.alegian.thaumcraft7.blockentity.CrucibleBE;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidType;
 import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 
 public class CrucibleFluidHandler extends FluidTank {
-    public CrucibleFluidHandler() {
+    private CrucibleBE crucibleBE;
+
+    public CrucibleFluidHandler(CrucibleBE crucibleBE) {
         super(FluidType.BUCKET_VOLUME, (fluidStack)-> fluidStack.is(Fluids.WATER));
+        this.crucibleBE = crucibleBE;
     }
 
     @Override
     public FluidStack drain(int maxDrain, FluidAction action) {
         return FluidStack.EMPTY;
+    }
+
+    @Override
+    protected void onContentsChanged() {
+        crucibleBE.setChanged();
+        crucibleBE.clientSync();
     }
 
     // returns true if any water was drained

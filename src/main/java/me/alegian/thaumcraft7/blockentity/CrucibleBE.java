@@ -19,6 +19,21 @@ public class CrucibleBE extends BlockEntity {
         return fluidHandler;
     }
 
+    // Data Handling Section
+    public void clientSync() {
+        if (Objects.requireNonNull(this.getLevel()).isClientSide) {
+            return;
+        }
+        ServerLevel world = (ServerLevel) this.getLevel();
+        Stream<ServerPlayer> entities = world.getChunkSource().chunkMap.getPlayers(new ChunkPos(this.worldPosition), false).stream();
+        ClientboundBlockEntityDataPacket updatePacket = this.getUpdatePacket();
+        entities.forEach(e -> {
+            if (updatePacket != null) {
+                e.connection.send(updatePacket);
+            }
+        });
+    }
+
     @Override
     protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
         super.loadAdditional(pTag, pRegistries);
