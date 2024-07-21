@@ -20,7 +20,7 @@ import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 public class CrucibleBER implements BlockEntityRenderer<CrucibleBE> {
     @Override
     public void render(CrucibleBE pBlockEntity, float pPartialTick, PoseStack pPoseStack, MultiBufferSource pBufferSource, int pPackedLight, int pPackedOverlay) {
-        FluidTank tank = pBlockEntity.getFluidTank();
+        FluidTank tank = pBlockEntity.getFluidHandler();
         FluidStack fluidStack = tank.getFluid();
 
         if (fluidStack.isEmpty()) return;

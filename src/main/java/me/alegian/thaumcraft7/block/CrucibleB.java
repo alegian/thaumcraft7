@@ -25,7 +25,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.fluids.FluidUtil;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.Nullable;
 
 public class CrucibleB extends Block implements EntityBlock {
@@ -57,18 +56,20 @@ public class CrucibleB extends Block implements EntityBlock {
     @Override
     protected void entityInside(BlockState pState, Level pLevel, BlockPos pPos, Entity pEntity) {
         if (!pLevel.isClientSide && pEntity instanceof ItemEntity && this.isEntityInsideContent(pPos, pEntity)) {
-            if (pEntity.mayInteract(pLevel, pPos)) {
+            if (pEntity.mayInteract(pLevel, pPos) && lowerFillLevel(pLevel, pPos)) {
                 pEntity.kill();
                 pLevel.playSound(pEntity, pPos, SoundEvents.GENERIC_SPLASH, SoundSource.BLOCKS, 1F, 1.0F);
-                lowerFillLevel(pLevel, pPos);
             }
         }
     }
 
-    public static void lowerFillLevel(Level pLevel, BlockPos pPos) {
-        FluidUtil.getFluidHandler(pLevel, pPos, null).map(handler ->
-                    handler.drain(200, IFluidHandler.FluidAction.EXECUTE
-                ));
+    // returns true if any water was drained
+    public static boolean lowerFillLevel(Level pLevel, BlockPos pPos) {
+        var be = pLevel.getBlockEntity(pPos);
+        if (be instanceof CrucibleBE crucibleBE) {
+            return crucibleBE.getFluidHandler().catalystDrain();
+        }
+        return false;
     }
 
     protected boolean isEntityInsideContent(BlockPos pPos, Entity pEntity) {

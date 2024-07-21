@@ -35,6 +35,6 @@ public class TCBlockEntities {
             );
 
     public static void registerCapabilities(RegisterCapabilitiesEvent event){
-        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, CRUCIBLE.get(), (be, context)->be.getFluidTank());
+        event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, CRUCIBLE.get(), (be, context)->be.getFluidHandler());
     }
 }
