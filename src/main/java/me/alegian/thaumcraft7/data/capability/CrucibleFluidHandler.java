@@ -34,4 +34,12 @@ public class CrucibleFluidHandler extends FluidTank {
         onContentsChanged();
         return true;
     }
+
+    public boolean fillUp(){
+        if(getSpace() == 0) return false;
+
+        fluid = new FluidStack(Fluids.WATER, FluidType.BUCKET_VOLUME);
+        onContentsChanged();
+        return true;
+    }
 }

@@ -10,6 +10,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -46,6 +47,15 @@ public class CrucibleB extends Block implements EntityBlock {
 
     @Override
     protected ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
+        // water buckets should be usable to top off, even if 1000 mB is too much
+        if(pPlayer.getItemInHand(pHand).is(Items.WATER_BUCKET) && fillUp(pLevel, pPos)) {
+            if(!pPlayer.isCreative()) pPlayer.setItemInHand(pHand, new ItemStack(Items.BUCKET));
+            pLevel.playSound(null, pPos, SoundEvents.BUCKET_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
+
+            return ItemInteractionResult.SUCCESS;
+        }
+
+        // generic fluid interaction
         if (FluidUtil.interactWithFluidHandler(pPlayer, pHand, pLevel, pPos, pHitResult.getDirection())) {
             return ItemInteractionResult.SUCCESS;
         }
@@ -68,6 +78,15 @@ public class CrucibleB extends Block implements EntityBlock {
         var be = pLevel.getBlockEntity(pPos);
         if (be instanceof CrucibleBE crucibleBE) {
             return crucibleBE.getFluidHandler().catalystDrain();
+        }
+        return false;
+    }
+
+    // returns true if any water was filled
+    public static boolean fillUp(Level pLevel, BlockPos pPos) {
+        var be = pLevel.getBlockEntity(pPos);
+        if (be instanceof CrucibleBE crucibleBE) {
+            return crucibleBE.getFluidHandler().fillUp();
         }
         return false;
     }

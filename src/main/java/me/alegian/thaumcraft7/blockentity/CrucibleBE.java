@@ -13,11 +13,9 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.network.PacketDistributor;
 
 import javax.annotation.Nullable;
 import java.util.Objects;
-import java.util.stream.Stream;
 
 public class CrucibleBE extends BlockEntity {
     private final CrucibleFluidHandler fluidHandler;
