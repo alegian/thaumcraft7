@@ -1,6 +1,5 @@
 package me.alegian.thaumcraft7.data.capability;
 
-import me.alegian.thaumcraft7.block.TCBlocks;
 import me.alegian.thaumcraft7.blockentity.CrucibleBE;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluids;
@@ -27,9 +26,13 @@ public class CrucibleFluidHandler extends FluidTank {
   protected void onContentsChanged() {
     crucibleBE.setChanged();
 
-    var state = TCBlocks.CRUCIBLE.get().defaultBlockState();
     var level = Objects.requireNonNull(crucibleBE.getLevel());
-    level.sendBlockUpdated(crucibleBE.getBlockPos(), state, state, Block.UPDATE_CLIENTS);
+    level.sendBlockUpdated(
+        crucibleBE.getBlockPos(),
+        crucibleBE.getBlockState(),
+        crucibleBE.getBlockState(),
+        Block.UPDATE_CLIENTS
+    );
   }
 
   // returns true if any water was drained

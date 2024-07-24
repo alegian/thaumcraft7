@@ -1,5 +1,6 @@
 package me.alegian.thaumcraft7.blockentity;
 
+import me.alegian.thaumcraft7.block.TCBlockStateProperties;
 import me.alegian.thaumcraft7.data.capability.CrucibleFluidHandler;
 import me.alegian.thaumcraft7.particle.CrucibleBubbleParticle;
 import me.alegian.thaumcraft7.particle.TCParticleTypes;
@@ -29,6 +30,7 @@ public class CrucibleBE extends BlockEntity {
 
   public static void tick(Level level, BlockPos pos, BlockState state, BlockEntity blockEntity) {
     if (level instanceof ServerLevel serverLevel
+        && state.getValue(TCBlockStateProperties.BOILING)
         && serverLevel.getGameTime() % 7 == 0
         && blockEntity instanceof CrucibleBE crucibleBE
         && !crucibleBE.getFluidHandler().isEmpty()

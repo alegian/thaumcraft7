@@ -2,6 +2,7 @@ package me.alegian.thaumcraft7.block;
 
 import me.alegian.thaumcraft7.blockentity.CrucibleBE;
 import me.alegian.thaumcraft7.blockentity.TCBlockEntities;
+import me.alegian.thaumcraft7.tag.CrucibleHeatSourceTag;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -12,6 +13,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -22,6 +24,10 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.BooleanOp;
@@ -43,9 +49,27 @@ public class CrucibleB extends Block implements EntityBlock {
       ),
       BooleanOp.ONLY_FIRST
   );
+  public static final BooleanProperty BOILING = TCBlockStateProperties.BOILING;
+  public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
   public CrucibleB() {
     super(BlockBehaviour.Properties.ofFullCopy(Blocks.CAULDRON));
+  }
+
+  @Override
+  protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
+    pBuilder.add(BOILING, FACING);
+  }
+
+  @Override
+  @Nullable
+  public BlockState getStateForPlacement(BlockPlaceContext pContext) {
+    var facingDirection = pContext.getHorizontalDirection().getOpposite();
+    var below = pContext.getClickedPos().below();
+
+    return defaultBlockState()
+        .setValue(FACING, facingDirection)
+        .setValue(BOILING, isHeatSource(pContext.getLevel(), below));
   }
 
   @Override
@@ -68,7 +92,11 @@ public class CrucibleB extends Block implements EntityBlock {
 
   @Override
   protected void entityInside(BlockState pState, Level pLevel, BlockPos pPos, Entity pEntity) {
-    if (!pLevel.isClientSide && pEntity instanceof ItemEntity && this.isEntityInsideContent(pPos, pEntity)) {
+    if (!pLevel.isClientSide
+        && pState.getValue(BOILING)
+        && pEntity instanceof ItemEntity
+        && this.isEntityInsideContent(pPos, pEntity)
+    ) {
       if (pEntity.mayInteract(pLevel, pPos) && lowerFillLevel(pLevel, pPos)) {
         pEntity.kill();
         pLevel.playSound(pEntity, pPos, SoundEvents.GENERIC_SPLASH, SoundSource.BLOCKS, 1F, 1.0F);
@@ -92,6 +120,14 @@ public class CrucibleB extends Block implements EntityBlock {
       return crucibleBE.getFluidHandler().fillUp();
     }
     return false;
+  }
+
+  public static boolean isHeatSource(Level level, BlockPos pos) {
+    var bs = level.getBlockState(pos);
+    var bsHeat = bs.is(CrucibleHeatSourceTag.BLOCK);
+    var fs = level.getFluidState(pos);
+    var fsHeat = fs.is(CrucibleHeatSourceTag.FLUID);
+    return bsHeat || fsHeat;
   }
 
   protected boolean isEntityInsideContent(BlockPos pPos, Entity pEntity) {

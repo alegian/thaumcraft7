@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "boiling=false,facing=east": {
+      "model": "minecraft:block/cauldron",
+      "y": 90
+    },
+    "boiling=false,facing=north": {
+      "model": "minecraft:block/cauldron"
+    },
+    "boiling=false,facing=south": {
+      "model": "minecraft:block/cauldron",
+      "y": 180
+    },
+    "boiling=false,facing=west": {
+      "model": "minecraft:block/cauldron",
+      "y": 270
+    },
+    "boiling=true,facing=east": {
+      "model": "minecraft:block/cauldron",
+      "y": 90
+    },
+    "boiling=true,facing=north": {
+      "model": "minecraft:block/cauldron"
+    },
+    "boiling=true,facing=south": {
+      "model": "minecraft:block/cauldron",
+      "y": 180
+    },
+    "boiling=true,facing=west": {
+      "model": "minecraft:block/cauldron",
+      "y": 270
+    }
+  }
+}

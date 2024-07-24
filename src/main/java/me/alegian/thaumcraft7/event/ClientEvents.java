@@ -61,7 +61,7 @@ public class ClientEvents {
     }
 
     @SubscribeEvent
-    public static void renderBlockHighlightEvent(RenderHighlightEvent.Block event) {
+    public static void renderBlockHighlight(RenderHighlightEvent.Block event) {
       var level = Minecraft.getInstance().level;
       if (level != null) {
         var blockPos = event.getTarget().getBlockPos();

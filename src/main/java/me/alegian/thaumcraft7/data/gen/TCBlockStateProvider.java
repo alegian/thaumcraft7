@@ -14,7 +14,7 @@ public class TCBlockStateProvider extends BlockStateProvider {
 
   @Override
   protected void registerStatesAndModels() {
-    simpleBlockWithItem(TCBlocks.EXAMPLE_BLOCK.get());
+    horizontalBlock(TCBlocks.CRUCIBLE.get(), models().getExistingFile(mcLoc("block/cauldron")));
   }
 
   public void simpleBlockWithItem(Block block) {

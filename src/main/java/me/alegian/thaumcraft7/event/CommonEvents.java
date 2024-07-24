@@ -3,10 +3,14 @@ package me.alegian.thaumcraft7.event;
 import me.alegian.thaumcraft7.Thaumcraft;
 import me.alegian.thaumcraft7.block.TCBlocks;
 import me.alegian.thaumcraft7.blockentity.TCBlockEntities;
+import me.alegian.thaumcraft7.data.gen.TCBlockStateProvider;
+import me.alegian.thaumcraft7.data.gen.TCBlockTagsProvider;
+import me.alegian.thaumcraft7.data.gen.TCFluidTagsProvider;
 import me.alegian.thaumcraft7.item.TCItems;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 public class CommonEvents {
   @EventBusSubscriber(modid = Thaumcraft.MODID, bus = EventBusSubscriber.Bus.MOD)
@@ -16,6 +20,18 @@ public class CommonEvents {
       TCItems.registerCapabilities(event);
       TCBlocks.registerCapabilities(event);
       TCBlockEntities.registerCapabilities(event);
+    }
+
+    @SubscribeEvent
+    public static void gatherData(GatherDataEvent event) {
+      var generator = event.getGenerator();
+      var lookupProvider = event.getLookupProvider();
+      var existingFileHelper = event.getExistingFileHelper();
+      var packOutput = generator.getPackOutput();
+
+      generator.addProvider(true, new TCBlockStateProvider(packOutput, existingFileHelper));
+      generator.addProvider(true, new TCBlockTagsProvider(packOutput, lookupProvider, existingFileHelper));
+      generator.addProvider(true, new TCFluidTagsProvider(packOutput, lookupProvider, existingFileHelper));
     }
   }
 }
