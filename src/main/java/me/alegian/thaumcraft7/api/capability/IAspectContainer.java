@@ -8,5 +8,5 @@ import me.alegian.thaumcraft7.api.aspect.AspectList;
  * a Thaumometer.
  */
 public interface IAspectContainer {
-    public AspectList getAspects();
+  public AspectList getAspects();
 }

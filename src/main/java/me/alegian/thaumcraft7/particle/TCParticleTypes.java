@@ -8,11 +8,11 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class TCParticleTypes {
-    public static final DeferredRegister<ParticleType<?>> REGISTRAR =
-            DeferredRegister.create(BuiltInRegistries.PARTICLE_TYPE, Thaumcraft.MODID);
+  public static final DeferredRegister<ParticleType<?>> REGISTRAR =
+      DeferredRegister.create(BuiltInRegistries.PARTICLE_TYPE, Thaumcraft.MODID);
 
-    public static final DeferredHolder<ParticleType<?>, SimpleParticleType> ASPECTS = REGISTRAR.register(
-            "aspects",
-            () -> new SimpleParticleType(true)
-    );
+  public static final DeferredHolder<ParticleType<?>, SimpleParticleType> ASPECTS = REGISTRAR.register(
+      "aspects",
+      () -> new SimpleParticleType(true)
+  );
 }

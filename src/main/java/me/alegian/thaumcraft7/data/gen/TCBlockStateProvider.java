@@ -8,18 +8,18 @@ import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 public class TCBlockStateProvider extends BlockStateProvider {
-    public TCBlockStateProvider(PackOutput output, ExistingFileHelper exFileHelper) {
-        super(output, Thaumcraft.MODID, exFileHelper);
-    }
+  public TCBlockStateProvider(PackOutput output, ExistingFileHelper exFileHelper) {
+    super(output, Thaumcraft.MODID, exFileHelper);
+  }
 
-    @Override
-    protected void registerStatesAndModels() {
-        simpleBlockWithItem(TCBlocks.EXAMPLE_BLOCK.get());
-    }
+  @Override
+  protected void registerStatesAndModels() {
+    simpleBlockWithItem(TCBlocks.EXAMPLE_BLOCK.get());
+  }
 
-    public void simpleBlockWithItem(Block block) {
-        var model = cubeAll(block);
-        simpleBlock(block, model);
-        simpleBlockItem(block, model);
-    }
+  public void simpleBlockWithItem(Block block) {
+    var model = cubeAll(block);
+    simpleBlock(block, model);
+    simpleBlockItem(block, model);
+  }
 }

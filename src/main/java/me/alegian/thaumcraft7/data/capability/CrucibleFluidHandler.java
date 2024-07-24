@@ -11,43 +11,43 @@ import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 import java.util.Objects;
 
 public class CrucibleFluidHandler extends FluidTank {
-    private final CrucibleBE crucibleBE;
+  private final CrucibleBE crucibleBE;
 
-    public CrucibleFluidHandler(CrucibleBE crucibleBE) {
-        super(FluidType.BUCKET_VOLUME, (fluidStack)-> fluidStack.is(Fluids.WATER));
-        this.crucibleBE = crucibleBE;
-    }
+  public CrucibleFluidHandler(CrucibleBE crucibleBE) {
+    super(FluidType.BUCKET_VOLUME, (fluidStack) -> fluidStack.is(Fluids.WATER));
+    this.crucibleBE = crucibleBE;
+  }
 
-    @Override
-    public FluidStack drain(int maxDrain, FluidAction action) {
-        return FluidStack.EMPTY;
-    }
+  @Override
+  public FluidStack drain(int maxDrain, FluidAction action) {
+    return FluidStack.EMPTY;
+  }
 
-    @Override
-    protected void onContentsChanged() {
-        crucibleBE.setChanged();
+  @Override
+  protected void onContentsChanged() {
+    crucibleBE.setChanged();
 
-        var state = TCBlocks.CRUCIBLE.get().defaultBlockState();
-        var level = Objects.requireNonNull(crucibleBE.getLevel());
-        level.sendBlockUpdated(crucibleBE.getBlockPos(), state, state, Block.UPDATE_CLIENTS);
-    }
+    var state = TCBlocks.CRUCIBLE.get().defaultBlockState();
+    var level = Objects.requireNonNull(crucibleBE.getLevel());
+    level.sendBlockUpdated(crucibleBE.getBlockPos(), state, state, Block.UPDATE_CLIENTS);
+  }
 
-    // returns true if any water was drained
-    public boolean catalystDrain(){
-        if(isEmpty()) return false;
+  // returns true if any water was drained
+  public boolean catalystDrain() {
+    if (isEmpty()) return false;
 
-        int maxDrain = FluidType.BUCKET_VOLUME/4;
-        fluid.shrink(Math.min(maxDrain, fluid.getAmount()));
-        onContentsChanged();
-        return true;
-    }
+    int maxDrain = FluidType.BUCKET_VOLUME / 4;
+    fluid.shrink(Math.min(maxDrain, fluid.getAmount()));
+    onContentsChanged();
+    return true;
+  }
 
-    // returns true if any water was filled
-    public boolean fillUp(){
-        if(getSpace() == 0) return false;
+  // returns true if any water was filled
+  public boolean fillUp() {
+    if (getSpace() == 0) return false;
 
-        fluid = new FluidStack(Fluids.WATER, FluidType.BUCKET_VOLUME);
-        onContentsChanged();
-        return true;
-    }
+    fluid = new FluidStack(Fluids.WATER, FluidType.BUCKET_VOLUME);
+    onContentsChanged();
+    return true;
+  }
 }

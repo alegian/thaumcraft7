@@ -6,7 +6,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class AuraNodeBE extends BlockEntity {
 
-    public AuraNodeBE(BlockPos pos, BlockState blockState) {
-        super(TCBlockEntities.AURA_NODE.get(), pos, blockState);
-    }
+  public AuraNodeBE(BlockPos pos, BlockState blockState) {
+    super(TCBlockEntities.AURA_NODE.get(), pos, blockState);
+  }
 }

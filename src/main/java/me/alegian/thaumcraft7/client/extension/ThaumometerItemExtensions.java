@@ -12,20 +12,20 @@ import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import org.joml.Matrix4f;
 
 public class ThaumometerItemExtensions implements IClientItemExtensions {
-    @Override
-    public HumanoidModel.ArmPose getArmPose(LivingEntity entityLiving, InteractionHand hand, ItemStack itemStack) {
-        return ThaumometerArmPose.value();
-    }
+  @Override
+  public HumanoidModel.ArmPose getArmPose(LivingEntity entityLiving, InteractionHand hand, ItemStack itemStack) {
+    return ThaumometerArmPose.value();
+  }
 
-    @Override
-    public boolean applyForgeHandTransform(PoseStack poseStack, LocalPlayer player, HumanoidArm arm, ItemStack itemInHand, float partialTick, float equipProcess, float swingProcess) {
-        // pretty much nullifies the default right click bob
-        if (player.getUseItem() == itemInHand && player.isUsingItem()) {
-            int i = arm == HumanoidArm.RIGHT ? 1 : -1;
-            var transformMatrix = new Matrix4f().translate(i * 0.56F, -0.53F, -0.72F);
-            poseStack.mulPose(transformMatrix);
-            return true;
-        }
-        return false;
+  @Override
+  public boolean applyForgeHandTransform(PoseStack poseStack, LocalPlayer player, HumanoidArm arm, ItemStack itemInHand, float partialTick, float equipProcess, float swingProcess) {
+    // pretty much nullifies the default right click bob
+    if (player.getUseItem() == itemInHand && player.isUsingItem()) {
+      int i = arm == HumanoidArm.RIGHT ? 1 : -1;
+      var transformMatrix = new Matrix4f().translate(i * 0.56F, -0.53F, -0.72F);
+      poseStack.mulPose(transformMatrix);
+      return true;
     }
+    return false;
+  }
 }

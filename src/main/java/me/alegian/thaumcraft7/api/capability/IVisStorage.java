@@ -1,11 +1,11 @@
 package me.alegian.thaumcraft7.api.capability;
 
 public interface IVisStorage {
-    float extractVis(float maxExtract);
+  float extractVis(float maxExtract);
 
-    float receiveVis(float maxReceive);
+  float receiveVis(float maxReceive);
 
-    float getVisStored();
+  float getVisStored();
 
-    float getMaxVisStored();
+  float getMaxVisStored();
 }

@@ -11,15 +11,15 @@ import net.minecraft.world.level.Level;
 
 public class ThaumonomiconI extends Item {
 
-    public ThaumonomiconI(Properties props) {
-        super(props);
-    }
+  public ThaumonomiconI(Properties props) {
+    super(props);
+  }
 
-    @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
-        if(level.isClientSide())
-            Minecraft.getInstance().setScreen(new ThaumonomiconScreen());
+  @Override
+  public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+    if (level.isClientSide())
+      Minecraft.getInstance().setScreen(new ThaumonomiconScreen());
 
-        return InteractionResultHolder.consume(player.getItemInHand(hand));
-    }
+    return InteractionResultHolder.consume(player.getItemInHand(hand));
+  }
 }

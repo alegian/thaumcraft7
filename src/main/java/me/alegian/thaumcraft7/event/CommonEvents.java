@@ -8,14 +8,14 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 
-public class  CommonEvents {
-    @EventBusSubscriber(modid = Thaumcraft.MODID, bus = EventBusSubscriber.Bus.MOD)
-    public static class CommonModEvents{
-        @SubscribeEvent
-        public static void registerCapabilities(RegisterCapabilitiesEvent event) {
-            TCItems.registerCapabilities(event);
-            TCBlocks.registerCapabilities(event);
-            TCBlockEntities.registerCapabilities(event);
-        }
+public class CommonEvents {
+  @EventBusSubscriber(modid = Thaumcraft.MODID, bus = EventBusSubscriber.Bus.MOD)
+  public static class CommonModEvents {
+    @SubscribeEvent
+    public static void registerCapabilities(RegisterCapabilitiesEvent event) {
+      TCItems.registerCapabilities(event);
+      TCBlocks.registerCapabilities(event);
+      TCBlockEntities.registerCapabilities(event);
     }
+  }
 }

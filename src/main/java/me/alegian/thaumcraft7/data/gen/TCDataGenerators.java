@@ -8,13 +8,13 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
 @EventBusSubscriber(modid = Thaumcraft.MODID, bus = EventBusSubscriber.Bus.MOD)
 public class TCDataGenerators {
 
-    @SubscribeEvent
-    public static void onGatherData(GatherDataEvent event) {
-        var generator = event.getGenerator();
-        var lookupProvider = event.getLookupProvider();
-        var existingFileHelper = event.getExistingFileHelper();
-        var pack = generator.getVanillaPack(true);
+  @SubscribeEvent
+  public static void onGatherData(GatherDataEvent event) {
+    var generator = event.getGenerator();
+    var lookupProvider = event.getLookupProvider();
+    var existingFileHelper = event.getExistingFileHelper();
+    var pack = generator.getVanillaPack(true);
 
-        pack.addProvider((packOutput)-> new TCBlockStateProvider(packOutput, existingFileHelper));
-    }
+    pack.addProvider((packOutput) -> new TCBlockStateProvider(packOutput, existingFileHelper));
+  }
 }

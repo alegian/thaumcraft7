@@ -13,46 +13,46 @@ import javax.annotation.Nullable;
 import java.util.Objects;
 
 public class CrucibleBE extends BlockEntity {
-    private final CrucibleFluidHandler fluidHandler;
+  private final CrucibleFluidHandler fluidHandler;
 
-    public CrucibleBE(BlockPos pos, BlockState blockState) {
-        super(TCBlockEntities.CRUCIBLE.get(), pos, blockState);
-        this.fluidHandler = new CrucibleFluidHandler(this);
-    }
+  public CrucibleBE(BlockPos pos, BlockState blockState) {
+    super(TCBlockEntities.CRUCIBLE.get(), pos, blockState);
+    this.fluidHandler = new CrucibleFluidHandler(this);
+  }
 
-    public CrucibleFluidHandler getFluidHandler() {
-        return fluidHandler;
-    }
+  public CrucibleFluidHandler getFluidHandler() {
+    return fluidHandler;
+  }
 
-    @Override
-    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt, HolderLookup.Provider lookupProvider) {
-        // empty fluidstacks make empty tags, which are normally not handled
-        // however we need to still update when tank empties
-        this.loadAdditional(Objects.requireNonNull(pkt.getTag()), lookupProvider);
-    }
+  @Override
+  public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt, HolderLookup.Provider lookupProvider) {
+    // empty fluidstacks make empty tags, which are normally not handled
+    // however we need to still update when tank empties
+    this.loadAdditional(Objects.requireNonNull(pkt.getTag()), lookupProvider);
+  }
 
-    @Nullable
-    @Override
-    public ClientboundBlockEntityDataPacket getUpdatePacket() {
-        return ClientboundBlockEntityDataPacket.create(this);
-    }
+  @Nullable
+  @Override
+  public ClientboundBlockEntityDataPacket getUpdatePacket() {
+    return ClientboundBlockEntityDataPacket.create(this);
+  }
 
-    @Override
-    public CompoundTag getUpdateTag(HolderLookup.Provider pRegistries) {
-        CompoundTag tag = new CompoundTag();
-        saveAdditional(tag, pRegistries);
-        return tag;
-    }
+  @Override
+  public CompoundTag getUpdateTag(HolderLookup.Provider pRegistries) {
+    CompoundTag tag = new CompoundTag();
+    saveAdditional(tag, pRegistries);
+    return tag;
+  }
 
-    @Override
-    protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        super.loadAdditional(pTag, pRegistries);
-        fluidHandler.readFromNBT(pRegistries, pTag);
-    }
+  @Override
+  protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+    super.loadAdditional(pTag, pRegistries);
+    fluidHandler.readFromNBT(pRegistries, pTag);
+  }
 
-    @Override
-    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        super.saveAdditional(pTag, pRegistries);
-        fluidHandler.writeToNBT(pRegistries, pTag);
-    }
+  @Override
+  protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+    super.saveAdditional(pTag, pRegistries);
+    fluidHandler.writeToNBT(pRegistries, pTag);
+  }
 }
