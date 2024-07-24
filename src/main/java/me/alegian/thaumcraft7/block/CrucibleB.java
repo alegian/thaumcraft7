@@ -4,11 +4,13 @@ import me.alegian.thaumcraft7.blockentity.CrucibleBE;
 import me.alegian.thaumcraft7.blockentity.TCBlockEntities;
 import me.alegian.thaumcraft7.tag.CrucibleHeatSourceTag;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -16,6 +18,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.EntityBlock;
@@ -73,6 +76,20 @@ public class CrucibleB extends Block implements EntityBlock {
   }
 
   @Override
+  protected BlockState updateShape(BlockState pState, Direction pDirection, BlockState pNeighborState, LevelAccessor pLevel, BlockPos pPos, BlockPos pNeighborPos) {
+    return pState.setValue(BOILING, isHeatSource(pLevel, pPos.below()));
+  }
+
+  @Override
+  public void stepOn(Level pLevel, BlockPos pPos, BlockState pState, Entity pEntity) {
+    if (pState.getValue(BOILING) && !pEntity.isSteppingCarefully() && pEntity instanceof LivingEntity) {
+      pEntity.hurt(pLevel.damageSources().hotFloor(), 1.0F);
+    }
+
+    super.stepOn(pLevel, pPos, pState, pEntity);
+  }
+
+  @Override
   protected ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
     // water buckets should be usable to top off, even if 1000 mB is too much
     if (pPlayer.getItemInHand(pHand).is(Items.WATER_BUCKET) && fillUp(pLevel, pPos)) {
@@ -122,7 +139,7 @@ public class CrucibleB extends Block implements EntityBlock {
     return false;
   }
 
-  public static boolean isHeatSource(Level level, BlockPos pos) {
+  public static boolean isHeatSource(LevelAccessor level, BlockPos pos) {
     var bs = level.getBlockState(pos);
     var bsHeat = bs.is(CrucibleHeatSourceTag.BLOCK);
     var fs = level.getFluidState(pos);

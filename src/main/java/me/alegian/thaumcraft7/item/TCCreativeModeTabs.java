@@ -18,7 +18,6 @@ public class TCCreativeModeTabs {
             .title(Component.translatable("thaumcraft"))
             .icon(() -> TCItems.IRON_WOOD_WAND.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
-              output.accept(TCBlocks.EXAMPLE_BLOCK.get());
               output.accept(TCBlocks.AURA_NODE_BLOCK.get());
               output.accept(TCBlocks.CRUCIBLE.get());
 
