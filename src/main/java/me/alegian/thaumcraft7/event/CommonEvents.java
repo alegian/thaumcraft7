@@ -3,9 +3,7 @@ package me.alegian.thaumcraft7.event;
 import me.alegian.thaumcraft7.Thaumcraft;
 import me.alegian.thaumcraft7.block.TCBlocks;
 import me.alegian.thaumcraft7.blockentity.TCBlockEntities;
-import me.alegian.thaumcraft7.data.gen.TCBlockStateProvider;
-import me.alegian.thaumcraft7.data.gen.TCBlockTagsProvider;
-import me.alegian.thaumcraft7.data.gen.TCFluidTagsProvider;
+import me.alegian.thaumcraft7.data.gen.*;
 import me.alegian.thaumcraft7.item.TCItems;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -30,8 +28,10 @@ public class CommonEvents {
       var packOutput = generator.getPackOutput();
 
       generator.addProvider(true, new TCBlockStateProvider(packOutput, existingFileHelper));
+      generator.addProvider(true, new TCItemModelProvider(packOutput, existingFileHelper));
       generator.addProvider(true, new TCBlockTagsProvider(packOutput, lookupProvider, existingFileHelper));
       generator.addProvider(true, new TCFluidTagsProvider(packOutput, lookupProvider, existingFileHelper));
+      generator.addProvider(true, new TCLangProvider(packOutput, "en_us"));
     }
   }
 }

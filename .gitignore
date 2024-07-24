@@ -1,3 +1,6 @@
+# neo
+src/generated/resources/.cache/
+
 # eclipse
 bin
 *.launch
