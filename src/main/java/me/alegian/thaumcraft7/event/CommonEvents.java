@@ -29,9 +29,10 @@ public class CommonEvents {
 
       generator.addProvider(true, new TCBlockStateProvider(packOutput, existingFileHelper));
       generator.addProvider(true, new TCItemModelProvider(packOutput, existingFileHelper));
-      generator.addProvider(true, new TCBlockTagsProvider(packOutput, lookupProvider, existingFileHelper));
-      generator.addProvider(true, new TCFluidTagsProvider(packOutput, lookupProvider, existingFileHelper));
-      generator.addProvider(true, new TCLangProvider(packOutput, "en_us"));
+      generator.addProvider(true, new TCParticleDescriptionProvider(packOutput, existingFileHelper));
+      generator.addProvider(true, new TCBlockTagProvider(packOutput, lookupProvider, existingFileHelper));
+      generator.addProvider(true, new TCFluidTagProvider(packOutput, lookupProvider, existingFileHelper));
+      generator.addProvider(true, new TCLanguageProvider(packOutput, "en_us"));
     }
   }
 }

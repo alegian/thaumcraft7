@@ -11,8 +11,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
 
-public class TCFluidTagsProvider extends FluidTagsProvider {
-  public TCFluidTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, @Nullable ExistingFileHelper existingFileHelper) {
+public class TCFluidTagProvider extends FluidTagsProvider {
+  public TCFluidTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, @Nullable ExistingFileHelper existingFileHelper) {
     super(output, lookupProvider, Thaumcraft.MODID, existingFileHelper);
   }
 

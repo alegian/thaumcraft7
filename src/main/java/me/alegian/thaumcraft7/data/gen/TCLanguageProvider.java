@@ -6,8 +6,8 @@ import me.alegian.thaumcraft7.item.TCItems;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 
-public class TCLangProvider extends LanguageProvider {
-  public TCLangProvider(PackOutput output, String locale) {
+public class TCLanguageProvider extends LanguageProvider {
+  public TCLanguageProvider(PackOutput output, String locale) {
     super(output, Thaumcraft.MODID, locale);
   }
 
