@@ -1,9 +1,9 @@
 package me.alegian.thaumcraft7.blockentity;
 
 import me.alegian.thaumcraft7.data.capability.CrucibleFluidHandler;
+import me.alegian.thaumcraft7.particle.TCParticleTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -30,15 +30,15 @@ public class CrucibleBE extends BlockEntity {
         && !crucibleBE.getFluidHandler().isEmpty()
     ) {
       serverLevel.sendParticles(
-          ParticleTypes.BUBBLE,
-          (double) pos.getX() + serverLevel.random.nextDouble(),
+          TCParticleTypes.CRUCIBLE_BUBBLE.get(),
+          (double) pos.getX() + serverLevel.random.nextDouble() * 12 / 16f + 2 / 16f,
           pos.getY() + crucibleBE.getWaterHeight(),
-          (double) pos.getZ() + serverLevel.random.nextDouble(),
+          (double) pos.getZ() + serverLevel.random.nextDouble() * 12 / 16f + 2 / 16f,
           1,
-          0.0,
-          0.00,
-          0.0,
-          0.0
+          0,
+          0,
+          0,
+          0
       );
     }
   }

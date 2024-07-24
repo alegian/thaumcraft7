@@ -7,6 +7,7 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
+@OnlyIn(Dist.CLIENT)
 public class AspectsParticle extends TextureSheetParticle {
   public static boolean kill = false;
   public static BlockPos blockPos = null;

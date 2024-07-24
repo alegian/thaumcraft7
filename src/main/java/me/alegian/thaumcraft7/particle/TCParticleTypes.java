@@ -15,4 +15,9 @@ public class TCParticleTypes {
       "aspects",
       () -> new SimpleParticleType(true)
   );
+
+  public static final DeferredHolder<ParticleType<?>, SimpleParticleType> CRUCIBLE_BUBBLE = REGISTRAR.register(
+      "crucible_bubble",
+      () -> new SimpleParticleType(true)
+  );
 }

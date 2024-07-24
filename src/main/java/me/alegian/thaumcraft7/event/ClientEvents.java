@@ -10,6 +10,7 @@ import me.alegian.thaumcraft7.client.extension.WandItemExtensions;
 import me.alegian.thaumcraft7.client.gui.VisGuiOverlay;
 import me.alegian.thaumcraft7.item.TCItems;
 import me.alegian.thaumcraft7.particle.AspectsParticle;
+import me.alegian.thaumcraft7.particle.CrucibleBubbleParticle;
 import me.alegian.thaumcraft7.particle.TCParticleTypes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -41,6 +42,7 @@ public class ClientEvents {
     @SubscribeEvent
     public static void registerParticleProviders(RegisterParticleProvidersEvent event) {
       event.registerSpriteSet(TCParticleTypes.ASPECTS.get(), AspectsParticle.Provider::new);
+      event.registerSpriteSet(TCParticleTypes.CRUCIBLE_BUBBLE.get(), CrucibleBubbleParticle.Provider::new);
       // and #registerSpecial, which maps to a Supplier<Particle>. See the source code of the event for further info.
     }
 
