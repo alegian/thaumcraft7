@@ -1,6 +1,7 @@
 package me.alegian.thaumcraft7.block;
 
 import me.alegian.thaumcraft7.blockentity.CrucibleBE;
+import me.alegian.thaumcraft7.blockentity.TCBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -17,6 +18,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathComputationType;
@@ -112,6 +115,12 @@ public class CrucibleB extends Block implements EntityBlock {
   @Override
   public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
     return new CrucibleBE(pPos, pState);
+  }
+
+  @Nullable
+  @Override
+  public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+    return type == TCBlockEntities.CRUCIBLE.get() ? CrucibleBE::tick : null;
   }
 
   @Override
