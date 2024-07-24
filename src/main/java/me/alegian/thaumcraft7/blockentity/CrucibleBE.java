@@ -1,6 +1,7 @@
 package me.alegian.thaumcraft7.blockentity;
 
 import me.alegian.thaumcraft7.data.capability.CrucibleFluidHandler;
+import me.alegian.thaumcraft7.particle.CrucibleBubbleParticle;
 import me.alegian.thaumcraft7.particle.TCParticleTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -13,10 +14,13 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class CrucibleBE extends BlockEntity {
   private final CrucibleFluidHandler fluidHandler;
+  private final List<CrucibleBubbleParticle> particles = new ArrayList<>();
 
   public CrucibleBE(BlockPos pos, BlockState blockState) {
     super(TCBlockEntities.CRUCIBLE.get(), pos, blockState);
@@ -25,7 +29,7 @@ public class CrucibleBE extends BlockEntity {
 
   public static void tick(Level level, BlockPos pos, BlockState state, BlockEntity blockEntity) {
     if (level instanceof ServerLevel serverLevel
-        && serverLevel.getGameTime() % 5 == 0
+        && serverLevel.getGameTime() % 7 == 0
         && blockEntity instanceof CrucibleBE crucibleBE
         && !crucibleBE.getFluidHandler().isEmpty()
     ) {
@@ -55,11 +59,25 @@ public class CrucibleBE extends BlockEntity {
     return 3 / 16f + 12 / 16f * percent;
   }
 
+  public void addParticle(CrucibleBubbleParticle particle) {
+    particles.add(particle);
+  }
+
+  public void removeParticle(CrucibleBubbleParticle particle) {
+    particles.remove(particle);
+  }
+
+  public void clearParticles() {
+    particles.forEach(CrucibleBubbleParticle::scheduleRemove);
+  }
+
   @Override
   public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt, HolderLookup.Provider lookupProvider) {
     // empty fluidstacks make empty tags, which are normally not handled
     // however we need to still update when tank empties
     this.loadAdditional(Objects.requireNonNull(pkt.getTag()), lookupProvider);
+    // delete floating particles from previous water level
+    clearParticles();
   }
 
   @Nullable
