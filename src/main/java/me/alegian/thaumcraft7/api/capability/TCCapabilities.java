@@ -1,6 +1,6 @@
 package me.alegian.thaumcraft7.api.capability;
 
-import me.alegian.thaumcraft7.Thaumcraft;
+import me.alegian.thaumcraft7.impl.Thaumcraft;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.capabilities.BlockCapability;
 import net.neoforged.neoforge.capabilities.ItemCapability;

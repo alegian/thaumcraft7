@@ -5,7 +5,7 @@
       "name": "thaumcraft7_WAND",
       "constructor": "(ZLnet/neoforged/neoforge/client/IArmPoseTransformer;)V",
       "parameters": {
-        "class": "me/alegian/thaumcraft7/enumextension/WandArmPose",
+        "class": "me/alegian/thaumcraft7/impl/common/enumextension/WandArmPose",
         "field": "ENUM_PARAMS"
       }
     },
@@ -14,7 +14,7 @@
       "name": "thaumcraft7_THAUMOMETER",
       "constructor": "(ZLnet/neoforged/neoforge/client/IArmPoseTransformer;)V",
       "parameters": {
-        "class": "me/alegian/thaumcraft7/enumextension/ThaumometerArmPose",
+        "class": "me/alegian/thaumcraft7/impl/common/enumextension/ThaumometerArmPose",
         "field": "ENUM_PARAMS"
       }
     }

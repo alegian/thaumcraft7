@@ -1,6 +1,6 @@
 package me.alegian.thaumcraft7.api.aspect;
 
-import me.alegian.thaumcraft7.Thaumcraft;
+import me.alegian.thaumcraft7.impl.Thaumcraft;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.LinkedHashMap;
