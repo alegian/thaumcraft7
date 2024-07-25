@@ -1,5 +1,6 @@
-package me.alegian.thaumcraft7.impl.common.particle;
+package me.alegian.thaumcraft7.impl.client.particle;
 
+import me.alegian.thaumcraft7.impl.client.TCParticleRenderTypes;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.core.BlockPos;
@@ -43,7 +44,12 @@ public class AspectsParticle extends TextureSheetParticle {
 
   @Override
   public ParticleRenderType getRenderType() {
-    return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
+    return TCParticleRenderTypes.PARTICLE_SHEET_TRANSLUCENT_NO_DEPTH;
+  }
+
+  @Override
+  protected int getLightColor(float pPartialTick) {
+    return 0b111100000000000011110000; // completely bright
   }
 
   @OnlyIn(Dist.CLIENT)

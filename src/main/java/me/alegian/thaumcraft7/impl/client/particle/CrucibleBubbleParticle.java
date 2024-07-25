@@ -1,4 +1,4 @@
-package me.alegian.thaumcraft7.impl.common.particle;
+package me.alegian.thaumcraft7.impl.client.particle;
 
 import me.alegian.thaumcraft7.impl.common.block.entity.CrucibleBE;
 import net.minecraft.client.multiplayer.ClientLevel;
