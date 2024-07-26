@@ -62,14 +62,14 @@ public class AspectsParticle extends TextureSheetParticle {
 
     float[][] offsets = calculateOffsets();
     int i = 0;
-    for(Aspect aspect : aspects.aspects.keySet()){
+    for (Aspect aspect : aspects.aspects.keySet()) {
       var currOffsets = offsets[i];
       this.renderOffsetRotatedQuad(pBuffer, camera, quaternionf, currOffsets[0], currOffsets[1]);
       i++;
     }
   }
 
-  public float[][] calculateOffsets(){
+  public float[][] calculateOffsets() {
     float[][] offsets = new float[aspects.size()][2];
 
     int rows = (int) Math.ceil(1f * aspects.size() / ROW_SIZE);
