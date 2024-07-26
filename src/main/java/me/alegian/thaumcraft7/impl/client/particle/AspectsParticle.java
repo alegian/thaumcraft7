@@ -53,21 +53,36 @@ public class AspectsParticle extends TextureSheetParticle {
   }
 
   @Override
-  public void render(VertexConsumer pBuffer, Camera pRenderInfo, float pPartialTicks) {
+  public void render(VertexConsumer pBuffer, Camera camera, float pPartialTicks) {
     Quaternionf quaternionf = new Quaternionf();
-    this.getFacingCameraMode().setRotation(quaternionf, pRenderInfo, pPartialTicks);
+    this.getFacingCameraMode().setRotation(quaternionf, camera, pPartialTicks);
     if (this.roll != 0.0F) {
       quaternionf.rotateZ(Mth.lerp(pPartialTicks, this.oRoll, this.roll));
     }
+
+    float[][] offsets = calculateOffsets();
+    int i = 0;
+    for(Aspect aspect : aspects.aspects.keySet()){
+      var currOffsets = offsets[i];
+      this.renderOffsetRotatedQuad(pBuffer, camera, quaternionf, currOffsets[0], currOffsets[1]);
+      i++;
+    }
+  }
+
+  public float[][] calculateOffsets(){
+    float[][] offsets = new float[aspects.size()][2];
 
     int rows = (int) Math.ceil(1f * aspects.size() / ROW_SIZE);
     for (int i = 0; i < rows; i++) {
       int cols = Math.min(aspects.size() - (i * ROW_SIZE), ROW_SIZE);
       for (int j = 0; j < cols; j++) {
         float xOffset = (cols - 1) / -2f + j;
-        this.renderOffsetRotatedQuad(pBuffer, pRenderInfo, quaternionf, xOffset, i);
+        offsets[i * ROW_SIZE + j][0] = xOffset;
+        offsets[i * ROW_SIZE + j][1] = i;
       }
     }
+
+    return offsets;
   }
 
   public void renderOffsetRotatedQuad(VertexConsumer pBuffer, Camera pCamera, Quaternionf pQuaternion, float xOffset, float yOffset) {
