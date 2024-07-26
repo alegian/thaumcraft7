@@ -11,6 +11,10 @@ public class AspectList {
     return this;
   }
 
+  public int size() {
+    return aspects.size();
+  }
+
   @Override
   public String toString() {
     StringBuilder str = new StringBuilder();

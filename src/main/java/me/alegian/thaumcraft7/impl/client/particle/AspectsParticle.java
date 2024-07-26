@@ -1,6 +1,8 @@
 package me.alegian.thaumcraft7.impl.client.particle;
 
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import me.alegian.thaumcraft7.api.aspect.Aspect;
+import me.alegian.thaumcraft7.api.aspect.AspectList;
 import me.alegian.thaumcraft7.impl.client.TCParticleRenderTypes;
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -16,9 +18,20 @@ import org.joml.Vector3f;
 
 @OnlyIn(Dist.CLIENT)
 public class AspectsParticle extends TextureSheetParticle {
+  public static final int ROW_SIZE = 5;
   public static boolean kill = false;
   public static BlockPos blockPos = null;
   public static AspectsParticle instance = null;
+  public static AspectList aspects = new AspectList();
+
+  static {
+    aspects.add(Aspect.IGNIS, 4);
+    aspects.add(Aspect.AER, 1);
+    aspects.add(Aspect.MORTUUS, 2);
+    aspects.add(Aspect.METALLUM, 4);
+    aspects.add(Aspect.LUX, 7);
+    aspects.add(Aspect.VINCULUM, 2);
+  }
 
   private AspectsParticle(ClientLevel pLevel, double pX, double pY, double pZ, SpriteSet spriteSet) {
     super(pLevel, pX, pY, pZ);
@@ -47,15 +60,21 @@ public class AspectsParticle extends TextureSheetParticle {
       quaternionf.rotateZ(Mth.lerp(pPartialTicks, this.oRoll, this.roll));
     }
 
-    this.renderOffsetRotatedQuad(pBuffer, pRenderInfo, quaternionf, 0, 0);
-    this.renderOffsetRotatedQuad(pBuffer, pRenderInfo, quaternionf, 1, 0);
+    int rows = (int) Math.ceil(1f * aspects.size() / ROW_SIZE);
+    for (int i = 0; i < rows; i++) {
+      int cols = Math.min(aspects.size() - (i * ROW_SIZE), ROW_SIZE);
+      for (int j = 0; j < cols; j++) {
+        float xOffset = (cols - 1) / -2f + j;
+        this.renderOffsetRotatedQuad(pBuffer, pRenderInfo, quaternionf, xOffset, i);
+      }
+    }
   }
 
   public void renderOffsetRotatedQuad(VertexConsumer pBuffer, Camera pCamera, Quaternionf pQuaternion, float xOffset, float yOffset) {
     Vec3 vec3 = pCamera.getPosition();
-    float f = (float)(this.x - vec3.x());
-    float f1 = (float)(this.y - vec3.y());
-    float f2 = (float)(this.z - vec3.z());
+    float f = (float) (this.x - vec3.x());
+    float f1 = (float) (this.y - vec3.y());
+    float f2 = (float) (this.z - vec3.z());
     this.renderOffsetRotatedQuad(pBuffer, pQuaternion, f, f1, f2, xOffset, yOffset);
   }
 
