@@ -7,7 +7,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Aspect {
-  public static Map<String, Aspect> aspects = new LinkedHashMap<>();
+  public static final Map<String, Aspect> ASPECTS = new LinkedHashMap<>();
 
   String id;
   int color;
@@ -20,7 +20,7 @@ public class Aspect {
     this.components = components;
     this.image = image;
 
-    var existing = aspects.putIfAbsent(id, this);
+    var existing = ASPECTS.putIfAbsent(id, this);
     if (existing != null) throw new IllegalArgumentException("Thaumcraft Aspect Exception: Duplicate ID: " + id);
   }
 
