@@ -64,7 +64,7 @@ public class AspectsParticle extends TextureSheetParticle {
     int i = 0;
     for (Aspect aspect : aspects.aspects.keySet()) {
       var currOffsets = offsets[i];
-      this.renderOffsetRotatedQuad(pBuffer, camera, quaternionf, currOffsets[0], currOffsets[1]);
+      this.renderOffsetRotatedQuad(pBuffer, camera, quaternionf, currOffsets[0], currOffsets[1], aspect.getColor());
       i++;
     }
   }
@@ -85,7 +85,7 @@ public class AspectsParticle extends TextureSheetParticle {
     return offsets;
   }
 
-  public void renderOffsetRotatedQuad(VertexConsumer pBuffer, Camera pCamera, Quaternionf pQuaternion, float xOffset, float yOffset) {
+  public void renderOffsetRotatedQuad(VertexConsumer pBuffer, Camera pCamera, Quaternionf pQuaternion, float xOffset, float yOffset, int color) {
     Vec3 vec3 = pCamera.getPosition();
     float x = (float) (this.x - vec3.x());
     float y = (float) (this.y - vec3.y());
@@ -95,10 +95,10 @@ public class AspectsParticle extends TextureSheetParticle {
     float f3 = this.getV0();
     float f4 = this.getV1();
 
-    this.renderVertex(pBuffer, pQuaternion, x, y, z, .5F + xOffset, -.5F + yOffset, f2, f4);
-    this.renderVertex(pBuffer, pQuaternion, x, y, z, .5F + xOffset, .5F + yOffset, f2, f3);
-    this.renderVertex(pBuffer, pQuaternion, x, y, z, -.5F + xOffset, .5F + yOffset, f1, f3);
-    this.renderVertex(pBuffer, pQuaternion, x, y, z, -.5F + xOffset, -.5F + yOffset, f1, f4);
+    this.renderVertex(pBuffer, pQuaternion, x, y, z, .5F + xOffset, -.5F + yOffset, f2, f4, color);
+    this.renderVertex(pBuffer, pQuaternion, x, y, z, .5F + xOffset, .5F + yOffset, f2, f3, color);
+    this.renderVertex(pBuffer, pQuaternion, x, y, z, -.5F + xOffset, .5F + yOffset, f1, f3, color);
+    this.renderVertex(pBuffer, pQuaternion, x, y, z, -.5F + xOffset, -.5F + yOffset, f1, f4, color);
   }
 
   public void renderVertex(
@@ -110,7 +110,8 @@ public class AspectsParticle extends TextureSheetParticle {
       float pXOffset,
       float pYOffset,
       float pU,
-      float pV
+      float pV,
+      int color
   ) {
     int pPackedLight = this.getLightColor(1);
     float quadSize = this.getQuadSize(1);
@@ -118,7 +119,7 @@ public class AspectsParticle extends TextureSheetParticle {
     Vector3f vector3f = new Vector3f(pXOffset, pYOffset, 0).rotate(pQuaternion).mul(quadSize).add(pX, pY, pZ);
     pBuffer.addVertex(vector3f.x(), vector3f.y(), vector3f.z())
         .setUv(pU, pV)
-        .setColor(this.rCol, this.gCol, this.bCol, this.alpha)
+        .setColor(color)
         .setLight(pPackedLight);
   }
 

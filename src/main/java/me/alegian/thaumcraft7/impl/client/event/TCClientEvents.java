@@ -1,14 +1,14 @@
 package me.alegian.thaumcraft7.impl.client.event;
 
 import me.alegian.thaumcraft7.impl.Thaumcraft;
-import me.alegian.thaumcraft7.impl.client.renderer.blockentity.AuraNodeBER;
-import me.alegian.thaumcraft7.impl.client.renderer.blockentity.CrucibleBER;
 import me.alegian.thaumcraft7.impl.client.extension.ThaumometerItemExtensions;
 import me.alegian.thaumcraft7.impl.client.extension.WandItemExtensions;
 import me.alegian.thaumcraft7.impl.client.gui.VisGuiOverlay;
-import me.alegian.thaumcraft7.impl.common.block.AuraNodeB;
 import me.alegian.thaumcraft7.impl.client.particle.AspectsParticle;
 import me.alegian.thaumcraft7.impl.client.particle.CrucibleBubbleParticle;
+import me.alegian.thaumcraft7.impl.client.renderer.blockentity.AuraNodeBER;
+import me.alegian.thaumcraft7.impl.client.renderer.blockentity.CrucibleBER;
+import me.alegian.thaumcraft7.impl.common.block.AuraNodeB;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.TCBlockEntities;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.TCItems;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.TCParticleTypes;
