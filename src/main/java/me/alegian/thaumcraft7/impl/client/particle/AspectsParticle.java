@@ -72,22 +72,18 @@ public class AspectsParticle extends TextureSheetParticle {
 
   public void renderOffsetRotatedQuad(VertexConsumer pBuffer, Camera pCamera, Quaternionf pQuaternion, float xOffset, float yOffset) {
     Vec3 vec3 = pCamera.getPosition();
-    float f = (float) (this.x - vec3.x());
-    float f1 = (float) (this.y - vec3.y());
-    float f2 = (float) (this.z - vec3.z());
-    this.renderOffsetRotatedQuad(pBuffer, pQuaternion, f, f1, f2, xOffset, yOffset);
-  }
-
-  public void renderOffsetRotatedQuad(VertexConsumer pBuffer, Quaternionf pQuaternion, float pX, float pY, float pZ, float xOffset, float yOffset) {
-    float f = this.getQuadSize(1);
+    float x = (float) (this.x - vec3.x());
+    float y = (float) (this.y - vec3.y());
+    float z = (float) (this.z - vec3.z());
     float f1 = this.getU0();
     float f2 = this.getU1();
     float f3 = this.getV0();
     float f4 = this.getV1();
-    this.renderVertex(pBuffer, pQuaternion, pX, pY, pZ, .5F + xOffset, -.5F + yOffset, f, f2, f4);
-    this.renderVertex(pBuffer, pQuaternion, pX, pY, pZ, .5F + xOffset, .5F + yOffset, f, f2, f3);
-    this.renderVertex(pBuffer, pQuaternion, pX, pY, pZ, -.5F + xOffset, .5F + yOffset, f, f1, f3);
-    this.renderVertex(pBuffer, pQuaternion, pX, pY, pZ, -.5F + xOffset, -.5F + yOffset, f, f1, f4);
+
+    this.renderVertex(pBuffer, pQuaternion, x, y, z, .5F + xOffset, -.5F + yOffset, f2, f4);
+    this.renderVertex(pBuffer, pQuaternion, x, y, z, .5F + xOffset, .5F + yOffset, f2, f3);
+    this.renderVertex(pBuffer, pQuaternion, x, y, z, -.5F + xOffset, .5F + yOffset, f1, f3);
+    this.renderVertex(pBuffer, pQuaternion, x, y, z, -.5F + xOffset, -.5F + yOffset, f1, f4);
   }
 
   public void renderVertex(
@@ -98,12 +94,13 @@ public class AspectsParticle extends TextureSheetParticle {
       float pZ,
       float pXOffset,
       float pYOffset,
-      float pQuadSize,
       float pU,
       float pV
   ) {
     int pPackedLight = this.getLightColor(1);
-    Vector3f vector3f = new Vector3f(pXOffset, pYOffset, 0.0F).rotate(pQuaternion).mul(pQuadSize).add(pX, pY, pZ);
+    float quadSize = this.getQuadSize(1);
+
+    Vector3f vector3f = new Vector3f(pXOffset, pYOffset, 0).rotate(pQuaternion).mul(quadSize).add(pX, pY, pZ);
     pBuffer.addVertex(vector3f.x(), vector3f.y(), vector3f.z())
         .setUv(pU, pV)
         .setColor(this.rCol, this.gCol, this.bCol, this.alpha)
