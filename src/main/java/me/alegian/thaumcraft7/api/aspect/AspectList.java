@@ -4,21 +4,21 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class AspectList {
-  public Map<Aspect, Integer> aspects = new LinkedHashMap<>();
+  public Map<Aspect, Integer> map = new LinkedHashMap<>();
 
   public AspectList add(Aspect aspect, int amount) {
-    aspects.put(aspect, amount);
+    map.put(aspect, amount);
     return this;
   }
 
   public int size() {
-    return aspects.size();
+    return map.size();
   }
 
   @Override
   public String toString() {
     StringBuilder str = new StringBuilder();
-    aspects.forEach((k, v) ->
+    map.forEach((k, v) ->
         str.append(k.id).append(v)
     );
     return str.toString();

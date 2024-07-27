@@ -7,12 +7,16 @@ import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.client.TCParticleRenderTypes;
 import me.alegian.thaumcraft7.impl.client.texture.atlas.AspectAtlas;
 import net.minecraft.client.Camera;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -65,11 +69,16 @@ public class AspectsParticle extends TextureSheetParticle {
 
     float[][] offsets = calculateOffsets();
     int i = 0;
-    for (Aspect aspect : aspects.aspects.keySet()) {
+    for (Aspect aspect : aspects.map.keySet()) {
       var currOffsets = offsets[i];
+
       this.renderOffsetRotatedQuad(pBuffer, camera, quaternionf, currOffsets[0], currOffsets[1], aspect.getColor());
       i++;
     }
+  }
+
+  public static void renderAsGUI(GuiGraphics guiGraphics){
+
   }
 
   public float[][] calculateOffsets() {

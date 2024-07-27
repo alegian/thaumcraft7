@@ -64,6 +64,11 @@ public class TCClientEvents {
     }
 
     @SubscribeEvent
+    public static void registerGuiOverlays(RenderGuiEvent.Pre event) {
+      AspectsParticle.renderAsGUI(event.getGuiGraphics());
+    }
+
+    @SubscribeEvent
     public static void renderBlockHighlight(RenderHighlightEvent.Block event) {
       var level = Minecraft.getInstance().level;
       if (level != null) {
