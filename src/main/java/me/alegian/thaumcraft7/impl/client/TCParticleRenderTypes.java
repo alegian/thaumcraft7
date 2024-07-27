@@ -6,15 +6,15 @@ import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
-import me.alegian.thaumcraft7.impl.client.texture.TCTextureAtlases;
+import me.alegian.thaumcraft7.impl.client.texture.atlas.AspectAtlas;
 import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.client.renderer.texture.TextureManager;
 
 public class TCParticleRenderTypes {
-  public static final ParticleRenderType PARTICLE_SHEET_TRANSLUCENT_NO_DEPTH = new ParticleRenderType() {
+  public static final ParticleRenderType ASPECT_SHEET_TRANSLUCENT_NO_DEPTH = new ParticleRenderType() {
     @Override
     public BufferBuilder begin(Tesselator tesselator, TextureManager textureManager) {
-      RenderSystem.setShaderTexture(0, TCTextureAtlases.ASPECT);
+      RenderSystem.setShaderTexture(0, AspectAtlas.LOCATION);
       RenderSystem.enableBlend();
       RenderSystem.blendFuncSeparate(
           GlStateManager.SourceFactor.SRC_ALPHA,
@@ -28,7 +28,7 @@ public class TCParticleRenderTypes {
 
     @Override
     public String toString() {
-      return "PARTICLE_SHEET_TRANSLUCENT_NO_DEPTH";
+      return "ASPECT_SHEET_TRANSLUCENT_NO_DEPTH";
     }
   };
 }

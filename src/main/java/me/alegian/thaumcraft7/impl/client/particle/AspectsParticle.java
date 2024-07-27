@@ -5,12 +5,10 @@ import me.alegian.thaumcraft7.api.aspect.Aspect;
 import me.alegian.thaumcraft7.api.aspect.AspectList;
 import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.client.TCParticleRenderTypes;
-import me.alegian.thaumcraft7.impl.client.texture.TCTextureAtlases;
+import me.alegian.thaumcraft7.impl.client.texture.atlas.AspectAtlas;
 import net.minecraft.client.Camera;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.resources.ResourceLocation;
@@ -38,17 +36,17 @@ public class AspectsParticle extends TextureSheetParticle {
     aspects.add(Aspect.VINCULUM, 2);
   }
 
-  private AspectsParticle(ClientLevel pLevel, double pX, double pY, double pZ, SpriteSet spriteSet) {
+  private AspectsParticle(ClientLevel pLevel, double pX, double pY, double pZ) {
     super(pLevel, pX, pY, pZ);
     this.gravity = 0;
     this.lifetime = Integer.MAX_VALUE;
     this.quadSize = .6f;
-    this.pickSprite(spriteSet);
+    this.setSprite(AspectAtlas.sprite(ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "blank")));
   }
 
-  public static AspectsParticle getInstance(ClientLevel pLevel, double pX, double pY, double pZ, SpriteSet spriteSet) {
+  public static AspectsParticle getInstance(ClientLevel pLevel, double pX, double pY, double pZ) {
     if (instance == null) {
-      instance = new AspectsParticle(pLevel, pX, pY, pZ, spriteSet);
+      instance = new AspectsParticle(pLevel, pX, pY, pZ);
     } else {
       instance.x = pX;
       instance.y = pY;
@@ -92,14 +90,13 @@ public class AspectsParticle extends TextureSheetParticle {
 
   public void renderOffsetRotatedQuad(VertexConsumer pBuffer, Camera pCamera, Quaternionf pQuaternion, float xOffset, float yOffset, int color) {
     Vec3 vec3 = pCamera.getPosition();
-    TextureAtlasSprite sprite = getSprite();
     float x = (float) (this.x - vec3.x());
     float y = (float) (this.y - vec3.y());
     float z = (float) (this.z - vec3.z());
-    float f1 = sprite.getU0();
-    float f2 = sprite.getU1();
-    float f3 = sprite.getV0();
-    float f4 = sprite.getV1();
+    float f1 = this.getU0();
+    float f2 = this.getU1();
+    float f3 = this.getV0();
+    float f4 = this.getV1();
 
     this.renderVertex(pBuffer, pQuaternion, x, y, z, .5F + xOffset, -.5F + yOffset, f2, f4, color);
     this.renderVertex(pBuffer, pQuaternion, x, y, z, .5F + xOffset, .5F + yOffset, f2, f3, color);
@@ -140,7 +137,7 @@ public class AspectsParticle extends TextureSheetParticle {
 
   @Override
   public ParticleRenderType getRenderType() {
-    return TCParticleRenderTypes.PARTICLE_SHEET_TRANSLUCENT_NO_DEPTH;
+    return TCParticleRenderTypes.ASPECT_SHEET_TRANSLUCENT_NO_DEPTH;
   }
 
   @Override
@@ -148,18 +145,11 @@ public class AspectsParticle extends TextureSheetParticle {
     return 0b111100000000000011110000; // completely bright
   }
 
-  private static TextureAtlasSprite getSprite() {
-    return Minecraft.getInstance()
-        .getTextureAtlas(TCTextureAtlases.ASPECT)
-        .apply(ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "aspect/blank"));
-  }
-
   @OnlyIn(Dist.CLIENT)
   public static class Provider implements ParticleProvider<SimpleParticleType> {
-    private final SpriteSet spriteSet;
 
     public Provider(SpriteSet spriteSet) {
-      this.spriteSet = spriteSet;
+
     }
 
     @Override
@@ -173,7 +163,7 @@ public class AspectsParticle extends TextureSheetParticle {
         double pYSpeed,
         double pZSpeed
     ) {
-      return getInstance(pLevel, pX, pY, pZ, spriteSet);
+      return getInstance(pLevel, pX, pY, pZ);
     }
   }
 }

@@ -8,6 +8,7 @@ import me.alegian.thaumcraft7.impl.client.particle.AspectsParticle;
 import me.alegian.thaumcraft7.impl.client.particle.CrucibleBubbleParticle;
 import me.alegian.thaumcraft7.impl.client.renderer.blockentity.AuraNodeBER;
 import me.alegian.thaumcraft7.impl.client.renderer.blockentity.CrucibleBER;
+import me.alegian.thaumcraft7.impl.client.texture.atlas.AspectAtlas;
 import me.alegian.thaumcraft7.impl.common.block.AuraNodeB;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.TCBlockEntities;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.TCItems;
@@ -18,10 +19,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.event.EntityRenderersEvent;
-import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
-import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
-import net.neoforged.neoforge.client.event.RenderHighlightEvent;
+import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
@@ -50,6 +48,11 @@ public class TCClientEvents {
     public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
       event.registerItem(new WandItemExtensions(), TCItems.IRON_WOOD_WAND.get());
       event.registerItem(new ThaumometerItemExtensions(), TCItems.THAUMOMETER.get());
+    }
+
+    @SubscribeEvent
+    public static void registerReloadListenerEvent(RegisterClientReloadListenersEvent event) {
+      event.registerReloadListener(AspectAtlas.INSTANCE);
     }
   }
 
