@@ -3,12 +3,17 @@ package me.alegian.thaumcraft7.impl.client.particle;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import me.alegian.thaumcraft7.api.aspect.Aspect;
 import me.alegian.thaumcraft7.api.aspect.AspectList;
+import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.client.TCParticleRenderTypes;
+import me.alegian.thaumcraft7.impl.client.texture.TCTextureAtlases;
 import net.minecraft.client.Camera;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
@@ -87,13 +92,14 @@ public class AspectsParticle extends TextureSheetParticle {
 
   public void renderOffsetRotatedQuad(VertexConsumer pBuffer, Camera pCamera, Quaternionf pQuaternion, float xOffset, float yOffset, int color) {
     Vec3 vec3 = pCamera.getPosition();
+    TextureAtlasSprite sprite = getSprite();
     float x = (float) (this.x - vec3.x());
     float y = (float) (this.y - vec3.y());
     float z = (float) (this.z - vec3.z());
-    float f1 = this.getU0();
-    float f2 = this.getU1();
-    float f3 = this.getV0();
-    float f4 = this.getV1();
+    float f1 = sprite.getU0();
+    float f2 = sprite.getU1();
+    float f3 = sprite.getV0();
+    float f4 = sprite.getV1();
 
     this.renderVertex(pBuffer, pQuaternion, x, y, z, .5F + xOffset, -.5F + yOffset, f2, f4, color);
     this.renderVertex(pBuffer, pQuaternion, x, y, z, .5F + xOffset, .5F + yOffset, f2, f3, color);
@@ -140,6 +146,12 @@ public class AspectsParticle extends TextureSheetParticle {
   @Override
   protected int getLightColor(float pPartialTick) {
     return 0b111100000000000011110000; // completely bright
+  }
+
+  private static TextureAtlasSprite getSprite() {
+    return Minecraft.getInstance()
+        .getTextureAtlas(TCTextureAtlases.ASPECT)
+        .apply(ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "aspect/blank"));
   }
 
   @OnlyIn(Dist.CLIENT)
