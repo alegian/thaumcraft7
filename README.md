@@ -18,7 +18,9 @@ Good pick azanor ;-)
 
 - Azanor, for being the original author of my favorite mod
 - The NeoForge Project discord community, for answering my questions countless times
-- Team CoFH, for allowing anyone to learn from their code. Also, modified versions of their license and their package structure are used here.
+- Team CoFH, for allowing anyone to learn from their code. Also, modified versions of their license and their package structure are used here
+- McJTy, for his minecraft modding tutorials
+- The JEI team, for being open source. Their codebase taught me how to use custom Texture Atlases
 
 ## License
 
