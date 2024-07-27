@@ -77,8 +77,13 @@ public class AspectsParticle extends TextureSheetParticle {
     }
   }
 
-  public static void renderAsGUI(GuiGraphics guiGraphics){
-
+  public static void renderAsGUI(GuiGraphics guiGraphics, BlockPos blockPos) {
+    var x = guiGraphics.guiWidth() / 2;
+    var y = guiGraphics.guiHeight() / 2;
+    guiGraphics.pose().pushPose();
+    guiGraphics.renderItem(new ItemStack(Items.STONE, 32), x, y);
+    guiGraphics.renderItemDecorations(Minecraft.getInstance().font, new ItemStack(Items.STONE, 32), x, y);
+    guiGraphics.pose().popPose();
   }
 
   public float[][] calculateOffsets() {

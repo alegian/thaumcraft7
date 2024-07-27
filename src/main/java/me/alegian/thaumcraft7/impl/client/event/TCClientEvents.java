@@ -16,6 +16,9 @@ import me.alegian.thaumcraft7.impl.init.registries.deferred.TCParticleTypes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -65,7 +68,12 @@ public class TCClientEvents {
 
     @SubscribeEvent
     public static void registerGuiOverlays(RenderGuiEvent.Pre event) {
-      AspectsParticle.renderAsGUI(event.getGuiGraphics());
+      var player = Minecraft.getInstance().player;
+      if (player == null) return;
+      var hitResult = player.pick(player.getAttributeValue(Attributes.BLOCK_INTERACTION_RANGE), 0, false);
+      if (hitResult.getType() != HitResult.Type.BLOCK) return;
+
+      AspectsParticle.renderAsGUI(event.getGuiGraphics(), ((BlockHitResult) hitResult).getBlockPos());
     }
 
     @SubscribeEvent
