@@ -25,6 +25,7 @@ public class TCRenderTypes {
         .setTransparencyState(TCRenderStateShards.SIMPLE_TRANSPARENCY)
         .setDepthTestState(NO_DEPTH_TEST)
         .setTextureState(NO_TEXTURE)
+        .setOutputState(TRANSLUCENT_TARGET)
         .createCompositeState(false);
   }
 
@@ -34,6 +35,7 @@ public class TCRenderTypes {
         .setTransparencyState(TCRenderStateShards.SIMPLE_TRANSPARENCY)
         .setDepthTestState(NO_DEPTH_TEST)
         .setTextureState(TCRenderStateShards.ASPECTS_TEXTURE)
+        .setOutputState(TRANSLUCENT_TARGET)
         .createCompositeState(false);
   }
 }
