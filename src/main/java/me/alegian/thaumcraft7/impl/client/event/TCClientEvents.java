@@ -4,7 +4,7 @@ import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.client.extension.ThaumometerItemExtensions;
 import me.alegian.thaumcraft7.impl.client.extension.WandItemExtensions;
 import me.alegian.thaumcraft7.impl.client.gui.VisGuiOverlay;
-import me.alegian.thaumcraft7.impl.client.particle.AspectsParticle;
+import me.alegian.thaumcraft7.impl.client.renderer.AspectRenderer;
 import me.alegian.thaumcraft7.impl.client.particle.CrucibleBubbleParticle;
 import me.alegian.thaumcraft7.impl.client.renderer.blockentity.AuraNodeBER;
 import me.alegian.thaumcraft7.impl.client.renderer.blockentity.CrucibleBER;
@@ -14,9 +14,9 @@ import me.alegian.thaumcraft7.impl.init.registries.deferred.TCBlockEntities;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.TCItems;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.TCParticleTypes;
 import net.minecraft.client.Minecraft;
-import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -41,9 +41,7 @@ public class TCClientEvents {
 
     @SubscribeEvent
     public static void registerParticleProviders(RegisterParticleProvidersEvent event) {
-      event.registerSpriteSet(TCParticleTypes.ASPECTS.get(), AspectsParticle.Provider::new);
       event.registerSpriteSet(TCParticleTypes.CRUCIBLE_BUBBLE.get(), CrucibleBubbleParticle.Provider::new);
-      // and #registerSpecial, which maps to a Supplier<Particle>. See the source code of the event for further info.
     }
 
     @SubscribeEvent
@@ -78,22 +76,23 @@ public class TCClientEvents {
     @SubscribeEvent
     public static void renderBlockHighlight(RenderHighlightEvent.Block event) {
       var level = Minecraft.getInstance().level;
-      if (level != null) {
-        var blockPos = event.getTarget().getBlockPos();
-        var block = level.getBlockState(blockPos).getBlock();
-        boolean hasAspects = block instanceof AuraNodeB;
-        if (hasAspects) {
-          if (!blockPos.equals(AspectsParticle.blockPos)) {
-            AspectsParticle.kill = false;
-            //level.addParticle(TCParticleTypes.ASPECTS.get(), blockPos.getX() + 0.5, blockPos.getY() + 1.25, blockPos.getZ() + 0.5, 0, 0, 0);
-          }
-          AspectsParticle.renderOnHighlight(event.getPoseStack(), event.getMultiBufferSource(), event.getCamera(), blockPos);
-        } else AspectsParticle.kill = true;
-        AspectsParticle.blockPos = new BlockPos(blockPos);
+      if (level == null) return;
 
-        if (level.getBlockState(event.getTarget().getBlockPos()).getBlock() instanceof AuraNodeB)
-          event.setCanceled(true);
-      }
+      if (level.getBlockState(event.getTarget().getBlockPos()).getBlock() instanceof AuraNodeB)
+        event.setCanceled(true);
+    }
+
+    @SubscribeEvent
+    public static void renderLevelAfterWeather(RenderLevelStageEvent event) {
+      var minecraft = Minecraft.getInstance();
+      if (minecraft.level == null) return;
+      if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_WEATHER) return;
+      var hitResult = minecraft.hitResult;
+      if (hitResult == null || hitResult.getType() != HitResult.Type.BLOCK) return;
+      var blockPos = ((BlockHitResult) hitResult).getBlockPos();
+      if (!(minecraft.level.getBlockState(blockPos).getBlock() instanceof AuraNodeB)) return;
+
+      AspectRenderer.renderAfterWeather(event.getPoseStack(), minecraft.renderBuffers().bufferSource(), event.getCamera(), blockPos);
     }
   }
 }

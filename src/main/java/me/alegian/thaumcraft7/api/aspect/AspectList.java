@@ -2,13 +2,22 @@ package me.alegian.thaumcraft7.api.aspect;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class AspectList {
-  public Map<Aspect, Integer> map = new LinkedHashMap<>();
+  private Map<Aspect, Integer> map = new LinkedHashMap<>();
 
   public AspectList add(Aspect aspect, int amount) {
     map.put(aspect, amount);
     return this;
+  }
+
+  public int get(Aspect aspect) {
+    return map.get(aspect);
+  }
+
+  public Set<Aspect> aspectSet(){
+    return map.keySet();
   }
 
   public int size() {

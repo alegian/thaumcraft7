@@ -37,10 +37,10 @@ public class VisGuiOverlay {
       graphics.rotateZ(15);
       float ar = (float) 0.35;
 
-      for (Aspect a : vis.map.keySet()) {
+      for (Aspect a : vis.aspectSet()) {
         var color = a.getColorRGB();
         guiGraphics.setColor((float) color[0] / 255, (float) color[1] / 255, (float) color[2] / 255, 1);
-        guiGraphics.blit(VIAL_CONTENT, (int) (-1 * vialSize * ar / 2), (int) (diskSize / 2), 0, 0, (int) (vialSize * ar), (int) vialSize * vis.map.get(a) / 100, (int) (vialSize * ar), (int) vialSize);
+        guiGraphics.blit(VIAL_CONTENT, (int) (-1 * vialSize * ar / 2), (int) (diskSize / 2), 0, 0, (int) (vialSize * ar), (int) vialSize * vis.get(a) / 100, (int) (vialSize * ar), (int) vialSize);
         guiGraphics.setColor(1, 1, 1, 1);
         guiGraphics.blit(VIAL, (int) (-1 * vialSize * ar / 2), (int) (diskSize / 2), 0, 0, (int) (vialSize * ar), (int) vialSize, (int) (vialSize * ar), (int) vialSize);
         graphics.rotateZ(-24);
