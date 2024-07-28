@@ -4,12 +4,13 @@ import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.client.extension.ThaumometerItemExtensions;
 import me.alegian.thaumcraft7.impl.client.extension.WandItemExtensions;
 import me.alegian.thaumcraft7.impl.client.gui.VisGuiOverlay;
-import me.alegian.thaumcraft7.impl.client.renderer.AspectRenderer;
 import me.alegian.thaumcraft7.impl.client.particle.CrucibleBubbleParticle;
+import me.alegian.thaumcraft7.impl.client.renderer.AspectRenderer;
 import me.alegian.thaumcraft7.impl.client.renderer.blockentity.AuraNodeBER;
 import me.alegian.thaumcraft7.impl.client.renderer.blockentity.CrucibleBER;
 import me.alegian.thaumcraft7.impl.client.texture.atlas.AspectAtlas;
 import me.alegian.thaumcraft7.impl.common.block.AuraNodeB;
+import me.alegian.thaumcraft7.impl.common.block.CrucibleB;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.TCBlockEntities;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.TCItems;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.TCParticleTypes;
@@ -90,9 +91,9 @@ public class TCClientEvents {
       var hitResult = minecraft.hitResult;
       if (hitResult == null || hitResult.getType() != HitResult.Type.BLOCK) return;
       var blockPos = ((BlockHitResult) hitResult).getBlockPos();
-      if (!(minecraft.level.getBlockState(blockPos).getBlock() instanceof AuraNodeB)) return;
+      if (!(minecraft.level.getBlockState(blockPos).getBlock() instanceof CrucibleB)) return;
 
-      AspectRenderer.renderAfterWeather(event.getPoseStack(), minecraft.renderBuffers().bufferSource(), event.getCamera(), blockPos);
+      AspectRenderer.renderAfterWeather(event.getPoseStack(), minecraft.renderBuffers().bufferSource(), event.getCamera(), blockPos, event.getPartialTick());
     }
   }
 }
