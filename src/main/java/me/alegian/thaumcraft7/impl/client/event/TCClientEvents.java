@@ -73,7 +73,7 @@ public class TCClientEvents {
       var hitResult = player.pick(player.getAttributeValue(Attributes.BLOCK_INTERACTION_RANGE), 0, false);
       if (hitResult.getType() != HitResult.Type.BLOCK) return;
 
-      AspectsParticle.renderAsGUI(event.getGuiGraphics(), ((BlockHitResult) hitResult).getBlockPos());
+      //AspectsParticle.renderAsGUI(event.getGuiGraphics(), ((BlockHitResult) hitResult).getBlockPos());
     }
 
     @SubscribeEvent
@@ -86,8 +86,9 @@ public class TCClientEvents {
         if (hasAspects) {
           if (!blockPos.equals(AspectsParticle.blockPos)) {
             AspectsParticle.kill = false;
-            level.addParticle(TCParticleTypes.ASPECTS.get(), blockPos.getX() + 0.5, blockPos.getY() + 1.25, blockPos.getZ() + 0.5, 0, 0, 0);
+            //level.addParticle(TCParticleTypes.ASPECTS.get(), blockPos.getX() + 0.5, blockPos.getY() + 1.25, blockPos.getZ() + 0.5, 0, 0, 0);
           }
+          AspectsParticle.renderOnHighlight(event.getMultiBufferSource(), event.getCamera(), blockPos);
         } else AspectsParticle.kill = true;
         AspectsParticle.blockPos = new BlockPos(blockPos);
 

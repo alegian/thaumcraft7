@@ -1,5 +1,6 @@
 package me.alegian.thaumcraft7.impl.client.particle;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import me.alegian.thaumcraft7.api.aspect.Aspect;
 import me.alegian.thaumcraft7.api.aspect.AspectList;
@@ -8,15 +9,15 @@ import me.alegian.thaumcraft7.impl.client.TCParticleRenderTypes;
 import me.alegian.thaumcraft7.impl.client.texture.atlas.AspectAtlas;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -26,6 +27,7 @@ import org.joml.Vector3f;
 @OnlyIn(Dist.CLIENT)
 public class AspectsParticle extends TextureSheetParticle {
   public static final int ROW_SIZE = 5;
+  public static final int LIGHT_COLOR = 0b111100000000000011110000; // completely bright
   public static boolean kill = false;
   public static BlockPos blockPos = null;
   public static AspectsParticle instance = null;
@@ -77,13 +79,17 @@ public class AspectsParticle extends TextureSheetParticle {
     }
   }
 
-  public static void renderAsGUI(GuiGraphics guiGraphics, BlockPos blockPos) {
-    var x = guiGraphics.guiWidth() / 2;
-    var y = guiGraphics.guiHeight() / 2;
-    guiGraphics.pose().pushPose();
-    guiGraphics.renderItem(new ItemStack(Items.STONE, 32), x, y);
-    guiGraphics.renderItemDecorations(Minecraft.getInstance().font, new ItemStack(Items.STONE, 32), x, y);
-    guiGraphics.pose().popPose();
+  public static void renderOnHighlight(MultiBufferSource bufferSource, Camera camera, BlockPos blockPos) {
+    var poseStack = new PoseStack();
+    poseStack.pushPose();
+    var cameraPos = camera.getPosition();
+    poseStack.translate(blockPos.getX() - cameraPos.x() +0.5d, blockPos.getY() - cameraPos.y() +1.25d, blockPos.getZ() - cameraPos.z() +0.5d);
+    poseStack.mulPose(camera.rotation());
+    poseStack.scale(0.025F, -0.025F, 0.025F);
+    Font font = Minecraft.getInstance().font;
+    String s = "hello";
+    font.drawInBatch(s, -font.width(s)/2f, 0, 0xFFFFFFFF, true, poseStack.last().pose(), bufferSource, Font.DisplayMode.NORMAL, 0, LIGHT_COLOR, false);
+    poseStack.popPose();
   }
 
   public float[][] calculateOffsets() {
@@ -156,7 +162,7 @@ public class AspectsParticle extends TextureSheetParticle {
 
   @Override
   protected int getLightColor(float pPartialTick) {
-    return 0b111100000000000011110000; // completely bright
+    return LIGHT_COLOR;
   }
 
   @OnlyIn(Dist.CLIENT)
