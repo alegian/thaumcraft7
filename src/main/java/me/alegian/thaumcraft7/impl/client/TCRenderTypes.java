@@ -7,8 +7,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
-import static net.minecraft.client.renderer.RenderStateShard.NO_DEPTH_TEST;
-import static net.minecraft.client.renderer.RenderStateShard.POSITION_COLOR_SHADER;
+import static net.minecraft.client.renderer.RenderStateShard.*;
 
 @OnlyIn(Dist.CLIENT)
 public class TCRenderTypes {
@@ -16,11 +15,25 @@ public class TCRenderTypes {
       Thaumcraft.MODID + "_simple_triangle", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.TRIANGLES, RenderType.SMALL_BUFFER_SIZE, true, true, simpleTriangleState()
   );
 
+  public static final RenderType ASPECT_QUAD = RenderType.create(
+      Thaumcraft.MODID + "_aspect_quad", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP, VertexFormat.Mode.QUADS, RenderType.SMALL_BUFFER_SIZE, true, true, aspectQuadState()
+  );
+
   private static RenderType.CompositeState simpleTriangleState() {
     return RenderType.CompositeState.builder()
         .setShaderState(POSITION_COLOR_SHADER)
         .setTransparencyState(TCRenderStateShards.SIMPLE_TRANSPARENCY)
         .setDepthTestState(NO_DEPTH_TEST)
+        .setTextureState(NO_TEXTURE)
+        .createCompositeState(false);
+  }
+
+  private static RenderType.CompositeState aspectQuadState() {
+    return RenderType.CompositeState.builder()
+        .setShaderState(POSITION_COLOR_TEX_LIGHTMAP_SHADER)
+        .setTransparencyState(TCRenderStateShards.SIMPLE_TRANSPARENCY)
+        .setDepthTestState(NO_DEPTH_TEST)
+        .setTextureState(TCRenderStateShards.ASPECTS_TEXTURE)
         .createCompositeState(false);
   }
 }

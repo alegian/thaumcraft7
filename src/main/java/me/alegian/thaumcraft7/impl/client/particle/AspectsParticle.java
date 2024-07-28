@@ -6,6 +6,7 @@ import me.alegian.thaumcraft7.api.aspect.Aspect;
 import me.alegian.thaumcraft7.api.aspect.AspectList;
 import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.client.TCParticleRenderTypes;
+import me.alegian.thaumcraft7.impl.client.TCRenderTypes;
 import me.alegian.thaumcraft7.impl.client.texture.atlas.AspectAtlas;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
@@ -13,7 +14,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.resources.ResourceLocation;
@@ -28,6 +29,7 @@ import org.joml.Vector3f;
 public class AspectsParticle extends TextureSheetParticle {
   public static final int ROW_SIZE = 5;
   public static final int LIGHT_COLOR = 0b111100000000000011110000; // completely bright
+  public static final float QUAD_SIZE = .6f;
   public static boolean kill = false;
   public static BlockPos blockPos = null;
   public static AspectsParticle instance = null;
@@ -46,7 +48,7 @@ public class AspectsParticle extends TextureSheetParticle {
     super(pLevel, pX, pY, pZ);
     this.gravity = 0;
     this.lifetime = Integer.MAX_VALUE;
-    this.quadSize = .6f;
+    this.quadSize = QUAD_SIZE;
     this.setSprite(AspectAtlas.sprite(ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "blank")));
   }
 
@@ -79,16 +81,23 @@ public class AspectsParticle extends TextureSheetParticle {
     }
   }
 
-  public static void renderOnHighlight(MultiBufferSource bufferSource, Camera camera, BlockPos blockPos) {
-    var poseStack = new PoseStack();
+  public static void renderOnHighlight(PoseStack poseStack, MultiBufferSource bufferSource, Camera camera, BlockPos blockPos) {
     poseStack.pushPose();
     var cameraPos = camera.getPosition();
-    poseStack.translate(blockPos.getX() - cameraPos.x() +0.5d, blockPos.getY() - cameraPos.y() +1.25d, blockPos.getZ() - cameraPos.z() +0.5d);
+    poseStack.translate(blockPos.getX() - cameraPos.x() + 0.5d, blockPos.getY() - cameraPos.y() + 1.25d, blockPos.getZ() - cameraPos.z() + 0.5d);
     poseStack.mulPose(camera.rotation());
+
+    poseStack.pushPose();
+    poseStack.scale(QUAD_SIZE, QUAD_SIZE, 1);
+    VertexConsumer vc = bufferSource.getBuffer(TCRenderTypes.ASPECT_QUAD);
+    renderQuad(vc, poseStack.last(), 0, 0, 0xFFFFFFFF);
+    poseStack.popPose();
+
+    poseStack.translate(0, 0, 0.0001f);
     poseStack.scale(0.025F, -0.025F, 0.025F);
     Font font = Minecraft.getInstance().font;
     String s = "hello";
-    font.drawInBatch(s, -font.width(s)/2f, 0, 0xFFFFFFFF, true, poseStack.last().pose(), bufferSource, Font.DisplayMode.NORMAL, 0, LIGHT_COLOR, false);
+    font.drawInBatch(s, -font.width(s) / 2f, 0, 0xFFFFFFFF, true, poseStack.last().pose(), bufferSource, Font.DisplayMode.NORMAL, 0, LIGHT_COLOR, false);
     poseStack.popPose();
   }
 
@@ -123,6 +132,36 @@ public class AspectsParticle extends TextureSheetParticle {
     this.renderVertex(pBuffer, pQuaternion, x, y, z, -.5F + xOffset, .5F + yOffset, f1, f3, color);
     this.renderVertex(pBuffer, pQuaternion, x, y, z, -.5F + xOffset, -.5F + yOffset, f1, f4, color);
   }
+
+  public static void renderQuad(VertexConsumer vc, PoseStack.Pose pose, float xOffset, float yOffset, int color) {
+    var sprite = AspectAtlas.sprite(ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "blank"));
+    float f1 = sprite.getU0();
+    float f2 = sprite.getU1();
+    float f3 = sprite.getV0();
+    float f4 = sprite.getV1();
+
+    renderStaticVertex(vc, pose, .5F + xOffset, -.5F + yOffset, 0, f2, f4, color);
+    renderStaticVertex(vc, pose, .5F + xOffset, .5F + yOffset, 0, f2, f3, color);
+    renderStaticVertex(vc, pose, -.5F + xOffset, .5F + yOffset, 0, f1, f3, color);
+    renderStaticVertex(vc, pose, -.5F + xOffset, -.5F + yOffset, 0, f1, f4, color);
+  }
+
+  public static void renderStaticVertex(
+      VertexConsumer vc,
+      PoseStack.Pose pose,
+      float x,
+      float y,
+      float z,
+      float pU,
+      float pV,
+      int color
+  ) {
+    vc.addVertex(pose, x, y, z)
+        .setUv(pU, pV)
+        .setColor(color)
+        .setLight(LIGHT_COLOR);
+  }
+
 
   public void renderVertex(
       VertexConsumer pBuffer,

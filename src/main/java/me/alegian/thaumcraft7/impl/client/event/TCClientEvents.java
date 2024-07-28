@@ -17,7 +17,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -88,7 +87,7 @@ public class TCClientEvents {
             AspectsParticle.kill = false;
             //level.addParticle(TCParticleTypes.ASPECTS.get(), blockPos.getX() + 0.5, blockPos.getY() + 1.25, blockPos.getZ() + 0.5, 0, 0, 0);
           }
-          AspectsParticle.renderOnHighlight(event.getMultiBufferSource(), event.getCamera(), blockPos);
+          AspectsParticle.renderOnHighlight(event.getPoseStack(), event.getMultiBufferSource(), event.getCamera(), blockPos);
         } else AspectsParticle.kill = true;
         AspectsParticle.blockPos = new BlockPos(blockPos);
 
