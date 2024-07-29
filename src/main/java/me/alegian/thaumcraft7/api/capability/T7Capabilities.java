@@ -5,7 +5,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.capabilities.BlockCapability;
 import net.neoforged.neoforge.capabilities.ItemCapability;
 
-public final class TCCapabilities {
+public final class T7Capabilities {
   public static final class VisStorage {
     public static final ItemCapability<IVisStorage, Void> ITEM = ItemCapability.createVoid(
         ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "vis_storage"),

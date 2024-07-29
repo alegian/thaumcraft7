@@ -10,7 +10,7 @@ import net.neoforged.api.distmarker.OnlyIn;
 import static net.minecraft.client.renderer.RenderStateShard.*;
 
 @OnlyIn(Dist.CLIENT)
-public class TCRenderTypes {
+public class T7RenderTypes {
   public static final RenderType SIMPLE_TRIANGLE = RenderType.create(
       Thaumcraft.MODID + "_simple_triangle", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.TRIANGLES, RenderType.SMALL_BUFFER_SIZE, true, true, simpleTriangleState()
   );
@@ -22,7 +22,7 @@ public class TCRenderTypes {
   private static RenderType.CompositeState simpleTriangleState() {
     return RenderType.CompositeState.builder()
         .setShaderState(POSITION_COLOR_SHADER)
-        .setTransparencyState(TCRenderStateShards.SIMPLE_TRANSPARENCY)
+        .setTransparencyState(T7RenderStateShards.SIMPLE_TRANSPARENCY)
         .setDepthTestState(NO_DEPTH_TEST)
         .setTextureState(NO_TEXTURE)
         .setOutputState(TRANSLUCENT_TARGET)
@@ -32,9 +32,9 @@ public class TCRenderTypes {
   private static RenderType.CompositeState aspectQuadState() {
     return RenderType.CompositeState.builder()
         .setShaderState(POSITION_COLOR_TEX_LIGHTMAP_SHADER)
-        .setTransparencyState(TCRenderStateShards.SIMPLE_TRANSPARENCY)
+        .setTransparencyState(T7RenderStateShards.SIMPLE_TRANSPARENCY)
         .setDepthTestState(NO_DEPTH_TEST)
-        .setTextureState(TCRenderStateShards.ASPECTS_TEXTURE)
+        .setTextureState(T7RenderStateShards.ASPECTS_TEXTURE)
         .setOutputState(TRANSLUCENT_TARGET)
         .createCompositeState(false);
   }

@@ -11,10 +11,10 @@ public class AspectContainerHelper {
    * always check hasAspects before using
    */
   public static AspectList getAspects(Level level, BlockPos pos) {
-    return Objects.requireNonNull(level.getCapability(TCCapabilities.AspectContainer.BLOCK, pos, null)).getAspects();
+    return Objects.requireNonNull(level.getCapability(T7Capabilities.AspectContainer.BLOCK, pos, null)).getAspects();
   }
 
   public static boolean hasAspects(Level level, BlockPos pos) {
-    return level.getCapability(TCCapabilities.AspectContainer.BLOCK, pos, null) != null;
+    return level.getCapability(T7Capabilities.AspectContainer.BLOCK, pos, null) != null;
   }
 }

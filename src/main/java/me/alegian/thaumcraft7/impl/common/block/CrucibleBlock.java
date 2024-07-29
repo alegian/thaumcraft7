@@ -2,7 +2,7 @@ package me.alegian.thaumcraft7.impl.common.block;
 
 import me.alegian.thaumcraft7.impl.common.block.entity.CrucibleBE;
 import me.alegian.thaumcraft7.impl.common.tag.CrucibleHeatSourceTag;
-import me.alegian.thaumcraft7.impl.init.registries.deferred.TCBlockEntities;
+import me.alegian.thaumcraft7.impl.init.registries.deferred.T7BlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -40,7 +40,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.fluids.FluidUtil;
 import org.jetbrains.annotations.Nullable;
 
-public class CrucibleB extends Block implements EntityBlock {
+public class CrucibleBlock extends Block implements EntityBlock {
   public static final VoxelShape CRUCIBLE_INSIDE = box(2.0, 4.0, 2.0, 14.0, 16.0, 14.0);
   public static final VoxelShape CRUCIBLE_SHAPE = Shapes.join(
       Shapes.block(),
@@ -52,10 +52,10 @@ public class CrucibleB extends Block implements EntityBlock {
       ),
       BooleanOp.ONLY_FIRST
   );
-  public static final BooleanProperty BOILING = TCBlockStateProperties.BOILING;
+  public static final BooleanProperty BOILING = T7BlockStateProperties.BOILING;
   public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
-  public CrucibleB() {
+  public CrucibleBlock() {
     super(BlockBehaviour.Properties.ofFullCopy(Blocks.CAULDRON));
   }
 
@@ -173,7 +173,7 @@ public class CrucibleB extends Block implements EntityBlock {
   @Nullable
   @Override
   public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-    return type == TCBlockEntities.CRUCIBLE.get() ? CrucibleBE::tick : null;
+    return type == T7BlockEntities.CRUCIBLE.get() ? CrucibleBE::tick : null;
   }
 
   @Override

@@ -1,7 +1,6 @@
 package me.alegian.thaumcraft7.impl;
 
 import com.mojang.logging.LogUtils;
-import me.alegian.thaumcraft7.impl.init.registries.deferred.TCCreativeModeTabs;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.*;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -18,14 +17,14 @@ public class Thaumcraft {
 
   // FML will recognize some parameter types like IEventBus or ModContainer and pass them in automatically.
   public Thaumcraft(IEventBus modEventBus) {
-    TCArmorMaterials.REGISTRAR.register(modEventBus);
-    TCBlocks.REGISTRAR.register(modEventBus);
-    TCItems.REGISTRAR.register(modEventBus);
-    TCBlockEntities.REGISTRAR.register(modEventBus);
-    TCAttachments.REGISTRAR.register(modEventBus);
-    TCDataComponents.REGISTRAR.register(modEventBus);
-    TCParticleTypes.REGISTRAR.register(modEventBus);
-    TCCreativeModeTabs.REGISTRAR.register(modEventBus);
+    T7ArmorMaterials.REGISTRAR.register(modEventBus);
+    T7Blocks.REGISTRAR.register(modEventBus);
+    T7Items.REGISTRAR.register(modEventBus);
+    T7BlockEntities.REGISTRAR.register(modEventBus);
+    T7Attachments.REGISTRAR.register(modEventBus);
+    T7DataComponents.REGISTRAR.register(modEventBus);
+    T7ParticleTypes.REGISTRAR.register(modEventBus);
+    T7CreativeModeTabs.REGISTRAR.register(modEventBus);
 
     NeoForge.EVENT_BUS.register(this);
   }

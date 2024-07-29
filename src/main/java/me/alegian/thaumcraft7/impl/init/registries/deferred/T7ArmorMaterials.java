@@ -14,7 +14,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import java.util.EnumMap;
 import java.util.List;
 
-public class TCArmorMaterials {
+public class T7ArmorMaterials {
   public static final DeferredRegister<ArmorMaterial> REGISTRAR = DeferredRegister.create(BuiltInRegistries.ARMOR_MATERIAL, Thaumcraft.MODID);
 
   public static final DeferredHolder<ArmorMaterial, ArmorMaterial> GOGGLES = REGISTRAR.register("goggles", () -> new ArmorMaterial(

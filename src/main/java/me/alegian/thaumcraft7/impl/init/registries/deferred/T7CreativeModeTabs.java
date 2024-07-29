@@ -6,7 +6,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-public class TCCreativeModeTabs {
+public class T7CreativeModeTabs {
   public static final DeferredRegister<CreativeModeTab> REGISTRAR = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Thaumcraft.MODID);
 
   static {
@@ -15,16 +15,16 @@ public class TCCreativeModeTabs {
         () -> CreativeModeTab
             .builder()
             .title(Component.translatable("thaumcraft"))
-            .icon(() -> TCItems.IRON_WOOD_WAND.get().getDefaultInstance())
+            .icon(() -> T7Items.IRON_WOOD_WAND.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
-              output.accept(TCBlocks.AURA_NODE_BLOCK.get());
-              output.accept(TCBlocks.CRUCIBLE.get());
+              output.accept(T7Blocks.AURA_NODE_BLOCK.get());
+              output.accept(T7Blocks.CRUCIBLE.get());
 
-              output.accept(TCItems.IRON_CAP.get());
-              output.accept(TCItems.IRON_WOOD_WAND.get());
-              output.accept(TCItems.THAUMOMETER.get());
-              output.accept(TCItems.THAUMONOMICON.get());
-              output.accept(TCItems.GOGGLES.get());
+              output.accept(T7Items.IRON_CAP.get());
+              output.accept(T7Items.IRON_WOOD_WAND.get());
+              output.accept(T7Items.THAUMOMETER.get());
+              output.accept(T7Items.THAUMONOMICON.get());
+              output.accept(T7Items.GOGGLES.get());
             })
             .build()
     );

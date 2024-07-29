@@ -9,9 +9,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-public class ThaumonomiconI extends Item {
+public class ThaumonomiconItem extends Item {
 
-  public ThaumonomiconI(Properties props) {
+  public ThaumonomiconItem(Properties props) {
     super(props);
   }
 

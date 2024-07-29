@@ -2,12 +2,12 @@ package me.alegian.thaumcraft7.impl.client.renderer.blockentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import me.alegian.thaumcraft7.impl.client.TCRenderTypes;
+import me.alegian.thaumcraft7.impl.client.T7RenderTypes;
 import net.minecraft.client.renderer.MultiBufferSource;
 
 public class BERHelper {
   public static void renderAuraNodeLayer(PoseStack poseStack, MultiBufferSource bufferSource, float radius, int triangleResolution, float r, float g, float b, float a) {
-    VertexConsumer buffer = bufferSource.getBuffer(TCRenderTypes.SIMPLE_TRIANGLE);
+    VertexConsumer buffer = bufferSource.getBuffer(T7RenderTypes.SIMPLE_TRIANGLE);
 
     var angleDelta = 2 * Math.PI / triangleResolution;
     for (int i = 0; i < triangleResolution; i++) {

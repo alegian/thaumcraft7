@@ -1,7 +1,7 @@
 package me.alegian.thaumcraft7.impl.common.item;
 
 import me.alegian.thaumcraft7.api.capability.VisStorageHelper;
-import me.alegian.thaumcraft7.impl.common.block.AuraNodeB;
+import me.alegian.thaumcraft7.impl.common.block.AuraNodeBlock;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -14,14 +14,14 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 
-public class WandI extends Item {
-  public WandI(Properties props) {
+public class WandItem extends Item {
+  public WandItem(Properties props) {
     super(props);
   }
 
   @Override
   public InteractionResult useOn(UseOnContext context) {
-    if (context.getLevel().getBlockState(context.getClickedPos()).getBlock() instanceof AuraNodeB) {
+    if (context.getLevel().getBlockState(context.getClickedPos()).getBlock() instanceof AuraNodeBlock) {
       var player = context.getPlayer();
       if (player != null) {
         var stack = player.getItemInHand(context.getHand());

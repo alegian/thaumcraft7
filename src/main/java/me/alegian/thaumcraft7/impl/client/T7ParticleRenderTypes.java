@@ -10,7 +10,7 @@ import me.alegian.thaumcraft7.impl.client.texture.atlas.AspectAtlas;
 import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.client.renderer.texture.TextureManager;
 
-public class TCParticleRenderTypes {
+public class T7ParticleRenderTypes {
   public static final ParticleRenderType ASPECT_SHEET_TRANSLUCENT_NO_DEPTH = new ParticleRenderType() {
     @Override
     public BufferBuilder begin(Tesselator tesselator, TextureManager textureManager) {

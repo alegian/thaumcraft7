@@ -7,7 +7,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
 
-public class TCDataComponents {
+public class T7DataComponents {
   public static final DeferredRegister.DataComponents REGISTRAR = DeferredRegister.createDataComponents(Thaumcraft.MODID);
 
   public static final Supplier<DataComponentType<VisDataComponent.Vis>> VIS = REGISTRAR.registerComponentType("vis",

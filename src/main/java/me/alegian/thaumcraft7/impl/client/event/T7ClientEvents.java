@@ -9,11 +9,11 @@ import me.alegian.thaumcraft7.impl.client.renderer.AspectRenderer;
 import me.alegian.thaumcraft7.impl.client.renderer.blockentity.AuraNodeBER;
 import me.alegian.thaumcraft7.impl.client.renderer.blockentity.CrucibleBER;
 import me.alegian.thaumcraft7.impl.client.texture.atlas.AspectAtlas;
-import me.alegian.thaumcraft7.impl.common.block.AuraNodeB;
-import me.alegian.thaumcraft7.impl.common.block.CrucibleB;
-import me.alegian.thaumcraft7.impl.init.registries.deferred.TCBlockEntities;
-import me.alegian.thaumcraft7.impl.init.registries.deferred.TCItems;
-import me.alegian.thaumcraft7.impl.init.registries.deferred.TCParticleTypes;
+import me.alegian.thaumcraft7.impl.common.block.AuraNodeBlock;
+import me.alegian.thaumcraft7.impl.common.block.CrucibleBlock;
+import me.alegian.thaumcraft7.impl.init.registries.deferred.T7BlockEntities;
+import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Items;
+import me.alegian.thaumcraft7.impl.init.registries.deferred.T7ParticleTypes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -26,7 +26,7 @@ import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
-public class TCClientEvents {
+public class T7ClientEvents {
   @EventBusSubscriber(modid = Thaumcraft.MODID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
   public static class ClientModEvents {
     @SubscribeEvent
@@ -36,19 +36,19 @@ public class TCClientEvents {
 
     @SubscribeEvent
     public static void registerBlockEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
-      event.registerBlockEntityRenderer(TCBlockEntities.AURA_NODE.get(), ctx -> new AuraNodeBER());
-      event.registerBlockEntityRenderer(TCBlockEntities.CRUCIBLE.get(), ctx -> new CrucibleBER());
+      event.registerBlockEntityRenderer(T7BlockEntities.AURA_NODE.get(), ctx -> new AuraNodeBER());
+      event.registerBlockEntityRenderer(T7BlockEntities.CRUCIBLE.get(), ctx -> new CrucibleBER());
     }
 
     @SubscribeEvent
     public static void registerParticleProviders(RegisterParticleProvidersEvent event) {
-      event.registerSpriteSet(TCParticleTypes.CRUCIBLE_BUBBLE.get(), CrucibleBubbleParticle.Provider::new);
+      event.registerSpriteSet(T7ParticleTypes.CRUCIBLE_BUBBLE.get(), CrucibleBubbleParticle.Provider::new);
     }
 
     @SubscribeEvent
     public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
-      event.registerItem(new WandItemExtensions(), TCItems.IRON_WOOD_WAND.get());
-      event.registerItem(new ThaumometerItemExtensions(), TCItems.THAUMOMETER.get());
+      event.registerItem(new WandItemExtensions(), T7Items.IRON_WOOD_WAND.get());
+      event.registerItem(new ThaumometerItemExtensions(), T7Items.THAUMOMETER.get());
     }
 
     @SubscribeEvent
@@ -79,7 +79,7 @@ public class TCClientEvents {
       var level = Minecraft.getInstance().level;
       if (level == null) return;
 
-      if (level.getBlockState(event.getTarget().getBlockPos()).getBlock() instanceof AuraNodeB)
+      if (level.getBlockState(event.getTarget().getBlockPos()).getBlock() instanceof AuraNodeBlock)
         event.setCanceled(true);
     }
 
@@ -91,7 +91,7 @@ public class TCClientEvents {
       var hitResult = minecraft.hitResult;
       if (hitResult == null || hitResult.getType() != HitResult.Type.BLOCK) return;
       var blockPos = ((BlockHitResult) hitResult).getBlockPos();
-      if (!(minecraft.level.getBlockState(blockPos).getBlock() instanceof CrucibleB)) return;
+      if (!(minecraft.level.getBlockState(blockPos).getBlock() instanceof CrucibleBlock)) return;
 
       AspectRenderer.renderAfterWeather(event.getPoseStack(), minecraft.renderBuffers().bufferSource(), event.getCamera(), blockPos, event.getPartialTick());
     }

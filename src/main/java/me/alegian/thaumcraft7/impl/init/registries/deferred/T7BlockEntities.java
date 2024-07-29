@@ -10,7 +10,7 @@ import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-public class TCBlockEntities {
+public class T7BlockEntities {
   public static final DeferredRegister<BlockEntityType<?>> REGISTRAR = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, Thaumcraft.MODID);
 
   public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<AuraNodeBE>> AURA_NODE =
@@ -18,7 +18,7 @@ public class TCBlockEntities {
           "aura_node",
           () -> BlockEntityType.Builder.of(
               AuraNodeBE::new,
-              TCBlocks.AURA_NODE_BLOCK.get()
+              T7Blocks.AURA_NODE_BLOCK.get()
           ).build(null)
       );
 
@@ -27,7 +27,7 @@ public class TCBlockEntities {
           "crucible",
           () -> BlockEntityType.Builder.of(
               CrucibleBE::new,
-              TCBlocks.CRUCIBLE.get()
+              T7Blocks.CRUCIBLE.get()
           ).build(null)
       );
 

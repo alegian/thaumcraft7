@@ -7,7 +7,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-public class TCParticleTypes {
+public class T7ParticleTypes {
   public static final DeferredRegister<ParticleType<?>> REGISTRAR =
       DeferredRegister.create(BuiltInRegistries.PARTICLE_TYPE, Thaumcraft.MODID);
 

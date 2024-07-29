@@ -1,6 +1,6 @@
 package me.alegian.thaumcraft7.impl.client.texture;
 
-public class TCTextures {
+public class T7Textures {
   public static final class Thaumonomicon {
     private static final String CONTEXT = "gui/thaumonomicon/";
 

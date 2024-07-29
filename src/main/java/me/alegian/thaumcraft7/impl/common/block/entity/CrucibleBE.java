@@ -1,10 +1,10 @@
 package me.alegian.thaumcraft7.impl.common.block.entity;
 
-import me.alegian.thaumcraft7.impl.common.block.TCBlockStateProperties;
-import me.alegian.thaumcraft7.impl.common.data.capability.CrucibleFluidHandler;
 import me.alegian.thaumcraft7.impl.client.particle.CrucibleBubbleParticle;
-import me.alegian.thaumcraft7.impl.init.registries.deferred.TCBlockEntities;
-import me.alegian.thaumcraft7.impl.init.registries.deferred.TCParticleTypes;
+import me.alegian.thaumcraft7.impl.common.block.T7BlockStateProperties;
+import me.alegian.thaumcraft7.impl.common.data.capability.CrucibleFluidHandler;
+import me.alegian.thaumcraft7.impl.init.registries.deferred.T7BlockEntities;
+import me.alegian.thaumcraft7.impl.init.registries.deferred.T7ParticleTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -25,19 +25,19 @@ public class CrucibleBE extends BlockEntity {
   private final List<CrucibleBubbleParticle> particles = new ArrayList<>();
 
   public CrucibleBE(BlockPos pos, BlockState blockState) {
-    super(TCBlockEntities.CRUCIBLE.get(), pos, blockState);
+    super(T7BlockEntities.CRUCIBLE.get(), pos, blockState);
     this.fluidHandler = new CrucibleFluidHandler(this);
   }
 
   public static void tick(Level level, BlockPos pos, BlockState state, BlockEntity blockEntity) {
     if (level instanceof ServerLevel serverLevel
-        && state.getValue(TCBlockStateProperties.BOILING)
+        && state.getValue(T7BlockStateProperties.BOILING)
         && serverLevel.getGameTime() % 7 == 0
         && blockEntity instanceof CrucibleBE crucibleBE
         && !crucibleBE.getFluidHandler().isEmpty()
     ) {
       serverLevel.sendParticles(
-          TCParticleTypes.CRUCIBLE_BUBBLE.get(),
+          T7ParticleTypes.CRUCIBLE_BUBBLE.get(),
           (double) pos.getX() + serverLevel.random.nextDouble() * 12 / 16f + 2 / 16f,
           pos.getY() + crucibleBE.getWaterHeight(),
           (double) pos.getZ() + serverLevel.random.nextDouble() * 12 / 16f + 2 / 16f,

@@ -11,8 +11,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
 
-public class TCBlockTagProvider extends BlockTagsProvider {
-  public TCBlockTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, @Nullable ExistingFileHelper existingFileHelper) {
+public class T7BlockTagProvider extends BlockTagsProvider {
+  public T7BlockTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, @Nullable ExistingFileHelper existingFileHelper) {
     super(output, lookupProvider, Thaumcraft.MODID, existingFileHelper);
   }
 

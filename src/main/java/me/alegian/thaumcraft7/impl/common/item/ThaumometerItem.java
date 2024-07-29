@@ -1,7 +1,7 @@
 package me.alegian.thaumcraft7.impl.common.item;
 
 import me.alegian.thaumcraft7.api.capability.AspectContainerHelper;
-import me.alegian.thaumcraft7.impl.common.block.AuraNodeB;
+import me.alegian.thaumcraft7.impl.common.block.AuraNodeBlock;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -14,8 +14,8 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 
-public class ThaumometerI extends Item {
-  public ThaumometerI(Properties props) {
+public class ThaumometerItem extends Item {
+  public ThaumometerItem(Properties props) {
     super(props);
   }
 
@@ -29,7 +29,7 @@ public class ThaumometerI extends Item {
   public InteractionResult useOn(UseOnContext context) {
     var level = context.getLevel();
     var block = level.getBlockState(context.getClickedPos()).getBlock();
-    if (block instanceof AuraNodeB) {
+    if (block instanceof AuraNodeBlock) {
       var player = context.getPlayer();
       if (player != null) {
         if (level.isClientSide) {

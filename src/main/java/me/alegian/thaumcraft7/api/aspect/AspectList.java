@@ -16,7 +16,7 @@ public class AspectList {
     return map.get(aspect);
   }
 
-  public Set<Aspect> aspectSet(){
+  public Set<Aspect> aspectSet() {
     return map.keySet();
   }
 

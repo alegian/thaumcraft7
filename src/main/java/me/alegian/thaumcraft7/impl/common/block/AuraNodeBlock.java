@@ -11,8 +11,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
-public class AuraNodeB extends TransparentBlock implements EntityBlock {
-  public AuraNodeB() {
+public class AuraNodeBlock extends TransparentBlock implements EntityBlock {
+  public AuraNodeBlock() {
     super(Properties.of()
         .noTerrainParticles()
         .strength(2F)

@@ -1,20 +1,20 @@
 package me.alegian.thaumcraft7.impl.init.data.providers;
 
 import me.alegian.thaumcraft7.impl.Thaumcraft;
-import me.alegian.thaumcraft7.impl.init.registries.deferred.TCItems;
+import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Items;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
-public class TCItemModelProvider extends ItemModelProvider {
-  public TCItemModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
+public class T7ItemModelProvider extends ItemModelProvider {
+  public T7ItemModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
     super(output, Thaumcraft.MODID, existingFileHelper);
   }
 
   @Override
   protected void registerModels() {
-    basicItem(TCItems.GOGGLES.get());
-    basicItem(TCItems.IRON_CAP.get());
-    basicItem(TCItems.THAUMONOMICON.get());
+    basicItem(T7Items.GOGGLES.get());
+    basicItem(T7Items.IRON_CAP.get());
+    basicItem(T7Items.THAUMONOMICON.get());
   }
 }

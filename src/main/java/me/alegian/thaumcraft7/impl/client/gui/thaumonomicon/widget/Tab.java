@@ -3,7 +3,7 @@ package me.alegian.thaumcraft7.impl.client.gui.thaumonomicon.widget;
 import me.alegian.thaumcraft7.impl.client.gui.GuiGraphicsWrapper;
 import me.alegian.thaumcraft7.impl.client.gui.thaumonomicon.grid.Grid;
 import me.alegian.thaumcraft7.impl.client.gui.thaumonomicon.grid.GridRenderable;
-import me.alegian.thaumcraft7.impl.client.texture.TCTextures;
+import me.alegian.thaumcraft7.impl.client.texture.T7Textures;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.util.Mth;
@@ -61,7 +61,7 @@ public class Tab implements Renderable {
     graphics.translateXY(screenWidth * 0.5f, screenHeight * 0.5f);
     graphics.scaleXY((float) Math.pow(ZOOM_MULTIPLIER, -zoom));
     graphics.drawTexture(
-        TCTextures.Thaumonomicon.TAB_BG.location(),
+        T7Textures.Thaumonomicon.TAB_BG.location(),
         -3840,
         -2160,
         0,
@@ -82,31 +82,31 @@ public class Tab implements Renderable {
 
   private static class Node extends GridRenderable {
     public Node(int x, int y) {
-      super(TCTextures.Thaumonomicon.NODE.location(), x, y);
+      super(T7Textures.Thaumonomicon.NODE.location(), x, y);
     }
   }
 
   private static class ArrowHead extends GridRenderable {
     public ArrowHead(int x, int y, int rotationDegrees) {
-      super(TCTextures.Thaumonomicon.ARROW_HEAD.location(), x, y, rotationDegrees);
+      super(T7Textures.Thaumonomicon.ARROW_HEAD.location(), x, y, rotationDegrees);
     }
   }
 
   private static class Line extends GridRenderable {
     public Line(int x, int y, int rotationDegrees) {
-      super(TCTextures.Thaumonomicon.LINE.location(), x, y, rotationDegrees);
+      super(T7Textures.Thaumonomicon.LINE.location(), x, y, rotationDegrees);
     }
   }
 
   private static class ArrowCorner1x1 extends GridRenderable {
     public ArrowCorner1x1(int x, int y, boolean flip, int rotationDegrees) {
-      super(TCTextures.Thaumonomicon.CORNER_1X1.location(), x, y, flip, rotationDegrees);
+      super(T7Textures.Thaumonomicon.CORNER_1X1.location(), x, y, flip, rotationDegrees);
     }
   }
 
   private static class ArrowCorner3x3 extends GridRenderable {
     public ArrowCorner3x3(int x, int y, boolean flip, int rotationDegrees) {
-      super(TCTextures.Thaumonomicon.CORNER_3X3.location(), x, y, 3, 3, flip, rotationDegrees);
+      super(T7Textures.Thaumonomicon.CORNER_3X3.location(), x, y, 3, 3, flip, rotationDegrees);
     }
   }
 }

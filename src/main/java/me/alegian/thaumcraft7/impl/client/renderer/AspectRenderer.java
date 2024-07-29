@@ -6,7 +6,7 @@ import com.mojang.math.Axis;
 import me.alegian.thaumcraft7.api.aspect.Aspect;
 import me.alegian.thaumcraft7.api.aspect.AspectList;
 import me.alegian.thaumcraft7.impl.Thaumcraft;
-import me.alegian.thaumcraft7.impl.client.TCRenderTypes;
+import me.alegian.thaumcraft7.impl.client.T7RenderTypes;
 import me.alegian.thaumcraft7.impl.client.texture.atlas.AspectAtlas;
 import net.minecraft.client.Camera;
 import net.minecraft.client.DeltaTracker;
@@ -63,7 +63,7 @@ public class AspectRenderer {
 
   public static float calculateRelativeAngle(DeltaTracker deltaTracker, BlockPos blockPos) {
     var player = Minecraft.getInstance().player;
-    if(player == null) return 0;
+    if (player == null) return 0;
 
     Vec3 playerPos = player.getPosition(deltaTracker.getGameTimeDeltaPartialTick(true));
     Vec3 diff = playerPos.vectorTo(blockPos.getCenter());
@@ -100,7 +100,7 @@ public class AspectRenderer {
   }
 
   public static void renderQuad(MultiBufferSource bufferSource, PoseStack.Pose pose, int color) {
-    VertexConsumer vc = bufferSource.getBuffer(TCRenderTypes.ASPECT_QUAD);
+    VertexConsumer vc = bufferSource.getBuffer(T7RenderTypes.ASPECT_QUAD);
     var sprite = AspectAtlas.sprite(ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "blank"));
     float f1 = sprite.getU0();
     float f2 = sprite.getU1();
