@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "minecraft:block/cauldron"
+      "model": "thaumcraft7:block/crucible"
     }
   }
 }

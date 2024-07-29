@@ -1,0 +1,10 @@
+{
+  "parent": "minecraft:block/cauldron",
+  "textures": {
+    "bottom": "thaumcraft7:block/crucible_bottom",
+    "inside": "thaumcraft7:block/crucible_inner",
+    "particle": "thaumcraft7:block/crucible_side",
+    "side": "thaumcraft7:block/crucible_side",
+    "top": "thaumcraft7:block/crucible_top"
+  }
+}
