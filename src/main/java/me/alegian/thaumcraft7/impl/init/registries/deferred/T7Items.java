@@ -25,6 +25,7 @@ public class T7Items {
 
   public static void registerCapabilities(RegisterCapabilitiesEvent event) {
     event.registerItem(T7Capabilities.VisStorage.ITEM, (itemStack, context) -> new VisStorage(50, itemStack), IRON_WOOD_WAND);
+    event.registerItem(T7Capabilities.REVEALING, (itemStack, context) -> Boolean.TRUE, GOGGLES);
   }
 
   // "using" predicate to switch item models

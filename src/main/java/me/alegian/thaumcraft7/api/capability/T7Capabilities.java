@@ -19,4 +19,9 @@ public final class T7Capabilities {
         IAspectContainer.class
     );
   }
+
+  public static final ItemCapability<Boolean, Void> REVEALING = ItemCapability.createVoid(
+      ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "goggle"),
+      Boolean.class
+  );
 }

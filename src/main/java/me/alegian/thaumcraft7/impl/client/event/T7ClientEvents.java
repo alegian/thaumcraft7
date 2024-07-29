@@ -1,5 +1,6 @@
 package me.alegian.thaumcraft7.impl.client.event;
 
+import me.alegian.thaumcraft7.api.capability.T7Capabilities;
 import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.client.extension.ThaumometerItemExtensions;
 import me.alegian.thaumcraft7.impl.client.extension.WandItemExtensions;
@@ -98,8 +99,8 @@ public class T7ClientEvents {
       if (!(minecraft.level.getBlockState(blockPos).getBlock() instanceof CrucibleBlock)) return;
       var player = minecraft.player;
       if (player == null) return;
-      var helmet = player.getInventory().armor.get(EquipmentSlot.HEAD.getIndex()).getItem();
-      if (helmet != T7Items.GOGGLES.get()) return;
+      var helmet = player.getInventory().armor.get(EquipmentSlot.HEAD.getIndex());
+      if (helmet.getCapability(T7Capabilities.REVEALING) == null) return;
 
       AspectRenderer.renderAfterWeather(event.getPoseStack(), minecraft.renderBuffers().bufferSource(), event.getCamera(), blockPos, event.getPartialTick());
     }
