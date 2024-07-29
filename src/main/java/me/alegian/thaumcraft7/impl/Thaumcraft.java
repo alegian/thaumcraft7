@@ -21,6 +21,7 @@ public class Thaumcraft {
     T7Blocks.REGISTRAR.register(modEventBus);
     T7Items.REGISTRAR.register(modEventBus);
     T7BlockEntities.REGISTRAR.register(modEventBus);
+    T7EntityTypes.REGISTRAR.register(modEventBus);
     T7Attachments.REGISTRAR.register(modEventBus);
     T7DataComponents.REGISTRAR.register(modEventBus);
     T7ParticleTypes.REGISTRAR.register(modEventBus);

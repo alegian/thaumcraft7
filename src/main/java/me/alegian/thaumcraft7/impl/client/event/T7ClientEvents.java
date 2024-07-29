@@ -8,10 +8,12 @@ import me.alegian.thaumcraft7.impl.client.particle.CrucibleBubbleParticle;
 import me.alegian.thaumcraft7.impl.client.renderer.AspectRenderer;
 import me.alegian.thaumcraft7.impl.client.renderer.blockentity.AuraNodeBER;
 import me.alegian.thaumcraft7.impl.client.renderer.blockentity.CrucibleBER;
+import me.alegian.thaumcraft7.impl.client.renderer.entity.FancyItemRenderer;
 import me.alegian.thaumcraft7.impl.client.texture.atlas.AspectAtlas;
 import me.alegian.thaumcraft7.impl.common.block.AuraNodeBlock;
 import me.alegian.thaumcraft7.impl.common.block.CrucibleBlock;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7BlockEntities;
+import me.alegian.thaumcraft7.impl.init.registries.deferred.T7EntityTypes;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Items;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7ParticleTypes;
 import net.minecraft.client.Minecraft;
@@ -35,9 +37,10 @@ public class T7ClientEvents {
     }
 
     @SubscribeEvent
-    public static void registerBlockEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
+    public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
       event.registerBlockEntityRenderer(T7BlockEntities.AURA_NODE.get(), ctx -> new AuraNodeBER());
       event.registerBlockEntityRenderer(T7BlockEntities.CRUCIBLE.get(), ctx -> new CrucibleBER());
+      event.registerEntityRenderer(T7EntityTypes.FANCY_ITEM.get(), FancyItemRenderer::new);
     }
 
     @SubscribeEvent
