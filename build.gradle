@@ -26,11 +26,12 @@ base {
 // Mojang ships Java 21 to end users in 1.20.6, so your mod should target Java 21.
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
-//minecraft.accessTransformers.file rootProject.file('src/main/resources/META-INF/accesstransformer.cfg')
-//minecraft.accessTransformers.entry public net.minecraft.client.Minecraft textureManager # textureManager
+minecraft {
+    accessTransformers {
+        file('src/main/resources/META-INF/accesstransformer.cfg')
+    }
+}
 
-// Default run configurations.
-// These can be tweaked, removed, or duplicated as needed.
 runs {
     // applies to all the run configs below
     configureEach {
