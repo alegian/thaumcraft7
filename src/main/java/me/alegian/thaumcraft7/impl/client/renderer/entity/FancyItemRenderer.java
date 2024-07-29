@@ -2,7 +2,7 @@ package me.alegian.thaumcraft7.impl.client.renderer.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import me.alegian.thaumcraft7.impl.client.renderer.AspectRenderer;
+import me.alegian.thaumcraft7.impl.client.renderer.RenderHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -49,7 +49,7 @@ public class FancyItemRenderer extends EntityRenderer<ItemEntity> {
     float f1 = shouldBob ? Mth.sin(((float) pEntity.getAge() + pPartialTicks) / 10.0F + pEntity.bobOffs) * 0.1F + 0.1F : 0;
     float f2 = bakedmodel.getTransforms().getTransform(ItemDisplayContext.GROUND).scale.y();
     pPoseStack.translate(0.0F, f1 + 0.25F * f2, 0.0F);
-    var angle = AspectRenderer.calculateRelativePlayerAngle(pEntity.getEyePosition());
+    var angle = RenderHelper.calculatePlayerAngle(pEntity.getEyePosition());
     pPoseStack.mulPose(Axis.YP.rotation(angle));
     renderMultipleFromCount(itemRenderer, pPoseStack, pBuffer, pPackedLight, itemstack, bakedmodel, flag, this.random);
     pPoseStack.translate(0, 0, -.5f);

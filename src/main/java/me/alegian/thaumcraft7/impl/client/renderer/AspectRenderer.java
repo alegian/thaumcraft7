@@ -15,7 +15,6 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import org.joml.Vector2f;
@@ -41,7 +40,7 @@ public class AspectRenderer {
     var cameraPos = camera.getPosition();
     poseStack.translate(blockPos.getX() - cameraPos.x() + 0.5d, blockPos.getY() - cameraPos.y() + 1.25d + QUAD_SIZE / 2, blockPos.getZ() - cameraPos.z() + 0.5d);
 
-    var angle = calculateRelativePlayerAngle(blockPos.getCenter());
+    var angle = RenderHelper.calculatePlayerAngle(blockPos.getCenter());
     poseStack.mulPose(Axis.YP.rotation(angle));
     poseStack.scale(QUAD_SIZE, QUAD_SIZE, 1);
 
@@ -59,20 +58,6 @@ public class AspectRenderer {
     }
 
     poseStack.popPose();
-  }
-
-  public static float calculateRelativePlayerAngle(Vec3 pos) {
-    var deltaTracker = Minecraft.getInstance().getTimer();
-    var player = Minecraft.getInstance().player;
-    if (player == null) return 0;
-
-    Vec3 playerPos = player.getPosition(deltaTracker.getGameTimeDeltaPartialTick(true));
-    Vec3 diff = playerPos.vectorTo(pos);
-    Vec3 diffXZ = (new Vec3(diff.x, 0, diff.z)).normalize();
-    double angle = Math.acos(diffXZ.dot(new Vec3(0, 0, -1)));
-    if (diffXZ.x > 0) angle = angle * -1;
-
-    return (float) angle;
   }
 
   public static Vector2f[] calculateOffsets() {
