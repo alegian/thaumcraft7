@@ -16,7 +16,7 @@ public class T7BlockStateProvider extends BlockStateProvider {
 
   @Override
   protected void registerStatesAndModels() {
-    horizontalBlock(T7Blocks.CRUCIBLE.get(), models().getExistingFile(mcLoc("block/cauldron")));
+    simpleBlock(T7Blocks.CRUCIBLE.get(), models().getExistingFile(mcLoc("block/cauldron")));
     itemModels().getBuilder(T7Blocks.CRUCIBLE.getId().getPath()).parent(new ModelFile.UncheckedModelFile("item/generated")).texture("layer0", ResourceLocation.withDefaultNamespace("item/cauldron"));
 
     itemModels().getBuilder(T7Blocks.AURA_NODE_BLOCK.getId().getPath()).parent(new ModelFile.UncheckedModelFile("item/generated")).renderType("translucent").texture("layer0", ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "item/aura_node"));

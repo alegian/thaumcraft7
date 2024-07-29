@@ -53,7 +53,6 @@ public class CrucibleBlock extends Block implements EntityBlock {
       BooleanOp.ONLY_FIRST
   );
   public static final BooleanProperty BOILING = T7BlockStateProperties.BOILING;
-  public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
   public CrucibleBlock() {
     super(BlockBehaviour.Properties.ofFullCopy(Blocks.CAULDRON));
@@ -61,17 +60,15 @@ public class CrucibleBlock extends Block implements EntityBlock {
 
   @Override
   protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-    pBuilder.add(BOILING, FACING);
+    pBuilder.add(BOILING);
   }
 
   @Override
   @Nullable
   public BlockState getStateForPlacement(BlockPlaceContext pContext) {
-    var facingDirection = pContext.getHorizontalDirection().getOpposite();
     var below = pContext.getClickedPos().below();
 
     return defaultBlockState()
-        .setValue(FACING, facingDirection)
         .setValue(BOILING, isHeatSource(pContext.getLevel(), below));
   }
 
