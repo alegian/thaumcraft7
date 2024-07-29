@@ -18,6 +18,7 @@ import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Items;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7ParticleTypes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -95,6 +96,10 @@ public class T7ClientEvents {
       if (hitResult == null || hitResult.getType() != HitResult.Type.BLOCK) return;
       var blockPos = ((BlockHitResult) hitResult).getBlockPos();
       if (!(minecraft.level.getBlockState(blockPos).getBlock() instanceof CrucibleBlock)) return;
+      var player = minecraft.player;
+      if (player == null) return;
+      var helmet = player.getInventory().armor.get(EquipmentSlot.HEAD.getIndex()).getItem();
+      if (helmet != T7Items.GOGGLES.get()) return;
 
       AspectRenderer.renderAfterWeather(event.getPoseStack(), minecraft.renderBuffers().bufferSource(), event.getCamera(), blockPos, event.getPartialTick());
     }

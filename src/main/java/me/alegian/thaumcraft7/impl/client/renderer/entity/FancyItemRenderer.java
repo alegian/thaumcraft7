@@ -6,6 +6,7 @@ import me.alegian.thaumcraft7.impl.client.renderer.RenderHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.entity.EnderDragonRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -47,7 +48,7 @@ public class FancyItemRenderer extends EntityRenderer<ItemEntity> {
     boolean flag = bakedmodel.isGui3d();
     boolean shouldBob = net.neoforged.neoforge.client.extensions.common.IClientItemExtensions.of(itemstack).shouldBobAsEntity(itemstack);
     float f1 = shouldBob ? Mth.sin(((float) pEntity.getAge() + pPartialTicks) / 10.0F + pEntity.bobOffs) * 0.1F + 0.1F : 0;
-    float f2 = bakedmodel.getTransforms().getTransform(ItemDisplayContext.GROUND).scale.y();
+    float f2 = ItemTransforms.NO_TRANSFORMS.getTransform(ItemDisplayContext.GROUND).scale.y();
     pPoseStack.translate(0.0F, f1 + 0.25F * f2, 0.0F);
     var angle = RenderHelper.calculatePlayerAngle(pEntity.getEyePosition());
     pPoseStack.mulPose(Axis.YP.rotation(angle));
