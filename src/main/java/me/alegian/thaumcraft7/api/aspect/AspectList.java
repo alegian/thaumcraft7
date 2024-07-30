@@ -1,31 +1,35 @@
 package me.alegian.thaumcraft7.api.aspect;
 
+import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class AspectList {
   private final Map<Aspect, Integer> map;
 
   public AspectList(Map<Aspect, Integer> map) {
-    this.map = map;
+    this.map = new LinkedHashMap<>(map);
   }
 
   public AspectList() {
     this.map = new LinkedHashMap<>();
   }
 
-  public static final Codec<Map<Aspect, Integer>> CODEC = Codec.unboundedMap(Aspect.CODEC, Codec.INT);
+  public static final Codec<Pair<Aspect, Integer>> PAIR_CODEC = Codec.pair(
+      Aspect.CODEC.fieldOf("aspect").codec(),
+      Codec.INT.fieldOf("amount").codec()
+  );
+
+  public static final Codec<List<Pair<Aspect, Integer>>> CODEC = PAIR_CODEC.listOf();
 
   public AspectList add(Aspect aspect, int amount) {
-    map.put(aspect, amount);
+    map.compute(aspect, (k, v) -> v == null ? amount : v + amount);
     return this;
   }
 
@@ -49,12 +53,9 @@ public class AspectList {
     return this.isEmpty() ? new CompoundTag() : this.save(lookupProvider, new CompoundTag());
   }
 
-  public Tag save(HolderLookup.Provider lookupProvider) {
-    return CODEC.encode(this.map, lookupProvider.createSerializationContext(NbtOps.INSTANCE), null).getOrThrow();
-  }
-
   public Tag save(HolderLookup.Provider lookupProvider, Tag prefix) {
-    return CODEC.encode(this.map, lookupProvider.createSerializationContext(NbtOps.INSTANCE), prefix).getOrThrow();
+    var listOfPairs = this.map.entrySet().stream().map(e->Pair.of(e.getKey(), e.getValue())).toList();
+    return CODEC.encode(listOfPairs, lookupProvider.createSerializationContext(NbtOps.INSTANCE), prefix).getOrThrow();
   }
 
   public static AspectList parseOptional(HolderLookup.Provider lookupProvider, CompoundTag tag) {
@@ -62,10 +63,10 @@ public class AspectList {
   }
 
   public static Optional<AspectList> parse(HolderLookup.Provider lookupProvider, Tag tag) {
-    var optionalMap = CODEC.parse(lookupProvider.createSerializationContext(NbtOps.INSTANCE), tag)
+    var optionalListOfPairs = CODEC.parse(lookupProvider.createSerializationContext(NbtOps.INSTANCE), tag)
         .resultOrPartial(System.out::println);
 
-    return optionalMap.map(AspectList::new);
+    return optionalListOfPairs.map(o->new AspectList(o.stream().collect(Collectors.toMap(Pair::getFirst, Pair::getSecond))));
   }
 
   @Override
