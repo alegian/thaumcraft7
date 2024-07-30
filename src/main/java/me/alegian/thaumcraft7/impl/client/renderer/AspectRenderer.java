@@ -50,7 +50,7 @@ public class AspectRenderer {
       poseStack.pushPose();
       poseStack.translate(offsets[i].x, offsets[i].y, 0);
 
-      renderQuad(bufferSource, poseStack.last(), aspect.getColor());
+      renderQuad(bufferSource, poseStack.last(), aspect);
       renderText(bufferSource, poseStack, String.valueOf(aspects.get(aspect)));
 
       poseStack.popPose();
@@ -85,13 +85,14 @@ public class AspectRenderer {
     poseStack.popPose();
   }
 
-  public static void renderQuad(MultiBufferSource bufferSource, PoseStack.Pose pose, int color) {
+  public static void renderQuad(MultiBufferSource bufferSource, PoseStack.Pose pose, Aspect aspect) {
     VertexConsumer vc = bufferSource.getBuffer(T7RenderTypes.ASPECT_QUAD);
-    var sprite = AspectAtlas.sprite(ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "blank"));
+    var sprite = AspectAtlas.sprite(ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, aspect.getId()));
     float f1 = sprite.getU0();
     float f2 = sprite.getU1();
     float f3 = sprite.getV0();
     float f4 = sprite.getV1();
+    var color = aspect.getColor();
 
     renderVertex(vc, pose, .5F, -.5F, 0, f2, f4, color);
     renderVertex(vc, pose, .5F, .5F, 0, f2, f3, color);
