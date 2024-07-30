@@ -102,7 +102,7 @@ public class T7ClientEvents {
       var helmet = player.getInventory().armor.get(EquipmentSlot.HEAD.getIndex());
       if (helmet.getCapability(T7Capabilities.REVEALING) == null) return;
 
-      AspectRenderer.renderAfterWeather(event.getPoseStack(), minecraft.renderBuffers().bufferSource(), event.getCamera(), blockPos, event.getPartialTick());
+      AspectRenderer.renderAfterWeather(event.getPoseStack(), minecraft.renderBuffers().bufferSource(), event.getCamera(), blockPos);
     }
   }
 }

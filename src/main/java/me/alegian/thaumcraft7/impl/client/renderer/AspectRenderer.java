@@ -35,7 +35,7 @@ public class AspectRenderer {
     aspects.add(Aspect.VINCULUM, 2);
   }
 
-  public static void renderAfterWeather(PoseStack poseStack, MultiBufferSource bufferSource, Camera camera, BlockPos blockPos, DeltaTracker deltaTracker) {
+  public static void renderAfterWeather(PoseStack poseStack, MultiBufferSource bufferSource, Camera camera, BlockPos blockPos) {
     poseStack.pushPose();
     var cameraPos = camera.getPosition();
     poseStack.translate(blockPos.getX() - cameraPos.x() + 0.5d, blockPos.getY() - cameraPos.y() + 1.25d + QUAD_SIZE / 2, blockPos.getZ() - cameraPos.z() + 0.5d);
