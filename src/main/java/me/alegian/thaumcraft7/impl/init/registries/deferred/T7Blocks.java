@@ -1,12 +1,8 @@
 package me.alegian.thaumcraft7.impl.init.registries.deferred;
 
-import me.alegian.thaumcraft7.api.aspect.Aspect;
-import me.alegian.thaumcraft7.api.aspect.AspectList;
-import me.alegian.thaumcraft7.api.capability.T7Capabilities;
 import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.common.block.AuraNodeBlock;
 import me.alegian.thaumcraft7.impl.common.block.CrucibleBlock;
-import me.alegian.thaumcraft7.impl.common.data.capability.AspectContainer;
 import net.minecraft.world.item.BlockItem;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.registries.DeferredBlock;
@@ -22,7 +18,5 @@ public class T7Blocks {
   public static final DeferredItem<BlockItem> CRUCIBLE_ITEM = T7Items.REGISTRAR.registerSimpleBlockItem("crucible", CRUCIBLE);
 
   public static void registerCapabilities(RegisterCapabilitiesEvent event) {
-    AspectList contents = new AspectList().add(Aspect.AER, 2).add(Aspect.POTENTIA, 4);
-    event.registerBlock(T7Capabilities.AspectContainer.BLOCK, (level, pos, state, be, context) -> new AspectContainer(contents), AURA_NODE_BLOCK.get());
   }
 }

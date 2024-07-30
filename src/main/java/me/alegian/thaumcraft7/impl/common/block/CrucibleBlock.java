@@ -1,5 +1,6 @@
 package me.alegian.thaumcraft7.impl.common.block;
 
+import me.alegian.thaumcraft7.api.capability.AspectContainerHelper;
 import me.alegian.thaumcraft7.impl.common.block.entity.CrucibleBE;
 import me.alegian.thaumcraft7.impl.common.tag.CrucibleHeatSourceTag;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7BlockEntities;
@@ -109,7 +110,10 @@ public class CrucibleBlock extends Block implements EntityBlock {
         && pEntity instanceof ItemEntity
         && this.isEntityInsideContent(pPos, pEntity)
     ) {
-      if (pEntity.mayInteract(pLevel, pPos) && lowerFillLevel(pLevel, pPos)) {
+      if (pEntity.mayInteract(pLevel, pPos) &&
+          AspectContainerHelper.addRandomAspect(pLevel, pPos) &&
+          lowerFillLevel(pLevel, pPos)
+      ) {
         pEntity.kill();
         pLevel.playSound(pEntity, pPos, SoundEvents.GENERIC_SPLASH, SoundSource.BLOCKS, 1F, 1.0F);
       }

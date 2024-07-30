@@ -9,7 +9,6 @@ import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.client.T7RenderTypes;
 import me.alegian.thaumcraft7.impl.client.texture.atlas.AspectAtlas;
 import net.minecraft.client.Camera;
-import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.LightTexture;
@@ -24,18 +23,10 @@ import org.joml.Vector2f;
 public class AspectRenderer {
   public static final int ROW_SIZE = 5;
   public static final float QUAD_SIZE = .3f;
-  public static AspectList aspects = new AspectList();
 
-  static {
-    aspects.add(Aspect.IGNIS, 4);
-    aspects.add(Aspect.AER, 1);
-    aspects.add(Aspect.MORTUUS, 2);
-    aspects.add(Aspect.METALLUM, 4);
-    aspects.add(Aspect.LUX, 7);
-    aspects.add(Aspect.VINCULUM, 2);
-  }
+  public static void renderAfterWeather(AspectList aspects, PoseStack poseStack, MultiBufferSource bufferSource, Camera camera, BlockPos blockPos) {
+    if (aspects.isEmpty()) return;
 
-  public static void renderAfterWeather(PoseStack poseStack, MultiBufferSource bufferSource, Camera camera, BlockPos blockPos) {
     poseStack.pushPose();
     var cameraPos = camera.getPosition();
     poseStack.translate(blockPos.getX() - cameraPos.x() + 0.5d, blockPos.getY() - cameraPos.y() + 1.25d + QUAD_SIZE / 2, blockPos.getZ() - cameraPos.z() + 0.5d);
@@ -44,7 +35,7 @@ public class AspectRenderer {
     poseStack.mulPose(Axis.YP.rotation(angle));
     poseStack.scale(QUAD_SIZE, QUAD_SIZE, 1);
 
-    Vector2f[] offsets = calculateOffsets();
+    Vector2f[] offsets = calculateOffsets(aspects.size());
     int i = 0;
     for (Aspect aspect : aspects.aspectSet()) {
       poseStack.pushPose();
@@ -60,12 +51,12 @@ public class AspectRenderer {
     poseStack.popPose();
   }
 
-  public static Vector2f[] calculateOffsets() {
-    Vector2f[] offsets = new Vector2f[aspects.size()];
+  public static Vector2f[] calculateOffsets(int numAspects) {
+    Vector2f[] offsets = new Vector2f[numAspects];
 
-    int rows = (int) Math.ceil(1f * aspects.size() / ROW_SIZE);
+    int rows = (int) Math.ceil(1f * numAspects / ROW_SIZE);
     for (int i = 0; i < rows; i++) {
-      int cols = Math.min(aspects.size() - (i * ROW_SIZE), ROW_SIZE);
+      int cols = Math.min(numAspects - (i * ROW_SIZE), ROW_SIZE);
       for (int j = 0; j < cols; j++) {
         float xOffset = (cols - 1) / -2f + j;
         offsets[i * ROW_SIZE + j] = new Vector2f(xOffset, i);

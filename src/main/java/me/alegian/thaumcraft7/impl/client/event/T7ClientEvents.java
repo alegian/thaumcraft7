@@ -1,5 +1,6 @@
 package me.alegian.thaumcraft7.impl.client.event;
 
+import me.alegian.thaumcraft7.api.capability.AspectContainerHelper;
 import me.alegian.thaumcraft7.api.capability.T7Capabilities;
 import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.client.extension.ThaumometerItemExtensions;
@@ -102,7 +103,9 @@ public class T7ClientEvents {
       var helmet = player.getInventory().armor.get(EquipmentSlot.HEAD.getIndex());
       if (helmet.getCapability(T7Capabilities.REVEALING) == null) return;
 
-      AspectRenderer.renderAfterWeather(event.getPoseStack(), minecraft.renderBuffers().bufferSource(), event.getCamera(), blockPos);
+      AspectContainerHelper.getAspects(minecraft.level, blockPos).ifPresent(
+          aspects -> AspectRenderer.renderAfterWeather(aspects, event.getPoseStack(), minecraft.renderBuffers().bufferSource(), event.getCamera(), blockPos)
+      );
     }
   }
 }

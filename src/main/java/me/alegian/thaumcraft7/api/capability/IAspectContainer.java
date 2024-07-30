@@ -1,5 +1,6 @@
 package me.alegian.thaumcraft7.api.capability;
 
+import me.alegian.thaumcraft7.api.aspect.Aspect;
 import me.alegian.thaumcraft7.api.aspect.AspectList;
 
 /*
@@ -9,4 +10,6 @@ import me.alegian.thaumcraft7.api.aspect.AspectList;
  */
 public interface IAspectContainer {
   public AspectList getAspects();
+
+  public boolean addAspect(Aspect aspect, int amount);
 }

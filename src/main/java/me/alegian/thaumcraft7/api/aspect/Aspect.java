@@ -56,6 +56,11 @@ public class Aspect {
     return components;
   }
 
+  public static Aspect getRandomAspect() {
+    var aspectArray = Aspect.ASPECTS.values().toArray(new Aspect[]{});
+    return aspectArray[(int) (Math.random() * aspectArray.length)];
+  }
+
   public ResourceLocation getImage() {
     return image;
   }

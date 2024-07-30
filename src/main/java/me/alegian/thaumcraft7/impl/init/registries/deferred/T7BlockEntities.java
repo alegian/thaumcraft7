@@ -1,5 +1,6 @@
 package me.alegian.thaumcraft7.impl.init.registries.deferred;
 
+import me.alegian.thaumcraft7.api.capability.T7Capabilities;
 import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.common.block.entity.AuraNodeBE;
 import me.alegian.thaumcraft7.impl.common.block.entity.CrucibleBE;
@@ -33,5 +34,6 @@ public class T7BlockEntities {
 
   public static void registerCapabilities(RegisterCapabilitiesEvent event) {
     event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, CRUCIBLE.get(), (be, context) -> be.getFluidHandler());
+    event.registerBlockEntity(T7Capabilities.AspectContainer.BLOCK, CRUCIBLE.get(), (be, context) -> be.getAspectContainer());
   }
 }
