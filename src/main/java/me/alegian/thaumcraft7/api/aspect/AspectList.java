@@ -4,6 +4,7 @@ import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
 
@@ -50,15 +51,15 @@ public class AspectList {
   }
 
   public Tag saveOptional(HolderLookup.Provider lookupProvider) {
-    return this.isEmpty() ? new CompoundTag() : this.save(lookupProvider, new CompoundTag());
+    return this.isEmpty() ? new CompoundTag() : this.save(lookupProvider);
   }
 
-  public Tag save(HolderLookup.Provider lookupProvider, Tag prefix) {
-    var listOfPairs = this.map.entrySet().stream().map(e->Pair.of(e.getKey(), e.getValue())).toList();
-    return CODEC.encode(listOfPairs, lookupProvider.createSerializationContext(NbtOps.INSTANCE), prefix).getOrThrow();
+  public Tag save(HolderLookup.Provider lookupProvider) {
+    var listOfPairs = this.map.entrySet().stream().map(e -> Pair.of(e.getKey(), e.getValue())).toList();
+    return CODEC.encodeStart(lookupProvider.createSerializationContext(NbtOps.INSTANCE), listOfPairs).getOrThrow();
   }
 
-  public static AspectList parseOptional(HolderLookup.Provider lookupProvider, CompoundTag tag) {
+  public static AspectList parseOptional(HolderLookup.Provider lookupProvider, ListTag tag) {
     return tag.isEmpty() ? new AspectList() : parse(lookupProvider, tag).orElse(new AspectList());
   }
 
@@ -66,7 +67,7 @@ public class AspectList {
     var optionalListOfPairs = CODEC.parse(lookupProvider.createSerializationContext(NbtOps.INSTANCE), tag)
         .resultOrPartial(System.out::println);
 
-    return optionalListOfPairs.map(o->new AspectList(o.stream().collect(Collectors.toMap(Pair::getFirst, Pair::getSecond))));
+    return optionalListOfPairs.map(o -> new AspectList(o.stream().collect(Collectors.toMap(Pair::getFirst, Pair::getSecond))));
   }
 
   @Override

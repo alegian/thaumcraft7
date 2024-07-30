@@ -5,6 +5,7 @@ import me.alegian.thaumcraft7.api.aspect.AspectList;
 import me.alegian.thaumcraft7.api.capability.IAspectContainer;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 
 public class AspectContainer implements IAspectContainer {
   private AspectList contents;
@@ -28,14 +29,11 @@ public class AspectContainer implements IAspectContainer {
     return true;
   }
 
-  public AspectContainer readFromNBT(HolderLookup.Provider lookupProvider, CompoundTag nbt) {
-    contents = AspectList.parseOptional(lookupProvider, nbt.getCompound("aspects"));
-    return this;
+  public void readFromNBT(HolderLookup.Provider lookupProvider, CompoundTag nbt) {
+    contents = AspectList.parseOptional(lookupProvider, nbt.getList("aspects", Tag.TAG_COMPOUND));
   }
 
-  public CompoundTag writeToNBT(HolderLookup.Provider lookupProvider, CompoundTag nbt) {
+  public void writeToNBT(HolderLookup.Provider lookupProvider, CompoundTag nbt) {
     nbt.put("aspects", contents.saveOptional(lookupProvider));
-
-    return nbt;
   }
 }
