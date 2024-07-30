@@ -1,7 +1,7 @@
 package me.alegian.thaumcraft7.api.aspect;
 
-import me.alegian.thaumcraft7.impl.Thaumcraft;
-import net.minecraft.resources.ResourceLocation;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -12,25 +12,26 @@ public class Aspect {
   String id;
   int color;
   Aspect[] components;
-  ResourceLocation image;
 
-  public Aspect(String id, int color, Aspect[] components, ResourceLocation image) {
+  public Aspect(String id, int color, Aspect[] components) {
     this.id = id;
     this.color = color;
     this.components = components;
-    this.image = image;
 
     var existing = ASPECTS.putIfAbsent(id, this);
     if (existing != null) throw new IllegalArgumentException("Thaumcraft Aspect Exception: Duplicate ID: " + id);
   }
 
-  /*
-   * DON'T use this constructor, as it hardcodes asset locations to the thaumcraft folder.
-   * Shortcut used for the default Thaumcraft Aspects.
-   */
-  public Aspect(String id, int color, Aspect[] components) {
-    this(id, color, components, ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "aspects/" + id));
-  }
+  public static final Codec<Aspect> CODEC = Codec.STRING.comapFlatMap(
+      s -> {
+        try {
+          return DataResult.success(valueOf(s));
+        } catch (IllegalArgumentException e) {
+          return DataResult.error(e::getMessage);
+        }
+      },
+      Aspect::getId
+  );
 
   public boolean isPrimal() {
     return getComponents() == null;
@@ -61,8 +62,10 @@ public class Aspect {
     return aspectArray[(int) (Math.random() * aspectArray.length)];
   }
 
-  public ResourceLocation getImage() {
-    return image;
+  public static Aspect valueOf(String s) {
+    Aspect aspect = ASPECTS.get(s);
+    if (aspect == null) throw new IllegalArgumentException("Thaumcraft Aspect Exception: Unknown Aspect: " + s);
+    return aspect;
   }
 
   // PRIMAL

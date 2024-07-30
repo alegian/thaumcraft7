@@ -107,11 +107,13 @@ public class CrucibleBE extends BlockEntity {
   protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
     super.loadAdditional(pTag, pRegistries);
     fluidHandler.readFromNBT(pRegistries, pTag);
+    aspectContainer.readFromNBT(pRegistries, pTag);
   }
 
   @Override
   protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
     super.saveAdditional(pTag, pRegistries);
     fluidHandler.writeToNBT(pRegistries, pTag);
+    aspectContainer.writeToNBT(pRegistries, pTag);
   }
 }

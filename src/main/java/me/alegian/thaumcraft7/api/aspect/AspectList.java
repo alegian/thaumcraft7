@@ -1,11 +1,10 @@
 package me.alegian.thaumcraft7.api.aspect;
 
+import com.mojang.serialization.Codec;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
-import net.neoforged.neoforge.common.util.DataComponentUtil;
-import net.neoforged.neoforge.fluids.FluidStack;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -13,7 +12,17 @@ import java.util.Optional;
 import java.util.Set;
 
 public class AspectList {
-  private Map<Aspect, Integer> map = new LinkedHashMap<>();
+  private final Map<Aspect, Integer> map;
+
+  public AspectList(Map<Aspect, Integer> map) {
+    this.map = map;
+  }
+
+  public AspectList() {
+    this.map = new LinkedHashMap<>();
+  }
+
+  public static final Codec<Map<Aspect, Integer>> CODEC = Codec.unboundedMap(Aspect.CODEC, Codec.INT);
 
   public AspectList add(Aspect aspect, int amount) {
     map.put(aspect, amount);
@@ -41,28 +50,22 @@ public class AspectList {
   }
 
   public Tag save(HolderLookup.Provider lookupProvider) {
-    if (this.isEmpty()) {
-      throw new IllegalStateException("Cannot encode empty FluidStack");
-    } else {
-      return DataComponentUtil.wrapEncodingExceptions(this, CODEC, lookupProvider);
-    }
+    return CODEC.encode(this.map, lookupProvider.createSerializationContext(NbtOps.INSTANCE), null).getOrThrow();
   }
 
   public Tag save(HolderLookup.Provider lookupProvider, Tag prefix) {
-    if (this.isEmpty()) {
-      throw new IllegalStateException("Cannot encode empty FluidStack");
-    } else {
-      return DataComponentUtil.wrapEncodingExceptions(this, CODEC, lookupProvider, prefix);
-    }
+    return CODEC.encode(this.map, lookupProvider.createSerializationContext(NbtOps.INSTANCE), prefix).getOrThrow();
   }
 
-  public static FluidStack parseOptional(HolderLookup.Provider lookupProvider, CompoundTag tag) {
-    return tag.isEmpty() ? EMPTY : parse(lookupProvider, tag).orElse(EMPTY);
+  public static AspectList parseOptional(HolderLookup.Provider lookupProvider, CompoundTag tag) {
+    return tag.isEmpty() ? new AspectList() : parse(lookupProvider, tag).orElse(new AspectList());
   }
 
-  public static Optional<FluidStack> parse(HolderLookup.Provider lookupProvider, Tag tag) {
-    return CODEC.parse(lookupProvider.createSerializationContext(NbtOps.INSTANCE), tag)
-        .resultOrPartial(error -> LOGGER.error("Tried to load invalid fluid: '{}'", error));
+  public static Optional<AspectList> parse(HolderLookup.Provider lookupProvider, Tag tag) {
+    var optionalMap = CODEC.parse(lookupProvider.createSerializationContext(NbtOps.INSTANCE), tag)
+        .resultOrPartial(System.out::println);
+
+    return optionalMap.map(AspectList::new);
   }
 
   @Override

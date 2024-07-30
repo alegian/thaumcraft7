@@ -5,11 +5,9 @@ import me.alegian.thaumcraft7.api.aspect.AspectList;
 import me.alegian.thaumcraft7.api.capability.IAspectContainer;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 
 public class AspectContainer implements IAspectContainer {
-  private final AspectList contents;
+  private AspectList contents;
 
   public AspectContainer(AspectList contents) {
     this.contents = contents;
@@ -31,14 +29,12 @@ public class AspectContainer implements IAspectContainer {
   }
 
   public AspectContainer readFromNBT(HolderLookup.Provider lookupProvider, CompoundTag nbt) {
-    fluid = FluidStack.parseOptional(lookupProvider, nbt.getCompound("Fluid"));
+    contents = AspectList.parseOptional(lookupProvider, nbt.getCompound("aspects"));
     return this;
   }
 
   public CompoundTag writeToNBT(HolderLookup.Provider lookupProvider, CompoundTag nbt) {
-    if (!fluid.isEmpty()) {
-      nbt.put("Fluid", fluid.save(lookupProvider));
-    }
+    nbt.put("aspects", contents.saveOptional(lookupProvider));
 
     return nbt;
   }
