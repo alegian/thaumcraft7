@@ -30,10 +30,10 @@ public class AspectContainer implements IAspectContainer {
   }
 
   public void readFromNBT(HolderLookup.Provider lookupProvider, CompoundTag nbt) {
-    contents = AspectList.parseOptional(lookupProvider, nbt.getList("aspects", Tag.TAG_COMPOUND));
+    contents = AspectList.parse(lookupProvider, nbt.getList("aspects", Tag.TAG_COMPOUND));
   }
 
   public void writeToNBT(HolderLookup.Provider lookupProvider, CompoundTag nbt) {
-    nbt.put("aspects", contents.saveOptional(lookupProvider));
+    nbt.put("aspects", contents.save(lookupProvider));
   }
 }

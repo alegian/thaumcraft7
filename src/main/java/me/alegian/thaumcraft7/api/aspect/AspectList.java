@@ -50,24 +50,18 @@ public class AspectList {
     return map.isEmpty();
   }
 
-  public Tag saveOptional(HolderLookup.Provider lookupProvider) {
-    return this.isEmpty() ? new CompoundTag() : this.save(lookupProvider);
-  }
-
   public Tag save(HolderLookup.Provider lookupProvider) {
     var listOfPairs = this.map.entrySet().stream().map(e -> Pair.of(e.getKey(), e.getValue())).toList();
     return CODEC.encodeStart(lookupProvider.createSerializationContext(NbtOps.INSTANCE), listOfPairs).getOrThrow();
   }
 
-  public static AspectList parseOptional(HolderLookup.Provider lookupProvider, ListTag tag) {
-    return tag.isEmpty() ? new AspectList() : parse(lookupProvider, tag).orElse(new AspectList());
-  }
-
-  public static Optional<AspectList> parse(HolderLookup.Provider lookupProvider, Tag tag) {
+  public static AspectList parse(HolderLookup.Provider lookupProvider, Tag tag) {
     var optionalListOfPairs = CODEC.parse(lookupProvider.createSerializationContext(NbtOps.INSTANCE), tag)
         .resultOrPartial(System.out::println);
 
-    return optionalListOfPairs.map(o -> new AspectList(o.stream().collect(Collectors.toMap(Pair::getFirst, Pair::getSecond))));
+    return optionalListOfPairs.map(o ->
+        new AspectList(o.stream().collect(Collectors.toMap(Pair::getFirst, Pair::getSecond)))
+    ).orElse(new AspectList());
   }
 
   @Override
