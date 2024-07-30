@@ -12,6 +12,7 @@ import net.minecraft.client.Camera;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
@@ -22,7 +23,6 @@ import org.joml.Vector2f;
 @OnlyIn(Dist.CLIENT)
 public class AspectRenderer {
   public static final int ROW_SIZE = 5;
-  public static final int LIGHT_COLOR = 0b111100000000000011110000; // completely bright
   public static final float QUAD_SIZE = .3f;
   public static AspectList aspects = new AspectList();
 
@@ -81,7 +81,7 @@ public class AspectRenderer {
     poseStack.scale(0.036F, -0.036F, 0.1F);
     Font font = Minecraft.getInstance().font;
 
-    font.drawInBatch(text, -font.width(text), -font.lineHeight, 0xFFFFFFFF, true, poseStack.last().pose(), bufferSource, Font.DisplayMode.SEE_THROUGH, 0, LIGHT_COLOR, false);
+    font.drawInBatch(text, -font.width(text), -font.lineHeight, 0xFFFFFFFF, true, poseStack.last().pose(), bufferSource, Font.DisplayMode.SEE_THROUGH, 0, LightTexture.FULL_BRIGHT, false);
     poseStack.popPose();
   }
 
@@ -112,6 +112,6 @@ public class AspectRenderer {
     vc.addVertex(pose, x, y, z)
         .setUv(pU, pV)
         .setColor(color)
-        .setLight(LIGHT_COLOR);
+        .setLight(LightTexture.FULL_BRIGHT);
   }
 }
