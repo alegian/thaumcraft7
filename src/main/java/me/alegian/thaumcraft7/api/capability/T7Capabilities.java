@@ -2,6 +2,7 @@ package me.alegian.thaumcraft7.api.capability;
 
 import me.alegian.thaumcraft7.impl.Thaumcraft;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Unit;
 import net.neoforged.neoforge.capabilities.BlockCapability;
 import net.neoforged.neoforge.capabilities.ItemCapability;
 
@@ -20,8 +21,8 @@ public final class T7Capabilities {
     );
   }
 
-  public static final ItemCapability<Boolean, Void> REVEALING = ItemCapability.createVoid(
+  public static final ItemCapability<Unit, Void> REVEALING = ItemCapability.createVoid(
       ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "goggle"),
-      Boolean.class
+      Unit.class
   );
 }
