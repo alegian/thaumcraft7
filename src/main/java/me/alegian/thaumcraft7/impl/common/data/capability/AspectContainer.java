@@ -7,6 +7,8 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 
+import javax.annotation.Nullable;
+
 public class AspectContainer implements IAspectContainer {
   private AspectList contents;
 
@@ -26,6 +28,14 @@ public class AspectContainer implements IAspectContainer {
   @Override
   public boolean addAspect(Aspect aspect, int amount) {
     contents.add(aspect, amount);
+    return true;
+  }
+
+  @Override
+  public boolean addAspects(@Nullable AspectList aspects) {
+    if(aspects == null) return false;
+    
+    contents.merge(aspects);
     return true;
   }
 

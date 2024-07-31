@@ -1,0 +1,16 @@
+{
+  "values": {
+    "minecraft:stick": [
+      {
+        "amount": 1,
+        "aspect": "herba"
+      }
+    ],
+    "minecraft:stone": [
+      {
+        "amount": 2,
+        "aspect": "terra"
+      }
+    ]
+  }
+}

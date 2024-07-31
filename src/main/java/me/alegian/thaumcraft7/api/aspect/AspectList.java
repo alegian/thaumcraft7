@@ -30,32 +30,43 @@ public class AspectList {
       Codec.INT.fieldOf("amount").codec()
   );
 
-  public static final Codec<List<Pair<Aspect, Integer>>> CODEC = PAIR_CODEC.listOf();
+  public static final Codec<List<Pair<Aspect, Integer>>> PAIR_LIST_CODEC = PAIR_CODEC.listOf();
 
-  public static final Codec<Map<Aspect, Integer>> MAP_CODEC = new Codec<>() {
+  public static final Codec<AspectList> CODEC = new Codec<>() {
     @Override
-    public <T> DataResult<Pair<Map<Aspect, Integer>, T>> decode(DynamicOps<T> dynamicOps, T t) {
-      var optionalListOfPairs = CODEC.parse(dynamicOps, t)
+    public <T> DataResult<Pair<AspectList, T>> decode(DynamicOps<T> dynamicOps, T t) {
+      var optionalListOfPairs = PAIR_LIST_CODEC.parse(dynamicOps, t)
           .resultOrPartial(System.out::println);
 
       return optionalListOfPairs.map(o ->
               o.stream().collect(Collectors.toMap(Pair::getFirst, Pair::getSecond))
           )
+          .map(AspectList::new)
           .map(m -> new Pair<>(m, t))
           .map(DataResult::success)
-          .orElse(DataResult.success(new Pair<>(new LinkedHashMap<>(), t)));
+          .orElse(DataResult.success(new Pair<>(new AspectList(), t)));
     }
 
     @Override
-    public <T> DataResult<T> encode(Map<Aspect, Integer> map, DynamicOps<T> dynamicOps, T t) {
-      var listOfPairs = map.entrySet().stream().map(e -> Pair.of(e.getKey(), e.getValue())).toList();
-      return CODEC.encode(listOfPairs, dynamicOps, t);
+    public <T> DataResult<T> encode(AspectList aspectList, DynamicOps<T> dynamicOps, T t) {
+      var listOfPairs = aspectList.map.entrySet().stream().map(e -> Pair.of(e.getKey(), e.getValue())).toList();
+      return PAIR_LIST_CODEC.encode(listOfPairs, dynamicOps, t);
     }
   };
 
   public AspectList add(Aspect aspect, int amount) {
     map.compute(aspect, (k, v) -> v == null ? amount : v + amount);
     return this;
+  }
+
+  public void merge(AspectList aspects) {
+    aspects.map.forEach((k, v) -> {
+      this.map.merge(k, v, Integer::sum);
+    });
+  }
+
+  public static AspectList of(Aspect aspect, int amount){
+    return new AspectList(Map.of(aspect, amount));
   }
 
   public int get(Aspect aspect) {
@@ -75,15 +86,15 @@ public class AspectList {
   }
 
   public Tag save(HolderLookup.Provider lookupProvider) {
-    return MAP_CODEC.encodeStart(lookupProvider.createSerializationContext(NbtOps.INSTANCE), this.map)
+    return CODEC.encodeStart(lookupProvider.createSerializationContext(NbtOps.INSTANCE), this)
         .getOrThrow();
   }
 
   public static AspectList parse(HolderLookup.Provider lookupProvider, Tag tag) {
-    var optionalMap = MAP_CODEC.parse(lookupProvider.createSerializationContext(NbtOps.INSTANCE), tag)
+    var optionalAspectList = CODEC.parse(lookupProvider.createSerializationContext(NbtOps.INSTANCE), tag)
         .resultOrPartial(System.out::println);
 
-    return optionalMap.map(AspectList::new).orElse(new AspectList());
+    return optionalAspectList.orElse(new AspectList());
   }
 
   @Override
