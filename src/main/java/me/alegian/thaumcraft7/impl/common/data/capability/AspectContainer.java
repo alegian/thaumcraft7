@@ -34,7 +34,7 @@ public class AspectContainer implements IAspectContainer {
   @Override
   public boolean addAspects(@Nullable AspectList aspects) {
     if(aspects == null) return false;
-    
+
     contents.merge(aspects);
     return true;
   }

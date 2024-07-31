@@ -41,6 +41,8 @@ public class T7CommonEvents {
       generator.addProvider(true, new T7BlockTagProvider(packOutput, lookupProvider, existingFileHelper));
       generator.addProvider(true, new T7FluidTagProvider(packOutput, lookupProvider, existingFileHelper));
       generator.addProvider(true, new T7LanguageProvider(packOutput, "en_us"));
+
+      generator.addProvider(event.includeServer(), new T7DatapackBuiltinEntriesProvider(packOutput, lookupProvider));
     }
   }
 }
