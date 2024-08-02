@@ -65,7 +65,7 @@ public class AspectList {
     });
   }
 
-  public static AspectList of(Aspect aspect, int amount){
+  public static AspectList of(Aspect aspect, int amount) {
     return new AspectList(Map.of(aspect, amount));
   }
 

@@ -6,6 +6,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.resources.TextureAtlasHolder;
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.NotNull;
 
 public class AspectAtlas extends TextureAtlasHolder {
   public static final String KEY = "aspects";
@@ -17,7 +18,7 @@ public class AspectAtlas extends TextureAtlasHolder {
   }
 
   @Override
-  public TextureAtlasSprite getSprite(ResourceLocation pLocation) {
+  public @NotNull TextureAtlasSprite getSprite(@NotNull ResourceLocation pLocation) {
     return super.getSprite(pLocation);
   }
 

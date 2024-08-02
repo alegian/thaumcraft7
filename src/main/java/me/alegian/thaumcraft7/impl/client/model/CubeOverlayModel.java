@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.mojang.blaze3d.vertex.PoseStack;
 import me.alegian.thaumcraft7.impl.Thaumcraft;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.BlockModel;
@@ -14,6 +15,7 @@ import net.minecraft.client.resources.model.*;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.client.model.ElementsModel;
@@ -33,6 +35,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
+import static me.alegian.thaumcraft7.impl.client.model.BakedModelHelper.quad;
+import static me.alegian.thaumcraft7.impl.client.model.BakedModelHelper.v;
+
 public class CubeOverlayModel {
   public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "cube_overlay");
 
@@ -43,7 +48,7 @@ public class CubeOverlayModel {
     }
 
     @Override
-    public UnbakedGeometry read(JsonObject jsonObject, JsonDeserializationContext context) throws JsonParseException {
+    public @NotNull UnbakedGeometry read(JsonObject jsonObject, JsonDeserializationContext context) throws JsonParseException {
       // Trick the deserializer into thinking this is a normal model by removing the loader field and then passing it back into the deserializer.
       jsonObject.remove("loader");
       BlockModel base = context.deserialize(jsonObject, BlockModel.class);
@@ -67,7 +72,7 @@ public class CubeOverlayModel {
     }
 
     @Override
-    public void resolveParents(@NotNull Function<ResourceLocation, UnbakedModel> modelGetter, IGeometryBakingContext context) {
+    public void resolveParents(@NotNull Function<ResourceLocation, UnbakedModel> modelGetter, @NotNull IGeometryBakingContext context) {
       base.resolveParents(modelGetter);
     }
   }
@@ -125,9 +130,12 @@ public class CubeOverlayModel {
     }
 
     @Override
-    public @NotNull List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, RandomSource rand, ModelData extraData, @Nullable RenderType renderType) {
+    public @NotNull List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @NotNull RandomSource rand, @NotNull ModelData extraData, @Nullable RenderType renderType) {
       List<BakedQuad> quads = new ArrayList<>(base.getQuads(state, side, rand, extraData, renderType));
-
+      var sprite = Minecraft.getInstance()
+          .getTextureAtlas(InventoryMenu.BLOCK_ATLAS)
+          .apply(ResourceLocation.withDefaultNamespace("block/netherrack"));
+      quads.add(quad(v(0, 1, 1), v(1, 1, 1), v(1, 1, 0), v(0, 1, 0), sprite));
       return quads;
     }
 
@@ -153,7 +161,7 @@ public class CubeOverlayModel {
     }
 
     @Override
-    public JsonObject toJson(JsonObject json) {
+    public @NotNull JsonObject toJson(@NotNull JsonObject json) {
       // TODO: add fields to the given JsonObject
       return super.toJson(json);
     }

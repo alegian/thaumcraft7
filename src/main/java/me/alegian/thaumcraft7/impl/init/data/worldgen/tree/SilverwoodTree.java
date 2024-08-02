@@ -40,14 +40,14 @@ public class SilverwoodTree {
       ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, PATH)
   );
 
-  public static void registerConfigured(BootstrapContext<ConfiguredFeature<?, ?>> context){
+  public static void registerConfigured(BootstrapContext<ConfiguredFeature<?, ?>> context) {
     context.register(
         CONFIGURED_FEATURE,
         new ConfiguredFeature<>(Feature.TREE, TreeFeatures.createStraightBlobTree(Blocks.COBBLESTONE, Blocks.COBBLESTONE, 8, 4, 0, 4).ignoreVines().build())
     );
   }
 
-  public static void registerPlaced(BootstrapContext<PlacedFeature> context){
+  public static void registerPlaced(BootstrapContext<PlacedFeature> context) {
     HolderGetter<ConfiguredFeature<?, ?>> otherRegistry = context.lookup(Registries.CONFIGURED_FEATURE);
 
     context.register(PLACED_FEATURE, new PlacedFeature(
@@ -63,7 +63,7 @@ public class SilverwoodTree {
     ));
   }
 
-  public static void registerBiomeModifier(BootstrapContext<BiomeModifier> context){
+  public static void registerBiomeModifier(BootstrapContext<BiomeModifier> context) {
     HolderGetter<PlacedFeature> placedFeatureRegistry = context.lookup(Registries.PLACED_FEATURE);
     HolderGetter<Biome> biomeRegistry = context.lookup(Registries.BIOME);
 
