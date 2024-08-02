@@ -1,6 +1,6 @@
 {
   "type": "neoforge:add_features",
-  "biomes": "minecraft:forest",
+  "biomes": "#minecraft:is_overworld",
   "features": "thaumcraft7:example_placed_feature",
   "step": "vegetal_decoration"
 }

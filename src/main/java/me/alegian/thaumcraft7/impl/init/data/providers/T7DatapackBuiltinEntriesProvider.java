@@ -11,8 +11,8 @@ import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -74,7 +74,7 @@ public class T7DatapackBuiltinEntriesProvider extends DatapackBuiltinEntriesProv
         HolderGetter<Biome> biomeRegistry = bootstrap.lookup(Registries.BIOME);
         bootstrap.register(EXAMPLE_BIOME_MODIFIER,
             new BiomeModifiers.AddFeaturesBiomeModifier(
-                HolderSet.direct(biomeRegistry.getOrThrow(Biomes.FOREST)),
+                biomeRegistry.getOrThrow(BiomeTags.IS_OVERWORLD),
                 HolderSet.direct(placedFeatureRegistry.getOrThrow(EXAMPLE_PLACED_FEATURE)),
                 GenerationStep.Decoration.VEGETAL_DECORATION
             )
