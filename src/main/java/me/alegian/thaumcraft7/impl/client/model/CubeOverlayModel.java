@@ -159,8 +159,18 @@ public class CubeOverlayModel {
       );
     }
 
-    public BlockModelBuilder parent(ModelFile parent) {
-      return this.parent.parent(parent);
+    public LoaderBuilder parent(ModelFile parent) {
+      this.parent.parent(parent);
+      return this;
+    }
+
+    public LoaderBuilder renderType(String renderType) {
+      this.parent.renderType(renderType);
+      return this;
+    }
+
+    public BlockModelBuilder build(){
+      return parent;
     }
 
     @Override

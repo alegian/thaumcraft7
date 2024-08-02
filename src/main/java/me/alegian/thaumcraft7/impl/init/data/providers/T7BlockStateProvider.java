@@ -3,6 +3,7 @@ package me.alegian.thaumcraft7.impl.init.data.providers;
 import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.client.model.CubeOverlayModel;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Blocks;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
@@ -28,8 +29,10 @@ public class T7BlockStateProvider extends BlockStateProvider {
     simpleBlockWithItem(T7Blocks.CRYSTAL_ORE.get(), models().getBuilder(T7Blocks.CRYSTAL_ORE.getId().getPath())
         .customLoader(CubeOverlayModel.LoaderBuilder::new)
         .parent(new ModelFile.UncheckedModelFile("block/stone"))
+        .renderType(RenderType.cutout().name)
+        .build()
     );
 
-    itemModels().getBuilder(T7Blocks.AURA_NODE_BLOCK.getId().getPath()).parent(new ModelFile.UncheckedModelFile("item/generated")).renderType("translucent").texture("layer0", ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "item/aura_node"));
+    itemModels().getBuilder(T7Blocks.AURA_NODE_BLOCK.getId().getPath()).parent(new ModelFile.UncheckedModelFile("item/generated")).renderType(RenderType.translucent().name).texture("layer0", ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "item/aura_node"));
   }
 }
