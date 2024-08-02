@@ -18,6 +18,7 @@ public class T7CreativeModeTabs {
             .icon(() -> T7Items.IRON_WOOD_WAND.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
               output.accept(T7Blocks.AURA_NODE_BLOCK.get());
+              output.accept(T7Blocks.CRYSTAL_ORE.get());
 
               output.accept(T7Items.IRON_CAP.get());
               output.accept(T7Items.IRON_WOOD_WAND.get());

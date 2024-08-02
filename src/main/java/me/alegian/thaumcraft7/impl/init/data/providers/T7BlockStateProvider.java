@@ -1,6 +1,7 @@
 package me.alegian.thaumcraft7.impl.init.data.providers;
 
 import me.alegian.thaumcraft7.impl.Thaumcraft;
+import me.alegian.thaumcraft7.impl.client.model.CubeOverlayModel;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Blocks;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -22,6 +23,11 @@ public class T7BlockStateProvider extends BlockStateProvider {
         .texture("bottom", ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "block/crucible_bottom"))
         .texture("side", ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "block/crucible_side"))
         .texture("inside", ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "block/crucible_inner"))
+    );
+
+    simpleBlockWithItem(T7Blocks.CRYSTAL_ORE.get(), models().getBuilder(T7Blocks.CRYSTAL_ORE.getId().getPath())
+        .customLoader(CubeOverlayModel.LoaderBuilder::new)
+        .parent(new ModelFile.UncheckedModelFile("block/stone"))
     );
 
     itemModels().getBuilder(T7Blocks.AURA_NODE_BLOCK.getId().getPath()).parent(new ModelFile.UncheckedModelFile("item/generated")).renderType("translucent").texture("layer0", ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "item/aura_node"));

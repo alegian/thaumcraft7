@@ -6,6 +6,7 @@ import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.client.extension.ThaumometerItemExtensions;
 import me.alegian.thaumcraft7.impl.client.extension.WandItemExtensions;
 import me.alegian.thaumcraft7.impl.client.gui.VisGuiOverlay;
+import me.alegian.thaumcraft7.impl.client.model.CubeOverlayModel;
 import me.alegian.thaumcraft7.impl.client.particle.CrucibleBubbleParticle;
 import me.alegian.thaumcraft7.impl.client.renderer.AspectRenderer;
 import me.alegian.thaumcraft7.impl.client.renderer.blockentity.AuraNodeBER;
@@ -60,6 +61,11 @@ public class T7ClientEvents {
     @SubscribeEvent
     public static void registerReloadListenerEvent(RegisterClientReloadListenersEvent event) {
       event.registerReloadListener(AspectAtlas.INSTANCE);
+    }
+
+    @SubscribeEvent
+    public static void registerGeometryLoaders(ModelEvent.RegisterGeometryLoaders event) {
+      event.register(CubeOverlayModel.ID, CubeOverlayModel.GeometryLoader.INSTANCE);
     }
   }
 

@@ -1,0 +1,4 @@
+{
+  "parent": "minecraft:block/stone",
+  "loader": "thaumcraft7:cube_overlay"
+}
