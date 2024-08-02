@@ -134,8 +134,11 @@ public class CubeOverlayModel {
       List<BakedQuad> quads = new ArrayList<>(base.getQuads(state, side, rand, extraData, renderType));
       var sprite = Minecraft.getInstance()
           .getTextureAtlas(InventoryMenu.BLOCK_ATLAS)
-          .apply(ResourceLocation.withDefaultNamespace("block/netherrack"));
-      quads.add(quad(v(0, 1, 1), v(1, 1, 1), v(1, 1, 0), v(0, 1, 0), sprite));
+          .apply(ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "block/crystal_ore"));
+      float offset = 0.001f; // avoid z-fighting
+      float ONE = 1+offset;
+      float ZERO = 0-offset;
+      quads.add(quad(v(ZERO, ONE, ONE), v(ONE, ONE, ONE), v(ONE, ONE, ZERO), v(ZERO, ONE, ZERO), sprite));
       return quads;
     }
 
