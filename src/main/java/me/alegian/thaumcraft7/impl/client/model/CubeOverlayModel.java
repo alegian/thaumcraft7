@@ -7,6 +7,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import me.alegian.thaumcraft7.impl.Thaumcraft;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
@@ -17,7 +18,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.client.ChunkRenderTypeSet;
 import net.neoforged.neoforge.client.model.ElementsModel;
 import net.neoforged.neoforge.client.model.IDynamicBakedModel;
 import net.neoforged.neoforge.client.model.data.ModelData;
@@ -95,6 +98,16 @@ public class CubeOverlayModel {
       this.overrides = overrides;
     }
 
+    @Override
+    public @NotNull ChunkRenderTypeSet getRenderTypes(@NotNull BlockState state, @NotNull RandomSource rand, @NotNull ModelData data) {
+      return ChunkRenderTypeSet.of(RenderType.cutoutMipped(), RenderType.solid());
+    }
+
+    @Override
+    public @NotNull List<RenderType> getRenderTypes(@NotNull ItemStack itemStack, boolean fabulous) {
+      return List.of(Sheets.cutoutBlockSheet());
+    }
+
     // Use our attributes. Refer to the article on baked models for more information on the method's effects.
     @Override
     public boolean useAmbientOcclusion() {
@@ -131,14 +144,25 @@ public class CubeOverlayModel {
 
     @Override
     public @NotNull List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @NotNull RandomSource rand, @NotNull ModelData extraData, @Nullable RenderType renderType) {
-      List<BakedQuad> quads = new ArrayList<>(base.getQuads(state, side, rand, extraData, renderType));
-      var sprite = Minecraft.getInstance()
-          .getTextureAtlas(InventoryMenu.BLOCK_ATLAS)
-          .apply(ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "block/crystal_ore"));
-      float offset = 0.001f; // avoid z-fighting
-      float ONE = 1+offset;
-      float ZERO = 0-offset;
-      quads.add(quad(v(ZERO, ONE, ONE), v(ONE, ONE, ONE), v(ONE, ONE, ZERO), v(ZERO, ONE, ZERO), sprite));
+      List<BakedQuad> quads = new ArrayList<>();
+
+      if (renderType == null || renderType == RenderType.solid())
+        quads.addAll(base.getQuads(state, side, rand, extraData, renderType));
+
+      if (renderType == null || renderType == RenderType.cutoutMipped()) {
+        var sprite = Minecraft.getInstance()
+            .getTextureAtlas(InventoryMenu.BLOCK_ATLAS)
+            .apply(ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "block/crystal_ore"));
+        float offset = 0.001f; // avoid z-fighting
+        float ONE = 1 + offset;
+        float ZERO = 0 - offset;
+        quads.add(quad(v(ZERO, ONE, ONE), v(ONE, ONE, ONE), v(ONE, ONE, ZERO), v(ZERO, ONE, ZERO), sprite));
+        quads.add(quad(v(ZERO, ZERO, ZERO), v(ONE, ZERO, ZERO), v(ONE, ZERO, ONE), v(ZERO, ZERO, ONE), sprite));
+        quads.add(quad(v(ONE, ZERO, ZERO), v(ONE, ONE, ZERO), v(ONE, ONE, ONE), v(ONE, ZERO, ONE), sprite));
+        quads.add(quad(v(ZERO, ZERO, ONE), v(ZERO, ONE, ONE), v(ZERO, ONE, ZERO), v(ZERO, ZERO, ZERO), sprite));
+        quads.add(quad(v(ZERO, ONE, ZERO), v(ONE, ONE, ZERO), v(ONE, ZERO, ZERO), v(ZERO, ZERO, ZERO), sprite));
+        quads.add(quad(v(ZERO, ZERO, ONE), v(ONE, ZERO, ONE), v(ONE, ONE, ONE), v(ZERO, ONE, ONE), sprite));
+      }
       return quads;
     }
 
@@ -169,7 +193,7 @@ public class CubeOverlayModel {
       return this;
     }
 
-    public BlockModelBuilder build(){
+    public BlockModelBuilder build() {
       return parent;
     }
 
