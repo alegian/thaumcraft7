@@ -28,9 +28,8 @@ public class T7BlockStateProvider extends BlockStateProvider {
 
     var crystalOreBlockModel = models().getBuilder(T7Blocks.CRYSTAL_ORE.getId().getPath())
         .customLoader(CubeOverlayModel.LoaderBuilder::new)
-        .parent(new ModelFile.UncheckedModelFile("block/stone"))
-        .renderType(RenderType.cutout().name)
-        .build();
+        .end()
+        .parent(new ModelFile.UncheckedModelFile("block/stone"));
     simpleBlockWithItem(T7Blocks.CRYSTAL_ORE.get(), crystalOreBlockModel);
 
     itemModels().getBuilder(T7Blocks.AURA_NODE_BLOCK.getId().getPath()).parent(new ModelFile.UncheckedModelFile("item/generated")).renderType(RenderType.translucent().name).texture("layer0", ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "item/aura_node"));

@@ -184,20 +184,6 @@ public class CubeOverlayModel {
       );
     }
 
-    public LoaderBuilder<B> parent(ModelFile parent) {
-      this.parent.parent(parent);
-      return this;
-    }
-
-    public LoaderBuilder<B> renderType(String renderType) {
-      this.parent.renderType(renderType);
-      return this;
-    }
-
-    public B build() {
-      return parent;
-    }
-
     @Override
     public @NotNull JsonObject toJson(@NotNull JsonObject json) {
       // TODO: add fields to the given JsonObject
