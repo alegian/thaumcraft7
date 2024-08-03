@@ -26,6 +26,7 @@ import net.neoforged.neoforge.client.model.IDynamicBakedModel;
 import net.neoforged.neoforge.client.model.data.ModelData;
 import net.neoforged.neoforge.client.model.generators.BlockModelBuilder;
 import net.neoforged.neoforge.client.model.generators.CustomLoaderBuilder;
+import net.neoforged.neoforge.client.model.generators.ModelBuilder;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.client.model.geometry.IGeometryBakingContext;
 import net.neoforged.neoforge.client.model.geometry.IGeometryLoader;
@@ -149,7 +150,7 @@ public class CubeOverlayModel {
       if (renderType == null || renderType == RenderType.solid())
         quads.addAll(base.getQuads(state, side, rand, extraData, renderType));
 
-      if (renderType == null || renderType == RenderType.cutoutMipped()) {
+      if (renderType == null || renderType == RenderType.cutoutMipped() || renderType == Sheets.cutoutBlockSheet()) {
         var sprite = Minecraft.getInstance()
             .getTextureAtlas(InventoryMenu.BLOCK_ATLAS)
             .apply(ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "block/crystal_ore"));
@@ -173,8 +174,8 @@ public class CubeOverlayModel {
     }
   }
 
-  public static class LoaderBuilder extends CustomLoaderBuilder<BlockModelBuilder> {
-    public LoaderBuilder(BlockModelBuilder parent, ExistingFileHelper existingFileHelper) {
+  public static class LoaderBuilder<B extends ModelBuilder<B>> extends CustomLoaderBuilder<B> {
+    public LoaderBuilder(B parent, ExistingFileHelper existingFileHelper) {
       super(
           ID,
           parent,
@@ -183,17 +184,17 @@ public class CubeOverlayModel {
       );
     }
 
-    public LoaderBuilder parent(ModelFile parent) {
+    public LoaderBuilder<B> parent(ModelFile parent) {
       this.parent.parent(parent);
       return this;
     }
 
-    public LoaderBuilder renderType(String renderType) {
+    public LoaderBuilder<B> renderType(String renderType) {
       this.parent.renderType(renderType);
       return this;
     }
 
-    public BlockModelBuilder build() {
+    public B build() {
       return parent;
     }
 

@@ -26,12 +26,12 @@ public class T7BlockStateProvider extends BlockStateProvider {
         .texture("inside", ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "block/crucible_inner"))
     );
 
-    simpleBlockWithItem(T7Blocks.CRYSTAL_ORE.get(), models().getBuilder(T7Blocks.CRYSTAL_ORE.getId().getPath())
+    var crystalOreBlockModel = models().getBuilder(T7Blocks.CRYSTAL_ORE.getId().getPath())
         .customLoader(CubeOverlayModel.LoaderBuilder::new)
         .parent(new ModelFile.UncheckedModelFile("block/stone"))
         .renderType(RenderType.cutout().name)
-        .build()
-    );
+        .build();
+    simpleBlockWithItem(T7Blocks.CRYSTAL_ORE.get(), crystalOreBlockModel);
 
     itemModels().getBuilder(T7Blocks.AURA_NODE_BLOCK.getId().getPath()).parent(new ModelFile.UncheckedModelFile("item/generated")).renderType(RenderType.translucent().name).texture("layer0", ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "item/aura_node"));
   }
