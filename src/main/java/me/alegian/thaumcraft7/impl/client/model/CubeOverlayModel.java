@@ -21,6 +21,7 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.client.ChunkRenderTypeSet;
+import net.neoforged.neoforge.client.model.BakedModelWrapper;
 import net.neoforged.neoforge.client.model.ElementsModel;
 import net.neoforged.neoforge.client.model.IDynamicBakedModel;
 import net.neoforged.neoforge.client.model.data.ModelData;
@@ -82,21 +83,10 @@ public class CubeOverlayModel {
   }
 
   // BakedModelWrapper can be used as well to return default values for most methods, allowing you to only override what actually needs to be overridden.
-  public static class DynamicBakedModel implements IDynamicBakedModel {
-    private final BakedModel base;
-    private final boolean useAmbientOcclusion;
-    private final boolean isGui3d;
-    private final boolean usesBlockLight;
-    private final TextureAtlasSprite particle;
-    private final ItemOverrides overrides;
+  public static class DynamicBakedModel extends BakedModelWrapper<BakedModel> implements IDynamicBakedModel {
 
     public DynamicBakedModel(BakedModel base, boolean useAmbientOcclusion, boolean isGui3d, boolean usesBlockLight, TextureAtlasSprite particle, ItemOverrides overrides) {
-      this.base = base;
-      this.useAmbientOcclusion = useAmbientOcclusion;
-      this.isGui3d = isGui3d;
-      this.usesBlockLight = usesBlockLight;
-      this.particle = particle;
-      this.overrides = overrides;
+      super(base);
     }
 
     @Override
@@ -109,46 +99,12 @@ public class CubeOverlayModel {
       return List.of(Sheets.cutoutBlockSheet());
     }
 
-    // Use our attributes. Refer to the article on baked models for more information on the method's effects.
-    @Override
-    public boolean useAmbientOcclusion() {
-      return useAmbientOcclusion;
-    }
-
-    @Override
-    public boolean isGui3d() {
-      return isGui3d;
-    }
-
-    @Override
-    public boolean usesBlockLight() {
-      return usesBlockLight;
-    }
-
-    @Override
-    public @NotNull TextureAtlasSprite getParticleIcon() {
-      // Return MISSING_TEXTURE.sprite() if you don't need a particle, e.g. when in an item model context.
-      return particle;
-    }
-
-    @Override
-    public @NotNull ItemOverrides getOverrides() {
-      // Return ItemOverrides.EMPTY when in a block model context.
-      return overrides;
-    }
-
-    // Override this to true if you want to use a custom block entity renderer instead of the default renderer.
-    @Override
-    public boolean isCustomRenderer() {
-      return false;
-    }
-
     @Override
     public @NotNull List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @NotNull RandomSource rand, @NotNull ModelData extraData, @Nullable RenderType renderType) {
       List<BakedQuad> quads = new ArrayList<>();
 
       if (renderType == null || renderType == RenderType.solid())
-        quads.addAll(base.getQuads(state, side, rand, extraData, renderType));
+        quads.addAll(originalModel.getQuads(state, side, rand, extraData, renderType));
 
       if (renderType == null || renderType == RenderType.cutoutMipped() || renderType == Sheets.cutoutBlockSheet()) {
         var sprite = Minecraft.getInstance()
@@ -165,12 +121,6 @@ public class CubeOverlayModel {
         quads.add(quad(v(ZERO, ZERO, ONE), v(ONE, ZERO, ONE), v(ONE, ONE, ONE), v(ZERO, ONE, ONE), sprite));
       }
       return quads;
-    }
-
-    // Apply the base model's transforms to our model as well.
-    @Override
-    public @NotNull BakedModel applyTransform(@NotNull ItemDisplayContext transformType, @NotNull PoseStack poseStack, boolean applyLeftHandTransform) {
-      return base.applyTransform(transformType, poseStack, applyLeftHandTransform);
     }
   }
 
