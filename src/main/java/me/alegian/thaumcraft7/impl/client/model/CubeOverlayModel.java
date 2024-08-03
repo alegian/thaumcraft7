@@ -3,6 +3,7 @@ package me.alegian.thaumcraft7.impl.client.model;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+import com.google.gson.JsonPrimitive;
 import com.mojang.blaze3d.vertex.PoseStack;
 import me.alegian.thaumcraft7.impl.Thaumcraft;
 import net.minecraft.client.Minecraft;
@@ -41,47 +42,51 @@ import java.util.function.Function;
 import static me.alegian.thaumcraft7.impl.client.model.BakedModelHelper.quad;
 import static me.alegian.thaumcraft7.impl.client.model.BakedModelHelper.v;
 
-public class CubeOverlayModel {
+public class CubeOverlayModel implements IUnbakedGeometry<CubeOverlayModel> {
   public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "cube_overlay");
+  public static final String SPRITE_KEY = "sprite_location";
+  private final BlockModel base;
+  private final ResourceLocation spriteLocation;
 
-  public static class GeometryLoader implements IGeometryLoader<UnbakedGeometry> {
-    public static final GeometryLoader INSTANCE = new GeometryLoader();
+  public CubeOverlayModel(BlockModel base, ResourceLocation spriteLocation) {
+    this.base = base;
+    this.spriteLocation = spriteLocation;
+  }
 
-    private GeometryLoader() {
+  @Override
+  public @NotNull BakedModel bake(@NotNull IGeometryBakingContext context, @NotNull ModelBaker baker, @NotNull Function<Material, TextureAtlasSprite> spriteGetter, @NotNull ModelState modelState, @NotNull ItemOverrides overrides) {
+    BakedModel bakedBase = new ElementsModel(base.getElements()).bake(context, baker, spriteGetter, modelState, overrides);
+    return new Baked(bakedBase, spriteLocation);
+  }
+
+  @Override
+  public void resolveParents(@NotNull Function<ResourceLocation, UnbakedModel> modelGetter, @NotNull IGeometryBakingContext context) {
+    base.resolveParents(modelGetter);
+  }
+
+  public static class Loader implements IGeometryLoader<CubeOverlayModel> {
+    public static final Loader INSTANCE = new Loader();
+
+    private Loader() {
     }
 
     @Override
-    public @NotNull UnbakedGeometry read(JsonObject jsonObject, @NotNull JsonDeserializationContext context) throws JsonParseException {
+    public @NotNull CubeOverlayModel read(JsonObject jsonObject, @NotNull JsonDeserializationContext context) throws JsonParseException {
       jsonObject.remove("loader");
+      var spriteLocation = ResourceLocation.parse(jsonObject.get(SPRITE_KEY).getAsString());
+      jsonObject.remove(SPRITE_KEY);
       BlockModel base = context.deserialize(jsonObject, BlockModel.class);
 
-      return new UnbakedGeometry(base);
+      return new CubeOverlayModel(base, spriteLocation);
     }
   }
 
-  public static class UnbakedGeometry implements IUnbakedGeometry<UnbakedGeometry> {
-    private final BlockModel base;
+  public static class Baked extends BakedModelWrapper<BakedModel> implements IDynamicBakedModel {
+    private final ResourceLocation spriteLocation;
 
-    public UnbakedGeometry(BlockModel base) {
-      this.base = base;
-    }
-
-    @Override
-    public @NotNull BakedModel bake(@NotNull IGeometryBakingContext context, @NotNull ModelBaker baker, @NotNull Function<Material, TextureAtlasSprite> spriteGetter, @NotNull ModelState modelState, @NotNull ItemOverrides overrides) {
-      BakedModel bakedBase = new ElementsModel(base.getElements()).bake(context, baker, spriteGetter, modelState, overrides);
-      return new DynamicBakedModel(bakedBase);
-    }
-
-    @Override
-    public void resolveParents(@NotNull Function<ResourceLocation, UnbakedModel> modelGetter, @NotNull IGeometryBakingContext context) {
-      base.resolveParents(modelGetter);
-    }
-  }
-
-  public static class DynamicBakedModel extends BakedModelWrapper<BakedModel> implements IDynamicBakedModel {
-
-    public DynamicBakedModel(BakedModel base) {
+    public Baked(BakedModel base, ResourceLocation spriteLocation) {
       super(base);
+      this.spriteLocation = spriteLocation;
     }
 
     // used in block renderer
@@ -120,7 +125,7 @@ public class CubeOverlayModel {
       if (renderType == null || renderType == RenderType.cutoutMipped() || renderType == Sheets.cutoutBlockSheet()) {
         var sprite = Minecraft.getInstance()
             .getTextureAtlas(InventoryMenu.BLOCK_ATLAS)
-            .apply(ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "block/crystal_ore"));
+            .apply(spriteLocation);
         float offset = 0.001f; // avoid z-fighting
         float ONE = 1 + offset;
         float ZERO = 0 - offset;
@@ -141,19 +146,26 @@ public class CubeOverlayModel {
     }
   }
 
-  public static class LoaderBuilder<B extends ModelBuilder<B>> extends CustomLoaderBuilder<B> {
-    public LoaderBuilder(B parent, ExistingFileHelper existingFileHelper) {
+  public static class Builder<B extends ModelBuilder<B>> extends CustomLoaderBuilder<B> {
+    private ResourceLocation spriteLocation;
+    public Builder(B parent, ExistingFileHelper existingFileHelper) {
       super(
-          ID,
+          CubeOverlayModel.ID,
           parent,
           existingFileHelper,
           false
       );
     }
 
+    public Builder<B> spriteLocation(ResourceLocation spriteLocation) {
+      this.spriteLocation = spriteLocation;
+      return this;
+    }
+
     @Override
     public @NotNull JsonObject toJson(@NotNull JsonObject json) {
-      // TODO: add fields to the given JsonObject
+      if(spriteLocation == null) throw new IllegalStateException("Sprite location is required for CubeOverlayModel");
+      json.add(SPRITE_KEY, new JsonPrimitive(spriteLocation.toString()));
       return super.toJson(json);
     }
   }

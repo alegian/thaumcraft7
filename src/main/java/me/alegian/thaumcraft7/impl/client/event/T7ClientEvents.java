@@ -65,7 +65,7 @@ public class T7ClientEvents {
 
     @SubscribeEvent
     public static void registerGeometryLoaders(ModelEvent.RegisterGeometryLoaders event) {
-      event.register(CubeOverlayModel.ID, CubeOverlayModel.GeometryLoader.INSTANCE);
+      event.register(CubeOverlayModel.ID, CubeOverlayModel.Loader.INSTANCE);
     }
   }
 
