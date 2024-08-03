@@ -1,5 +1,6 @@
 package me.alegian.thaumcraft7.impl.init.data.providers;
 
+import me.alegian.thaumcraft7.api.aspect.Aspect;
 import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.client.model.CubeOverlayModel;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Blocks;
@@ -29,6 +30,7 @@ public class T7BlockStateProvider extends BlockStateProvider {
     var crystalOreBlockModel = models().getBuilder(T7Blocks.CRYSTAL_ORE.getId().getPath())
         .customLoader(CubeOverlayModel.Builder::new)
         .spriteLocation(ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "block/crystal_ore"))
+        .color(Aspect.IGNIS.getColor())
         .end()
         .parent(new ModelFile.UncheckedModelFile("block/stone"));
     simpleBlockWithItem(T7Blocks.CRYSTAL_ORE.get(), crystalOreBlockModel);

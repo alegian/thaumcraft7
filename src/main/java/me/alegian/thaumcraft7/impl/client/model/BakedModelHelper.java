@@ -8,32 +8,23 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.client.model.pipeline.QuadBakingVertexConsumer;
 
 public class BakedModelHelper {
-  public static BakedQuad quad(Vec3 v1, Vec3 v2, Vec3 v3, Vec3 v4, TextureAtlasSprite sprite, int rotation) {
-    return switch (rotation) {
-      case 1 -> quad(v2, v3, v4, v1, sprite);
-      case 2 -> quad(v3, v4, v1, v2, sprite);
-      case 3 -> quad(v4, v1, v2, v3, sprite);
-      default -> quad(v1, v2, v3, v4, sprite);
-    };
-  }
-
-  public static BakedQuad quad(Vec3 v1, Vec3 v2, Vec3 v3, Vec3 v4, TextureAtlasSprite sprite) {
+  public static BakedQuad quad(Vec3 v1, Vec3 v2, Vec3 v3, Vec3 v4, TextureAtlasSprite sprite, int color) {
     QuadBakingVertexConsumer builder = new QuadBakingVertexConsumer();
     builder.setSprite(sprite);
-    putVertex(builder, v1.x, v1.y, v1.z, 0, 0, sprite);
-    putVertex(builder, v2.x, v2.y, v2.z, 0, 1, sprite);
-    putVertex(builder, v3.x, v3.y, v3.z, 1, 1, sprite);
-    putVertex(builder, v4.x, v4.y, v4.z, 1, 0, sprite);
+    putVertex(builder, v1.x, v1.y, v1.z, 0, 0, sprite, color);
+    putVertex(builder, v2.x, v2.y, v2.z, 0, 1, sprite, color);
+    putVertex(builder, v3.x, v3.y, v3.z, 1, 1, sprite, color);
+    putVertex(builder, v4.x, v4.y, v4.z, 1, 0, sprite, color);
 
     return builder.bakeQuad();
   }
 
-  private static void putVertex(VertexConsumer builder, double x, double y, double z, float u, float v, TextureAtlasSprite sprite) {
+  private static void putVertex(VertexConsumer builder, double x, double y, double z, float u, float v, TextureAtlasSprite sprite, int color) {
     float iu = sprite.getU(u);
     float iv = sprite.getV(v);
     builder.addVertex((float) x, (float) y, (float) z)
         .setUv(iu, iv)
-        .setColor(1.0f, 1.0f, 1.0f, 1.0f)
+        .setColor(color)
         .setLight(LightTexture.FULL_BRIGHT);
   }
 
