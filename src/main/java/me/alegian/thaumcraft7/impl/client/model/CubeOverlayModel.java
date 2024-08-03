@@ -72,8 +72,7 @@ public class CubeOverlayModel {
     @Override
     public @NotNull BakedModel bake(@NotNull IGeometryBakingContext context, @NotNull ModelBaker baker, @NotNull Function<Material, TextureAtlasSprite> spriteGetter, @NotNull ModelState modelState, @NotNull ItemOverrides overrides) {
       BakedModel bakedBase = new ElementsModel(base.getElements()).bake(context, baker, spriteGetter, modelState, overrides);
-      return new DynamicBakedModel(bakedBase, context.useAmbientOcclusion(), context.isGui3d(), context.useBlockLight(),
-          spriteGetter.apply(context.getMaterial("particle")), overrides);
+      return new DynamicBakedModel(bakedBase);
     }
 
     @Override
@@ -85,7 +84,7 @@ public class CubeOverlayModel {
   // BakedModelWrapper can be used as well to return default values for most methods, allowing you to only override what actually needs to be overridden.
   public static class DynamicBakedModel extends BakedModelWrapper<BakedModel> implements IDynamicBakedModel {
 
-    public DynamicBakedModel(BakedModel base, boolean useAmbientOcclusion, boolean isGui3d, boolean usesBlockLight, TextureAtlasSprite particle, ItemOverrides overrides) {
+    public DynamicBakedModel(BakedModel base) {
       super(base);
     }
 
