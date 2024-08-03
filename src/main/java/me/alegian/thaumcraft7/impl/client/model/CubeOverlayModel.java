@@ -25,10 +25,8 @@ import net.neoforged.neoforge.client.model.BakedModelWrapper;
 import net.neoforged.neoforge.client.model.ElementsModel;
 import net.neoforged.neoforge.client.model.IDynamicBakedModel;
 import net.neoforged.neoforge.client.model.data.ModelData;
-import net.neoforged.neoforge.client.model.generators.BlockModelBuilder;
 import net.neoforged.neoforge.client.model.generators.CustomLoaderBuilder;
 import net.neoforged.neoforge.client.model.generators.ModelBuilder;
-import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.client.model.geometry.IGeometryBakingContext;
 import net.neoforged.neoforge.client.model.geometry.IGeometryLoader;
 import net.neoforged.neoforge.client.model.geometry.IUnbakedGeometry;
@@ -53,8 +51,7 @@ public class CubeOverlayModel {
     }
 
     @Override
-    public @NotNull UnbakedGeometry read(JsonObject jsonObject, JsonDeserializationContext context) throws JsonParseException {
-      // Trick the deserializer into thinking this is a normal model by removing the loader field and then passing it back into the deserializer.
+    public @NotNull UnbakedGeometry read(JsonObject jsonObject, @NotNull JsonDeserializationContext context) throws JsonParseException {
       jsonObject.remove("loader");
       BlockModel base = context.deserialize(jsonObject, BlockModel.class);
 
@@ -81,23 +78,38 @@ public class CubeOverlayModel {
     }
   }
 
-  // BakedModelWrapper can be used as well to return default values for most methods, allowing you to only override what actually needs to be overridden.
   public static class DynamicBakedModel extends BakedModelWrapper<BakedModel> implements IDynamicBakedModel {
 
     public DynamicBakedModel(BakedModel base) {
       super(base);
     }
 
+    // used in block renderer
     @Override
     public @NotNull ChunkRenderTypeSet getRenderTypes(@NotNull BlockState state, @NotNull RandomSource rand, @NotNull ModelData data) {
       return ChunkRenderTypeSet.of(RenderType.cutoutMipped(), RenderType.solid());
     }
 
+    // used in item renderer
     @Override
     public @NotNull List<RenderType> getRenderTypes(@NotNull ItemStack itemStack, boolean fabulous) {
       return List.of(Sheets.cutoutBlockSheet());
     }
 
+    // used in item renderer
+    @Override
+    public @NotNull BakedModel applyTransform(@NotNull ItemDisplayContext cameraTransformType, @NotNull PoseStack poseStack, boolean applyLeftHandTransform) {
+      originalModel.applyTransform(cameraTransformType, poseStack, applyLeftHandTransform);
+      return this;
+    }
+
+    // used in item renderer
+    @Override
+    public @NotNull List<BakedModel> getRenderPasses(@NotNull ItemStack itemStack, boolean fabulous) {
+      return List.of(this);
+    }
+
+    // used in block renderer
     @Override
     public @NotNull List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @NotNull RandomSource rand, @NotNull ModelData extraData, @Nullable RenderType renderType) {
       List<BakedQuad> quads = new ArrayList<>();
@@ -120,6 +132,12 @@ public class CubeOverlayModel {
         quads.add(quad(v(ZERO, ZERO, ONE), v(ONE, ZERO, ONE), v(ONE, ONE, ONE), v(ZERO, ONE, ONE), sprite));
       }
       return quads;
+    }
+
+    // used in item renderer
+    @Override
+    public @NotNull List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, RandomSource rand) {
+      return getQuads(state, side, rand, ModelData.EMPTY, null);
     }
   }
 
