@@ -1,7 +1,12 @@
 {
+  "block.thaumcraft7.aer_ore": "Aer Infused Stone",
+  "block.thaumcraft7.aqua_ore": "Aqua Infused Stone",
   "block.thaumcraft7.aura_node": "Aura Node",
   "block.thaumcraft7.crucible": "Crucible",
-  "block.thaumcraft7.crystal_ore": "Crystal Ore",
+  "block.thaumcraft7.ignis_ore": "Ignis Infused Stone",
+  "block.thaumcraft7.ordo_ore": "Ordo Infused Stone",
+  "block.thaumcraft7.perditio_ore": "Perditio Infused Stone",
+  "block.thaumcraft7.terra_ore": "Terra Infused Stone",
   "item.thaumcraft7.aer_shard": "Aer Shard",
   "item.thaumcraft7.aqua_shard": "Aqua Shard",
   "item.thaumcraft7.goggles": "Goggles Of Revealing",

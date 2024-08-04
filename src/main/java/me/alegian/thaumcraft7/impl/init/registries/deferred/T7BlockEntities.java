@@ -19,7 +19,7 @@ public class T7BlockEntities {
           "aura_node",
           () -> BlockEntityType.Builder.of(
               AuraNodeBE::new,
-              T7Blocks.AURA_NODE_BLOCK.get()
+              T7Blocks.AURA_NODE.get()
           ).build(null)
       );
 

@@ -17,8 +17,13 @@ public class T7CreativeModeTabs {
             .title(Component.translatable("thaumcraft"))
             .icon(() -> T7Items.IRON_WOOD_WAND.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
-              output.accept(T7Blocks.AURA_NODE_BLOCK.get());
-              output.accept(T7Blocks.CRYSTAL_ORE.get());
+              output.accept(T7Blocks.AURA_NODE.get());
+              output.accept(T7Blocks.IGNIS_INFUSED_STONE.get());
+              output.accept(T7Blocks.AER_INFUSED_STONE.get());
+              output.accept(T7Blocks.TERRA_INFUSED_STONE.get());
+              output.accept(T7Blocks.AQUA_INFUSED_STONE.get());
+              output.accept(T7Blocks.ORDO_INFUSED_STONE.get());
+              output.accept(T7Blocks.PERDITIO_INFUSED_STONE.get());
 
               output.accept(T7Items.IRON_CAP.get());
               output.accept(T7Items.IRON_WOOD_WAND.get());

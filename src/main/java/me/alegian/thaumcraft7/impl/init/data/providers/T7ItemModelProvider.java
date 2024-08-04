@@ -9,6 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.registries.DeferredItem;
 
 public class T7ItemModelProvider extends ItemModelProvider {
   public T7ItemModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
@@ -21,19 +22,17 @@ public class T7ItemModelProvider extends ItemModelProvider {
     basicItem(T7Items.IRON_CAP.get());
     basicItem(T7Items.THAUMONOMICON.get());
 
-    shardItem(T7Items.IGNIS_SHARD.get());
-    shardItem(T7Items.AER_SHARD.get());
-    shardItem(T7Items.TERRA_SHARD.get());
-    shardItem(T7Items.AQUA_SHARD.get());
-    shardItem(T7Items.ORDO_SHARD.get());
-    shardItem(T7Items.PERDITIO_SHARD.get());
+    shardItem(T7Items.IGNIS_SHARD);
+    shardItem(T7Items.AER_SHARD);
+    shardItem(T7Items.TERRA_SHARD);
+    shardItem(T7Items.AQUA_SHARD);
+    shardItem(T7Items.ORDO_SHARD);
+    shardItem(T7Items.PERDITIO_SHARD);
   }
 
-  public void shardItem(ShardItem item) {
-    ResourceLocation location = BuiltInRegistries.ITEM.getKey(item);
-
-    getBuilder(location.toString())
+  public void shardItem(DeferredItem<ShardItem> deferredItem) {
+    getBuilder(deferredItem.getId().getPath())
         .parent(new ModelFile.UncheckedModelFile("item/generated"))
-        .texture("layer0", ResourceLocation.fromNamespaceAndPath(location.getNamespace(), "item/shard"));
+        .texture("layer0", ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "item/shard"));
   }
 }

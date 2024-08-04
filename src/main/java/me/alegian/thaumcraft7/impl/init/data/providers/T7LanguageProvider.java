@@ -27,8 +27,13 @@ public class T7LanguageProvider extends LanguageProvider {
     add(T7Items.ORDO_SHARD.get(), "Ordo Shard");
     add(T7Items.PERDITIO_SHARD.get(), "Perditio Shard");
 
-    add(T7Blocks.AURA_NODE_BLOCK.get(), "Aura Node");
+    add(T7Blocks.AURA_NODE.get(), "Aura Node");
     add(T7Blocks.CRUCIBLE.get(), "Crucible");
-    add(T7Blocks.CRYSTAL_ORE.get(), "Crystal Ore");
+    add(T7Blocks.IGNIS_INFUSED_STONE.get(), "Ignis Infused Stone");
+    add(T7Blocks.AER_INFUSED_STONE.get(), "Aer Infused Stone");
+    add(T7Blocks.TERRA_INFUSED_STONE.get(), "Terra Infused Stone");
+    add(T7Blocks.AQUA_INFUSED_STONE.get(), "Aqua Infused Stone");
+    add(T7Blocks.ORDO_INFUSED_STONE.get(), "Ordo Infused Stone");
+    add(T7Blocks.PERDITIO_INFUSED_STONE.get(), "Perditio Infused Stone");
   }
 }

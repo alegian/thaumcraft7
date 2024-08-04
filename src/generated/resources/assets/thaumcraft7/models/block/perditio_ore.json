@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/stone",
+  "color": -12566464,
+  "loader": "thaumcraft7:cube_overlay",
+  "sprite_location": "thaumcraft7:block/crystal_ore"
+}
