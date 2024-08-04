@@ -5,8 +5,11 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.client.texture.atlas.AspectAtlas;
 import net.minecraft.client.renderer.RenderStateShard;
+import net.minecraft.client.renderer.ShaderInstance;
 
 public class T7RenderStateShards {
+  public static ShaderInstance customShader;
+
   public static final RenderStateShard.TransparencyStateShard SIMPLE_TRANSPARENCY = new RenderStateShard.TransparencyStateShard(
       Thaumcraft.MODID + "_simple_transparency",
       () -> {
@@ -27,4 +30,6 @@ public class T7RenderStateShards {
   public static final RenderStateShard.TextureStateShard ASPECTS_TEXTURE = new RenderStateShard.TextureStateShard(
       AspectAtlas.LOCATION, false, true
   );
+
+  public static final RenderStateShard.ShaderStateShard CUSTOM_SHADER = new RenderStateShard.ShaderStateShard(() -> customShader);
 }

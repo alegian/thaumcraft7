@@ -12,7 +12,7 @@ import static net.minecraft.client.renderer.RenderStateShard.*;
 @OnlyIn(Dist.CLIENT)
 public class T7RenderTypes {
   public static final RenderType SIMPLE_TRIANGLE = RenderType.create(
-      Thaumcraft.MODID + "_simple_triangle", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.TRIANGLES, RenderType.SMALL_BUFFER_SIZE, true, true, simpleTriangleState()
+      Thaumcraft.MODID + "_simple_triangle", T7VertexFormats.AURA_NODE, VertexFormat.Mode.TRIANGLES, RenderType.SMALL_BUFFER_SIZE, true, true, simpleTriangleState()
   );
 
   public static final RenderType ASPECT_QUAD = RenderType.create(
@@ -21,7 +21,7 @@ public class T7RenderTypes {
 
   private static RenderType.CompositeState simpleTriangleState() {
     return RenderType.CompositeState.builder()
-        .setShaderState(POSITION_COLOR_SHADER)
+        .setShaderState(T7RenderStateShards.CUSTOM_SHADER)
         .setTransparencyState(T7RenderStateShards.SIMPLE_TRANSPARENCY)
         .setDepthTestState(NO_DEPTH_TEST)
         .setTextureState(NO_TEXTURE)

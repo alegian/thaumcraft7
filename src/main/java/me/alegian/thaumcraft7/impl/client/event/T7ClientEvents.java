@@ -1,8 +1,10 @@
 package me.alegian.thaumcraft7.impl.client.event;
 
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import me.alegian.thaumcraft7.api.capability.AspectContainerHelper;
 import me.alegian.thaumcraft7.api.capability.T7Capabilities;
 import me.alegian.thaumcraft7.impl.Thaumcraft;
+import me.alegian.thaumcraft7.impl.client.T7RenderStateShards;
 import me.alegian.thaumcraft7.impl.client.extension.ThaumometerItemExtensions;
 import me.alegian.thaumcraft7.impl.client.extension.WandItemExtensions;
 import me.alegian.thaumcraft7.impl.client.gui.VisGuiOverlay;
@@ -21,6 +23,7 @@ import me.alegian.thaumcraft7.impl.init.registries.deferred.T7EntityTypes;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Items;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7ParticleTypes;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -33,9 +36,11 @@ import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
+import java.io.IOException;
+
 public class T7ClientEvents {
   @EventBusSubscriber(modid = Thaumcraft.MODID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
-  public static class ClientModEvents {
+  public static class T7ClientModEvents {
     @SubscribeEvent
     public static void registerGuiOverlays(RegisterGuiLayersEvent event) {
       event.registerAboveAll(ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "vis_overlay"), VisGuiOverlay.VIS_OVERLAY);
@@ -72,7 +77,7 @@ public class T7ClientEvents {
     @SubscribeEvent
     public static void registerItemColorHandlers(RegisterColorHandlersEvent.Item event) {
       event.register((stack, tintIndex) -> {
-            if (tintIndex == 0) return ((ShardItem)stack.getItem()).getAspect().getColor();
+            if (tintIndex == 0) return ((ShardItem) stack.getItem()).getAspect().getColor();
             return 0xFFFFFFFF;
           },
           T7Items.IGNIS_SHARD.get(),
@@ -83,10 +88,17 @@ public class T7ClientEvents {
           T7Items.PERDITIO_SHARD.get()
       );
     }
+
+    @SubscribeEvent
+    public static void registerShaders(RegisterShadersEvent event) throws IOException {
+      event.registerShader(new ShaderInstance(event.getResourceProvider(), ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "custom_shader"), DefaultVertexFormat.NEW_ENTITY), shaderInstance -> {
+        T7RenderStateShards.customShader = shaderInstance;
+      });
+    }
   }
 
   @EventBusSubscriber(modid = Thaumcraft.MODID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.GAME)
-  public static class ClientGameEvents {
+  public static class T7ClientGameEvents {
     @SubscribeEvent
     public static void playerTick(PlayerTickEvent.Pre event) {
       VisGuiOverlay.update(event.getEntity());
