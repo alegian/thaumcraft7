@@ -6,6 +6,7 @@ import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidType;
 import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
@@ -18,21 +19,13 @@ public class CrucibleFluidHandler extends FluidTank {
   }
 
   @Override
-  public FluidStack drain(int maxDrain, FluidAction action) {
+  public @NotNull FluidStack drain(int maxDrain, @NotNull FluidAction action) {
     return FluidStack.EMPTY;
   }
 
   @Override
   protected void onContentsChanged() {
     crucibleBE.setChanged();
-
-    var level = Objects.requireNonNull(crucibleBE.getLevel());
-    level.sendBlockUpdated(
-        crucibleBE.getBlockPos(),
-        crucibleBE.getBlockState(),
-        crucibleBE.getBlockState(),
-        Block.UPDATE_CLIENTS
-    );
   }
 
   // returns true if any water was drained

@@ -1,8 +1,8 @@
 package me.alegian.thaumcraft7.impl.common.block;
 
+import me.alegian.thaumcraft7.api.aspect.AspectHelper;
 import me.alegian.thaumcraft7.api.aspect.AspectList;
 import me.alegian.thaumcraft7.api.capability.AspectContainerHelper;
-import me.alegian.thaumcraft7.api.data.map.T7DataMaps;
 import me.alegian.thaumcraft7.impl.common.block.entity.CrucibleBE;
 import me.alegian.thaumcraft7.impl.common.tag.CrucibleHeatSourceTag;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7BlockEntities;
@@ -113,21 +113,27 @@ public class CrucibleBlock extends Block implements EntityBlock {
         && this.isEntityInsideContent(pPos, pEntity)
     ) {
       if (pEntity.mayInteract(pLevel, pPos) &&
-          meltItem(pLevel, pPos, itemEntity) &&
+          AspectHelper.hasAspects(itemEntity) &&
           lowerFillLevel(pLevel, pPos)
       ) {
-        pEntity.kill();
-        pLevel.playSound(pEntity, pPos, SoundEvents.GENERIC_SPLASH, SoundSource.BLOCKS, 1F, 1.0F);
+        meltItem(pLevel, pPos, itemEntity);
+        pLevel.playSound(null, pPos, SoundEvents.GENERIC_SPLASH, SoundSource.BLOCKS, 1F, 1.0F);
+        pLevel.sendBlockUpdated(
+            pPos,
+            pState,
+            pState,
+            Block.UPDATE_CLIENTS
+        );
       }
     }
   }
 
-  public static boolean meltItem(Level pLevel, BlockPos pPos, ItemEntity itemEntity) {
-    AspectList itemAspects = itemEntity.getItem().getItemHolder().getData(T7DataMaps.ASPECT_CONTENT);
-    return AspectContainerHelper
+  public static void meltItem(Level pLevel, BlockPos pPos, ItemEntity itemEntity) {
+    AspectList itemAspects = AspectHelper.getAspects(itemEntity);
+    itemEntity.kill();
+    AspectContainerHelper
         .getAspectContainer(pLevel, pPos)
-        .map(c -> c.addAspects(itemAspects))
-        .orElse(false);
+        .map(c -> c.addAspects(itemAspects));
   }
 
   // returns true if any water was drained
