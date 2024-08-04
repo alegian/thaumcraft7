@@ -25,6 +25,12 @@ public class T7CreativeModeTabs {
               output.accept(T7Items.THAUMOMETER.get());
               output.accept(T7Items.THAUMONOMICON.get());
               output.accept(T7Items.GOGGLES.get());
+              output.accept(T7Items.IGNIS_SHARD.get());
+              output.accept(T7Items.AER_SHARD.get());
+              output.accept(T7Items.TERRA_SHARD.get());
+              output.accept(T7Items.AQUA_SHARD.get());
+              output.accept(T7Items.ORDO_SHARD.get());
+              output.accept(T7Items.PERDITIO_SHARD.get());
             })
             .build()
     );

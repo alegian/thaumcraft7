@@ -1,9 +1,16 @@
 {
   "block.thaumcraft7.aura_node": "Aura Node",
   "block.thaumcraft7.crucible": "Crucible",
+  "block.thaumcraft7.crystal_ore": "Crystal Ore",
+  "item.thaumcraft7.aer_shard": "Aer Shard",
+  "item.thaumcraft7.aqua_shard": "Aqua Shard",
   "item.thaumcraft7.goggles": "Goggles Of Revealing",
+  "item.thaumcraft7.ignis_shard": "Ignis Shard",
   "item.thaumcraft7.iron_cap": "Iron Wand Cap",
   "item.thaumcraft7.iron_wood_wand": "Iron Capped Wooden Wand",
+  "item.thaumcraft7.ordo_shard": "Ordo Shard",
+  "item.thaumcraft7.perditio_shard": "Perditio Shard",
+  "item.thaumcraft7.terra_shard": "Terra Shard",
   "item.thaumcraft7.thaumometer": "Thaumometer",
   "item.thaumcraft7.thaumonomicon": "Thaumonomicon",
   "thaumcraft": "Thaumcraft"

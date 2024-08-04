@@ -15,6 +15,7 @@ import me.alegian.thaumcraft7.impl.client.renderer.entity.FancyItemRenderer;
 import me.alegian.thaumcraft7.impl.client.texture.atlas.AspectAtlas;
 import me.alegian.thaumcraft7.impl.common.block.AuraNodeBlock;
 import me.alegian.thaumcraft7.impl.common.block.CrucibleBlock;
+import me.alegian.thaumcraft7.impl.common.item.ShardItem;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7BlockEntities;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7EntityTypes;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Items;
@@ -66,6 +67,21 @@ public class T7ClientEvents {
     @SubscribeEvent
     public static void registerGeometryLoaders(ModelEvent.RegisterGeometryLoaders event) {
       event.register(CubeOverlayModel.ID, CubeOverlayModel.Loader.INSTANCE);
+    }
+
+    @SubscribeEvent
+    public static void registerItemColorHandlers(RegisterColorHandlersEvent.Item event) {
+      event.register((stack, tintIndex) -> {
+            if (tintIndex == 0) return ((ShardItem)stack.getItem()).getAspect().getColor();
+            return 0xFFFFFFFF;
+          },
+          T7Items.IGNIS_SHARD.get(),
+          T7Items.AER_SHARD.get(),
+          T7Items.TERRA_SHARD.get(),
+          T7Items.AQUA_SHARD.get(),
+          T7Items.ORDO_SHARD.get(),
+          T7Items.PERDITIO_SHARD.get()
+      );
     }
   }
 
