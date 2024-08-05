@@ -5,11 +5,12 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+import org.joml.Vector3f;
 import org.lwjgl.system.MemoryUtil;
 
 public class T7BufferBuilder {
-  private Vec3 currentPosition;
   private final BufferBuilder parent;
+  private PoseStack.Pose pose;
 
   public T7BufferBuilder(VertexConsumer parent) {
     if (!(parent instanceof BufferBuilder))
@@ -22,18 +23,19 @@ public class T7BufferBuilder {
     return this;
   }
 
-  public @NotNull T7BufferBuilder addVertex(PoseStack.@NotNull Pose pPose, float pX, float pY, float pZ) {
-    currentPosition = new Vec3(pX, pY, pZ);
+  public @NotNull T7BufferBuilder addVertex(PoseStack.Pose pPose, float pX, float pY, float pZ) {
+    this.pose = pPose;
     parent.addVertex(pPose, pX, pY, pZ);
     return this;
   }
 
-  // assumes our pose is centered at the block center
-  public T7BufferBuilder setRadius() {
-    float radius = (float) currentPosition.length();
-    long i = parent.beginElement(T7VertexFormats.RADIUS);
+  public T7BufferBuilder setCenter() {
+    long i = parent.beginElement(T7VertexFormats.CENTER);
+    var center = pose.pose().transformPosition(0, 0, 0, new Vector3f());
     if (i != -1L) {
-      MemoryUtil.memPutFloat(i, radius);
+      MemoryUtil.memPutFloat(i, center.x());
+      MemoryUtil.memPutFloat(i + 4L, center.y());
+      MemoryUtil.memPutFloat(i + 8L, center.z());
     }
 
     return this;
