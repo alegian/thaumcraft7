@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import me.alegian.thaumcraft7.api.capability.AspectContainerHelper;
 import me.alegian.thaumcraft7.api.capability.T7Capabilities;
 import me.alegian.thaumcraft7.impl.Thaumcraft;
+import me.alegian.thaumcraft7.impl.client.T7Colors;
 import me.alegian.thaumcraft7.impl.client.T7RenderStateShards;
 import me.alegian.thaumcraft7.impl.client.extension.ThaumometerItemExtensions;
 import me.alegian.thaumcraft7.impl.client.extension.WandItemExtensions;
@@ -18,15 +19,11 @@ import me.alegian.thaumcraft7.impl.client.texture.atlas.AspectAtlas;
 import me.alegian.thaumcraft7.impl.common.block.AuraNodeBlock;
 import me.alegian.thaumcraft7.impl.common.block.CrucibleBlock;
 import me.alegian.thaumcraft7.impl.common.item.ShardItem;
-import me.alegian.thaumcraft7.impl.init.registries.deferred.T7BlockEntities;
-import me.alegian.thaumcraft7.impl.init.registries.deferred.T7EntityTypes;
-import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Items;
-import me.alegian.thaumcraft7.impl.init.registries.deferred.T7ParticleTypes;
+import me.alegian.thaumcraft7.impl.init.registries.deferred.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.neoforged.api.distmarker.Dist;
@@ -87,6 +84,22 @@ public class T7ClientEvents {
           T7Items.ORDO_SHARD.get(),
           T7Items.PERDITIO_SHARD.get()
       );
+      event.register((stack, tintIndex) -> {
+            if (tintIndex == 0) return T7Colors.GREATWOOD_LEAVES;
+            return 0xFFFFFFFF;
+          },
+          T7Blocks.GREATWOOD_LEAVES_ITEM.get()
+      );
+    }
+
+    @SubscribeEvent
+    public static void registerBlockColorHandlers(RegisterColorHandlersEvent.Block event) {
+      event.register((blockState, blockAndTintGetter, blockPos, tintIndex) -> {
+            if (tintIndex == 0) return T7Colors.GREATWOOD_LEAVES;
+            return 0xFFFFFFFF;
+          },
+          T7Blocks.GREATWOOD_LEAVES.get()
+      );
     }
 
     @SubscribeEvent
@@ -102,16 +115,6 @@ public class T7ClientEvents {
     @SubscribeEvent
     public static void playerTick(PlayerTickEvent.Pre event) {
       VisGuiOverlay.update(event.getEntity());
-    }
-
-    @SubscribeEvent
-    public static void registerGuiOverlays(RenderGuiEvent.Pre event) {
-      var player = Minecraft.getInstance().player;
-      if (player == null) return;
-      var hitResult = player.pick(player.getAttributeValue(Attributes.BLOCK_INTERACTION_RANGE), 0, false);
-      if (hitResult.getType() != HitResult.Type.BLOCK) return;
-
-      //AspectsParticle.renderAsGUI(event.getGuiGraphics(), ((BlockHitResult) hitResult).getBlockPos());
     }
 
     @SubscribeEvent

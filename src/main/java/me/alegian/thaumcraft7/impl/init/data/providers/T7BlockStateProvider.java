@@ -71,7 +71,7 @@ public class T7BlockStateProvider extends BlockStateProvider {
 
   public void saplingBlockWithItem(SaplingBlock block) {
     var blockRL = blockTexture(block);
-    var model = models().cross(name(block), blockRL);
+    var model = models().cross(name(block), blockRL).renderType(RenderType.cutout().name);
     simpleBlock(block, model);
     itemModels().withExistingParent(name(block), mcLoc("item/generated")).texture("layer0", blockRL);
   }
