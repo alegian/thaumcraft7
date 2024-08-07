@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.ShaderInstance;
 
 public class T7RenderStateShards {
   public static ShaderInstance customShader;
+  public static ShaderInstance simpleLine;
 
   public static final RenderStateShard.TransparencyStateShard SIMPLE_TRANSPARENCY = new RenderStateShard.TransparencyStateShard(
       Thaumcraft.MODID + "_simple_transparency",
@@ -32,4 +33,5 @@ public class T7RenderStateShards {
   );
 
   public static final RenderStateShard.ShaderStateShard CUSTOM_SHADER = new RenderStateShard.ShaderStateShard(() -> customShader);
+  public static final RenderStateShard.ShaderStateShard SIMPLE_LINE = new RenderStateShard.ShaderStateShard(() -> simpleLine);
 }

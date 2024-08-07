@@ -19,6 +19,10 @@ public class T7RenderTypes {
       Thaumcraft.MODID + "_aspect_quad", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP, VertexFormat.Mode.QUADS, RenderType.SMALL_BUFFER_SIZE, true, true, aspectQuadState()
   );
 
+  public static final RenderType ASPECT_SIMPLE_LINE = RenderType.create(
+          Thaumcraft.MODID + "_simple_line", T7VertexFormats.AURA_LINE, VertexFormat.Mode.TRIANGLES, RenderType.SMALL_BUFFER_SIZE, true, true, simpleLine()
+  );
+
   private static RenderType.CompositeState simpleTriangleState() {
     return RenderType.CompositeState.builder()
         .setShaderState(T7RenderStateShards.CUSTOM_SHADER)
@@ -37,5 +41,16 @@ public class T7RenderTypes {
         .setTextureState(T7RenderStateShards.ASPECTS_TEXTURE)
         .setOutputState(TRANSLUCENT_TARGET)
         .createCompositeState(false);
+  }
+
+
+  private static RenderType.CompositeState simpleLine() {
+    return RenderType.CompositeState.builder()
+            .setShaderState(T7RenderStateShards.SIMPLE_LINE)
+            .setTransparencyState(T7RenderStateShards.SIMPLE_TRANSPARENCY)
+            .setDepthTestState(NO_DEPTH_TEST)
+            .setTextureState(NO_TEXTURE)
+            .setOutputState(TRANSLUCENT_TARGET)
+            .createCompositeState(false);
   }
 }

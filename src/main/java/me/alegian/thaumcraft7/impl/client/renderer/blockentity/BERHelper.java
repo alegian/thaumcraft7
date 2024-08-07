@@ -17,4 +17,17 @@ public class BERHelper {
       buffer.addVertex(poseStack.last(), (float) Math.cos(angleDelta * i) * radius, (float) Math.sin(angleDelta * i) * radius, 0).setColor(r, g, b, a).setCenter();
     }
   }
+
+
+  public static void renderConnection(PoseStack poseStack, MultiBufferSource bufferSource, Vec3 pos, float r, float g, float b, float a) {
+    T7BufferBuilder buffer = new T7BufferBuilder(bufferSource.getBuffer(T7RenderTypes.ASPECT_SIMPLE_LINE));
+
+
+
+
+    buffer.addVertex(poseStack.last(),(float) pos.x,(float) pos.y,(float) pos.z).setColor(r, g, b, a).setCenter();
+    buffer.addVertex(poseStack.last(),(float) pos.x,(float) pos.y,(float) pos.z).setColor(r, g, b, a).setCenter();
+    buffer.addVertex(poseStack.last(),(float) pos.x,(float) pos.y,(float) pos.z).setColor(r, g, b, a).setCenter();
+
+  }
 }

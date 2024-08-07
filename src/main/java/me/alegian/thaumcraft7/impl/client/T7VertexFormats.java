@@ -27,4 +27,9 @@ public class T7VertexFormats {
       .add("Color", VertexFormatElement.COLOR)
       .add("Center", CENTER)
       .build();
+
+  public static final VertexFormat AURA_LINE = VertexFormat.builder()
+          .add("Position", VertexFormatElement.POSITION)
+          .add("Center", CENTER)
+          .build();
 }
