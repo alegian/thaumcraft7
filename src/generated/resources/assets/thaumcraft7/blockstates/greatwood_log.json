@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "thaumcraft7:block/greatwood_log_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "thaumcraft7:block/greatwood_log"
+    },
+    "axis=z": {
+      "model": "thaumcraft7:block/greatwood_log_horizontal",
+      "x": 90
+    }
+  }
+}

@@ -24,6 +24,10 @@ public class T7CreativeModeTabs {
               output.accept(T7Blocks.AQUA_INFUSED_STONE.get());
               output.accept(T7Blocks.ORDO_INFUSED_STONE.get());
               output.accept(T7Blocks.PERDITIO_INFUSED_STONE.get());
+              output.accept(T7Blocks.GREATWOOD_LEAVES.get());
+              output.accept(T7Blocks.GREATWOOD_LOG.get());
+              output.accept(T7Blocks.GREATWOOD_PLANKS.get());
+              output.accept(T7Blocks.GREATWOOD_SAPLING.get());
 
               output.accept(T7Items.IRON_CAP.get());
               output.accept(T7Items.IRON_WOOD_WAND.get());

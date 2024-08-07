@@ -13,7 +13,7 @@ public class T7LanguageProvider extends LanguageProvider {
 
   @Override
   protected void addTranslations() {
-    add("thaumcraft", "Thaumcraft");
+    add("thaumcraft", "Thaumcraft 7");
 
     add(T7Items.IRON_CAP.get(), "Iron Wand Cap");
     add(T7Items.IRON_WOOD_WAND.get(), "Iron Capped Wooden Wand");
@@ -35,5 +35,9 @@ public class T7LanguageProvider extends LanguageProvider {
     add(T7Blocks.AQUA_INFUSED_STONE.get(), "Aqua Infused Stone");
     add(T7Blocks.ORDO_INFUSED_STONE.get(), "Ordo Infused Stone");
     add(T7Blocks.PERDITIO_INFUSED_STONE.get(), "Perditio Infused Stone");
+    add(T7Blocks.GREATWOOD_LOG.get(), "Greatwood Log");
+    add(T7Blocks.GREATWOOD_LEAVES.get(), "Greatwood Leaves");
+    add(T7Blocks.GREATWOOD_PLANKS.get(), "Greatwood Planks");
+    add(T7Blocks.GREATWOOD_SAPLING.get(), "Greatwood Sapling");
   }
 }
