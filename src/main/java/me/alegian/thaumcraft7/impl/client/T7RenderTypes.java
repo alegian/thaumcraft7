@@ -20,7 +20,7 @@ public class T7RenderTypes {
   );
 
   public static final RenderType ASPECT_SIMPLE_LINE = RenderType.create(
-          Thaumcraft.MODID + "_simple_line", T7VertexFormats.AURA_LINE, VertexFormat.Mode.TRIANGLES, RenderType.SMALL_BUFFER_SIZE, true, true, simpleLine()
+          Thaumcraft.MODID + "_simple_line", T7VertexFormats.AURA_LINE, VertexFormat.Mode.QUADS, RenderType.SMALL_BUFFER_SIZE, true, true, simpleLine()
   );
 
   private static RenderType.CompositeState simpleTriangleState() {

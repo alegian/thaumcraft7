@@ -24,10 +24,9 @@ public class BERHelper {
 
 
 
-
-    buffer.addVertex(poseStack.last(),(float) pos.x,(float) pos.y,(float) pos.z).setColor(r, g, b, a).setCenter();
-    buffer.addVertex(poseStack.last(),(float) pos.x,(float) pos.y,(float) pos.z).setColor(r, g, b, a).setCenter();
-    buffer.addVertex(poseStack.last(),(float) pos.x,(float) pos.y,(float) pos.z).setColor(r, g, b, a).setCenter();
-
+    buffer.addVertex(poseStack.last(), .5F, -.5F, 0  ).setColor(r, g, b, a).setCenter();
+    buffer.addVertex(poseStack.last(), .5F, .5F, 0   ).setColor(r, g, b, a).setCenter();
+    buffer.addVertex(poseStack.last(), -.5F, .5F, 0  ).setColor(r, g, b, a).setCenter();
+    buffer.addVertex(poseStack.last(), -.5F, -.5F, 0 ).setColor(r, g, b, a).setCenter();
   }
 }
