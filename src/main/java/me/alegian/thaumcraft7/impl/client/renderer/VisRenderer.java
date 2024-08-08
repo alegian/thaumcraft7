@@ -12,8 +12,8 @@ import org.joml.Vector3f;
 
 @OnlyIn(Dist.CLIENT)
 public class VisRenderer {
-  public static Vector3f a = new Vector3f(0, -60, 0);
-  public static Vector3f b = new Vector3f(8, -58, 0);
+  public static Vector3f a = new Vector3f(0, -59, 0);
+  public static Vector3f b = new Vector3f(8, -59, 0);
   public static int N = 100;
   public static Vector3f dx = b.sub(a).div(N);
 
@@ -22,11 +22,12 @@ public class VisRenderer {
     poseStack.translate(-camera.getPosition().x, -camera.getPosition().y, -camera.getPosition().z);
 
     for (int i = 0; i < N; i++) {
+      float dy = (float) Math.sin((double) i / N * Math.PI * 2);
       renderQuad(bufferSource, poseStack.last(),
-          offsetY(add(a, mul(dx, i)), 0),
-          offsetY(add(a, mul(dx, i + 1)), 0),
-          offsetY(add(a, mul(dx, i + 1)), 1),
-          offsetY(add(a, mul(dx, i)), 1)
+          offsetY(add(a, offsetY(mul(dx, i), dy)), 0),
+          offsetY(add(a, offsetY(mul(dx, i + 1), dy)), 0),
+          offsetY(add(a, offsetY(mul(dx, i + 1), dy)), 1),
+          offsetY(add(a, offsetY(mul(dx, i), dy)), 1)
       );
     }
 
