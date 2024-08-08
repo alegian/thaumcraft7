@@ -19,15 +19,14 @@ public class VisRenderer {
 
   public static void render(PoseStack poseStack, MultiBufferSource bufferSource, Camera camera) {
     poseStack.pushPose();
+    VertexConsumer vc = bufferSource.getBuffer(RenderType.DEBUG_QUADS);
     poseStack.translate(-camera.getPosition().x, -camera.getPosition().y, -camera.getPosition().z);
 
     for (int i = 0; i < N; i++) {
-      renderQuad(bufferSource, poseStack.last(),
-          offsetPerpendicular(add(a, offsetSpiral(mul(dx, i), i)), -i),
-          offsetPerpendicular(add(a, offsetSpiral(mul(dx, i + 1), i+1)), -i-1),
-          offsetPerpendicular(add(a, offsetSpiral(mul(dx, i + 1), i+1)), i+1),
-          offsetPerpendicular(add(a, offsetSpiral(mul(dx, i), i)), i)
-      );
+      renderVertex(vc, poseStack, offsetPerpendicular(add(a, offsetSpiral(mul(dx, i), i)), -i));
+      renderVertex(vc, poseStack, offsetPerpendicular(add(a, offsetSpiral(mul(dx, i + 1), i+1)), -i-1));
+      renderVertex(vc, poseStack, offsetPerpendicular(add(a, offsetSpiral(mul(dx, i + 1), i+1)), i+1));
+      renderVertex(vc, poseStack, offsetPerpendicular(add(a, offsetSpiral(mul(dx, i), i)), i));
     }
 
     poseStack.popPose();
@@ -44,7 +43,6 @@ public class VisRenderer {
   }
 
   private static Vector3f offsetPerpendicular(Vector3f v1, int i) {
-    Vector3f spiralOffset = calculateSpiralOffset(i);
     float offset = calculateOffsetY(i);
     return new Vector3f(v1).add(0, offset, 0);
   }
@@ -61,21 +59,12 @@ public class VisRenderer {
     return new Vector3f(v1).mul(scalar);
   }
 
-  public static void renderQuad(MultiBufferSource bufferSource, PoseStack.Pose pose, Vector3f v1, Vector3f v2, Vector3f v3, Vector3f v4) {
-    VertexConsumer vc = bufferSource.getBuffer(RenderType.DEBUG_QUADS);
-
-    renderVertex(vc, pose, v1);
-    renderVertex(vc, pose, v2);
-    renderVertex(vc, pose, v3);
-    renderVertex(vc, pose, v4);
-  }
-
   public static void renderVertex(
       VertexConsumer vc,
-      PoseStack.Pose pose,
+      PoseStack pose,
       Vector3f position
   ) {
-    vc.addVertex(pose, position)
+    vc.addVertex(pose.last(), position)
         .setColor(0xFFFFFFFF)
         .setLight(LightTexture.FULL_BRIGHT);
   }
