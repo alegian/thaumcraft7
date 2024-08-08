@@ -12,21 +12,37 @@ import org.joml.Vector3f;
 
 @OnlyIn(Dist.CLIENT)
 public class VisRenderer {
-  public static final Vector3f a = new Vector3f(0, -60, 0);
-  public static final Vector3f b = new Vector3f(8, -60, 0);
+  public static Vector3f a = new Vector3f(0, -60, 0);
+  public static Vector3f b = new Vector3f(8, -58, 0);
+  public static int N = 100;
+  public static Vector3f dx = b.sub(a).div(N);
 
   public static void render(PoseStack poseStack, MultiBufferSource bufferSource, Camera camera) {
     poseStack.pushPose();
     poseStack.translate(-camera.getPosition().x, -camera.getPosition().y, -camera.getPosition().z);
 
-    renderQuad(bufferSource, poseStack.last(),
-        a,
-        b,
-        (new Vector3f(b)).add(0, 1, 0),
-        (new Vector3f(a)).add(0, 1, 0)
-    );
+    for (int i = 0; i < N; i++) {
+      renderQuad(bufferSource, poseStack.last(),
+          offsetY(add(a, mul(dx, i)), 0),
+          offsetY(add(a, mul(dx, i + 1)), 0),
+          offsetY(add(a, mul(dx, i + 1)), 1),
+          offsetY(add(a, mul(dx, i)), 1)
+      );
+    }
 
     poseStack.popPose();
+  }
+
+  private static Vector3f offsetY(Vector3f v1, float offset) {
+    return new Vector3f(v1).add(0, offset, 0);
+  }
+
+  private static Vector3f add(Vector3f v1, Vector3f v2) {
+    return new Vector3f(v1).add(v2);
+  }
+
+  private static Vector3f mul(Vector3f v1, float scalar) {
+    return new Vector3f(v1).mul(scalar);
   }
 
   public static void renderQuad(MultiBufferSource bufferSource, PoseStack.Pose pose, Vector3f v1, Vector3f v2, Vector3f v3, Vector3f v4) {
