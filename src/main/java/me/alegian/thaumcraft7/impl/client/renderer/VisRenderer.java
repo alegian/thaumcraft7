@@ -12,8 +12,8 @@ import org.joml.Vector3f;
 
 @OnlyIn(Dist.CLIENT)
 public class VisRenderer {
-  public static Vector3f a = new Vector3f(0, -59, 0);
-  public static Vector3f b = new Vector3f(8, -59, 0);
+  public static Vector3f a = new Vector3f(0.5f, -58.5f, 0.5f);
+  public static Vector3f b = new Vector3f(8.5f, -58.5f, 0.5f);
   public static int N = 100;
   public static Vector3f dx = b.sub(a).div(N);
 
@@ -23,33 +23,34 @@ public class VisRenderer {
 
     for (int i = 0; i < N; i++) {
       renderQuad(bufferSource, poseStack.last(),
-          offsetY(add(a, offsetYZ(mul(dx, i), i)), -i),
-          offsetY(add(a, offsetYZ(mul(dx, i + 1), i+1)), -i-1),
-          offsetY(add(a, offsetYZ(mul(dx, i + 1), i+1)), i+1),
-          offsetY(add(a, offsetYZ(mul(dx, i), i)), i)
+          offsetPerpendicular(add(a, offsetSpiral(mul(dx, i), i)), -i),
+          offsetPerpendicular(add(a, offsetSpiral(mul(dx, i + 1), i+1)), -i-1),
+          offsetPerpendicular(add(a, offsetSpiral(mul(dx, i + 1), i+1)), i+1),
+          offsetPerpendicular(add(a, offsetSpiral(mul(dx, i), i)), i)
       );
     }
 
     poseStack.popPose();
   }
 
-  private static Vector3f offsetYZ(Vector3f v1, int i) {
-    Vector3f offset = calculateOffsetYZ(i);
+  private static Vector3f offsetSpiral(Vector3f v1, int i) {
+    Vector3f offset = calculateSpiralOffset(i);
     return new Vector3f(v1).add(offset);
   }
 
-  private static Vector3f calculateOffsetYZ(int i) {
+  private static Vector3f calculateSpiralOffset(int i) {
     float offset = (float) Math.sin((double) i / N * Math.PI * 2);
     return new Vector3f(0, offset, offset);
   }
 
-  private static Vector3f offsetY(Vector3f v1, int i) {
+  private static Vector3f offsetPerpendicular(Vector3f v1, int i) {
+    Vector3f spiralOffset = calculateSpiralOffset(i);
     float offset = calculateOffsetY(i);
     return new Vector3f(v1).add(0, offset, 0);
   }
 
   private static float calculateOffsetY(int i) {
-    return (float) Math.sin((double) i / N * Math.PI)/2;
+    return (float) Math.sin((double) i / N * Math.PI)/4;
   }
 
   private static Vector3f add(Vector3f v1, Vector3f v2) {
