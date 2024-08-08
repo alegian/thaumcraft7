@@ -23,28 +23,33 @@ public class VisRenderer {
 
     for (int i = 0; i < N; i++) {
       renderQuad(bufferSource, poseStack.last(),
-          offsetY(add(a, offset(mul(dx, i), i)), 0),
-          offsetY(add(a, offset(mul(dx, i + 1), i+1)), 0),
-          offsetY(add(a, offset(mul(dx, i + 1), i+1)), 1),
-          offsetY(add(a, offset(mul(dx, i), i)), 1)
+          offsetY(add(a, offsetYZ(mul(dx, i), i)), -i),
+          offsetY(add(a, offsetYZ(mul(dx, i + 1), i+1)), -i-1),
+          offsetY(add(a, offsetYZ(mul(dx, i + 1), i+1)), i+1),
+          offsetY(add(a, offsetYZ(mul(dx, i), i)), i)
       );
     }
 
     poseStack.popPose();
   }
 
-  private static Vector3f offset(Vector3f v1, int i) {
-    Vector3f offset = calculateOffset(i);
+  private static Vector3f offsetYZ(Vector3f v1, int i) {
+    Vector3f offset = calculateOffsetYZ(i);
     return new Vector3f(v1).add(offset);
   }
 
-  private static Vector3f calculateOffset(int i) {
-    float Y = (float) Math.sin((double) i / N * Math.PI * 2);
-    return new Vector3f(0, Y, 0);
+  private static Vector3f calculateOffsetYZ(int i) {
+    float offset = (float) Math.sin((double) i / N * Math.PI * 2);
+    return new Vector3f(0, offset, offset);
   }
 
-  private static Vector3f offsetY(Vector3f v1, float offset) {
+  private static Vector3f offsetY(Vector3f v1, int i) {
+    float offset = calculateOffsetY(i);
     return new Vector3f(v1).add(0, offset, 0);
+  }
+
+  private static float calculateOffsetY(int i) {
+    return (float) Math.sin((double) i / N * Math.PI)/2;
   }
 
   private static Vector3f add(Vector3f v1, Vector3f v2) {
