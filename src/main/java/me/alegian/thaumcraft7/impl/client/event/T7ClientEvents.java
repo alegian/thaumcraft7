@@ -12,6 +12,7 @@ import me.alegian.thaumcraft7.impl.client.gui.VisGuiOverlay;
 import me.alegian.thaumcraft7.impl.client.model.CubeOverlayModel;
 import me.alegian.thaumcraft7.impl.client.particle.CrucibleBubbleParticle;
 import me.alegian.thaumcraft7.impl.client.renderer.AspectRenderer;
+import me.alegian.thaumcraft7.impl.client.renderer.VisRenderer;
 import me.alegian.thaumcraft7.impl.client.renderer.blockentity.AuraNodeBER;
 import me.alegian.thaumcraft7.impl.client.renderer.blockentity.CrucibleBER;
 import me.alegian.thaumcraft7.impl.client.renderer.entity.FancyItemRenderer;
@@ -128,9 +129,13 @@ public class T7ClientEvents {
 
     @SubscribeEvent
     public static void renderLevelAfterWeather(RenderLevelStageEvent event) {
-      var minecraft = Minecraft.getInstance();
-      if (minecraft.level == null) return;
       if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_WEATHER) return;
+
+      var minecraft = Minecraft.getInstance();
+
+      VisRenderer.render(event.getPoseStack(), minecraft.renderBuffers().bufferSource(), event.getCamera());
+
+      if (minecraft.level == null) return;
       var hitResult = minecraft.hitResult;
       if (hitResult == null || hitResult.getType() != HitResult.Type.BLOCK) return;
       var blockPos = ((BlockHitResult) hitResult).getBlockPos();
