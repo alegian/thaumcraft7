@@ -2,6 +2,7 @@ package me.alegian.thaumcraft7.impl.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import me.alegian.thaumcraft7.impl.client.T7RenderTypes;
 import net.minecraft.client.Camera;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -19,14 +20,12 @@ public class VisRenderer {
 
   public static void render(PoseStack poseStack, MultiBufferSource bufferSource, Camera camera) {
     poseStack.pushPose();
-    VertexConsumer vc = bufferSource.getBuffer(RenderType.DEBUG_QUADS);
+    VertexConsumer vc = bufferSource.getBuffer(T7RenderTypes.DEBUG_TRIANGLE_STRIP);
     poseStack.translate(-camera.getPosition().x, -camera.getPosition().y, -camera.getPosition().z);
 
-    for (int i = 0; i < N; i++) {
-      renderVertex(vc, poseStack, offsetPerpendicular(add(a, offsetSpiral(mul(dx, i), i)), -i));
-      renderVertex(vc, poseStack, offsetPerpendicular(add(a, offsetSpiral(mul(dx, i + 1), i+1)), -i-1));
-      renderVertex(vc, poseStack, offsetPerpendicular(add(a, offsetSpiral(mul(dx, i + 1), i+1)), i+1));
+    for (int i = 0; i <= N; i++) {
       renderVertex(vc, poseStack, offsetPerpendicular(add(a, offsetSpiral(mul(dx, i), i)), i));
+      renderVertex(vc, poseStack, offsetPerpendicular(add(a, offsetSpiral(mul(dx, i), i)), -i));
     }
 
     poseStack.popPose();
