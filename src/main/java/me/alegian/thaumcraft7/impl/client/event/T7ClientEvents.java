@@ -133,7 +133,7 @@ public class T7ClientEvents {
 
       var minecraft = Minecraft.getInstance();
 
-      VisRenderer.render(event.getPoseStack(), minecraft.renderBuffers().bufferSource(), event.getCamera());
+      VisRenderer.render(event.getPoseStack(), minecraft.renderBuffers().bufferSource(), event.getCamera(), event.getRenderTick() ,event.getPartialTick());
 
       if (minecraft.level == null) return;
       var hitResult = minecraft.hitResult;
