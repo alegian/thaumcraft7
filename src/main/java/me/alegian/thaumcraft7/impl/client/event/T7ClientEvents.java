@@ -132,8 +132,8 @@ public class T7ClientEvents {
     public static void renderLevelAfterWeather(RenderLevelStageEvent event) {
       if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_WEATHER) return;
 
+      // general purpose useful stuff
       var minecraft = Minecraft.getInstance();
-
       if (minecraft.level == null) return;
       var hitResult = minecraft.hitResult;
       if (hitResult == null || hitResult.getType() != HitResult.Type.BLOCK) return;
@@ -142,11 +142,16 @@ public class T7ClientEvents {
       if (player == null) return;
       var blockState = minecraft.level.getBlockState(blockPos);
 
-      if(player.isUsingItem() && player.getUseItem().getItem().equals(T7Items.IRON_WOOD_WAND.get()) && blockState.is(T7Blocks.AURA_NODE.get())){
+      // wand vis renderer for sucking aura nodes
+      if(player.isUsingItem() &&
+          player.getUseItem().getItem().equals(T7Items.IRON_WOOD_WAND.get())
+          && blockState.is(T7Blocks.AURA_NODE.get())
+      ){
         Vec3 playerPos = player.getPosition(event.getPartialTick().getGameTimeDeltaPartialTick(true)).add(0,1.5,0);
         VisRenderer.render(playerPos, blockPos.getCenter(), event.getPoseStack(), minecraft.renderBuffers().bufferSource(), event.getCamera(), event.getRenderTick(), event.getPartialTick());
       }
 
+      // aspect renderer
       if (!(blockState.getBlock() instanceof CrucibleBlock)) return;
       var helmet = player.getInventory().armor.get(EquipmentSlot.HEAD.getIndex());
       if (helmet.getCapability(T7Capabilities.REVEALING) == null) return;
