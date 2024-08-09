@@ -3,6 +3,7 @@ package me.alegian.thaumcraft7.impl.client.renderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
+import me.alegian.thaumcraft7.api.aspect.Aspect;
 import me.alegian.thaumcraft7.impl.client.T7RenderTypes;
 import net.minecraft.client.Camera;
 import net.minecraft.client.DeltaTracker;
@@ -17,7 +18,7 @@ public class VisRenderer {
   // start
   public static Vector3f a = new Vector3f(0.5f, -58.5f, 0.5f);
   // end
-  public static Vector3f b = new Vector3f(0.5f, -58.5f, 4.5f);
+  public static Vector3f b = new Vector3f(2.5f, -56.5f, 4.5f);
   // triangle resolution
   public static int N = 100;
   // delta vector (scaled b-a)
@@ -39,7 +40,7 @@ public class VisRenderer {
 
     double partialTick = deltaTracker.getGameTimeDeltaPartialTick(true);
     double ticks = tick + partialTick;
-    double phase = (ticks / 60 * 2 * Math.PI) % 2 * Math.PI;
+    double phase = (ticks / 20 / 4 * 2 * Math.PI) % 2 * Math.PI;
 
     // rotation phase to "animate" the spiral
     poseStack.mulPose(mainAxis.rotation((float) (phase)));
@@ -73,8 +74,8 @@ public class VisRenderer {
       VertexConsumer vc,
       PoseStack pose
   ) {
+    // keep the praecantatio color with some alpha
     vc.addVertex(pose.last(), 0, 0, 0)
-        .setColor(0xFF55FF88)
-        .setLight(LightTexture.FULL_BRIGHT);
+        .setColor(Aspect.PRAECANTATIO.getColor() & 0xFFFFFF | 0x88000000);
   }
 }

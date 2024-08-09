@@ -20,7 +20,7 @@ public class T7RenderTypes {
   );
 
   public static final RenderType DEBUG_TRIANGLE_STRIP = RenderType.create(
-      "debug_quads",
+      Thaumcraft.MODID +"_vis",
       DefaultVertexFormat.POSITION_COLOR,
       VertexFormat.Mode.TRIANGLE_STRIP,
       1536,
