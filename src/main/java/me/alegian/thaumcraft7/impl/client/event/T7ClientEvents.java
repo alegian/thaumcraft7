@@ -27,6 +27,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -133,15 +134,20 @@ public class T7ClientEvents {
 
       var minecraft = Minecraft.getInstance();
 
-      VisRenderer.render(event.getPoseStack(), minecraft.renderBuffers().bufferSource(), event.getCamera(), event.getRenderTick() ,event.getPartialTick());
-
       if (minecraft.level == null) return;
       var hitResult = minecraft.hitResult;
       if (hitResult == null || hitResult.getType() != HitResult.Type.BLOCK) return;
       var blockPos = ((BlockHitResult) hitResult).getBlockPos();
-      if (!(minecraft.level.getBlockState(blockPos).getBlock() instanceof CrucibleBlock)) return;
       var player = minecraft.player;
       if (player == null) return;
+      var blockState = minecraft.level.getBlockState(blockPos);
+
+      if(player.isUsingItem() && player.getUseItem().getItem().equals(T7Items.IRON_WOOD_WAND.get()) && blockState.is(T7Blocks.AURA_NODE.get())){
+        Vec3 playerPos = player.getPosition(event.getPartialTick().getGameTimeDeltaPartialTick(true)).add(0,1.5,0);
+        VisRenderer.render(playerPos, blockPos.getCenter(), event.getPoseStack(), minecraft.renderBuffers().bufferSource(), event.getCamera(), event.getRenderTick(), event.getPartialTick());
+      }
+
+      if (!(blockState.getBlock() instanceof CrucibleBlock)) return;
       var helmet = player.getInventory().armor.get(EquipmentSlot.HEAD.getIndex());
       if (helmet.getCapability(T7Capabilities.REVEALING) == null) return;
 
