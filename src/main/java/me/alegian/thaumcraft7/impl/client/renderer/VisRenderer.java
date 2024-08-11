@@ -5,8 +5,6 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import me.alegian.thaumcraft7.api.aspect.Aspect;
 import me.alegian.thaumcraft7.impl.client.T7RenderTypes;
-import net.minecraft.client.Camera;
-import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
@@ -20,7 +18,7 @@ public class VisRenderer {
   // delta angle
   public static double da = 2 * Math.PI / N;
 
-  public static void render(Vec3 playerPos, Vec3 blockPos, PoseStack poseStack, MultiBufferSource bufferSource, Camera camera, int tick, DeltaTracker deltaTracker) {
+  public static void render(Vec3 playerPos, Vec3 blockPos, PoseStack poseStack, MultiBufferSource bufferSource, float partialTicks) {
     Vector3f a = playerPos.toVector3f();
     Vector3f b = blockPos.toVector3f();
     // delta vector (scaled b-a)
@@ -28,7 +26,6 @@ public class VisRenderer {
 
     poseStack.pushPose();
     VertexConsumer vc = bufferSource.getBuffer(T7RenderTypes.DEBUG_TRIANGLE_STRIP);
-    poseStack.translate(-camera.getPosition().x, -camera.getPosition().y, -camera.getPosition().z);
     // start at one end
     poseStack.translate(a.x, a.y, a.z);
 
@@ -37,9 +34,7 @@ public class VisRenderer {
     // the perpendicular axis, that is not in the direction of Y
     Vector3f zBasis = new Vector3f(dx).cross(new Vector3f(0, 1, 0)).normalize();
 
-    double partialTick = deltaTracker.getGameTimeDeltaPartialTick(true);
-    double ticks = tick + partialTick;
-    double phase = (ticks / 20 / 4 * 2 * Math.PI) % 2 * Math.PI;
+    double phase = (partialTicks / 20 / 4 * 2 * Math.PI) % 2 * Math.PI;
 
     // rotation phase to "animate" the spiral
     poseStack.mulPose(mainAxis.rotation((float) (phase)));

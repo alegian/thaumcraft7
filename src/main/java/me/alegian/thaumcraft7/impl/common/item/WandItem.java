@@ -3,6 +3,7 @@ package me.alegian.thaumcraft7.impl.common.item;
 import me.alegian.thaumcraft7.api.capability.VisStorageHelper;
 import me.alegian.thaumcraft7.impl.common.block.AuraNodeBlock;
 import me.alegian.thaumcraft7.impl.common.entity.FancyThaumonomicon;
+import me.alegian.thaumcraft7.impl.common.entity.RendererEntity;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Blocks;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
@@ -40,6 +41,7 @@ public class WandItem extends Item {
 
         if (received == 0f) return InteractionResult.PASS;
         player.startUsingItem(context.getHand());
+        if (!level.isClientSide()) level.addFreshEntity(new RendererEntity(level, blockPos.getCenter()));
         return InteractionResult.CONSUME;
       }
     }

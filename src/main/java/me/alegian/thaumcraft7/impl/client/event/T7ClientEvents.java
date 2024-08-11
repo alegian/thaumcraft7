@@ -12,10 +12,10 @@ import me.alegian.thaumcraft7.impl.client.gui.VisGuiOverlay;
 import me.alegian.thaumcraft7.impl.client.model.CubeOverlayModel;
 import me.alegian.thaumcraft7.impl.client.particle.CrucibleBubbleParticle;
 import me.alegian.thaumcraft7.impl.client.renderer.AspectRenderer;
-import me.alegian.thaumcraft7.impl.client.renderer.VisRenderer;
 import me.alegian.thaumcraft7.impl.client.renderer.blockentity.AuraNodeBER;
 import me.alegian.thaumcraft7.impl.client.renderer.blockentity.CrucibleBER;
 import me.alegian.thaumcraft7.impl.client.renderer.entity.FancyItemRenderer;
+import me.alegian.thaumcraft7.impl.client.renderer.entity.RendererRenderer;
 import me.alegian.thaumcraft7.impl.client.texture.atlas.AspectAtlas;
 import me.alegian.thaumcraft7.impl.common.block.AuraNodeBlock;
 import me.alegian.thaumcraft7.impl.common.block.CrucibleBlock;
@@ -27,7 +27,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
-import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -50,6 +49,7 @@ public class T7ClientEvents {
       event.registerBlockEntityRenderer(T7BlockEntities.AURA_NODE.get(), ctx -> new AuraNodeBER());
       event.registerBlockEntityRenderer(T7BlockEntities.CRUCIBLE.get(), ctx -> new CrucibleBER());
       event.registerEntityRenderer(T7EntityTypes.FANCY_ITEM.get(), FancyItemRenderer::new);
+      event.registerEntityRenderer(T7EntityTypes.RENDERER.get(), RendererRenderer::new);
     }
 
     @SubscribeEvent
@@ -141,15 +141,6 @@ public class T7ClientEvents {
       var player = minecraft.player;
       if (player == null) return;
       var blockState = minecraft.level.getBlockState(blockPos);
-
-      // wand vis renderer for sucking aura nodes
-      if(player.isUsingItem() &&
-          player.getUseItem().getItem().equals(T7Items.IRON_WOOD_WAND.get())
-          && blockState.is(T7Blocks.AURA_NODE.get())
-      ){
-        Vec3 playerPos = player.getPosition(event.getPartialTick().getGameTimeDeltaPartialTick(true)).add(0,1.5,0);
-        VisRenderer.render(playerPos, blockPos.getCenter(), event.getPoseStack(), minecraft.renderBuffers().bufferSource(), event.getCamera(), event.getRenderTick(), event.getPartialTick());
-      }
 
       // aspect renderer
       if (!(blockState.getBlock() instanceof CrucibleBlock)) return;

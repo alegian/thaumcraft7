@@ -3,7 +3,6 @@ package me.alegian.thaumcraft7.impl.init.data.providers;
 import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.common.item.ShardItem;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Items;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
