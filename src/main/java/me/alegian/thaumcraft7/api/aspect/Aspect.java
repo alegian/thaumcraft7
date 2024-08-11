@@ -46,9 +46,9 @@ public class Aspect {
   }
 
   public int[] getColorRGB() {
-    int r = (color & 0xffFF0000) >> 16;
-    int g = (color & 0xffFF00) >> 8;
-    int b = (color & 0xffFF);
+    int r = (color & 0xFF0000) >> 16;
+    int g = (color & 0xFF00) >> 8;
+    int b = (color & 0xFF);
 
     return new int[]{r, g, b};
   }
