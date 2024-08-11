@@ -2,9 +2,11 @@ package me.alegian.thaumcraft7.impl.init.data.providers;
 
 import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.common.tag.CrucibleHeatSourceTag;
+import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Blocks;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
@@ -20,5 +22,21 @@ public class T7BlockTagProvider extends BlockTagsProvider {
   protected void addTags(HolderLookup.Provider pProvider) {
     // TODO: add nitor
     tag(CrucibleHeatSourceTag.BLOCK).addTag(BlockTags.FIRE).addTag(BlockTags.CAMPFIRES);
+    tag(Tags.Blocks.ORES).add(
+        T7Blocks.IGNIS_INFUSED_STONE.get(),
+        T7Blocks.TERRA_INFUSED_STONE.get(),
+        T7Blocks.AER_INFUSED_STONE.get(),
+        T7Blocks.AQUA_INFUSED_STONE.get(),
+        T7Blocks.ORDO_INFUSED_STONE.get(),
+        T7Blocks.PERDITIO_INFUSED_STONE.get()
+    );
+    tag(Tags.Blocks.ORE_RATES_SINGULAR).add(
+        T7Blocks.IGNIS_INFUSED_STONE.get(),
+        T7Blocks.TERRA_INFUSED_STONE.get(),
+        T7Blocks.AER_INFUSED_STONE.get(),
+        T7Blocks.AQUA_INFUSED_STONE.get(),
+        T7Blocks.ORDO_INFUSED_STONE.get(),
+        T7Blocks.PERDITIO_INFUSED_STONE.get()
+    );
   }
 }
