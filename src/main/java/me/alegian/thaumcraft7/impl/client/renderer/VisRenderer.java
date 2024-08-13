@@ -1,6 +1,5 @@
 package me.alegian.thaumcraft7.impl.client.renderer;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import me.alegian.thaumcraft7.api.aspect.Aspect;
@@ -19,9 +18,10 @@ public class VisRenderer {
   // delta angle
   public static double da = 2 * Math.PI / N;
 
-  public static void render(Vec3 playerPos, Vec3 blockPos, T7PoseStack t7pose, MultiBufferSource bufferSource, float partialTicks) {
-    Vector3f a = playerPos.toVector3f();
-    Vector3f b = blockPos.toVector3f();
+  // assumes the pose is at player hand position
+  public static void render(Vec3 relativeBlockPos, T7PoseStack t7pose, MultiBufferSource bufferSource, float partialTicks) {
+    Vector3f a = new Vector3f();
+    Vector3f b = relativeBlockPos.toVector3f();
     // delta vector (scaled b-a)
     Vector3f dx = b.sub(a).div(N);
 

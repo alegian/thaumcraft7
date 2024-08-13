@@ -48,7 +48,19 @@ public class T7PoseStack {
     poseStack.mulPose(axis.rotation((float) angleRadians));
   }
 
-  public PoseStack.Pose pose(){
+  public PoseStack.Pose pose() {
     return poseStack.last();
+  }
+
+  public Vector3f transformOrigin() {
+    return poseStack.last().pose().transformPosition(new Vector3f());
+  }
+
+  public Vector3f transformPosition(Vector3f position) {
+    return poseStack.last().pose().transformPosition(position);
+  }
+
+  public Vector3f transformPosition(Vec3 position) {
+    return transformPosition(position.toVector3f());
   }
 }
