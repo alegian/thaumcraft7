@@ -1,6 +1,7 @@
 package me.alegian.thaumcraft7.impl.client.renderer.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import me.alegian.thaumcraft7.impl.client.T7PoseStack;
 import me.alegian.thaumcraft7.impl.client.renderer.VisRenderer;
 import me.alegian.thaumcraft7.impl.common.entity.RendererEntity;
 import net.minecraft.client.Minecraft;
@@ -31,11 +32,13 @@ public class RendererRenderer extends EntityRenderer<RendererEntity> {
     var player = minecraft.player;
     if (player == null) return;
 
+    T7PoseStack t7pose = new T7PoseStack(pPoseStack);
+
     Vec3 playerPos = player.getPosition(pPartialTick).add(0, 1.5, 0);
-    pPoseStack.pushPose();
-    pPoseStack.translate(-pEntity.getX(), -pEntity.getY(), -pEntity.getZ());
-    VisRenderer.render(playerPos, blockPos.getCenter(), pPoseStack, pBufferSource, pEntity.tickCount + pPartialTick);
-    pPoseStack.popPose();
+    t7pose.push();
+    t7pose.translateNegative(pEntity.position());
+    VisRenderer.render(playerPos, blockPos.getCenter(), t7pose, pBufferSource, pEntity.tickCount + pPartialTick);
+    t7pose.pop();
   }
 
   @Override

@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import me.alegian.thaumcraft7.api.aspect.Aspect;
+import me.alegian.thaumcraft7.impl.client.T7PoseStack;
 import me.alegian.thaumcraft7.impl.client.T7RenderTypes;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.world.phys.Vec3;
@@ -18,16 +19,16 @@ public class VisRenderer {
   // delta angle
   public static double da = 2 * Math.PI / N;
 
-  public static void render(Vec3 playerPos, Vec3 blockPos, PoseStack poseStack, MultiBufferSource bufferSource, float partialTicks) {
+  public static void render(Vec3 playerPos, Vec3 blockPos, T7PoseStack t7pose, MultiBufferSource bufferSource, float partialTicks) {
     Vector3f a = playerPos.toVector3f();
     Vector3f b = blockPos.toVector3f();
     // delta vector (scaled b-a)
     Vector3f dx = b.sub(a).div(N);
 
-    poseStack.pushPose();
+    t7pose.push();
     VertexConsumer vc = bufferSource.getBuffer(T7RenderTypes.DEBUG_TRIANGLE_STRIP);
     // start at one end
-    poseStack.translate(a.x, a.y, a.z);
+    t7pose.translate(a);
 
     // some useful axes
     Axis mainAxis = Axis.of(dx);
@@ -37,39 +38,39 @@ public class VisRenderer {
     double phase = (partialTicks / 20 / 4 * 2 * Math.PI) % 2 * Math.PI;
 
     // rotation phase to "animate" the spiral
-    poseStack.mulPose(mainAxis.rotation((float) (phase)));
+    t7pose.rotate(mainAxis, phase);
     for (int i = 0; i <= N; i++) {
-      float thicknessOffset = (float) Math.sin(da / 2 * i) / 8;
+      double thicknessOffset = Math.sin(da / 2 * i) / 8;
 
       // the 2 vertices render with opposite offsets to give thickness
-      poseStack.pushPose();
-      poseStack.translate(0, thicknessOffset, 0);
-      renderVertex(vc, poseStack);
-      poseStack.popPose();
+      t7pose.push();
+      t7pose.translateY(thicknessOffset);
+      renderVertex(vc, t7pose);
+      t7pose.pop();
 
-      poseStack.pushPose();
-      poseStack.translate(0, -thicknessOffset, 0);
-      renderVertex(vc, poseStack);
-      poseStack.popPose();
+      t7pose.push();
+      t7pose.translateY(-thicknessOffset);
+      renderVertex(vc, t7pose);
+      t7pose.pop();
 
       // move towards goal
-      poseStack.translate(dx.x, dx.y, dx.z);
+      t7pose.translate(dx);
       // offset on the Z axis to create spiral
       Vector3f translation = new Vector3f(zBasis).mul((float) (Math.sin(da) / 4f));
-      poseStack.translate(translation.x, translation.y, translation.z);
+      t7pose.translate(translation);
       // spiral vertices should be drawn rotated
-      poseStack.mulPose(mainAxis.rotation((float) (da)));
+      t7pose.rotate(mainAxis, da);
     }
 
-    poseStack.popPose();
+    t7pose.pop();
   }
 
   public static void renderVertex(
       VertexConsumer vc,
-      PoseStack pose
+      T7PoseStack t7pose
   ) {
     // keep the praecantatio color with some alpha
-    vc.addVertex(pose.last(), 0, 0, 0)
+    vc.addVertex(t7pose.pose(), 0, 0, 0)
         .setColor(Aspect.PRAECANTATIO.getColor() & 0xFFFFFF | 0x88000000);
   }
 }
