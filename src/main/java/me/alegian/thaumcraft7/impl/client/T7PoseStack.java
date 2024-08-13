@@ -8,6 +8,9 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import org.joml.Vector3f;
 
+/*
+  PoseStack Wrapper to make renderer code more concise
+ */
 @OnlyIn(Dist.CLIENT)
 public class T7PoseStack {
   PoseStack poseStack;
