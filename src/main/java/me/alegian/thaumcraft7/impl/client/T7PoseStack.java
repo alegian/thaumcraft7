@@ -2,9 +2,13 @@ package me.alegian.thaumcraft7.impl.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import net.minecraft.client.Minecraft;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import org.joml.Vector3f;
 
+@OnlyIn(Dist.CLIENT)
 public class T7PoseStack {
   PoseStack poseStack;
 
@@ -62,5 +66,17 @@ public class T7PoseStack {
 
   public Vector3f transformPosition(Vec3 position) {
     return transformPosition(position.toVector3f());
+  }
+
+  public void translateCamera(){
+    translate(getCameraPosition());
+  }
+
+  public void translateNegativeCamera(){
+    translateNegative(getCameraPosition());
+  }
+
+  private Vec3 getCameraPosition() {
+    return Minecraft.getInstance().gameRenderer.getMainCamera().getPosition();
   }
 }

@@ -38,7 +38,7 @@ public class RendererRenderer extends EntityRenderer<RendererEntity> {
     t7pose.push();
     t7pose.translateNegative(pEntity.position()); // we are inside an entity renderer
     t7pose.translate(playerPos);
-    VisRenderer.render(blockPos.getCenter().subtract(playerPos), t7pose, pBufferSource, pEntity.tickCount + pPartialTick);
+    VisRenderer.render(blockPos.getCenter(), t7pose, pBufferSource, pEntity.tickCount + pPartialTick);
     t7pose.pop();
   }
 

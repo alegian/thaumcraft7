@@ -19,9 +19,9 @@ public class VisRenderer {
   public static double da = 2 * Math.PI / N;
 
   // assumes the pose is at player hand position
-  public static void render(Vec3 relativeBlockPos, T7PoseStack t7pose, MultiBufferSource bufferSource, float partialTicks) {
+  public static void render(Vec3 blockPos, T7PoseStack t7pose, MultiBufferSource bufferSource, float partialTicks) {
     Vector3f a = new Vector3f();
-    Vector3f b = relativeBlockPos.toVector3f();
+    Vector3f b = relative(t7pose, blockPos);
     // delta vector (scaled b-a)
     Vector3f dx = b.sub(a).div(N);
 
@@ -72,5 +72,15 @@ public class VisRenderer {
     // keep the praecantatio color with some alpha
     vc.addVertex(t7pose.pose(), 0, 0, 0)
         .setColor(Aspect.PRAECANTATIO.getColor() & 0xFFFFFF | 0x88000000);
+  }
+
+  // the player hand position is given to us in the pose, which contains the camera position
+  // so we have to temporarily undo it
+  private static Vector3f relative(T7PoseStack t7pose, Vec3 absoluteB) {
+    t7pose.push();
+    t7pose.translateCamera();
+    Vector3f absoluteA = t7pose.transformOrigin();
+    t7pose.pop();
+    return absoluteB.toVector3f().sub(absoluteA);
   }
 }
