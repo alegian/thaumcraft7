@@ -20,15 +20,11 @@ public class VisRenderer {
 
   // assumes the pose is at player hand position
   public static void render(Vec3 blockPos, T7PoseStack t7pose, MultiBufferSource bufferSource, float partialTicks) {
-    Vector3f a = new Vector3f();
-    Vector3f b = relative(t7pose, blockPos);
     // delta vector (scaled b-a)
-    Vector3f dx = b.sub(a).div(N);
+    Vector3f dx = relative(t7pose, blockPos).div(N);
 
     t7pose.push();
     VertexConsumer vc = bufferSource.getBuffer(T7RenderTypes.DEBUG_TRIANGLE_STRIP);
-    // start at one end
-    t7pose.translate(a);
 
     // some useful axes
     Axis mainAxis = Axis.of(dx);

@@ -59,6 +59,10 @@ public class T7PoseStack {
     return poseStack.last();
   }
 
+  public PoseStack poseStack() {
+    return poseStack;
+  }
+
   public Vector3f transformOrigin() {
     return poseStack.last().pose().transformPosition(new Vector3f());
   }
@@ -77,6 +81,10 @@ public class T7PoseStack {
 
   public void translateNegativeCamera(){
     translateNegative(getCameraPosition());
+  }
+
+  public void scale(float scale){
+    poseStack.scale(scale, scale, scale);
   }
 
   private Vec3 getCameraPosition() {
