@@ -75,15 +75,15 @@ public class T7PoseStack {
     return transformPosition(position.toVector3f());
   }
 
-  public void translateCamera(){
+  public void translateCamera() {
     translate(getCameraPosition());
   }
 
-  public void translateNegativeCamera(){
+  public void translateNegativeCamera() {
     translateNegative(getCameraPosition());
   }
 
-  public void scale(float scale){
+  public void scale(float scale) {
     poseStack.scale(scale, scale, scale);
   }
 
