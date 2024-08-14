@@ -13,10 +13,11 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.UUID;
+
 public class VisEntity extends RendererEntity {
   @Nullable
-  private Player player;
-  private final BlockPos blockPos;
+  private UUID playerUUID;
 
   public VisEntity(Level pLevel, Player player) {
     this(pLevel, player, new BlockPos(0, 0, 0));
@@ -24,16 +25,16 @@ public class VisEntity extends RendererEntity {
 
   public VisEntity(Level pLevel, @Nullable Player player, @NotNull BlockPos blockPos) {
     super(pLevel, blockPos.getCenter());
-    this.player = player;
-    this.blockPos = blockPos;
+    if (player != null) this.playerUUID = player.getUUID();
   }
 
   public @Nullable Player getPlayer() {
-    return player;
+    if (playerUUID == null) return null;
+    return this.level().getPlayerByUUID(playerUUID);
   }
 
-  public BlockPos getBlockPos() {
-    return blockPos;
+  public @Nullable UUID getPlayerUUID() {
+    return playerUUID;
   }
 
   @Override
@@ -43,17 +44,14 @@ public class VisEntity extends RendererEntity {
   @Override
   protected void readAdditionalSaveData(CompoundTag pCompound) {
     if (pCompound.hasUUID("player")) {
-      var playerUUID = pCompound.getUUID("player");
-
-      player = this.level().getPlayerByUUID(playerUUID);
+      this.playerUUID = pCompound.getUUID("player");
     }
   }
 
   @Override
   protected void addAdditionalSaveData(@NotNull CompoundTag pCompound) {
-    if (player != null) {
-      pCompound.putUUID("player", player.getUUID());
-    }
+    if (playerUUID == null) return;
+    pCompound.putUUID("player", playerUUID);
   }
 
   @Override
@@ -63,10 +61,17 @@ public class VisEntity extends RendererEntity {
   }
 
   @Override
-  public void recreateFromPacket(ClientboundAddEntityPacket pPacket) {
+  public void recreateFromPacket(@NotNull ClientboundAddEntityPacket pPacket) {
+    super.recreateFromPacket(pPacket);
     Entity entity = this.level().getEntity(pPacket.getData());
     if (entity instanceof Player player) {
-      this.player = player;
+      this.playerUUID = player.getUUID();
     }
+  }
+
+  @Override
+  public void restoreFrom(@NotNull Entity pEntity) {
+    super.restoreFrom(pEntity);
+    this.playerUUID = ((VisEntity) pEntity).getPlayerUUID();
   }
 }

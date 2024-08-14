@@ -31,7 +31,7 @@ public class VisER extends EntityRenderer<VisEntity> {
 
     preparePlayerHandPose(pPartialTick, (LocalPlayer) visEntity.getPlayer(), t7pose);
 
-    VisRenderer.render(visEntity.getBlockPos().getCenter(), t7pose, pBufferSource, visEntity.tickCount + pPartialTick);
+    VisRenderer.render(visEntity.position(), t7pose, pBufferSource, visEntity.tickCount + pPartialTick);
 
     t7pose.pop();
   }
