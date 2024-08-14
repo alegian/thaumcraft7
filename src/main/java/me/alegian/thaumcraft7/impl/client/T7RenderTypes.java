@@ -40,6 +40,7 @@ public class T7RenderTypes {
         .setDepthTestState(NO_DEPTH_TEST)
         .setTextureState(NO_TEXTURE)
         .setOutputState(TRANSLUCENT_TARGET)
+        .setCullState(NO_CULL)
         .createCompositeState(false);
   }
 

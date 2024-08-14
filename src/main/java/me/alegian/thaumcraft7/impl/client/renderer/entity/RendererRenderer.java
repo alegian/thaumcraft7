@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import me.alegian.thaumcraft7.impl.client.T7PoseStack;
 import me.alegian.thaumcraft7.impl.client.renderer.VisRenderer;
+import me.alegian.thaumcraft7.impl.client.renderer.blockentity.BERHelper;
 import me.alegian.thaumcraft7.impl.common.entity.RendererEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -49,7 +50,8 @@ public class RendererRenderer extends EntityRenderer<RendererEntity> {
     PlayerRenderer playerRenderer = (PlayerRenderer) minecraft.getEntityRenderDispatcher().getRenderer(player);
     playerRenderer.getModel().translateToHand(player.getMainArm(), t7pose.poseStack());
 
-    VisRenderer.render(blockPos.getCenter(), t7pose, pBufferSource, pEntity.tickCount + pPartialTick);
+    BERHelper.renderAuraNodeLayer(pPoseStack, pBufferSource, 0.5f, 16, 1, 0, 0, 1);
+    //VisRenderer.render(blockPos.getCenter(), t7pose, pBufferSource, pEntity.tickCount + pPartialTick);
     t7pose.pop();
   }
 
