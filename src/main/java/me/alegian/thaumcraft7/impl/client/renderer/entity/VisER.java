@@ -23,6 +23,8 @@ public class VisER extends EntityRenderer<VisEntity> {
 
   @Override
   public void render(VisEntity visEntity, float pEntityYaw, float pPartialTick, PoseStack pPoseStack, MultiBufferSource pBufferSource, int pPackedLight) {
+    if(visEntity.getPlayer() == null) return;
+
     T7PoseStack t7pose = new T7PoseStack(pPoseStack);
     t7pose.push();
     t7pose.translateNegative(visEntity.position()); // we are inside an entity renderer
