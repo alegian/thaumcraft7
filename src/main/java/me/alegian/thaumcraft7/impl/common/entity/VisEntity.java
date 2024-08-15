@@ -1,5 +1,6 @@
 package me.alegian.thaumcraft7.impl.common.entity;
 
+import me.alegian.thaumcraft7.impl.common.item.WandItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -26,6 +27,17 @@ public class VisEntity extends RendererEntity {
   public VisEntity(Level pLevel, @Nullable Player player, @NotNull BlockPos blockPos) {
     super(pLevel, blockPos.getCenter());
     if (player != null) this.playerUUID = player.getUUID();
+  }
+
+  @Override
+  public void tick() {
+    if (this.level().isClientSide()) return;
+    if (tickCount % 5 != 0) return;
+
+    var player = getPlayer();
+    if (player != null && !player.isUsingItem() && !(player.getUseItem().getItem() instanceof WandItem)) {
+      this.kill();
+    }
   }
 
   public @Nullable Player getPlayer() {
