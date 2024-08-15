@@ -23,7 +23,7 @@ public class VisER extends EntityRenderer<VisEntity> {
 
   @Override
   public void render(VisEntity visEntity, float pEntityYaw, float pPartialTick, PoseStack pPoseStack, MultiBufferSource pBufferSource, int pPackedLight) {
-    if(visEntity.getPlayer() == null) return;
+    if (visEntity.getPlayer() == null) return;
 
     T7PoseStack t7pose = new T7PoseStack(pPoseStack);
     t7pose.push();
@@ -36,6 +36,11 @@ public class VisER extends EntityRenderer<VisEntity> {
     t7pose.pop();
   }
 
+  /**
+   * Translate the Pose to the Player's hand. This is done approximately, and does not follow
+   * the PlayerModel's animations, because using these animation poses introduces rotations and
+   * reflections that the VisRenderer cannot handle.
+   */
   private static void preparePlayerHandPose(float pPartialTick, LocalPlayer player, T7PoseStack t7pose) {
     Vec3 playerPos = player.getPosition(pPartialTick);
     t7pose.translate(playerPos);
@@ -51,6 +56,11 @@ public class VisER extends EntityRenderer<VisEntity> {
     return InventoryMenu.BLOCK_ATLAS;
   }
 
+  /**
+   * The Vis Entity does not have a strict bounding box,
+   * so we never cull it to avoid rendering bugs at the edge
+   * of the screen.
+   */
   @Override
   public boolean shouldRender(VisEntity pLivingEntity, Frustum pCamera, double pCamX, double pCamY, double pCamZ) {
     return true;

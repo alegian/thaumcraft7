@@ -17,7 +17,7 @@ import java.util.UUID;
 
 public class VisEntity extends RendererEntity {
   @Nullable
-  private UUID playerUUID;
+  private UUID playerUUID; // save player UUID and not entire Player, because when deserializing, level.players is not yet populated
 
   public VisEntity(Level pLevel, Player player) {
     this(pLevel, player, new BlockPos(0, 0, 0));

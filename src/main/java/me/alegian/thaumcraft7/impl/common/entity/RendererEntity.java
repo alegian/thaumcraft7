@@ -1,8 +1,6 @@
 package me.alegian.thaumcraft7.impl.common.entity;
 
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7EntityTypes;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -13,10 +11,5 @@ public abstract class RendererEntity extends Entity {
   public RendererEntity(Level pLevel, Vec3 pos) {
     super(T7EntityTypes.VIS.get(), pLevel);
     setPos(pos);
-  }
-
-  @Override
-  public boolean shouldRender(double pX, double pY, double pZ) {
-    return true;
   }
 }

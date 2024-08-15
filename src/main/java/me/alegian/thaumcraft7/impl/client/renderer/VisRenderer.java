@@ -11,46 +11,54 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import org.joml.Vector3f;
 
+/**
+ * The Renderer for the Vis flowing out of an Aura Node into a Wand.
+ * It renders as a spiral, by slowly rotating its pose.
+ */
 @OnlyIn(Dist.CLIENT)
 public class VisRenderer {
   // triangle resolution
   public static int N = 100;
-  // delta angle
+  // delta angle: how fast we rotate the spiral
   public static double da = 2 * Math.PI / N;
 
-  // assumes the pose is at player hand position
+  /**
+   * Assumes the Pose is at player hand position, with no rotation.
+   * BlockPos is the absolute world position of the center of the Aura Node.
+   */
   public static void render(Vec3 blockPos, T7PoseStack t7pose, MultiBufferSource bufferSource, float partialTicks) {
     // delta vector (scaled b-a)
-    Vector3f dx = relative(t7pose, blockPos).div(N);
+    Vector3f dv = relative(t7pose, blockPos).div(N);
 
     t7pose.push();
     VertexConsumer vc = bufferSource.getBuffer(T7RenderTypes.DEBUG_TRIANGLE_STRIP);
 
-    // some useful axes
-    Axis mainAxis = Axis.of(dx);
-    // the perpendicular axis, that is not in the direction of Y
-    Vector3f zBasis = new Vector3f(dx).cross(new Vector3f(0, 1, 0)).normalize();
-
-    double phase = (partialTicks / 20 / 4 * 2 * Math.PI) % 2 * Math.PI;
+    // we translate along this axis, and rotate around it
+    Axis mainAxis = Axis.of(dv);
+    // the vector that forms an orthogonal basis with the main axis and Y
+    Vector3f zBasis = new Vector3f(dv).cross(new Vector3f(0, 1, 0)).normalize();
 
     // rotation phase to "animate" the spiral
+    double phase = (partialTicks / 20 / 4 * 2 * Math.PI) % 2 * Math.PI;
     t7pose.rotate(mainAxis, phase);
+
     for (int i = 0; i <= N; i++) {
-      double thicknessOffset = Math.sin(da / 2 * i) / 8;
+      // this goes from 0 to 1 and back to 0, giving thickness
+      double thicknessYOffset = Math.sin(da / 2 * i) / 8;
 
       // the 2 vertices render with opposite offsets to give thickness
       t7pose.push();
-      t7pose.translateY(thicknessOffset);
+      t7pose.translateY(thicknessYOffset);
       renderVertex(vc, t7pose);
       t7pose.pop();
 
       t7pose.push();
-      t7pose.translateY(-thicknessOffset);
+      t7pose.translateY(-thicknessYOffset);
       renderVertex(vc, t7pose);
       t7pose.pop();
 
       // move towards goal
-      t7pose.translate(dx);
+      t7pose.translate(dv);
       // offset on the Z axis to create spiral
       Vector3f translation = new Vector3f(zBasis).mul((float) (Math.sin(da) / 4f));
       t7pose.translate(translation);
@@ -61,17 +69,24 @@ public class VisRenderer {
     t7pose.pop();
   }
 
+  /**
+   * Assumes the Pose encodes the entire position of the vertex.
+   * Color is always the praecantatio color with some alpha
+   */
   public static void renderVertex(
       VertexConsumer vc,
       T7PoseStack t7pose
   ) {
-    // keep the praecantatio color with some alpha
     vc.addVertex(t7pose.pose(), 0, 0, 0)
         .setColor(Aspect.PRAECANTATIO.getColor() & 0xFFFFFF | 0x88000000);
   }
 
-  // the player hand position is given to us in the pose, which contains the camera position
-  // so we have to temporarily undo it
+  /**
+   * Calculates the position of B, relative to the position of A
+   * encoded in the pose as translation.
+   * The Pose also contains the camera position
+   * so we have to temporarily undo it.
+   */
   private static Vector3f relative(T7PoseStack t7pose, Vec3 absoluteB) {
     t7pose.push();
     t7pose.translateCamera();

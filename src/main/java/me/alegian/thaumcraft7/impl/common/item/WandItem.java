@@ -2,8 +2,7 @@ package me.alegian.thaumcraft7.impl.common.item;
 
 import me.alegian.thaumcraft7.api.capability.VisStorageHelper;
 import me.alegian.thaumcraft7.impl.common.block.AuraNodeBlock;
-import me.alegian.thaumcraft7.impl.common.entity.FancyThaumonomicon;
-import me.alegian.thaumcraft7.impl.common.entity.RendererEntity;
+import me.alegian.thaumcraft7.impl.common.entity.FancyThaumonomiconEntity;
 import me.alegian.thaumcraft7.impl.common.entity.VisEntity;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Blocks;
 import net.minecraft.network.chat.Component;
@@ -55,7 +54,7 @@ public class WandItem extends Item {
     }
     if (block == Blocks.BOOKSHELF) {
       if (!level.isClientSide() && level.removeBlock(blockPos, false)) {
-        level.addFreshEntity(new FancyThaumonomicon(level, blockPos));
+        level.addFreshEntity(new FancyThaumonomiconEntity(level, blockPos));
       }
       level.playSound(context.getPlayer(), blockPos, SoundEvents.PLAYER_LEVELUP, SoundSource.BLOCKS, 1.0F, 1.0F);
       return InteractionResult.SUCCESS;
