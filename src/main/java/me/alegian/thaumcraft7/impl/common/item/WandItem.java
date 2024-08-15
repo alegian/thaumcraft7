@@ -26,12 +26,17 @@ public class WandItem extends Item {
     super(props);
   }
 
+  /**
+   * Use Wand on a Block. Has 3 main uses:<p>
+   * 1. Receiving Vis from an Aura Node, by spawning a VisEntity<br>
+   * 2. Turning Cauldrons into Crucibles<br>
+   * 3. Creating Thaumonomicons from Bookcases
+   */
   @Override
   public InteractionResult useOn(UseOnContext context) {
     var level = context.getLevel();
     var blockPos = context.getClickedPos();
-    var blockState = level.getBlockState(blockPos);
-    var block = blockState.getBlock();
+    var block = level.getBlockState(blockPos).getBlock();
 
     if (block instanceof AuraNodeBlock) {
       var player = context.getPlayer();

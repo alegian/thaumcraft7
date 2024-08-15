@@ -6,7 +6,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerEntity;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -16,7 +15,11 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 
+/**
+ * Entity that only Renders as a spiral beam between the Player and an Aura Node.
+ */
 public class VisEntity extends RendererEntity {
+  public static final String PLAYER_TAG = "player";
   @Nullable
   private UUID playerUUID; // save player UUID and not entire Player, because when deserializing, level.players is not yet populated
 
@@ -29,6 +32,9 @@ public class VisEntity extends RendererEntity {
     if (player != null) this.playerUUID = player.getUUID();
   }
 
+  /**
+   * Only ticks Serverside, every 5 ticks. Kills itself if the player is not using the Wand.
+   */
   @Override
   public void tick() {
     if (this.level().isClientSide()) return;
@@ -50,20 +56,16 @@ public class VisEntity extends RendererEntity {
   }
 
   @Override
-  protected void defineSynchedData(SynchedEntityData.Builder pBuilder) {
-  }
-
-  @Override
   protected void readAdditionalSaveData(CompoundTag pCompound) {
-    if (pCompound.hasUUID("player")) {
-      this.playerUUID = pCompound.getUUID("player");
+    if (pCompound.hasUUID(PLAYER_TAG)) {
+      this.playerUUID = pCompound.getUUID(PLAYER_TAG);
     }
   }
 
   @Override
   protected void addAdditionalSaveData(@NotNull CompoundTag pCompound) {
     if (playerUUID == null) return;
-    pCompound.putUUID("player", playerUUID);
+    pCompound.putUUID(PLAYER_TAG, playerUUID);
   }
 
   @Override
