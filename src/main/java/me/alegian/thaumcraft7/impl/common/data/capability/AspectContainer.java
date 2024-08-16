@@ -3,41 +3,35 @@ package me.alegian.thaumcraft7.impl.common.data.capability;
 import me.alegian.thaumcraft7.api.aspect.Aspect;
 import me.alegian.thaumcraft7.api.aspect.AspectList;
 import me.alegian.thaumcraft7.api.capability.IAspectContainer;
+import me.alegian.thaumcraft7.impl.init.registries.deferred.T7DataComponents;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
+import net.neoforged.neoforge.common.MutableDataComponentHolder;
 
 import javax.annotation.Nullable;
 
 public class AspectContainer implements IAspectContainer {
-  private AspectList contents;
+  private final MutableDataComponentHolder holder;
   private int maxAmount; // per aspect
   private boolean visSource;
   private boolean essentiaSource;
 
-  public AspectContainer(AspectList contents, int maxAmount, boolean visSource, boolean essentiaSource) {
-    this.contents = contents;
+  public AspectContainer(MutableDataComponentHolder holder, int maxAmount, boolean visSource, boolean essentiaSource) {
+    this.holder = holder;
     this.maxAmount = maxAmount;
     this.visSource = visSource;
     this.essentiaSource = essentiaSource;
   }
 
-  public AspectContainer(AspectList contents) {
-    this(contents, Integer.MAX_VALUE, false, false);
+  public AspectContainer(MutableDataComponentHolder holder, int maxAmount) {
+    this(holder, maxAmount, false, false);
   }
 
-  public AspectContainer() {
-    this(new AspectList());
-  }
-
-  public AspectContainer(int maxAmount) {
-    this();
-    this.maxAmount = maxAmount;
-  }
 
   @Override
   public AspectList getAspects() {
-    return contents;
+    return holder.get(T7DataComponents.ASPECTS);
   }
 
   @Override
