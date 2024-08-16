@@ -35,5 +35,6 @@ public class T7BlockEntities {
   public static void registerCapabilities(RegisterCapabilitiesEvent event) {
     event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, CRUCIBLE.get(), (be, context) -> be.getFluidHandler());
     event.registerBlockEntity(T7Capabilities.AspectContainer.BLOCK, CRUCIBLE.get(), (be, context) -> be.getAspectContainer());
+    event.registerBlockEntity(T7Capabilities.AspectContainer.BLOCK, AURA_NODE.get(), (be, context) -> be.getAspectContainer());
   }
 }

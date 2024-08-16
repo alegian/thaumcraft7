@@ -40,9 +40,9 @@ public class WandItem extends Item {
 
     if (block instanceof AuraNodeBlock) {
       var player = context.getPlayer();
-      if (player != null) {
+      if (player != null) { // and wand is not full and aura node is not empty
         var stack = player.getItemInHand(context.getHand());
-        var received = VisStorageHelper.receiveVis(stack, 5);
+        var received = VisStorageHelper.receiveVis(stack, 5); //try receiving only on server
 
         if (received == 0f) return InteractionResult.PASS;
         player.startUsingItem(context.getHand());
