@@ -11,13 +11,28 @@ import javax.annotation.Nullable;
 
 public class AspectContainer implements IAspectContainer {
   private AspectList contents;
+  private int maxAmount; // per aspect
+  private boolean visSource;
+  private boolean essentiaSource;
+
+  public AspectContainer(AspectList contents, int maxAmount, boolean visSource, boolean essentiaSource) {
+    this.contents = contents;
+    this.maxAmount = maxAmount;
+    this.visSource = visSource;
+    this.essentiaSource = essentiaSource;
+  }
 
   public AspectContainer(AspectList contents) {
-    this.contents = contents;
+    this(contents, Integer.MAX_VALUE, false, false);
   }
 
   public AspectContainer() {
-    this.contents = new AspectList();
+    this(new AspectList());
+  }
+
+  public AspectContainer(int maxAmount) {
+    this();
+    this.maxAmount = maxAmount;
   }
 
   @Override
@@ -37,6 +52,18 @@ public class AspectContainer implements IAspectContainer {
 
     contents.merge(aspects);
     return true;
+  }
+
+  public int getMaxAmount() {
+    return maxAmount;
+  }
+
+  public boolean isVisSource() {
+    return visSource;
+  }
+
+  public boolean isEssentiaSource() {
+    return essentiaSource;
   }
 
   public void readFromNBT(HolderLookup.Provider lookupProvider, CompoundTag nbt) {

@@ -3,7 +3,7 @@ package me.alegian.thaumcraft7.impl.init.registries.deferred;
 import me.alegian.thaumcraft7.api.aspect.Aspect;
 import me.alegian.thaumcraft7.api.capability.T7Capabilities;
 import me.alegian.thaumcraft7.impl.Thaumcraft;
-import me.alegian.thaumcraft7.impl.common.data.capability.VisStorage;
+import me.alegian.thaumcraft7.impl.common.data.capability.AspectContainer;
 import me.alegian.thaumcraft7.impl.common.item.ShardItem;
 import me.alegian.thaumcraft7.impl.common.item.ThaumometerItem;
 import me.alegian.thaumcraft7.impl.common.item.ThaumonomiconItem;
@@ -34,7 +34,7 @@ public class T7Items {
   public static final DeferredItem<ShardItem> PERDITIO_SHARD = REGISTRAR.registerItem("perditio_shard", $ -> new ShardItem(Aspect.PERDITIO));
 
   public static void registerCapabilities(RegisterCapabilitiesEvent event) {
-    event.registerItem(T7Capabilities.VisStorage.ITEM, (itemStack, context) -> new VisStorage(50, itemStack), IRON_WOOD_WAND);
+    event.registerItem(T7Capabilities.AspectContainer.ITEM, (itemStack, context) -> new AspectContainer(50), IRON_WOOD_WAND);
     event.registerItem(T7Capabilities.REVEALING, (itemStack, context) -> Unit.INSTANCE, GOGGLES);
   }
 

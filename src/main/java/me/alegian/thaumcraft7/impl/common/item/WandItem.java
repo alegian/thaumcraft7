@@ -1,6 +1,5 @@
 package me.alegian.thaumcraft7.impl.common.item;
 
-import me.alegian.thaumcraft7.api.capability.VisStorageHelper;
 import me.alegian.thaumcraft7.impl.common.block.AuraNodeBlock;
 import me.alegian.thaumcraft7.impl.common.entity.FancyThaumonomiconEntity;
 import me.alegian.thaumcraft7.impl.common.entity.VisEntity;
@@ -8,9 +7,7 @@ import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Blocks;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -41,10 +38,8 @@ public class WandItem extends Item {
     if (block instanceof AuraNodeBlock) {
       var player = context.getPlayer();
       if (player != null) { // and wand is not full and aura node is not empty
-        var stack = player.getItemInHand(context.getHand());
-        var received = VisStorageHelper.receiveVis(stack, 5); //try receiving only on server
+        //try receiving only on server
 
-        if (received == 0f) return InteractionResult.PASS;
         player.startUsingItem(context.getHand());
         if (!level.isClientSide()) level.addFreshEntity(new VisEntity(level, player, blockPos));
         return InteractionResult.CONSUME;
@@ -65,14 +60,6 @@ public class WandItem extends Item {
       return InteractionResult.SUCCESS;
     }
     return InteractionResult.PASS;
-  }
-
-  @Override
-  public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
-    if (level.isClientSide) {
-      player.sendSystemMessage(Component.literal("VIS: " + VisStorageHelper.getVisStored(player.getItemInHand(hand))));
-    }
-    return InteractionResultHolder.consume(player.getItemInHand(hand));
   }
 
   @Override

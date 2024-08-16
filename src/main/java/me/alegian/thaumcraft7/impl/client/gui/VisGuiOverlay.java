@@ -2,8 +2,8 @@ package me.alegian.thaumcraft7.impl.client.gui;
 
 import me.alegian.thaumcraft7.api.aspect.Aspect;
 import me.alegian.thaumcraft7.api.aspect.AspectList;
-import me.alegian.thaumcraft7.api.capability.VisStorageHelper;
 import me.alegian.thaumcraft7.impl.Thaumcraft;
+import me.alegian.thaumcraft7.impl.common.data.capability.AspectContainerHelper;
 import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
@@ -51,17 +51,10 @@ public class VisGuiOverlay {
   });
 
   public static void update(Player player) {
-    var visItem = VisStorageHelper.getVisItemInHand(player);
-    if (visItem != null) {
-      var amount = VisStorageHelper.getVisStored(visItem) / VisStorageHelper.getMaxVisStored(visItem);
+    var aspectList = AspectContainerHelper.getAspectListInHand(player);
+    if (aspectList != null) {
       visible = true;
-      vis = new AspectList()
-          .add(Aspect.PERDITIO, (int) (100 * amount))
-          .add(Aspect.ORDO, (int) (100 * amount))
-          .add(Aspect.AQUA, (int) (100 * amount))
-          .add(Aspect.IGNIS, (int) (100 * amount))
-          .add(Aspect.TERRA, (int) (100 * amount))
-          .add(Aspect.AER, (int) (100 * amount));
+      vis = aspectList;
     } else {
       visible = false;
     }
