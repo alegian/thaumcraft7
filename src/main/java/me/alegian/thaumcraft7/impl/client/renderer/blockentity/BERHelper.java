@@ -1,10 +1,9 @@
 package me.alegian.thaumcraft7.impl.client.renderer.blockentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import me.alegian.thaumcraft7.impl.client.T7RenderTypes;
 import me.alegian.thaumcraft7.impl.client.T7BufferBuilder;
+import me.alegian.thaumcraft7.impl.client.T7RenderTypes;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.world.phys.Vec3;
 
 public class BERHelper {
   public static void renderAuraNodeLayer(PoseStack poseStack, MultiBufferSource bufferSource, float radius, int triangleResolution, float r, float g, float b, float a) {

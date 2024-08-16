@@ -14,7 +14,8 @@ import me.alegian.thaumcraft7.impl.client.particle.CrucibleBubbleParticle;
 import me.alegian.thaumcraft7.impl.client.renderer.AspectRenderer;
 import me.alegian.thaumcraft7.impl.client.renderer.blockentity.AuraNodeBER;
 import me.alegian.thaumcraft7.impl.client.renderer.blockentity.CrucibleBER;
-import me.alegian.thaumcraft7.impl.client.renderer.entity.FancyItemRenderer;
+import me.alegian.thaumcraft7.impl.client.renderer.entity.FancyItemER;
+import me.alegian.thaumcraft7.impl.client.renderer.entity.VisER;
 import me.alegian.thaumcraft7.impl.client.texture.atlas.AspectAtlas;
 import me.alegian.thaumcraft7.impl.common.block.AuraNodeBlock;
 import me.alegian.thaumcraft7.impl.common.block.CrucibleBlock;
@@ -47,7 +48,8 @@ public class T7ClientEvents {
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
       event.registerBlockEntityRenderer(T7BlockEntities.AURA_NODE.get(), ctx -> new AuraNodeBER());
       event.registerBlockEntityRenderer(T7BlockEntities.CRUCIBLE.get(), ctx -> new CrucibleBER());
-      event.registerEntityRenderer(T7EntityTypes.FANCY_ITEM.get(), FancyItemRenderer::new);
+      event.registerEntityRenderer(T7EntityTypes.FANCY_ITEM.get(), FancyItemER::new);
+      event.registerEntityRenderer(T7EntityTypes.VIS.get(), VisER::new);
     }
 
     @SubscribeEvent
@@ -128,15 +130,20 @@ public class T7ClientEvents {
 
     @SubscribeEvent
     public static void renderLevelAfterWeather(RenderLevelStageEvent event) {
+      if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_WEATHER) return;
+
+      // general purpose useful stuff
       var minecraft = Minecraft.getInstance();
       if (minecraft.level == null) return;
-      if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_WEATHER) return;
       var hitResult = minecraft.hitResult;
       if (hitResult == null || hitResult.getType() != HitResult.Type.BLOCK) return;
       var blockPos = ((BlockHitResult) hitResult).getBlockPos();
-      if (!(minecraft.level.getBlockState(blockPos).getBlock() instanceof CrucibleBlock)) return;
       var player = minecraft.player;
       if (player == null) return;
+      var blockState = minecraft.level.getBlockState(blockPos);
+
+      // aspect renderer
+      if (!(blockState.getBlock() instanceof CrucibleBlock)) return;
       var helmet = player.getInventory().armor.get(EquipmentSlot.HEAD.getIndex());
       if (helmet.getCapability(T7Capabilities.REVEALING) == null) return;
 

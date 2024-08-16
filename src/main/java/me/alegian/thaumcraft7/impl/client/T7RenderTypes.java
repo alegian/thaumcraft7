@@ -19,6 +19,20 @@ public class T7RenderTypes {
       Thaumcraft.MODID + "_aspect_quad", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP, VertexFormat.Mode.QUADS, RenderType.SMALL_BUFFER_SIZE, true, true, aspectQuadState()
   );
 
+  public static final RenderType DEBUG_TRIANGLE_STRIP = RenderType.create(
+      Thaumcraft.MODID + "_vis",
+      DefaultVertexFormat.POSITION_COLOR,
+      VertexFormat.Mode.TRIANGLE_STRIP,
+      1536,
+      false,
+      true,
+      RenderType.CompositeState.builder()
+          .setShaderState(POSITION_COLOR_SHADER)
+          .setTransparencyState(TRANSLUCENT_TRANSPARENCY)
+          .setCullState(NO_CULL)
+          .createCompositeState(false)
+  );
+
   private static RenderType.CompositeState simpleTriangleState() {
     return RenderType.CompositeState.builder()
         .setShaderState(T7RenderStateShards.CUSTOM_SHADER)
@@ -26,6 +40,7 @@ public class T7RenderTypes {
         .setDepthTestState(NO_DEPTH_TEST)
         .setTextureState(NO_TEXTURE)
         .setOutputState(TRANSLUCENT_TARGET)
+        .setCullState(NO_CULL)
         .createCompositeState(false);
   }
 

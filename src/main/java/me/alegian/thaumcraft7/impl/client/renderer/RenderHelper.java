@@ -7,7 +7,10 @@ import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class RenderHelper {
-  // angle between player and position, in radians, relative to North
+  /**
+   * Angle between ClientPlayer and a Position, in Radians, relative to North.
+   * Like a compass centered at the Position, that tracks the Player.
+   */
   public static float calculatePlayerAngle(Vec3 pos) {
     var deltaTracker = Minecraft.getInstance().getTimer();
     var player = Minecraft.getInstance().player;

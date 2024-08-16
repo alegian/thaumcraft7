@@ -76,7 +76,7 @@ public class T7BlockStateProvider extends BlockStateProvider {
     itemModels().withExistingParent(name(block), mcLoc("item/generated")).texture("layer0", blockRL);
   }
 
-  private ModelFile existing(ResourceLocation location){
+  private ModelFile existing(ResourceLocation location) {
     return itemModels().getExistingFile(location);
   }
 

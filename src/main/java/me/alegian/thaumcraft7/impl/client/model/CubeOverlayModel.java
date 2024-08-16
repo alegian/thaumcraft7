@@ -156,6 +156,7 @@ public class CubeOverlayModel implements IUnbakedGeometry<CubeOverlayModel> {
   public static class Builder<B extends ModelBuilder<B>> extends CustomLoaderBuilder<B> {
     private ResourceLocation spriteLocation;
     private Integer color;
+
     public Builder(B parent, ExistingFileHelper existingFileHelper) {
       super(
           CubeOverlayModel.ID,
@@ -177,8 +178,8 @@ public class CubeOverlayModel implements IUnbakedGeometry<CubeOverlayModel> {
 
     @Override
     public @NotNull JsonObject toJson(@NotNull JsonObject json) {
-      if(spriteLocation == null) throw new IllegalStateException("Sprite location is required for CubeOverlayModel");
-      if(color == null) throw new IllegalStateException("Color is required for CubeOverlayModel");
+      if (spriteLocation == null) throw new IllegalStateException("Sprite location is required for CubeOverlayModel");
+      if (color == null) throw new IllegalStateException("Color is required for CubeOverlayModel");
       json.add(SPRITE_KEY, new JsonPrimitive(spriteLocation.toString()));
       json.add(COLOR_KEY, new JsonPrimitive(color));
       return super.toJson(json);
