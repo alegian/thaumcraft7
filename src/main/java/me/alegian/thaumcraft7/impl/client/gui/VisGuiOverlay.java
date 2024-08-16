@@ -2,8 +2,8 @@ package me.alegian.thaumcraft7.impl.client.gui;
 
 import me.alegian.thaumcraft7.api.aspect.Aspect;
 import me.alegian.thaumcraft7.api.aspect.AspectList;
+import me.alegian.thaumcraft7.api.capability.AspectContainerHelper;
 import me.alegian.thaumcraft7.impl.Thaumcraft;
-import me.alegian.thaumcraft7.impl.common.data.capability.AspectContainerHelper;
 import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
@@ -16,6 +16,7 @@ public class VisGuiOverlay {
 
   public static boolean visible = false;
   public static AspectList vis;
+  public static int maxAmount = 1;
 
   public static final LayeredDraw.Layer VIS_OVERLAY = ((guiGraphics, partialTick) -> {
     if (visible && vis != null) {
@@ -37,10 +38,10 @@ public class VisGuiOverlay {
       graphics.rotateZ(15);
       float ar = (float) 0.35;
 
-      for (Aspect a : vis.aspectSet()) {
+      for (Aspect a : Aspect.PRIMAL_ASPECTS) {
         var color = a.getColorRGB();
         guiGraphics.setColor((float) color[0] / 255, (float) color[1] / 255, (float) color[2] / 255, 1);
-        guiGraphics.blit(VIAL_CONTENT, (int) (-1 * vialSize * ar / 2), (int) (diskSize / 2), 0, 0, (int) (vialSize * ar), (int) vialSize * vis.get(a) / 100, (int) (vialSize * ar), (int) vialSize);
+        guiGraphics.blit(VIAL_CONTENT, (int) (-1 * vialSize * ar / 2), (int) (diskSize / 2), 0, 0, (int) (vialSize * ar), (int) vialSize * vis.get(a) / maxAmount, (int) (vialSize * ar), (int) vialSize);
         guiGraphics.setColor(1, 1, 1, 1);
         guiGraphics.blit(VIAL, (int) (-1 * vialSize * ar / 2), (int) (diskSize / 2), 0, 0, (int) (vialSize * ar), (int) vialSize, (int) (vialSize * ar), (int) vialSize);
         graphics.rotateZ(-24);
@@ -51,10 +52,11 @@ public class VisGuiOverlay {
   });
 
   public static void update(Player player) {
-    var aspectList = AspectContainerHelper.getAspectListInHand(player);
-    if (aspectList != null) {
+    var aspectContainer = AspectContainerHelper.getAspectContainerInHand(player);
+    if (aspectContainer != null) {
       visible = true;
-      vis = aspectList;
+      vis = aspectContainer.getAspects();
+      maxAmount = aspectContainer.getMaxAmount();
     } else {
       visible = false;
     }

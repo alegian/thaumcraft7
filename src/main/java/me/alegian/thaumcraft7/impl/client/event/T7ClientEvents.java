@@ -140,10 +140,9 @@ public class T7ClientEvents {
       var blockPos = ((BlockHitResult) hitResult).getBlockPos();
       var player = minecraft.player;
       if (player == null) return;
-      var blockState = minecraft.level.getBlockState(blockPos);
 
       // aspect renderer
-      if (!(blockState.getBlock() instanceof CrucibleBlock)) return;
+      if (!AspectContainerHelper.isAspectContainer(minecraft.level, blockPos)) return;
       var helmet = player.getInventory().armor.get(EquipmentSlot.HEAD.getIndex());
       if (helmet.getCapability(T7Capabilities.REVEALING) == null) return;
 

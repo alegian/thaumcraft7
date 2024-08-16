@@ -54,14 +54,17 @@ public class AspectContainer implements IAspectContainer {
     return true;
   }
 
+  @Override
   public int getMaxAmount() {
     return maxAmount;
   }
 
+  @Override
   public boolean isVisSource() {
     return visSource;
   }
 
+  @Override
   public boolean isEssentiaSource() {
     return essentiaSource;
   }

@@ -16,4 +16,10 @@ public interface IAspectContainer {
   boolean addAspect(Aspect aspect, int amount);
 
   boolean addAspects(@Nullable AspectList aspects);
+
+  int getMaxAmount();
+
+  boolean isVisSource();
+
+  boolean isEssentiaSource();
 }

@@ -1,5 +1,7 @@
 package me.alegian.thaumcraft7.impl.common.entity;
 
+import me.alegian.thaumcraft7.api.aspect.Aspect;
+import me.alegian.thaumcraft7.api.capability.AspectContainerHelper;
 import me.alegian.thaumcraft7.impl.common.item.WandItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -39,10 +41,13 @@ public class VisEntity extends RendererEntity {
   public void tick() {
     if (this.level().isClientSide()) return;
     if (tickCount % 5 != 0) return;
-
     var player = getPlayer();
-    if (player != null && !player.isUsingItem() && !(player.getUseItem().getItem() instanceof WandItem)) {
+
+    if (player == null || !player.isUsingItem() || !(player.getUseItem().getItem() instanceof WandItem)) {
       this.kill();
+    }else{
+      var aspectContainer = AspectContainerHelper.getAspectContainerInHand(player);
+      aspectContainer.addAspect(Aspect.IGNIS, 5);
     }
   }
 

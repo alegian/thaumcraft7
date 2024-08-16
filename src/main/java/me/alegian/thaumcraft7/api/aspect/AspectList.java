@@ -70,7 +70,7 @@ public class AspectList {
   }
 
   public int get(Aspect aspect) {
-    return map.get(aspect);
+    return map.getOrDefault(aspect, 0);
   }
 
   public Set<Aspect> aspectSet() {
