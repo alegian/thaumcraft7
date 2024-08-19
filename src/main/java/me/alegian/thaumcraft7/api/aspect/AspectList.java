@@ -8,21 +8,23 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
 
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * Immutable.
+ * Represents a list of Aspects and their amounts.
+ * Any operation that adds or removes Aspects should return a new AspectList.
+ */
 public class AspectList {
   private final Map<Aspect, Integer> map;
+  public static final AspectList EMPTY = new AspectList(new HashMap<>());
 
   public AspectList(Map<Aspect, Integer> map) {
-    this.map = new LinkedHashMap<>(map);
-  }
-
-  public AspectList() {
-    this.map = new LinkedHashMap<>();
+    this.map = new HashMap<>(map);
   }
 
   public static final Codec<Pair<Aspect, Integer>> PAIR_CODEC = Codec.pair(
@@ -44,7 +46,7 @@ public class AspectList {
           .map(AspectList::new)
           .map(m -> new Pair<>(m, t))
           .map(DataResult::success)
-          .orElse(DataResult.success(new Pair<>(new AspectList(), t)));
+          .orElse(DataResult.success(new Pair<>(AspectList.EMPTY, t)));
     }
 
     @Override
@@ -55,14 +57,25 @@ public class AspectList {
   };
 
   public AspectList add(Aspect aspect, int amount) {
-    map.compute(aspect, (k, v) -> v == null ? amount : v + amount);
-    return this;
+    HashMap<Aspect, Integer> newMap = new HashMap<>(map);
+    newMap.put(aspect, amount);
+    return new AspectList(newMap);
   }
 
-  public void merge(AspectList aspects) {
-    aspects.map.forEach((k, v) -> {
-      this.map.merge(k, v, Integer::sum);
+  public AspectList merge(AspectList other) {
+    HashMap<Aspect, Integer> newMap = new HashMap<>(map);
+    other.getMap().forEach((k, v) -> {
+      newMap.merge(k, v, Integer::sum);
     });
+    return new AspectList(newMap);
+  }
+
+  /**
+   * AspectList Maps are also immutable.
+   * This is read-only access to copy the map into a new one.
+   */
+  protected Map<Aspect, Integer> getMap() {
+    return map;
   }
 
   public static AspectList of(Aspect aspect, int amount) {
@@ -82,7 +95,7 @@ public class AspectList {
   }
 
   public boolean isEmpty() {
-    return map.isEmpty();
+    return this == AspectList.EMPTY || map.values().stream().anyMatch(i -> i > 0);
   }
 
   public Tag save(HolderLookup.Provider lookupProvider) {
@@ -94,7 +107,7 @@ public class AspectList {
     var optionalAspectList = CODEC.parse(lookupProvider.createSerializationContext(NbtOps.INSTANCE), tag)
         .resultOrPartial(System.out::println);
 
-    return optionalAspectList.orElse(new AspectList());
+    return optionalAspectList.orElse(AspectList.EMPTY);
   }
 
   @Override
