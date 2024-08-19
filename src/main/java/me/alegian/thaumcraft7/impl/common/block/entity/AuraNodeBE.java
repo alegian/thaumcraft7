@@ -17,15 +17,10 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class AuraNodeBE extends BlockEntity implements MutableDataComponentHolder {
-  private final IAspectContainer aspectContainer = new AspectContainer(AspectList.of(Aspect.IGNIS, 12));
   final PatchedDataComponentMap components = new PatchedDataComponentMap(DataComponentMap.EMPTY);
 
   public AuraNodeBE(BlockPos pos, BlockState blockState) {
     super(T7BlockEntities.AURA_NODE.get(), pos, blockState);
-  }
-
-  public IAspectContainer getAspectContainer() {
-    return aspectContainer;
   }
 
   @Override

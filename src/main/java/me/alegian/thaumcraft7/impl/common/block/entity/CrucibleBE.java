@@ -23,13 +23,11 @@ import java.util.Objects;
 
 public class CrucibleBE extends BlockEntity {
   private final CrucibleFluidHandler fluidHandler;
-  private final AspectContainer aspectContainer;
   private final List<CrucibleBubbleParticle> particles = new ArrayList<>();
 
   public CrucibleBE(BlockPos pos, BlockState blockState) {
     super(T7BlockEntities.CRUCIBLE.get(), pos, blockState);
     this.fluidHandler = new CrucibleFluidHandler(this);
-    this.aspectContainer = new AspectContainer();
   }
 
   public static void tick(Level level, BlockPos pos, BlockState state, BlockEntity blockEntity) {
@@ -55,10 +53,6 @@ public class CrucibleBE extends BlockEntity {
 
   public CrucibleFluidHandler getFluidHandler() {
     return fluidHandler;
-  }
-
-  public AspectContainer getAspectContainer() {
-    return aspectContainer;
   }
 
   public double getWaterHeight() {

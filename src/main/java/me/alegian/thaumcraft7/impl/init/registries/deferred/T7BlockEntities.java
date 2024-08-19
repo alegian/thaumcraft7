@@ -4,6 +4,7 @@ import me.alegian.thaumcraft7.api.capability.T7Capabilities;
 import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.common.block.entity.AuraNodeBE;
 import me.alegian.thaumcraft7.impl.common.block.entity.CrucibleBE;
+import me.alegian.thaumcraft7.impl.common.data.capability.AspectContainer;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.neoforge.capabilities.Capabilities;
@@ -35,6 +36,6 @@ public class T7BlockEntities {
   public static void registerCapabilities(RegisterCapabilitiesEvent event) {
     event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, CRUCIBLE.get(), (be, context) -> be.getFluidHandler());
     event.registerBlockEntity(T7Capabilities.AspectContainer.BLOCK, CRUCIBLE.get(), (be, context) -> be.getAspectContainer());
-    event.registerBlockEntity(T7Capabilities.AspectContainer.BLOCK, AURA_NODE.get(), (be, context) -> be.getAspectContainer());
+    event.registerBlockEntity(T7Capabilities.AspectContainer.BLOCK, AURA_NODE.get(), (be, context) -> new AspectContainer(be));
   }
 }

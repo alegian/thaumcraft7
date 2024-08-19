@@ -34,7 +34,7 @@ public class T7Items {
   public static final DeferredItem<ShardItem> PERDITIO_SHARD = REGISTRAR.registerItem("perditio_shard", $ -> new ShardItem(Aspect.PERDITIO));
 
   public static void registerCapabilities(RegisterCapabilitiesEvent event) {
-    event.registerItem(T7Capabilities.AspectContainer.ITEM, (itemStack, context) -> new AspectContainer(50), IRON_WOOD_WAND);
+    event.registerItem(T7Capabilities.AspectContainer.ITEM, (itemStack, context) -> new AspectContainer(itemStack, 50), IRON_WOOD_WAND);
     event.registerItem(T7Capabilities.REVEALING, (itemStack, context) -> Unit.INSTANCE, GOGGLES);
   }
 
