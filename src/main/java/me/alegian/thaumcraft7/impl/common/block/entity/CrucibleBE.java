@@ -2,7 +2,6 @@ package me.alegian.thaumcraft7.impl.common.block.entity;
 
 import me.alegian.thaumcraft7.impl.client.particle.CrucibleBubbleParticle;
 import me.alegian.thaumcraft7.impl.common.block.T7BlockStateProperties;
-import me.alegian.thaumcraft7.impl.common.data.capability.AspectContainer;
 import me.alegian.thaumcraft7.impl.common.data.capability.CrucibleFluidHandler;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7BlockEntities;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7ParticleTypes;

@@ -18,7 +18,6 @@ import me.alegian.thaumcraft7.impl.client.renderer.entity.FancyItemER;
 import me.alegian.thaumcraft7.impl.client.renderer.entity.VisER;
 import me.alegian.thaumcraft7.impl.client.texture.atlas.AspectAtlas;
 import me.alegian.thaumcraft7.impl.common.block.AuraNodeBlock;
-import me.alegian.thaumcraft7.impl.common.block.CrucibleBlock;
 import me.alegian.thaumcraft7.impl.common.item.ShardItem;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.*;
 import net.minecraft.client.Minecraft;

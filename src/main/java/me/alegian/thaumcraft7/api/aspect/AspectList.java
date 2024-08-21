@@ -4,9 +4,12 @@ import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.DynamicOps;
+import io.netty.buffer.ByteBuf;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 
 import java.util.HashMap;
 import java.util.List;
@@ -55,6 +58,19 @@ public class AspectList {
       return PAIR_LIST_CODEC.encode(listOfPairs, dynamicOps, t);
     }
   };
+
+  public static final StreamCodec<ByteBuf, Map<Aspect, Integer>> MAP_STREAM_CODEC =
+      ByteBufCodecs.map(
+          HashMap::new,
+          Aspect.STREAM_CODEC,
+          ByteBufCodecs.INT
+      );
+
+  public static final StreamCodec<ByteBuf, AspectList> STREAM_CODEC =
+      StreamCodec.composite(
+          MAP_STREAM_CODEC, AspectList::getMap,
+          AspectList::new
+      );
 
   public AspectList add(Aspect aspect, int amount) {
     HashMap<Aspect, Integer> newMap = new HashMap<>(map);

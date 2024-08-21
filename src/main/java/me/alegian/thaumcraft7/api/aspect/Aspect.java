@@ -2,6 +2,9 @@ package me.alegian.thaumcraft7.api.aspect;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
+import io.netty.buffer.ByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -32,6 +35,12 @@ public class Aspect {
       },
       Aspect::getId
   );
+
+  public static final StreamCodec<ByteBuf, Aspect> STREAM_CODEC =
+      ByteBufCodecs.STRING_UTF8.map(
+          Aspect::valueOf,
+          Aspect::getId
+      );
 
   public boolean isPrimal() {
     return getComponents() == null;

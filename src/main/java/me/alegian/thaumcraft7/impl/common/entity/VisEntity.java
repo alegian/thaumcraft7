@@ -45,7 +45,7 @@ public class VisEntity extends RendererEntity {
 
     if (player == null || !player.isUsingItem() || !(player.getUseItem().getItem() instanceof WandItem)) {
       this.kill();
-    }else{
+    } else {
       var aspectContainer = AspectContainerHelper.getAspectContainerInHand(player);
       aspectContainer.addAspect(Aspect.IGNIS, 5);
     }
