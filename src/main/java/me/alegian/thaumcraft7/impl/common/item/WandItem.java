@@ -15,7 +15,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.AbstractCauldronBlock;
 import net.minecraft.world.level.block.Blocks;
 
 public class WandItem extends Item {
@@ -45,7 +44,7 @@ public class WandItem extends Item {
         return InteractionResult.CONSUME;
       }
     }
-    if (block instanceof AbstractCauldronBlock) {
+    if (block.equals(Blocks.CAULDRON)) {
       if (!level.isClientSide()) {
         level.setBlockAndUpdate(blockPos, T7Blocks.CRUCIBLE.get().defaultBlockState());
       }

@@ -98,6 +98,14 @@ public class AspectList {
     return new AspectList(Map.of(aspect, amount));
   }
 
+  public static AspectList randomAura() {
+    HashMap<Aspect, Integer> map = new HashMap<>();
+    for (Aspect a : Aspect.PRIMAL_ASPECTS) {
+      map.put(a, (int) (Math.random() * 16 + 1));
+    }
+    return new AspectList(map);
+  }
+
   public int get(Aspect aspect) {
     return map.getOrDefault(aspect, 0);
   }
@@ -111,7 +119,7 @@ public class AspectList {
   }
 
   public boolean isEmpty() {
-    return this == AspectList.EMPTY || map.values().stream().anyMatch(i -> i > 0);
+    return this == AspectList.EMPTY || map.values().stream().noneMatch(i -> i > 0);
   }
 
   public Tag save(HolderLookup.Provider lookupProvider) {

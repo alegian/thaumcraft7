@@ -4,9 +4,11 @@ import me.alegian.thaumcraft7.impl.client.particle.CrucibleBubbleParticle;
 import me.alegian.thaumcraft7.impl.common.block.T7BlockStateProperties;
 import me.alegian.thaumcraft7.impl.common.data.capability.CrucibleFluidHandler;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7BlockEntities;
+import me.alegian.thaumcraft7.impl.init.registries.deferred.T7DataComponents;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7ParticleTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -15,7 +17,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -83,17 +84,9 @@ public class CrucibleBE extends DataComponentBE {
     clearParticles();
   }
 
-  @Nullable
   @Override
-  public ClientboundBlockEntityDataPacket getUpdatePacket() {
-    return ClientboundBlockEntityDataPacket.create(this);
-  }
-
-  @Override
-  public CompoundTag getUpdateTag(HolderLookup.Provider pRegistries) {
-    CompoundTag tag = new CompoundTag();
-    saveAdditional(tag, pRegistries);
-    return tag;
+  public DataComponentType<?>[] getComponentTypes() {
+    return new DataComponentType[]{T7DataComponents.ASPECTS.get()};
   }
 
   @Override
