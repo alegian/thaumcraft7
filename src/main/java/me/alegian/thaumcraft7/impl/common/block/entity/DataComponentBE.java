@@ -8,6 +8,7 @@ import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.PatchedDataComponentMap;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
+import net.minecraft.nbt.Tag;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -71,6 +72,7 @@ public class DataComponentBE extends BlockEntity implements MutableDataComponent
   }
 
   protected <T> void saveComponent(CompoundTag pTag, DataComponentType<T> pComponentType) {
-    pComponentType.codecOrThrow().encode(get(pComponentType), NbtOps.INSTANCE, pTag);
+    Tag tag = pComponentType.codecOrThrow().encode(get(pComponentType), NbtOps.INSTANCE, pTag).getOrThrow();
+    pTag.merge((CompoundTag) tag);
   }
 }
