@@ -6,11 +6,15 @@ import me.alegian.thaumcraft7.impl.init.data.providers.*;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7BlockEntities;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Blocks;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Items;
+import net.minecraft.data.loot.LootTableProvider;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.registries.datamaps.RegisterDataMapTypesEvent;
+
+import java.util.List;
 
 public class T7CommonEvents {
   @EventBusSubscriber(modid = Thaumcraft.MODID, bus = EventBusSubscriber.Bus.MOD)
@@ -44,6 +48,12 @@ public class T7CommonEvents {
       generator.addProvider(true, new T7LanguageProvider(packOutput, "en_us"));
 
       generator.addProvider(event.includeServer(), new T7DatapackBuiltinEntriesProvider(packOutput, lookupProvider));
+      generator.addProvider(event.includeServer(), new T7LootTableProvider(packOutput, List.of(
+          new LootTableProvider.SubProviderEntry(
+              T7BlockLootSubProvider::new,
+              LootContextParamSets.BLOCK
+          )
+      ), lookupProvider));
     }
   }
 }

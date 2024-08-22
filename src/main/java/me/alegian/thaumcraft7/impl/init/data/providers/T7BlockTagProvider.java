@@ -38,5 +38,26 @@ public class T7BlockTagProvider extends BlockTagsProvider {
         T7Blocks.ORDO_INFUSED_STONE.get(),
         T7Blocks.PERDITIO_INFUSED_STONE.get()
     );
+    tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
+        T7Blocks.IGNIS_INFUSED_STONE.get(),
+        T7Blocks.TERRA_INFUSED_STONE.get(),
+        T7Blocks.AER_INFUSED_STONE.get(),
+        T7Blocks.AQUA_INFUSED_STONE.get(),
+        T7Blocks.ORDO_INFUSED_STONE.get(),
+        T7Blocks.PERDITIO_INFUSED_STONE.get(),
+        T7Blocks.CRUCIBLE.get()
+    );
+    tag(BlockTags.NEEDS_STONE_TOOL).add(
+        T7Blocks.IGNIS_INFUSED_STONE.get(),
+        T7Blocks.TERRA_INFUSED_STONE.get(),
+        T7Blocks.AER_INFUSED_STONE.get(),
+        T7Blocks.AQUA_INFUSED_STONE.get(),
+        T7Blocks.ORDO_INFUSED_STONE.get(),
+        T7Blocks.PERDITIO_INFUSED_STONE.get()
+    );
+    tag(BlockTags.MINEABLE_WITH_AXE).add(
+        T7Blocks.GREATWOOD_LOG.get(),
+        T7Blocks.GREATWOOD_PLANKS.get()
+    );
   }
 }
