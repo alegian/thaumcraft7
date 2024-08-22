@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "wand",
+  "key": {
+    "a": {
+      "item": "thaumcraft7:iron_cap"
+    },
+    "b": {
+      "tag": "c:rods/wooden"
+    }
+  },
+  "pattern": [
+    "  a",
+    " b ",
+    "a  "
+  ],
+  "result": {
+    "count": 1,
+    "id": "thaumcraft7:iron_wood_wand"
+  }
+}

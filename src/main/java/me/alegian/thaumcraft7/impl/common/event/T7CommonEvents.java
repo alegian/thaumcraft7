@@ -37,6 +37,7 @@ public class T7CommonEvents {
       generator.addProvider(true, new T7BlockStateProvider(packOutput, existingFileHelper));
       generator.addProvider(true, new T7ItemModelProvider(packOutput, existingFileHelper));
       generator.addProvider(true, new T7DataMapProvider(packOutput, lookupProvider));
+      generator.addProvider(true, new T7RecipeProvider(packOutput, lookupProvider));
       generator.addProvider(true, new T7ParticleDescriptionProvider(packOutput, existingFileHelper));
       generator.addProvider(true, new T7BlockTagProvider(packOutput, lookupProvider, existingFileHelper));
       generator.addProvider(true, new T7FluidTagProvider(packOutput, lookupProvider, existingFileHelper));

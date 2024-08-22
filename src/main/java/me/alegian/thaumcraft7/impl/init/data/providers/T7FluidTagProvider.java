@@ -1,7 +1,7 @@
 package me.alegian.thaumcraft7.impl.init.data.providers;
 
 import me.alegian.thaumcraft7.impl.Thaumcraft;
-import me.alegian.thaumcraft7.impl.common.tag.CrucibleHeatSourceTag;
+import me.alegian.thaumcraft7.impl.init.registries.T7Tags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.FluidTagsProvider;
@@ -18,6 +18,6 @@ public class T7FluidTagProvider extends FluidTagsProvider {
 
   @Override
   protected void addTags(HolderLookup.Provider pProvider) {
-    tag(CrucibleHeatSourceTag.FLUID).addTag(FluidTags.LAVA);
+    tag(T7Tags.CrucibleHeatSourceTag.FLUID).addTag(FluidTags.LAVA);
   }
 }

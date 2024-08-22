@@ -4,7 +4,7 @@ import me.alegian.thaumcraft7.api.aspect.AspectHelper;
 import me.alegian.thaumcraft7.api.aspect.AspectList;
 import me.alegian.thaumcraft7.api.capability.AspectContainerHelper;
 import me.alegian.thaumcraft7.impl.common.block.entity.CrucibleBE;
-import me.alegian.thaumcraft7.impl.common.tag.CrucibleHeatSourceTag;
+import me.alegian.thaumcraft7.impl.init.registries.T7Tags;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7BlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -156,9 +156,9 @@ public class CrucibleBlock extends Block implements EntityBlock {
 
   public static boolean isHeatSource(LevelAccessor level, BlockPos pos) {
     var bs = level.getBlockState(pos);
-    var bsHeat = bs.is(CrucibleHeatSourceTag.BLOCK);
+    var bsHeat = bs.is(T7Tags.CrucibleHeatSourceTag.BLOCK);
     var fs = level.getFluidState(pos);
-    var fsHeat = fs.is(CrucibleHeatSourceTag.FLUID);
+    var fsHeat = fs.is(T7Tags.CrucibleHeatSourceTag.FLUID);
     return bsHeat || fsHeat;
   }
 

@@ -1,7 +1,7 @@
 package me.alegian.thaumcraft7.impl.init.data.providers;
 
 import me.alegian.thaumcraft7.impl.Thaumcraft;
-import me.alegian.thaumcraft7.impl.common.tag.CrucibleHeatSourceTag;
+import me.alegian.thaumcraft7.impl.init.registries.T7Tags;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Blocks;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -21,7 +21,7 @@ public class T7BlockTagProvider extends BlockTagsProvider {
   @Override
   protected void addTags(HolderLookup.Provider pProvider) {
     // TODO: add nitor
-    tag(CrucibleHeatSourceTag.BLOCK).addTag(BlockTags.FIRE).addTag(BlockTags.CAMPFIRES);
+    tag(T7Tags.CrucibleHeatSourceTag.BLOCK).addTag(BlockTags.FIRE).addTag(BlockTags.CAMPFIRES);
     tag(Tags.Blocks.ORES).add(
         T7Blocks.IGNIS_INFUSED_STONE.get(),
         T7Blocks.TERRA_INFUSED_STONE.get(),
