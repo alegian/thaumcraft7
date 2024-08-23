@@ -1,6 +1,7 @@
 package me.alegian.thaumcraft7.impl.init.data.providers;
 
 import me.alegian.thaumcraft7.impl.Thaumcraft;
+import me.alegian.thaumcraft7.impl.init.data.worldgen.ore.*;
 import me.alegian.thaumcraft7.impl.init.data.worldgen.tree.GreatwoodTree;
 import me.alegian.thaumcraft7.impl.init.data.worldgen.tree.SilverwoodTree;
 import net.minecraft.core.HolderLookup;
@@ -22,13 +23,32 @@ public class T7DatapackBuiltinEntriesProvider extends DatapackBuiltinEntriesProv
       .add(Registries.CONFIGURED_FEATURE, bootstrap -> {
         GreatwoodTree.registerConfigured(bootstrap);
         SilverwoodTree.registerConfigured(bootstrap);
+
+        IgnisOre.registerConfigured(bootstrap);
+        TerraOre.registerConfigured(bootstrap);
+        AerOre.registerConfigured(bootstrap);
+        AquaOre.registerConfigured(bootstrap);
+        OrdoOre.registerConfigured(bootstrap);
+        PerditioOre.registerConfigured(bootstrap);
+
+        InfusedStoneOre.registerConfigured(bootstrap);
       })
       .add(Registries.PLACED_FEATURE, bootstrap -> {
         GreatwoodTree.registerPlaced(bootstrap);
         SilverwoodTree.registerPlaced(bootstrap);
+
+        IgnisOre.registerPlaced(bootstrap);
+        TerraOre.registerPlaced(bootstrap);
+        AerOre.registerPlaced(bootstrap);
+        AquaOre.registerPlaced(bootstrap);
+        OrdoOre.registerPlaced(bootstrap);
+        PerditioOre.registerPlaced(bootstrap);
+
+        InfusedStoneOre.registerPlaced(bootstrap);
       })
       .add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, bootstrap -> {
         GreatwoodTree.registerBiomeModifier(bootstrap);
         //SilverwoodTree.registerBiomeModifier(bootstrap);
+        InfusedStoneOre.registerBiomeModifier(bootstrap);
       });
 }

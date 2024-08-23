@@ -26,7 +26,7 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import java.util.List;
 
 public class GreatwoodTree {
-  public static final String PATH = "greatwood";
+  public static final String PATH = "tree_greatwood";
   public static final ResourceKey<ConfiguredFeature<?, ?>> CONFIGURED_FEATURE = ResourceKey.create(
       Registries.CONFIGURED_FEATURE,
       ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, PATH)

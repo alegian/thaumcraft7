@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:simple_random_selector",
+  "config": {
+    "features": [
+      "thaumcraft7:ore_terra",
+      "thaumcraft7:ore_ignis",
+      "thaumcraft7:ore_aer",
+      "thaumcraft7:ore_aqua",
+      "thaumcraft7:ore_ordo",
+      "thaumcraft7:ore_perditio"
+    ]
+  }
+}
