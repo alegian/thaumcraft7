@@ -99,7 +99,7 @@ public class CubeOverlayModel implements IUnbakedGeometry<CubeOverlayModel> {
     // used in block renderer
     @Override
     public @NotNull ChunkRenderTypeSet getRenderTypes(@NotNull BlockState state, @NotNull RandomSource rand, @NotNull ModelData data) {
-      return ChunkRenderTypeSet.of(RenderType.cutoutMipped(), RenderType.solid());
+      return ChunkRenderTypeSet.of(RenderType.cutout(), RenderType.solid());
     }
 
     // used in item renderer
@@ -129,7 +129,7 @@ public class CubeOverlayModel implements IUnbakedGeometry<CubeOverlayModel> {
       if (renderType == null || renderType == RenderType.solid())
         quads.addAll(originalModel.getQuads(state, side, rand, extraData, renderType));
 
-      if (renderType == null || renderType == RenderType.cutoutMipped() || renderType == Sheets.cutoutBlockSheet()) {
+      if (renderType == null || renderType == RenderType.cutout() || renderType == Sheets.cutoutBlockSheet()) {
         var sprite = Minecraft.getInstance()
             .getTextureAtlas(InventoryMenu.BLOCK_ATLAS)
             .apply(spriteLocation);
