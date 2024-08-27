@@ -18,7 +18,7 @@ public class T7ItemModelProvider extends ItemModelProvider {
   @Override
   protected void registerModels() {
     basicItem(T7Items.GOGGLES.get());
-    basicItem(T7Items.IRON_CAP.get());
+    basicItem(T7Items.IRON_HANDLE.get());
     basicItem(T7Items.THAUMONOMICON.get());
 
     shardItem(T7Items.IGNIS_SHARD);

@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_iron_cap": {
+    "has_iron_handle": {
       "conditions": {
         "items": [
           {
-            "items": "thaumcraft7:iron_cap"
+            "items": "thaumcraft7:iron_handle"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_iron_cap"
+      "has_iron_handle"
     ]
   ],
   "rewards": {

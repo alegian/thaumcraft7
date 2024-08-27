@@ -38,22 +38,23 @@ public class T7CommonEvents {
       var existingFileHelper = event.getExistingFileHelper();
       var packOutput = generator.getPackOutput();
 
-      generator.addProvider(true, new T7BlockStateProvider(packOutput, existingFileHelper));
-      generator.addProvider(true, new T7ItemModelProvider(packOutput, existingFileHelper));
-      generator.addProvider(true, new T7DataMapProvider(packOutput, lookupProvider));
-      generator.addProvider(true, new T7RecipeProvider(packOutput, lookupProvider));
-      generator.addProvider(true, new T7ParticleDescriptionProvider(packOutput, existingFileHelper));
-      generator.addProvider(true, new T7BlockTagProvider(packOutput, lookupProvider, existingFileHelper));
-      generator.addProvider(true, new T7FluidTagProvider(packOutput, lookupProvider, existingFileHelper));
-      generator.addProvider(true, new T7LanguageProvider(packOutput, "en_us"));
-
       generator.addProvider(event.includeServer(), new T7DatapackBuiltinEntriesProvider(packOutput, lookupProvider));
+      generator.addProvider(event.includeServer(), new T7DataMapProvider(packOutput, lookupProvider));
+      generator.addProvider(event.includeServer(), new T7RecipeProvider(packOutput, lookupProvider));
+      var blockTagProvider = generator.addProvider(true, new T7BlockTagProvider(packOutput, lookupProvider, existingFileHelper));
+      generator.addProvider(event.includeServer(), new T7ItemTagProvider(packOutput, lookupProvider, blockTagProvider.contentsGetter(), existingFileHelper));
+      generator.addProvider(event.includeServer(), new T7FluidTagProvider(packOutput, lookupProvider, existingFileHelper));
       generator.addProvider(event.includeServer(), new T7LootTableProvider(packOutput, List.of(
           new LootTableProvider.SubProviderEntry(
               T7BlockLootSubProvider::new,
               LootContextParamSets.BLOCK
           )
       ), lookupProvider));
+
+      generator.addProvider(event.includeClient(), new T7BlockStateProvider(packOutput, existingFileHelper));
+      generator.addProvider(event.includeClient(), new T7ItemModelProvider(packOutput, existingFileHelper));
+      generator.addProvider(event.includeClient(), new T7ParticleDescriptionProvider(packOutput, existingFileHelper));
+      generator.addProvider(event.includeClient(), new T7LanguageProvider(packOutput, "en_us"));
     }
   }
 }

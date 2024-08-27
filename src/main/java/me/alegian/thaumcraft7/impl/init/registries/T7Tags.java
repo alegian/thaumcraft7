@@ -4,6 +4,7 @@ import me.alegian.thaumcraft7.impl.Thaumcraft;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
 
@@ -21,4 +22,14 @@ public class T7Tags {
         ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "crucible_heat_source")
     );
   }
+
+  public static final TagKey<Item> WAND_HANDLE = TagKey.create(
+      Registries.ITEM,
+      ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "wand_handle")
+  );
+
+  public static final TagKey<Item> WAND_CORE = TagKey.create(
+      Registries.ITEM,
+      ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "wand_core")
+  );
 }

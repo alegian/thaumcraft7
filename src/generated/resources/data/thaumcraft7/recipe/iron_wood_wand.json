@@ -3,17 +3,17 @@
   "category": "equipment",
   "group": "wand",
   "key": {
-    "a": {
-      "item": "thaumcraft7:iron_cap"
-    },
-    "b": {
+    "c": {
       "tag": "c:rods/wooden"
+    },
+    "h": {
+      "item": "thaumcraft7:iron_handle"
     }
   },
   "pattern": [
-    "  a",
-    " b ",
-    "a  "
+    "  c",
+    " c ",
+    "h  "
   ],
   "result": {
     "count": 1,

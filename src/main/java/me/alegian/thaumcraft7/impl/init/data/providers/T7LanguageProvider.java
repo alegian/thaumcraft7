@@ -15,8 +15,8 @@ public class T7LanguageProvider extends LanguageProvider {
   protected void addTranslations() {
     add("thaumcraft", "Thaumcraft 7");
 
-    add(T7Items.IRON_CAP.get(), "Iron Wand Cap");
-    add(T7Items.IRON_WOOD_WAND.get(), "Iron Capped Wooden Wand");
+    add(T7Items.IRON_HANDLE.get(), "Iron Wand Handle");
+    add(T7Items.IRON_WOOD_WAND.get(), "Iron Handle Wooden Wand");
     add(T7Items.THAUMOMETER.get(), "Thaumometer");
     add(T7Items.THAUMONOMICON.get(), "Thaumonomicon");
     add(T7Items.GOGGLES.get(), "Goggles Of Revealing");

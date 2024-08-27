@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "thaumcraft7:item/iron_cap"
+    "layer0": "thaumcraft7:item/iron_handle"
   }
 }

@@ -21,35 +21,36 @@ public class T7RecipeProvider extends RecipeProvider {
   @Override
   protected void buildRecipes(RecipeOutput pRecipeOutput) {
     planksFromLog(pRecipeOutput, T7Blocks.GREATWOOD_PLANKS, T7Blocks.GREATWOOD_LOG);
-    wandCap(pRecipeOutput, T7Items.IRON_CAP.get(), Items.IRON_NUGGET);
-    wand(pRecipeOutput, T7Items.IRON_WOOD_WAND.get(), T7Items.IRON_CAP.get(), Tags.Items.RODS_WOODEN);
+    wandHandle(pRecipeOutput, T7Items.IRON_HANDLE.get(), Items.IRON_NUGGET);
+    wand(pRecipeOutput, T7Items.IRON_WOOD_WAND.get(), T7Items.IRON_HANDLE.get(), Tags.Items.RODS_WOODEN);
   }
 
-  protected static void wand(RecipeOutput pRecipeOutput, ItemLike wand, ItemLike cap, ItemLike core) {
+  protected static void wand(RecipeOutput pRecipeOutput, ItemLike wand, ItemLike handle, ItemLike core) {
     ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, wand)
-        .define('a', cap)
-        .define('b', core)
-        .pattern("  a")
-        .pattern(" b ")
-        .pattern("a  ")
+        .define('h', handle)
+        .define('c', core)
+        .pattern("  c")
+        .pattern(" c ")
+        .pattern("h  ")
         .group("wand")
-        .unlockedBy(getHasName(cap), has(cap))
+        .unlockedBy(getHasName(handle), has(handle))
         .save(pRecipeOutput);
   }
 
-  protected static void wand(RecipeOutput pRecipeOutput, ItemLike wand, ItemLike cap, TagKey<Item> core) {
+  // for wooden cores
+  protected static void wand(RecipeOutput pRecipeOutput, ItemLike wand, ItemLike handle, TagKey<Item> core) {
     ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, wand)
-        .define('a', cap)
-        .define('b', core)
-        .pattern("  a")
-        .pattern(" b ")
-        .pattern("a  ")
+        .define('h', handle)
+        .define('c', core)
+        .pattern("  c")
+        .pattern(" c ")
+        .pattern("h  ")
         .group("wand")
-        .unlockedBy(getHasName(cap), has(cap))
+        .unlockedBy(getHasName(handle), has(handle))
         .save(pRecipeOutput);
   }
 
-  protected static void wandCap(RecipeOutput pRecipeOutput, ItemLike cap, ItemLike material) {
+  protected static void wandHandle(RecipeOutput pRecipeOutput, ItemLike cap, ItemLike material) {
     ShapedRecipeBuilder.shaped(RecipeCategory.MISC, cap)
         .define('m', material)
         .pattern("mmm")

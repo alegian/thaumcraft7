@@ -29,7 +29,7 @@ public class T7CreativeModeTabs {
               output.accept(T7Blocks.GREATWOOD_PLANKS.get());
               output.accept(T7Blocks.GREATWOOD_SAPLING.get());
 
-              output.accept(T7Items.IRON_CAP.get());
+              output.accept(T7Items.IRON_HANDLE.get());
               output.accept(T7Items.IRON_WOOD_WAND.get());
               output.accept(T7Items.THAUMOMETER.get());
               output.accept(T7Items.THAUMONOMICON.get());

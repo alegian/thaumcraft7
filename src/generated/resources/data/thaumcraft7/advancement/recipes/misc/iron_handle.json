@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "thaumcraft7:iron_cap"
+        "recipe": "thaumcraft7:iron_handle"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "thaumcraft7:iron_cap"
+      "thaumcraft7:iron_handle"
     ]
   }
 }
