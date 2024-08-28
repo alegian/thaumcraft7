@@ -32,4 +32,9 @@ public class T7Tags {
       Registries.ITEM,
       ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "wand_core")
   );
+
+  public static final TagKey<Item> TESTA = TagKey.create(
+      Registries.ITEM,
+      ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "testa")
+  );
 }

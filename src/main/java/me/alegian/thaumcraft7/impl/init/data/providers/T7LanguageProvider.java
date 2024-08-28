@@ -21,12 +21,12 @@ public class T7LanguageProvider extends LanguageProvider {
     add(T7Items.THAUMOMETER.get(), "Thaumometer");
     add(T7Items.THAUMONOMICON.get(), "Thaumonomicon");
     add(T7Items.GOGGLES.get(), "Goggles Of Revealing");
-    add(T7Items.IGNIS_SHARD.get(), "Ignis Shard");
-    add(T7Items.AER_SHARD.get(), "Aer Shard");
-    add(T7Items.TERRA_SHARD.get(), "Terra Shard");
-    add(T7Items.AQUA_SHARD.get(), "Aqua Shard");
-    add(T7Items.ORDO_SHARD.get(), "Ordo Shard");
-    add(T7Items.PERDITIO_SHARD.get(), "Perditio Shard");
+    add(T7Items.IGNIS_TESTA.get(), "Ignis Testa");
+    add(T7Items.AER_TESTA.get(), "Aer Testa");
+    add(T7Items.TERRA_TESTA.get(), "Terra Testa");
+    add(T7Items.AQUA_TESTA.get(), "Aqua Testa");
+    add(T7Items.ORDO_TESTA.get(), "Ordo Testa");
+    add(T7Items.PERDITIO_TESTA.get(), "Perditio Testa");
 
     add(T7Blocks.AURA_NODE.get(), "Aura Node");
     add(T7Blocks.CRUCIBLE.get(), "Crucible");

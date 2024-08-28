@@ -4,7 +4,7 @@ import me.alegian.thaumcraft7.api.aspect.Aspect;
 import me.alegian.thaumcraft7.api.capability.T7Capabilities;
 import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.common.data.capability.AspectContainer;
-import me.alegian.thaumcraft7.impl.common.item.ShardItem;
+import me.alegian.thaumcraft7.impl.common.item.TestaItem;
 import me.alegian.thaumcraft7.impl.common.item.ThaumometerItem;
 import me.alegian.thaumcraft7.impl.common.item.ThaumonomiconItem;
 import me.alegian.thaumcraft7.impl.common.item.WandItem;
@@ -28,12 +28,12 @@ public class T7Items {
   public static final DeferredItem<ThaumonomiconItem> THAUMONOMICON = REGISTRAR.registerItem("thaumonomicon", ThaumonomiconItem::new);
   public static final DeferredItem<ArmorItem> GOGGLES = REGISTRAR.registerItem("goggles", (props) -> new ArmorItem(T7ArmorMaterials.GOGGLES, ArmorItem.Type.HELMET, props));
 
-  public static final DeferredItem<ShardItem> IGNIS_SHARD = REGISTRAR.registerItem("ignis_shard", $ -> new ShardItem(Aspect.IGNIS));
-  public static final DeferredItem<ShardItem> AER_SHARD = REGISTRAR.registerItem("aer_shard", $ -> new ShardItem(Aspect.AER));
-  public static final DeferredItem<ShardItem> TERRA_SHARD = REGISTRAR.registerItem("terra_shard", $ -> new ShardItem(Aspect.TERRA));
-  public static final DeferredItem<ShardItem> AQUA_SHARD = REGISTRAR.registerItem("aqua_shard", $ -> new ShardItem(Aspect.AQUA));
-  public static final DeferredItem<ShardItem> ORDO_SHARD = REGISTRAR.registerItem("ordo_shard", $ -> new ShardItem(Aspect.ORDO));
-  public static final DeferredItem<ShardItem> PERDITIO_SHARD = REGISTRAR.registerItem("perditio_shard", $ -> new ShardItem(Aspect.PERDITIO));
+  public static final DeferredItem<TestaItem> IGNIS_TESTA = REGISTRAR.registerItem("ignis_testa", $ -> new TestaItem(Aspect.IGNIS));
+  public static final DeferredItem<TestaItem> AER_TESTA = REGISTRAR.registerItem("aer_testa", $ -> new TestaItem(Aspect.AER));
+  public static final DeferredItem<TestaItem> TERRA_TESTA = REGISTRAR.registerItem("terra_testa", $ -> new TestaItem(Aspect.TERRA));
+  public static final DeferredItem<TestaItem> AQUA_TESTA = REGISTRAR.registerItem("aqua_testa", $ -> new TestaItem(Aspect.AQUA));
+  public static final DeferredItem<TestaItem> ORDO_TESTA = REGISTRAR.registerItem("ordo_testa", $ -> new TestaItem(Aspect.ORDO));
+  public static final DeferredItem<TestaItem> PERDITIO_TESTA = REGISTRAR.registerItem("perditio_testa", $ -> new TestaItem(Aspect.PERDITIO));
 
   public static void registerCapabilities(RegisterCapabilitiesEvent event) {
     event.registerItem(T7Capabilities.AspectContainer.ITEM, (itemStack, context) -> new AspectContainer(itemStack, 50), IRON_WOOD_WAND);

@@ -18,7 +18,7 @@ import me.alegian.thaumcraft7.impl.client.renderer.entity.FancyItemER;
 import me.alegian.thaumcraft7.impl.client.renderer.entity.VisER;
 import me.alegian.thaumcraft7.impl.client.texture.atlas.AspectAtlas;
 import me.alegian.thaumcraft7.impl.common.block.AuraNodeBlock;
-import me.alegian.thaumcraft7.impl.common.item.ShardItem;
+import me.alegian.thaumcraft7.impl.common.item.TestaItem;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ShaderInstance;
@@ -75,15 +75,15 @@ public class T7ClientEvents {
     @SubscribeEvent
     public static void registerItemColorHandlers(RegisterColorHandlersEvent.Item event) {
       event.register((stack, tintIndex) -> {
-            if (tintIndex == 0) return ((ShardItem) stack.getItem()).getAspect().getColor();
+            if (tintIndex == 0) return ((TestaItem) stack.getItem()).getAspect().getColor();
             return 0xFFFFFFFF;
           },
-          T7Items.IGNIS_SHARD.get(),
-          T7Items.AER_SHARD.get(),
-          T7Items.TERRA_SHARD.get(),
-          T7Items.AQUA_SHARD.get(),
-          T7Items.ORDO_SHARD.get(),
-          T7Items.PERDITIO_SHARD.get()
+          T7Items.IGNIS_TESTA.get(),
+          T7Items.AER_TESTA.get(),
+          T7Items.TERRA_TESTA.get(),
+          T7Items.AQUA_TESTA.get(),
+          T7Items.ORDO_TESTA.get(),
+          T7Items.PERDITIO_TESTA.get()
       );
       event.register((stack, tintIndex) -> {
             if (tintIndex == 0) return T7Colors.GREATWOOD_LEAVES;

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "thaumcraft7:item/shard"
+    "layer0": "thaumcraft7:item/testa"
   }
 }

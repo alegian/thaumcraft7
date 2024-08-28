@@ -23,5 +23,14 @@ public class T7ItemTagProvider extends ItemTagsProvider {
     tag(T7Tags.WAND_CORE).addTag(Tags.Items.RODS_WOODEN);
 
     tag(T7Tags.WAND_HANDLE).add(T7Items.IRON_HANDLE.get());
+
+    tag(T7Tags.TESTA).add(
+        T7Items.TERRA_TESTA.get(),
+        T7Items.AER_TESTA.get(),
+        T7Items.IGNIS_TESTA.get(),
+        T7Items.ORDO_TESTA.get(),
+        T7Items.AQUA_TESTA.get(),
+        T7Items.PERDITIO_TESTA.get()
+    );
   }
 }

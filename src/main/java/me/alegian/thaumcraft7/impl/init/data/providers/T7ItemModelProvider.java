@@ -1,7 +1,7 @@
 package me.alegian.thaumcraft7.impl.init.data.providers;
 
 import me.alegian.thaumcraft7.impl.Thaumcraft;
-import me.alegian.thaumcraft7.impl.common.item.ShardItem;
+import me.alegian.thaumcraft7.impl.common.item.TestaItem;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Items;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -22,17 +22,17 @@ public class T7ItemModelProvider extends ItemModelProvider {
     basicItem(T7Items.RUNE.get());
     basicItem(T7Items.THAUMONOMICON.get());
 
-    shardItem(T7Items.IGNIS_SHARD);
-    shardItem(T7Items.AER_SHARD);
-    shardItem(T7Items.TERRA_SHARD);
-    shardItem(T7Items.AQUA_SHARD);
-    shardItem(T7Items.ORDO_SHARD);
-    shardItem(T7Items.PERDITIO_SHARD);
+    testaItem(T7Items.IGNIS_TESTA);
+    testaItem(T7Items.AER_TESTA);
+    testaItem(T7Items.TERRA_TESTA);
+    testaItem(T7Items.AQUA_TESTA);
+    testaItem(T7Items.ORDO_TESTA);
+    testaItem(T7Items.PERDITIO_TESTA);
   }
 
-  public void shardItem(DeferredItem<ShardItem> deferredItem) {
+  public void testaItem(DeferredItem<TestaItem> deferredItem) {
     getBuilder(deferredItem.getId().getPath())
         .parent(new ModelFile.UncheckedModelFile("item/generated"))
-        .texture("layer0", ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "item/shard"));
+        .texture("layer0", ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "item/testa"));
   }
 }
