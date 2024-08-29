@@ -18,6 +18,9 @@ public class AspectHelper {
     return getAspects(itemEntity.getItem());
   }
 
+  /**
+   * This method checks for Block aspects before returning Item aspects.
+   */
   public static AspectList getAspects(ItemStack itemStack) {
     if (itemStack.getItem() instanceof BlockItem blockItem)
       return blockItem.getBlock().builtInRegistryHolder().getData(T7DataMaps.AspectContent.BLOCK);

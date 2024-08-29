@@ -65,6 +65,10 @@ public class T7DataMapProvider extends DataMapProvider {
     item(i, Items.DIAMOND, AspectStack.of(Aspect.VITREUS, 15), AspectStack.of(Aspect.DESIDERIUM, 15));
   }
 
+  /**
+   * When checking for Aspect contents, the Block aspects are prioritized over the Item aspects.
+   * Therefore, to avoid ambiguities, BlockItem aspect registration is forbidden.
+   */
   private void item(DataMapProvider.Builder<AspectList, Item> builder, Item item, AspectStack... aspects) {
     if (item instanceof BlockItem)
       throw new IllegalArgumentException("Cannot register Aspects for BlockItems, you should register for their Blocks instead");
