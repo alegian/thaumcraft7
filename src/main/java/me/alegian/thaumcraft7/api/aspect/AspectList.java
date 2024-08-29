@@ -11,10 +11,7 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -96,6 +93,14 @@ public class AspectList {
 
   public static AspectList of(Aspect aspect, int amount) {
     return new AspectList(Map.of(aspect, amount));
+  }
+
+  public static AspectList of(AspectStack... aspectStacks) {
+    Map<Aspect, Integer> map = new HashMap<>();
+    for (AspectStack stack : aspectStacks) {
+      map.put(stack.aspect(), stack.amount());
+    }
+    return new AspectList(map);
   }
 
   public static AspectList randomAura() {

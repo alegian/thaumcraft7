@@ -1,0 +1,214 @@
+{
+  "values": {
+    "#c:cobblestones": [
+      {
+        "amount": 5,
+        "aspect": "terra"
+      },
+      {
+        "amount": 1,
+        "aspect": "perditio"
+      }
+    ],
+    "#c:concretes": [
+      {
+        "amount": 1,
+        "aspect": "aqua"
+      },
+      {
+        "amount": 2,
+        "aspect": "perditio"
+      },
+      {
+        "amount": 3,
+        "aspect": "terra"
+      },
+      {
+        "amount": 1,
+        "aspect": "ordo"
+      }
+    ],
+    "#c:glass_blocks/cheap": [
+      {
+        "amount": 5,
+        "aspect": "vitreus"
+      }
+    ],
+    "#c:glass_panes": [
+      {
+        "amount": 1,
+        "aspect": "vitreus"
+      }
+    ],
+    "#c:sands": [
+      {
+        "amount": 5,
+        "aspect": "terra"
+      },
+      {
+        "amount": 5,
+        "aspect": "perditio"
+      }
+    ],
+    "#c:stones": [
+      {
+        "amount": 5,
+        "aspect": "terra"
+      }
+    ],
+    "#minecraft:concrete_powder": [
+      {
+        "amount": 3,
+        "aspect": "terra"
+      },
+      {
+        "amount": 2,
+        "aspect": "perditio"
+      }
+    ],
+    "#minecraft:logs": [
+      {
+        "amount": 20,
+        "aspect": "herba"
+      }
+    ],
+    "#minecraft:planks": [
+      {
+        "amount": 3,
+        "aspect": "herba"
+      }
+    ],
+    "#minecraft:terracotta": [
+      {
+        "amount": 15,
+        "aspect": "aqua"
+      },
+      {
+        "amount": 1,
+        "aspect": "ignis"
+      },
+      {
+        "amount": 15,
+        "aspect": "terra"
+      },
+      {
+        "amount": 1,
+        "aspect": "sensus"
+      }
+    ],
+    "#minecraft:wooden_slabs": [
+      {
+        "amount": 1,
+        "aspect": "herba"
+      }
+    ],
+    "#minecraft:wooden_stairs": [
+      {
+        "amount": 3,
+        "aspect": "herba"
+      }
+    ],
+    "#minecraft:wool": [
+      {
+        "amount": 11,
+        "aspect": "bestia"
+      },
+      {
+        "amount": 3,
+        "aspect": "fabrico"
+      },
+      {
+        "amount": 3,
+        "aspect": "sensus"
+      }
+    ],
+    "minecraft:bedrock": [
+      {
+        "amount": 25,
+        "aspect": "perditio"
+      },
+      {
+        "amount": 25,
+        "aspect": "vacuos"
+      },
+      {
+        "amount": 25,
+        "aspect": "terra"
+      },
+      {
+        "amount": 25,
+        "aspect": "tenebrae"
+      }
+    ],
+    "minecraft:coarse_dirt": [
+      {
+        "amount": 3,
+        "aspect": "terra"
+      }
+    ],
+    "minecraft:dirt": [
+      {
+        "amount": 5,
+        "aspect": "terra"
+      }
+    ],
+    "minecraft:grass_block": [
+      {
+        "amount": 2,
+        "aspect": "herba"
+      },
+      {
+        "amount": 5,
+        "aspect": "terra"
+      }
+    ],
+    "minecraft:podzol": [
+      {
+        "amount": 1,
+        "aspect": "herba"
+      },
+      {
+        "amount": 5,
+        "aspect": "terra"
+      }
+    ],
+    "minecraft:polished_andesite": [
+      {
+        "amount": 3,
+        "aspect": "terra"
+      }
+    ],
+    "minecraft:polished_diorite": [
+      {
+        "amount": 3,
+        "aspect": "terra"
+      }
+    ],
+    "minecraft:polished_granite": [
+      {
+        "amount": 3,
+        "aspect": "terra"
+      }
+    ],
+    "minecraft:short_grass": [
+      {
+        "amount": 5,
+        "aspect": "herba"
+      },
+      {
+        "amount": 1,
+        "aspect": "aer"
+      }
+    ],
+    "minecraft:tall_grass": [
+      {
+        "amount": 5,
+        "aspect": "herba"
+      },
+      {
+        "amount": 1,
+        "aspect": "aer"
+      }
+    ]
+  }
+}

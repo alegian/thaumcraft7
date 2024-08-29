@@ -28,7 +28,8 @@ public class T7CommonEvents {
 
     @SubscribeEvent
     private static void registerDataMapTypes(RegisterDataMapTypesEvent event) {
-      event.register(T7DataMaps.ASPECT_CONTENT);
+      event.register(T7DataMaps.AspectContent.BLOCK);
+      event.register(T7DataMaps.AspectContent.ITEM);
     }
 
     @SubscribeEvent
