@@ -32,5 +32,15 @@ public class T7ItemTagProvider extends ItemTagsProvider {
         T7Items.AQUA_TESTA.get(),
         T7Items.PERDITIO_TESTA.get()
     );
+
+    tag(Tags.Items.INGOTS).add(
+        T7Items.ARCANUM_INGOT.get(),
+        T7Items.ORICHALCUM_INGOT.get()
+    );
+
+    tag(Tags.Items.NUGGETS).add(
+        T7Items.ARCANUM_NUGGET.get(),
+        T7Items.ORICHALCUM_NUGGET.get()
+    );
   }
 }

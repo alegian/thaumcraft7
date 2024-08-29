@@ -31,6 +31,10 @@ public class T7CreativeModeTabs {
 
               output.accept(T7Items.IRON_HANDLE.get());
               output.accept(T7Items.RUNE.get());
+              output.accept(T7Items.ARCANUM_INGOT.get());
+              output.accept(T7Items.ARCANUM_NUGGET.get());
+              output.accept(T7Items.ORICHALCUM_INGOT.get());
+              output.accept(T7Items.ORICHALCUM_NUGGET.get());
               output.accept(T7Items.IRON_WOOD_WAND.get());
               output.accept(T7Items.THAUMOMETER.get());
               output.accept(T7Items.THAUMONOMICON.get());
