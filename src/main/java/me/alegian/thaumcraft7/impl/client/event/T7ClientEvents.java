@@ -2,7 +2,9 @@ package me.alegian.thaumcraft7.impl.client.event;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.datafixers.util.Either;
+import me.alegian.thaumcraft7.api.aspect.Aspect;
 import me.alegian.thaumcraft7.api.aspect.AspectHelper;
 import me.alegian.thaumcraft7.api.aspect.AspectList;
 import me.alegian.thaumcraft7.api.capability.AspectContainerHelper;
@@ -27,6 +29,7 @@ import me.alegian.thaumcraft7.impl.common.block.AuraNodeBlock;
 import me.alegian.thaumcraft7.impl.common.item.TestaItem;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.*;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -156,10 +159,15 @@ public class T7ClientEvents {
       if (!AspectContainerHelper.isAspectContainer(minecraft.level, blockPos)) return;
       var helmet = player.getInventory().armor.get(EquipmentSlot.HEAD.getIndex());
       if (helmet.getCapability(T7Capabilities.REVEALING) == null) return;
-
-      AspectContainerHelper.getAspects(minecraft.level, blockPos).ifPresent(
-          aspects -> AspectRenderer.renderAfterWeather(aspects, event.getPoseStack(), minecraft.renderBuffers().bufferSource(), event.getCamera(), blockPos)
-      );
+      PoseStack poseStack = event.getPoseStack();
+      poseStack.pushPose();
+      var cameraPos = event.getCamera().getPosition();
+      poseStack.translate(blockPos.getX() - cameraPos.x() + 0.5d, blockPos.getY() - cameraPos.y() + 1.25d + .3f / 2, blockPos.getZ() - cameraPos.z() + 0.5d);
+      poseStack.scale(-1/32f,-1/32f, 1f);
+      GuiGraphics guiGraphics = new GuiGraphics(minecraft, poseStack, minecraft.renderBuffers().bufferSource());
+      var sprite = AspectAtlas.sprite(ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, Aspect.IGNIS.getId()));
+      guiGraphics.blitSprite(sprite, -8, -8, 0, 16, 16);
+      poseStack.popPose();
     }
 
     @SubscribeEvent
