@@ -26,6 +26,8 @@ public class T7Items {
   public static final DeferredItem<Item> ARCANUM_NUGGET = REGISTRAR.registerSimpleItem("arcanum_nugget", new Item.Properties());
   public static final DeferredItem<Item> ORICHALCUM_INGOT = REGISTRAR.registerSimpleItem("orichalcum_ingot", new Item.Properties());
   public static final DeferredItem<Item> ORICHALCUM_NUGGET = REGISTRAR.registerSimpleItem("orichalcum_nugget", new Item.Properties());
+  public static final DeferredItem<Item> RESEARCH_SCROLL = REGISTRAR.registerSimpleItem("research_scroll", new Item.Properties().stacksTo(1));
+  public static final DeferredItem<Item> COMPLETED_RESEARCH = REGISTRAR.registerSimpleItem("completed_research", new Item.Properties().stacksTo(1));
 
   public static final DeferredItem<WandItem> IRON_WOOD_WAND = REGISTRAR.registerItem("iron_wood_wand", WandItem::new, new Item.Properties().stacksTo(1));
   public static final DeferredItem<ThaumometerItem> THAUMOMETER = REGISTRAR.registerItem("thaumometer", ThaumometerItem::new);

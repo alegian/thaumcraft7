@@ -24,6 +24,8 @@ public class T7ItemModelProvider extends ItemModelProvider {
     basicItem(T7Items.ARCANUM_NUGGET.get());
     basicItem(T7Items.ORICHALCUM_INGOT.get());
     basicItem(T7Items.ORICHALCUM_NUGGET.get());
+    basicItem(T7Items.RESEARCH_SCROLL.get());
+    basicItem(T7Items.COMPLETED_RESEARCH.get());
 
     testaItem(T7Items.IGNIS_TESTA);
     testaItem(T7Items.AER_TESTA);
