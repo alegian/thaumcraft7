@@ -1,5 +1,6 @@
 package me.alegian.thaumcraft7.impl.client.event;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.datafixers.util.Either;
 import me.alegian.thaumcraft7.api.aspect.AspectHelper;
@@ -165,8 +166,12 @@ public class T7ClientEvents {
     public static void gatherTooltipComponents(RenderTooltipEvent.GatherComponents event) {
       ItemStack itemStack = event.getItemStack();
       AspectList aspects = AspectHelper.getAspects(itemStack);
-      if(aspects == null) return;
-      //if(!Minecraft.getInstance().options.keyShift.isDown()) return;
+      if (aspects == null) return;
+
+      var shiftDown = InputConstants.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), 340)
+          || InputConstants.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), 344);
+
+      if (!shiftDown) return;
 
       event.getTooltipElements().add(Either.right(new AspectTooltipComponent()));
     }

@@ -15,17 +15,17 @@ public class AspectClientTooltipComponent implements ClientTooltipComponent {
 
   @Override
   public int getHeight() {
-    return 32;
+    return 16;
   }
 
   @Override
   public int getWidth(Font pFont) {
-    return 32;
+    return 16;
   }
 
   @Override
   public void renderImage(Font pFont, int pX, int pY, GuiGraphics pGuiGraphics) {
     var sprite = AspectAtlas.sprite(ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, Aspect.IGNIS.getId()));
-    pGuiGraphics.blitSprite(sprite, 0, 0, 0, 32, 32);
+    pGuiGraphics.blitSprite(sprite, pX, pY, 0, 16, 16);
   }
 }
