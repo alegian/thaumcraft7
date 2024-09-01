@@ -41,14 +41,14 @@ public class AspectRenderer {
     // these offsets account for wrapping to new lines, and centering the aspects
     Vector2f[] offsets = calculateOffsets(aspects.size());
     int i = 0;
-    for (Aspect aspect : aspects.aspectSet()) {
+    for (AspectStack aspectStack : aspects.displayedAspects()) {
       poseStack.pushPose();
       poseStack.translate(offsets[i].x, offsets[i].y, 0);
 
       // gui rendering is done in pixel space
       poseStack.scale(1f / PIXEL_RESOLUTION, -1f / PIXEL_RESOLUTION, 1f);
       GuiGraphics guiGraphics = new GuiGraphics(Minecraft.getInstance(), poseStack, Minecraft.getInstance().renderBuffers().bufferSource());
-      renderAspect(guiGraphics, AspectStack.of(aspect, aspects.get(aspect)), -PIXEL_RESOLUTION / 2, -PIXEL_RESOLUTION / 2);
+      renderAspect(guiGraphics, aspectStack, -PIXEL_RESOLUTION / 2, -PIXEL_RESOLUTION / 2);
 
       poseStack.popPose();
       i++;

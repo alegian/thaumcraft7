@@ -1,5 +1,6 @@
 package me.alegian.thaumcraft7.api.aspect;
 
+import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
@@ -11,7 +12,9 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -115,8 +118,9 @@ public class AspectList {
     return map.getOrDefault(aspect, 0);
   }
 
-  public Set<Aspect> aspectSet() {
-    return map.keySet();
+  public ImmutableList<AspectStack> displayedAspects() {
+    if (this == AspectList.EMPTY) return ImmutableList.of();
+    return Aspect.ASPECTS.values().stream().filter(a -> get(a) > 0).map(a -> AspectStack.of(a, get(a))).collect(ImmutableList.toImmutableList());
   }
 
   public int size() {
