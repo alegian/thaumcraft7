@@ -1,7 +1,9 @@
 package me.alegian.thaumcraft7.impl.client.gui.tooltip;
 
 import me.alegian.thaumcraft7.api.aspect.Aspect;
+import me.alegian.thaumcraft7.api.aspect.AspectStack;
 import me.alegian.thaumcraft7.impl.Thaumcraft;
+import me.alegian.thaumcraft7.impl.client.renderer.AspectRenderer;
 import me.alegian.thaumcraft7.impl.client.texture.atlas.AspectAtlas;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -25,7 +27,6 @@ public class AspectClientTooltipComponent implements ClientTooltipComponent {
 
   @Override
   public void renderImage(Font pFont, int pX, int pY, GuiGraphics pGuiGraphics) {
-    var sprite = AspectAtlas.sprite(ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, Aspect.IGNIS.getId()));
-    pGuiGraphics.blitSprite(sprite, pX, pY, 0, 16, 16);
+    AspectRenderer.renderAspect(pGuiGraphics, AspectStack.of(Aspect.IGNIS, 4), pX, pY);
   }
 }

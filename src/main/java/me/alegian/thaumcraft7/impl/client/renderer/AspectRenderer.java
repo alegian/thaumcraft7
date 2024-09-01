@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import me.alegian.thaumcraft7.api.aspect.Aspect;
 import me.alegian.thaumcraft7.api.aspect.AspectList;
+import me.alegian.thaumcraft7.api.aspect.AspectStack;
 import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.client.texture.atlas.AspectAtlas;
 import net.minecraft.client.Camera;
@@ -47,8 +48,7 @@ public class AspectRenderer {
       // gui rendering is done in pixel space
       poseStack.scale(1f / PIXEL_RESOLUTION, -1f / PIXEL_RESOLUTION, 1f);
       GuiGraphics guiGraphics = new GuiGraphics(Minecraft.getInstance(), poseStack, Minecraft.getInstance().renderBuffers().bufferSource());
-      blitAspectIcon(guiGraphics, aspect);
-      renderText(guiGraphics, poseStack, String.valueOf(aspects.get(aspect)));
+      renderAspect(guiGraphics, AspectStack.of(aspect, aspects.get(aspect)), -PIXEL_RESOLUTION / 2, -PIXEL_RESOLUTION / 2);
 
       poseStack.popPose();
       i++;
@@ -57,13 +57,18 @@ public class AspectRenderer {
     poseStack.popPose();
   }
 
-  private static void blitAspectIcon(GuiGraphics guiGraphics, Aspect aspect) {
+  public static void renderAspect(GuiGraphics guiGraphics, AspectStack aspectStack, int pX, int pY) {
+    blitAspectIcon(guiGraphics, aspectStack.aspect(), pX, pY);
+    drawText(guiGraphics, String.valueOf(aspectStack.amount()), pX, pY);
+  }
+
+  public static void blitAspectIcon(GuiGraphics guiGraphics, Aspect aspect, int pX, int pY) {
     var sprite = AspectAtlas.sprite(ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, aspect.getId()));
 
     var color = aspect.getColor();
     guiGraphics.blit(
-        -PIXEL_RESOLUTION / 2,
-        -PIXEL_RESOLUTION / 2,
+        pX,
+        pY,
         0,
         PIXEL_RESOLUTION,
         PIXEL_RESOLUTION,
@@ -90,9 +95,10 @@ public class AspectRenderer {
     return offsets;
   }
 
-  public static void renderText(GuiGraphics guiGraphics, PoseStack poseStack, String text) {
+  public static void drawText(GuiGraphics guiGraphics, String text, int pX, int pY) {
+    var poseStack = guiGraphics.pose();
     poseStack.pushPose();
-    poseStack.translate(PIXEL_RESOLUTION / 2, PIXEL_RESOLUTION / 2, 0.0001f); // start bottom right, like item count. slightly increase Z to avoid z fighting
+    poseStack.translate(pX + PIXEL_RESOLUTION, pY + PIXEL_RESOLUTION, 0.0001f); // start bottom right, like item count. slightly increase Z to avoid z fighting
     poseStack.scale(0.5F, 0.5F, 1F);
     Font font = Minecraft.getInstance().font;
 
