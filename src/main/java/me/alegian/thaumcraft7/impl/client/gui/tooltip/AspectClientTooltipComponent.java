@@ -9,7 +9,7 @@ import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent
 
 public class AspectClientTooltipComponent implements ClientTooltipComponent {
   private final ImmutableList<AspectStack> displayedAspects;
-  private static final int WIDTH = AspectRenderer.PIXEL_RESOLUTION;
+  private static final int WIDTH = AspectRenderer.getPixelResolution();
   private static final int PADDING = 3;
 
   public AspectClientTooltipComponent(AspectTooltipComponent tooltip) {

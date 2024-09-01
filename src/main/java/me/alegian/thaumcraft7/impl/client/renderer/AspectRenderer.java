@@ -22,7 +22,7 @@ import org.joml.Vector2f;
 public class AspectRenderer {
   public static final int ROW_SIZE = 5;
   public static final float QUAD_SIZE = .3f; // aspect width is .3 blocks
-  public static final int PIXEL_RESOLUTION = 16; // pixels per block
+  private static final int PIXEL_RESOLUTION = 16; // pixels per block
 
   /**
    * Renders the Aspect contents of an AspectContainer, using GuiGraphics.<br>
@@ -104,5 +104,9 @@ public class AspectRenderer {
 
     guiGraphics.drawString(font, text, -font.width(text), -font.lineHeight, 0xFFFFFFFF);
     poseStack.popPose();
+  }
+
+  public static int getPixelResolution() {
+    return PIXEL_RESOLUTION;
   }
 }
