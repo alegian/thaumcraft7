@@ -21,6 +21,12 @@ Good pick azanor ;-)
 - Team CoFH, for allowing anyone to learn from their code. Also, modified versions of their license and their package structure are used here
 - McJTy, for his minecraft modding tutorials
 - The JEI team, for being open source. Their codebase taught me how to use custom Texture Atlases
+- The https://game-icons.net/ team, for their free icons, under the [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/) license. Most icons were taken as-is, with the following exceptions that required minor changes:
+  - The Ignis Aspect icon, which is a combination of the Circle and Small Fire icons
+  - The Ordo Aspect icon, which is a combination of the Circle and Mobius Triangle icons
+  - The Perditio Aspect icon, which is a combination of the Circle and Shatter icons
+  - The Vacuos Aspect icon, which is a Circle icon, with added translucent pixels in the center
+- Reaves, for his awesome original models & textures
 
 ## License
 
