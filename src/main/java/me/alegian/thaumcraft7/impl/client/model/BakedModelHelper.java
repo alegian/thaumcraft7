@@ -5,8 +5,11 @@ import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.client.model.pipeline.QuadBakingVertexConsumer;
 
+@OnlyIn(Dist.CLIENT)
 public class BakedModelHelper {
   public static BakedQuad quad(Vec3 v1, Vec3 v2, Vec3 v3, Vec3 v4, TextureAtlasSprite sprite, int color) {
     Vec3 normal = v3.subtract(v2).cross(v1.subtract(v2)).normalize();

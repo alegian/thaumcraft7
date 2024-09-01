@@ -33,6 +33,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.*;
@@ -41,6 +42,7 @@ import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
 import java.io.IOException;
 
+@OnlyIn(Dist.CLIENT)
 public class T7ClientEvents {
   @EventBusSubscriber(modid = Thaumcraft.MODID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
   public static class T7ClientModEvents {

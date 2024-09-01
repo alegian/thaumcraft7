@@ -4,8 +4,11 @@ import me.alegian.thaumcraft7.impl.client.gui.thaumonomicon.widget.Frame;
 import me.alegian.thaumcraft7.impl.client.gui.thaumonomicon.widget.Tab;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 
+@OnlyIn(Dist.CLIENT)
 public class ThaumonomiconScreen extends Screen {
   private final Tab tab = new Tab(300, 300);
   private boolean isScrolling;

@@ -4,8 +4,11 @@ import me.alegian.thaumcraft7.impl.client.gui.GuiGraphicsWrapper;
 import me.alegian.thaumcraft7.impl.client.texture.T7Textures;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Renderable;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 // the wooden frame around the contents
+@OnlyIn(Dist.CLIENT)
 public class Frame implements Renderable {
 
   @Override

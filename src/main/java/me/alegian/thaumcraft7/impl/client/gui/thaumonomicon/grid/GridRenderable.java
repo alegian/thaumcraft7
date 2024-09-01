@@ -3,8 +3,11 @@ package me.alegian.thaumcraft7.impl.client.gui.thaumonomicon.grid;
 import me.alegian.thaumcraft7.impl.client.gui.GuiGraphicsWrapper;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 // represents any element drawn in the Grid, even if it doesn't directly snap to it
+@OnlyIn(Dist.CLIENT)
 public class GridRenderable {
   private final ResourceLocation texture;
   private final int x;

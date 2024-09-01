@@ -2,7 +2,10 @@ package me.alegian.thaumcraft7.impl.client;
 
 import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormatElement;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
+@OnlyIn(Dist.CLIENT)
 public class T7VertexFormats {
   public static VertexFormatElement CENTER;
 

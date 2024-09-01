@@ -21,6 +21,8 @@ import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.client.ChunkRenderTypeSet;
 import net.neoforged.neoforge.client.model.BakedModelWrapper;
 import net.neoforged.neoforge.client.model.ElementsModel;
@@ -42,6 +44,7 @@ import java.util.function.Function;
 import static me.alegian.thaumcraft7.impl.client.model.BakedModelHelper.quad;
 import static me.alegian.thaumcraft7.impl.client.model.BakedModelHelper.v;
 
+@OnlyIn(Dist.CLIENT)
 public class CubeOverlayModel implements IUnbakedGeometry<CubeOverlayModel> {
   public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "cube_overlay");
   public static final String SPRITE_KEY = "sprite_location";

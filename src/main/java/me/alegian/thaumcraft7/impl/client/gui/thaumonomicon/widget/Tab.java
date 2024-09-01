@@ -7,8 +7,11 @@ import me.alegian.thaumcraft7.impl.client.texture.T7Textures;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.util.Mth;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 // represents the renderable content of a tab in the book
+@OnlyIn(Dist.CLIENT)
 public class Tab implements Renderable {
   public double scrollX = 0;
   public double scrollY = 0;

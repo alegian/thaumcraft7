@@ -18,10 +18,13 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 import static net.minecraft.client.renderer.entity.ItemEntityRenderer.getSeedForItemStack;
 import static net.minecraft.client.renderer.entity.ItemEntityRenderer.renderMultipleFromCount;
 
+@OnlyIn(Dist.CLIENT)
 public class FancyItemER extends EntityRenderer<ItemEntity> {
   private final RandomSource random = RandomSource.create();
 

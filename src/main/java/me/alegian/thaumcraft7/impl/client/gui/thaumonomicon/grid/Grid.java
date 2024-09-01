@@ -1,6 +1,8 @@
 package me.alegian.thaumcraft7.impl.client.gui.thaumonomicon.grid;
 
 import net.minecraft.client.gui.GuiGraphics;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +12,7 @@ import java.util.List;
  * The research nodes are by definition 1x1.
  * Contains a list of GridRenderable objects that are drawn.
  */
+@OnlyIn(Dist.CLIENT)
 public class Grid {
   private final int cellSize;
   private final List<GridRenderable> contents = new ArrayList<>();

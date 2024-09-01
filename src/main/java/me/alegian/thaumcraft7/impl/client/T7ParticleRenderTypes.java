@@ -9,7 +9,10 @@ import com.mojang.blaze3d.vertex.VertexFormat;
 import me.alegian.thaumcraft7.impl.client.texture.atlas.AspectAtlas;
 import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.client.renderer.texture.TextureManager;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
+@OnlyIn(Dist.CLIENT)
 public class T7ParticleRenderTypes {
   public static final ParticleRenderType ASPECT_SHEET_TRANSLUCENT_NO_DEPTH = new ParticleRenderType() {
     @Override

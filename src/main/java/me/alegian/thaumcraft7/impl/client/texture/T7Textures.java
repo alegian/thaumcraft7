@@ -1,5 +1,9 @@
 package me.alegian.thaumcraft7.impl.client.texture;
 
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+
+@OnlyIn(Dist.CLIENT)
 public class T7Textures {
   public static final class Thaumonomicon {
     private static final String CONTEXT = "gui/thaumonomicon/";

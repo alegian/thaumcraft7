@@ -6,7 +6,10 @@ import me.alegian.thaumcraft7.impl.client.renderer.AspectRenderer;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
+@OnlyIn(Dist.CLIENT)
 public class AspectClientTooltipComponent implements ClientTooltipComponent {
   private final ImmutableList<AspectStack> displayedAspects;
   private static final int WIDTH = AspectRenderer.getPixelResolution();

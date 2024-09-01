@@ -2,9 +2,12 @@ package me.alegian.thaumcraft7.impl.client.gui;
 
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import org.joml.Matrix4f;
 
 
+@OnlyIn(Dist.CLIENT)
 public class GuiGraphicsWrapper {
   private final GuiGraphics graphics;
 

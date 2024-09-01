@@ -6,7 +6,10 @@ import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.client.texture.atlas.AspectAtlas;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.ShaderInstance;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
+@OnlyIn(Dist.CLIENT)
 public class T7RenderStateShards {
   public static ShaderInstance customShader;
 

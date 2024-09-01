@@ -7,8 +7,11 @@ import me.alegian.thaumcraft7.impl.Thaumcraft;
 import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 
+@OnlyIn(Dist.CLIENT)
 public class VisGuiOverlay {
   private static final ResourceLocation DISK = ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "textures/gui/overlay/disk.png");
   private static final ResourceLocation VIAL = ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "textures/gui/overlay/vial.png");
