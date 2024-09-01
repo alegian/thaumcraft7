@@ -159,15 +159,10 @@ public class T7ClientEvents {
       if (!AspectContainerHelper.isAspectContainer(minecraft.level, blockPos)) return;
       var helmet = player.getInventory().armor.get(EquipmentSlot.HEAD.getIndex());
       if (helmet.getCapability(T7Capabilities.REVEALING) == null) return;
-      PoseStack poseStack = event.getPoseStack();
-      poseStack.pushPose();
-      var cameraPos = event.getCamera().getPosition();
-      poseStack.translate(blockPos.getX() - cameraPos.x() + 0.5d, blockPos.getY() - cameraPos.y() + 1.25d + .3f / 2, blockPos.getZ() - cameraPos.z() + 0.5d);
-      poseStack.scale(-1/32f,-1/32f, 1f);
-      GuiGraphics guiGraphics = new GuiGraphics(minecraft, poseStack, minecraft.renderBuffers().bufferSource());
-      var sprite = AspectAtlas.sprite(ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, Aspect.IGNIS.getId()));
-      guiGraphics.blitSprite(sprite, -8, -8, 0, 16, 16);
-      poseStack.popPose();
+
+      AspectContainerHelper.getAspects(minecraft.level, blockPos).ifPresent(
+          aspects -> AspectRenderer.renderAfterWeather(aspects, event.getPoseStack(), event.getCamera(), blockPos)
+      );
     }
 
     @SubscribeEvent

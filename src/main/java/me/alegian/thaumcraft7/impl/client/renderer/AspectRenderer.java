@@ -1,20 +1,18 @@
 package me.alegian.thaumcraft7.impl.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import me.alegian.thaumcraft7.api.aspect.Aspect;
 import me.alegian.thaumcraft7.api.aspect.AspectList;
 import me.alegian.thaumcraft7.impl.Thaumcraft;
-import me.alegian.thaumcraft7.impl.client.T7RenderTypes;
 import me.alegian.thaumcraft7.impl.client.texture.atlas.AspectAtlas;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.renderer.LightTexture;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FastColor;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import org.joml.Vector2f;
@@ -22,33 +20,59 @@ import org.joml.Vector2f;
 @OnlyIn(Dist.CLIENT)
 public class AspectRenderer {
   public static final int ROW_SIZE = 5;
-  public static final float QUAD_SIZE = .3f;
+  public static final float QUAD_SIZE = .3f; // aspect width is .3 blocks
+  public static final int PIXEL_RESOLUTION = 16; // pixels per block
 
-  public static void renderAfterWeather(AspectList aspects, PoseStack poseStack, MultiBufferSource bufferSource, Camera camera, BlockPos blockPos) {
+  /**
+   * Renders the Aspect contents of an AspectContainer, using GuiGraphics.<br>
+   * GuiGraphics assumes integer pixel coordinates, so we multiply everything by 16 (so a block is 16x16).
+   */
+  public static void renderAfterWeather(AspectList aspects, PoseStack poseStack, Camera camera, BlockPos blockPos) {
     if (aspects.isEmpty()) return;
 
     poseStack.pushPose();
     var cameraPos = camera.getPosition();
     poseStack.translate(blockPos.getX() - cameraPos.x() + 0.5d, blockPos.getY() - cameraPos.y() + 1.25d + QUAD_SIZE / 2, blockPos.getZ() - cameraPos.z() + 0.5d);
-
     var angle = RenderHelper.calculatePlayerAngle(blockPos.getCenter());
     poseStack.mulPose(Axis.YP.rotation(angle));
-    poseStack.scale(QUAD_SIZE, QUAD_SIZE, 1);
+    poseStack.scale(QUAD_SIZE, QUAD_SIZE, 1); // this puts us in "aspect space" where 1 means 1 aspect width
 
+    // these offsets account for wrapping to new lines, and centering the aspects
     Vector2f[] offsets = calculateOffsets(aspects.size());
     int i = 0;
     for (Aspect aspect : aspects.aspectSet()) {
       poseStack.pushPose();
       poseStack.translate(offsets[i].x, offsets[i].y, 0);
 
-      renderQuad(bufferSource, poseStack.last(), aspect);
-      renderText(bufferSource, poseStack, String.valueOf(aspects.get(aspect)));
+      // gui rendering is done in pixel space
+      poseStack.scale(1f / PIXEL_RESOLUTION, -1f / PIXEL_RESOLUTION, 1f);
+      GuiGraphics guiGraphics = new GuiGraphics(Minecraft.getInstance(), poseStack, Minecraft.getInstance().renderBuffers().bufferSource());
+      blitAspectIcon(guiGraphics, aspect);
+      renderText(guiGraphics, poseStack, String.valueOf(aspects.get(aspect)));
 
       poseStack.popPose();
       i++;
     }
 
     poseStack.popPose();
+  }
+
+  private static void blitAspectIcon(GuiGraphics guiGraphics, Aspect aspect) {
+    var sprite = AspectAtlas.sprite(ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, aspect.getId()));
+
+    var color = aspect.getColor();
+    guiGraphics.blit(
+        -PIXEL_RESOLUTION / 2,
+        -PIXEL_RESOLUTION / 2,
+        0,
+        PIXEL_RESOLUTION,
+        PIXEL_RESOLUTION,
+        sprite,
+        FastColor.ARGB32.red(color) / 255f,
+        FastColor.ARGB32.green(color) / 255f,
+        FastColor.ARGB32.blue(color) / 255f,
+        1
+    );
   }
 
   public static Vector2f[] calculateOffsets(int numAspects) {
@@ -66,44 +90,13 @@ public class AspectRenderer {
     return offsets;
   }
 
-  public static void renderText(MultiBufferSource bufferSource, PoseStack poseStack, String text) {
+  public static void renderText(GuiGraphics guiGraphics, PoseStack poseStack, String text) {
     poseStack.pushPose();
-    poseStack.translate(.5f, -.5f, 0.0001f);
-    poseStack.scale(0.036F, -0.036F, 0.1F);
+    poseStack.translate(PIXEL_RESOLUTION / 2, PIXEL_RESOLUTION / 2, 0.0001f); // start bottom right, like item count. slightly increase Z to avoid z fighting
+    poseStack.scale(0.5F, 0.5F, 1F);
     Font font = Minecraft.getInstance().font;
 
-    font.drawInBatch(text, -font.width(text), -font.lineHeight, 0xFFFFFFFF, true, poseStack.last().pose(), bufferSource, Font.DisplayMode.SEE_THROUGH, 0, LightTexture.FULL_BRIGHT, false);
+    guiGraphics.drawString(font, text, -font.width(text), -font.lineHeight, 0xFFFFFFFF);
     poseStack.popPose();
-  }
-
-  public static void renderQuad(MultiBufferSource bufferSource, PoseStack.Pose pose, Aspect aspect) {
-    VertexConsumer vc = bufferSource.getBuffer(T7RenderTypes.ASPECT_QUAD);
-    var sprite = AspectAtlas.sprite(ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, aspect.getId()));
-    float f1 = sprite.getU0();
-    float f2 = sprite.getU1();
-    float f3 = sprite.getV0();
-    float f4 = sprite.getV1();
-    var color = aspect.getColor();
-
-    renderVertex(vc, pose, .5F, -.5F, 0, f2, f4, color);
-    renderVertex(vc, pose, .5F, .5F, 0, f2, f3, color);
-    renderVertex(vc, pose, -.5F, .5F, 0, f1, f3, color);
-    renderVertex(vc, pose, -.5F, -.5F, 0, f1, f4, color);
-  }
-
-  public static void renderVertex(
-      VertexConsumer vc,
-      PoseStack.Pose pose,
-      float x,
-      float y,
-      float z,
-      float pU,
-      float pV,
-      int color
-  ) {
-    vc.addVertex(pose, x, y, z)
-        .setUv(pU, pV)
-        .setColor(color)
-        .setLight(LightTexture.FULL_BRIGHT);
   }
 }
