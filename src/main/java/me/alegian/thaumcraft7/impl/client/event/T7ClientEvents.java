@@ -2,14 +2,12 @@ package me.alegian.thaumcraft7.impl.client.event;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.datafixers.util.Either;
-import me.alegian.thaumcraft7.api.aspect.Aspect;
 import me.alegian.thaumcraft7.api.aspect.AspectHelper;
 import me.alegian.thaumcraft7.api.aspect.AspectList;
 import me.alegian.thaumcraft7.api.capability.AspectContainerHelper;
-import me.alegian.thaumcraft7.api.capability.T7Capabilities;
 import me.alegian.thaumcraft7.impl.Thaumcraft;
+import me.alegian.thaumcraft7.impl.client.ClientHelper;
 import me.alegian.thaumcraft7.impl.client.T7Colors;
 import me.alegian.thaumcraft7.impl.client.T7RenderStateShards;
 import me.alegian.thaumcraft7.impl.client.extension.ThaumometerItemExtensions;
@@ -29,10 +27,8 @@ import me.alegian.thaumcraft7.impl.common.block.AuraNodeBlock;
 import me.alegian.thaumcraft7.impl.common.item.TestaItem;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.*;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -157,8 +153,7 @@ public class T7ClientEvents {
 
       // aspect renderer
       if (!AspectContainerHelper.isAspectContainer(minecraft.level, blockPos)) return;
-      var helmet = player.getInventory().armor.get(EquipmentSlot.HEAD.getIndex());
-      if (helmet.getCapability(T7Capabilities.REVEALING) == null) return;
+      if (!ClientHelper.isLocalPlayerWearingGoggles()) return;
 
       AspectContainerHelper.getAspects(minecraft.level, blockPos).ifPresent(
           aspects -> AspectRenderer.renderAfterWeather(aspects, event.getPoseStack(), event.getCamera(), blockPos)
@@ -175,8 +170,9 @@ public class T7ClientEvents {
           || InputConstants.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), 344);
 
       if (!shiftDown) return;
+      if (!ClientHelper.isLocalPlayerWearingGoggles()) return;
 
-      event.getTooltipElements().add(Either.right(new AspectTooltipComponent()));
+      event.getTooltipElements().add(Either.right(new AspectTooltipComponent(itemStack)));
     }
   }
 }

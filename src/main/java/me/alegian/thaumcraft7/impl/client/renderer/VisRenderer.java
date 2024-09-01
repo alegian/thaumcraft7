@@ -31,7 +31,7 @@ public class VisRenderer {
     Vector3f dv = relative(t7pose, blockPos).div(N);
 
     t7pose.push();
-    VertexConsumer vc = bufferSource.getBuffer(T7RenderTypes.DEBUG_TRIANGLE_STRIP);
+    VertexConsumer vc = bufferSource.getBuffer(T7RenderTypes.TRANSLUCENT_TRIANGLES);
 
     // we translate along this axis, and rotate around it
     Axis mainAxis = Axis.of(dv);
