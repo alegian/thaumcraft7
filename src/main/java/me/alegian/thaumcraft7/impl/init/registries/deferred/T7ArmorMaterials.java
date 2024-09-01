@@ -24,11 +24,7 @@ public class T7ArmorMaterials {
       25,
       SoundEvents.ARMOR_EQUIP_GENERIC,
       Ingredient::of,
-      List.of(
-          new ArmorMaterial.Layer(
-              ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "goggles")
-          )
-      ),
+      List.of(),
       0,
       0
   ));
