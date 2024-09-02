@@ -1,8 +1,9 @@
 package me.alegian.thaumcraft7.impl.common.item;
 
-import me.alegian.thaumcraft7.impl.client.model.geckolib.item.GogglesModel;
+import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7ArmorMaterials;
 import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ArmorItem;
@@ -12,6 +13,7 @@ import software.bernie.geckolib.animatable.GeoItem;
 import software.bernie.geckolib.animatable.client.GeoRenderProvider;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.model.DefaultedItemGeoModel;
 import software.bernie.geckolib.renderer.GeoArmorRenderer;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
@@ -42,7 +44,7 @@ public class GogglesItem extends ArmorItem implements GeoItem {
       @Override
       public <T extends LivingEntity> HumanoidModel<?> getGeoArmorRenderer(@Nullable T livingEntity, ItemStack itemStack, @Nullable EquipmentSlot equipmentSlot, @Nullable HumanoidModel<T> original) {
         if (this.renderer == null)
-          this.renderer = new GeoArmorRenderer<>(new GogglesModel());
+          this.renderer = new GeoArmorRenderer<>(new DefaultedItemGeoModel<GogglesItem>(ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "goggles_armor")));
 
         return this.renderer;
       }
