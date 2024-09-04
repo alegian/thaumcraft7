@@ -165,7 +165,7 @@ public class T7ClientEvents {
     @SubscribeEvent
     public static void gatherTooltipComponents(RenderTooltipEvent.GatherComponents event) {
       ItemStack itemStack = event.getItemStack();
-      AspectList aspects = AspectHelper.getAspects(itemStack);
+      AspectList aspects = AspectHelper.getAspects(itemStack.getItem());
       if (aspects == null) return;
 
       var shiftDown = InputConstants.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), 340)
