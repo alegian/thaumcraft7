@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "a": {
+      "item": "thaumcraft7:arcanum_ingot"
+    },
+    "s": {
+      "tag": "c:rods/wooden"
+    }
+  },
+  "pattern": [
+    "aa ",
+    " s ",
+    " s "
+  ],
+  "result": {
+    "count": 1,
+    "id": "thaumcraft7:arcanum_hoe"
+  }
+}

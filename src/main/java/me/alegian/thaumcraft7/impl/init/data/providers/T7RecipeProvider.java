@@ -25,6 +25,47 @@ public class T7RecipeProvider extends RecipeProvider {
     wand(pRecipeOutput, T7Items.IRON_WOOD_WAND.get(), T7Items.IRON_HANDLE.get(), Tags.Items.RODS_WOODEN);
     ingot(pRecipeOutput, T7Items.ARCANUM_INGOT.get(), T7Items.ARCANUM_NUGGET.get());
     ingot(pRecipeOutput, T7Items.ORICHALCUM_INGOT.get(), T7Items.ORICHALCUM_NUGGET.get());
+
+    ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, T7Items.ARCANUM_SWORD.get())
+        .define('a', T7Items.ARCANUM_INGOT.get())
+        .define('s', Tags.Items.RODS_WOODEN)
+        .pattern(" a ")
+        .pattern(" a ")
+        .pattern(" s ")
+        .unlockedBy(getHasName(T7Items.ARCANUM_INGOT.get()), has(T7Items.ARCANUM_INGOT.get()))
+        .save(pRecipeOutput);
+    ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, T7Items.ARCANUM_PICKAXE.get())
+        .define('a', T7Items.ARCANUM_INGOT.get())
+        .define('s', Tags.Items.RODS_WOODEN)
+        .pattern("aaa")
+        .pattern(" s ")
+        .pattern(" s ")
+        .unlockedBy(getHasName(T7Items.ARCANUM_INGOT.get()), has(T7Items.ARCANUM_INGOT.get()))
+        .save(pRecipeOutput);
+    ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, T7Items.ARCANUM_AXE.get())
+        .define('a', T7Items.ARCANUM_INGOT.get())
+        .define('s', Tags.Items.RODS_WOODEN)
+        .pattern("aa ")
+        .pattern("as ")
+        .pattern(" s ")
+        .unlockedBy(getHasName(T7Items.ARCANUM_INGOT.get()), has(T7Items.ARCANUM_INGOT.get()))
+        .save(pRecipeOutput);
+    ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, T7Items.ARCANUM_SHOVEL.get())
+        .define('a', T7Items.ARCANUM_INGOT.get())
+        .define('s', Tags.Items.RODS_WOODEN)
+        .pattern(" a ")
+        .pattern(" s ")
+        .pattern(" s ")
+        .unlockedBy(getHasName(T7Items.ARCANUM_INGOT.get()), has(T7Items.ARCANUM_INGOT.get()))
+        .save(pRecipeOutput);
+    ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, T7Items.ARCANUM_HOE.get())
+        .define('a', T7Items.ARCANUM_INGOT.get())
+        .define('s', Tags.Items.RODS_WOODEN)
+        .pattern("aa ")
+        .pattern(" s ")
+        .pattern(" s ")
+        .unlockedBy(getHasName(T7Items.ARCANUM_INGOT.get()), has(T7Items.ARCANUM_INGOT.get()))
+        .save(pRecipeOutput);
   }
 
   protected static void ingot(RecipeOutput pRecipeOutput, ItemLike ingot, ItemLike nugget){

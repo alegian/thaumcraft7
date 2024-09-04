@@ -6,6 +6,7 @@ import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Items;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
@@ -42,5 +43,11 @@ public class T7ItemTagProvider extends ItemTagsProvider {
         T7Items.ARCANUM_NUGGET.get(),
         T7Items.ORICHALCUM_NUGGET.get()
     );
+
+    tag(ItemTags.SWORDS).add(T7Items.ARCANUM_SWORD.get());
+    tag(ItemTags.AXES).add(T7Items.ARCANUM_AXE.get());
+    tag(ItemTags.PICKAXES).add(T7Items.ARCANUM_PICKAXE.get());
+    tag(ItemTags.SHOVELS).add(T7Items.ARCANUM_SHOVEL.get());
+    tag(ItemTags.HOES).add(T7Items.ARCANUM_HOE.get());
   }
 }

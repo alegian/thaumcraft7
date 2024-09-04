@@ -5,11 +5,11 @@ import me.alegian.thaumcraft7.api.capability.T7Capabilities;
 import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.common.data.capability.AspectContainer;
 import me.alegian.thaumcraft7.impl.common.item.*;
+import me.alegian.thaumcraft7.impl.init.registries.T7Tiers;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Unit;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.*;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -25,6 +25,52 @@ public class T7Items {
   public static final DeferredItem<Item> ORICHALCUM_NUGGET = REGISTRAR.registerSimpleItem("orichalcum_nugget", new Item.Properties());
   public static final DeferredItem<Item> RESEARCH_SCROLL = REGISTRAR.registerSimpleItem("research_scroll", new Item.Properties().stacksTo(1));
   public static final DeferredItem<Item> COMPLETED_RESEARCH = REGISTRAR.registerSimpleItem("completed_research", new Item.Properties().stacksTo(1));
+
+  public static final DeferredItem<SwordItem> ARCANUM_SWORD = REGISTRAR.register("arcanum_sword", () -> new SwordItem(
+      T7Tiers.ARCANUM_TIER,
+      new Item.Properties().attributes(
+          SwordItem.createAttributes(
+              T7Tiers.ARCANUM_TIER,
+              3, -2.4f
+          )
+      )
+  ));
+  public static final DeferredItem<ShovelItem> ARCANUM_SHOVEL = REGISTRAR.register("arcanum_shovel", () -> new ShovelItem(
+      T7Tiers.ARCANUM_TIER,
+      new Item.Properties().attributes(
+          ShovelItem.createAttributes(
+              T7Tiers.ARCANUM_TIER,
+              1.5F, -3.0F
+          )
+      )
+  ));
+  public static final DeferredItem<PickaxeItem> ARCANUM_PICKAXE = REGISTRAR.register("arcanum_pickaxe", () -> new PickaxeItem(
+      T7Tiers.ARCANUM_TIER,
+      new Item.Properties().attributes(
+          PickaxeItem.createAttributes(
+              T7Tiers.ARCANUM_TIER,
+              1.0F, -2.8F
+          )
+      )
+  ));
+  public static final DeferredItem<AxeItem> ARCANUM_AXE = REGISTRAR.register("arcanum_axe", () -> new AxeItem(
+      T7Tiers.ARCANUM_TIER,
+      new Item.Properties().attributes(
+          AxeItem.createAttributes(
+              T7Tiers.ARCANUM_TIER,
+              5.0F, -3.0F
+          )
+      )
+  ));
+  public static final DeferredItem<HoeItem> ARCANUM_HOE = REGISTRAR.register("arcanum_hoe", () -> new HoeItem(
+      T7Tiers.ARCANUM_TIER,
+      new Item.Properties().attributes(
+          HoeItem.createAttributes(
+              T7Tiers.ARCANUM_TIER,
+              -3.0F, 0.0F
+          )
+      )
+  ));
 
   public static final DeferredItem<WandItem> IRON_WOOD_WAND = REGISTRAR.registerItem("iron_wood_wand", WandItem::new, new Item.Properties().stacksTo(1));
   public static final DeferredItem<ThaumometerItem> THAUMOMETER = REGISTRAR.registerItem("thaumometer", ThaumometerItem::new);
