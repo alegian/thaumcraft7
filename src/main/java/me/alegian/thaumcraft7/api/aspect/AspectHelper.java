@@ -4,6 +4,7 @@ import me.alegian.thaumcraft7.api.data.map.T7DataMaps;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 public class AspectHelper {
@@ -22,9 +23,13 @@ public class AspectHelper {
   /**
    * This method checks for Block aspects before returning Item aspects.
    */
-  public static AspectList getAspects(ItemStack itemStack) {
-    if (itemStack.getItem() instanceof BlockItem blockItem)
+  public static AspectList getAspects(Item item) {
+    if (item instanceof BlockItem blockItem)
       return BuiltInRegistries.BLOCK.wrapAsHolder(blockItem.getBlock()).getData(T7DataMaps.AspectContent.BLOCK);
-    return BuiltInRegistries.ITEM.wrapAsHolder(itemStack.getItem()).getData(T7DataMaps.AspectContent.ITEM);
+    return BuiltInRegistries.ITEM.wrapAsHolder(item).getData(T7DataMaps.AspectContent.ITEM);
+  }
+
+  public static AspectList getAspects(ItemStack itemStack) {
+    return getAspects(itemStack.getItem()).scale(itemStack.getCount());
   }
 }

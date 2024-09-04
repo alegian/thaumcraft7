@@ -78,6 +78,12 @@ public class AspectList {
     return new AspectList(newMap);
   }
 
+  public AspectList scale(int scale) {
+    HashMap<Aspect, Integer> newMap = new HashMap<>();
+    map.forEach((k, v) -> newMap.put(k, v * scale));
+    return new AspectList(newMap);
+  }
+
   public AspectList merge(AspectList other) {
     HashMap<Aspect, Integer> newMap = new HashMap<>(map);
     other.getMap().forEach((k, v) -> {
