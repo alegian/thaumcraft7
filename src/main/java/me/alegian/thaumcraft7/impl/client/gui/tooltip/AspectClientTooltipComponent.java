@@ -2,6 +2,7 @@ package me.alegian.thaumcraft7.impl.client.gui.tooltip;
 
 import com.google.common.collect.ImmutableList;
 import me.alegian.thaumcraft7.api.aspect.AspectStack;
+import me.alegian.thaumcraft7.impl.client.T7GuiGraphics;
 import me.alegian.thaumcraft7.impl.client.renderer.AspectRenderer;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -39,7 +40,7 @@ public class AspectClientTooltipComponent implements ClientTooltipComponent {
 
     int i = 0;
     for (AspectStack aspectStack : displayedAspects) {
-      AspectRenderer.renderAspect(pGuiGraphics, aspectStack, pX + i * (WIDTH + PADDING), pY + PADDING);
+      AspectRenderer.renderAspect(new T7GuiGraphics(pGuiGraphics), aspectStack, pX + i * (WIDTH + PADDING), pY + PADDING);
       i++;
     }
   }

@@ -116,6 +116,9 @@ public class T7ClientEvents {
       event.registerShader(new ShaderInstance(event.getResourceProvider(), ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "custom_shader"), DefaultVertexFormat.NEW_ENTITY), shaderInstance -> {
         T7RenderStateShards.customShader = shaderInstance;
       });
+      event.registerShader(new ShaderInstance(event.getResourceProvider(), ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "aspect_shader"), DefaultVertexFormat.POSITION_TEX_COLOR), shaderInstance -> {
+        T7RenderStateShards.aspectShader = shaderInstance;
+      });
     }
 
     @SubscribeEvent

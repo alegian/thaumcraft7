@@ -6,6 +6,8 @@ import me.alegian.thaumcraft7.api.aspect.Aspect;
 import me.alegian.thaumcraft7.api.aspect.AspectList;
 import me.alegian.thaumcraft7.api.aspect.AspectStack;
 import me.alegian.thaumcraft7.impl.Thaumcraft;
+import me.alegian.thaumcraft7.impl.client.T7GuiGraphics;
+import me.alegian.thaumcraft7.impl.client.T7RenderStateShards;
 import me.alegian.thaumcraft7.impl.client.texture.atlas.AspectAtlas;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
@@ -47,7 +49,7 @@ public class AspectRenderer {
 
       // gui rendering is done in pixel space
       poseStack.scale(1f / PIXEL_RESOLUTION, -1f / PIXEL_RESOLUTION, 1f);
-      GuiGraphics guiGraphics = new GuiGraphics(Minecraft.getInstance(), poseStack, Minecraft.getInstance().renderBuffers().bufferSource());
+      T7GuiGraphics guiGraphics = new T7GuiGraphics(Minecraft.getInstance(), poseStack, Minecraft.getInstance().renderBuffers().bufferSource());
       renderAspect(guiGraphics, aspectStack, -PIXEL_RESOLUTION / 2, -PIXEL_RESOLUTION / 2);
 
       poseStack.popPose();
@@ -57,12 +59,12 @@ public class AspectRenderer {
     poseStack.popPose();
   }
 
-  public static void renderAspect(GuiGraphics guiGraphics, AspectStack aspectStack, int pX, int pY) {
+  public static void renderAspect(T7GuiGraphics guiGraphics, AspectStack aspectStack, int pX, int pY) {
     blitAspectIcon(guiGraphics, aspectStack.aspect(), pX, pY);
     drawText(guiGraphics, String.valueOf(aspectStack.amount()), pX, pY);
   }
 
-  public static void blitAspectIcon(GuiGraphics guiGraphics, Aspect aspect, int pX, int pY) {
+  public static void blitAspectIcon(T7GuiGraphics guiGraphics, Aspect aspect, int pX, int pY) {
     var sprite = AspectAtlas.sprite(ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, aspect.getId()));
 
     var color = aspect.getColor();
@@ -73,10 +75,8 @@ public class AspectRenderer {
         PIXEL_RESOLUTION,
         PIXEL_RESOLUTION,
         sprite,
-        FastColor.ARGB32.red(color) / 255f,
-        FastColor.ARGB32.green(color) / 255f,
-        FastColor.ARGB32.blue(color) / 255f,
-        1
+        color,
+        T7RenderStateShards.ASPECT_SHADER
     );
   }
 
