@@ -15,7 +15,6 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.FastColor;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import org.joml.Vector2f;
@@ -76,7 +75,7 @@ public class AspectRenderer {
         PIXEL_RESOLUTION,
         sprite,
         color,
-        T7RenderStateShards.ASPECT_SHADER
+        T7RenderStateShards.ASPECT_OUTLINE
     );
   }
 
