@@ -1,6 +1,6 @@
 {
-  "vertex": "thaumcraft7:aspect_shader",
-  "fragment": "thaumcraft7:aspect_shader",
+  "vertex": "thaumcraft7:aspect_outline",
+  "fragment": "thaumcraft7:aspect_outline",
   "samplers": [
     { "name": "Sampler0" }
   ],
