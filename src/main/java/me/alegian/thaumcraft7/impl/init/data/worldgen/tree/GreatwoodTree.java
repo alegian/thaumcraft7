@@ -1,24 +1,30 @@
 package me.alegian.thaumcraft7.impl.init.data.worldgen.tree;
 
 import me.alegian.thaumcraft7.impl.Thaumcraft;
+import me.alegian.thaumcraft7.impl.init.data.worldgen.tree.trunk.GreatwoodTrunkPlacer;
+import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Blocks;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
-import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BiomeTags;
+import net.minecraft.util.valueproviders.ConstantInt;
+import net.minecraft.util.valueproviders.IntProvider;
+import net.minecraft.util.valueproviders.WeightedListInt;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.placement.BiomeFilter;
-import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
-import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-import net.minecraft.world.level.levelgen.placement.SurfaceWaterDepthFilter;
+import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.CherryFoliagePlacer;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.placement.*;
 import net.neoforged.neoforge.common.world.BiomeModifier;
 import net.neoforged.neoforge.common.world.BiomeModifiers;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
@@ -40,10 +46,20 @@ public class GreatwoodTree {
       ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, PATH)
   );
 
+  public static TreeConfiguration.TreeConfigurationBuilder createGreatwood() {
+    return new TreeConfiguration.TreeConfigurationBuilder(
+        BlockStateProvider.simple(T7Blocks.GREATWOOD_LOG.get()),
+        new GreatwoodTrunkPlacer(18, 2, 6),
+        BlockStateProvider.simple(T7Blocks.GREATWOOD_LEAVES.get()),
+        new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(-2), 3),
+        new TwoLayersFeatureSize(1, 0, 1)
+    );
+  }
+
   public static void registerConfigured(BootstrapContext<ConfiguredFeature<?, ?>> context) {
     context.register(
         CONFIGURED_FEATURE,
-        new ConfiguredFeature<>(Feature.TREE, TreeFeatures.createStraightBlobTree(Blocks.COBBLESTONE, Blocks.COBBLESTONE, 8, 4, 0, 4).ignoreVines().build())
+        new ConfiguredFeature<>(Feature.TREE, createGreatwood().ignoreVines().build())
     );
   }
 
@@ -53,7 +69,7 @@ public class GreatwoodTree {
     context.register(PLACED_FEATURE, new PlacedFeature(
         otherRegistry.getOrThrow(CONFIGURED_FEATURE),
         List.of(
-            PlacementUtils.countExtra(10, 0.1f, 1),
+            CountPlacement.of(ConstantInt.of(1)),
             InSquarePlacement.spread(),
             SurfaceWaterDepthFilter.forMaxDepth(0),
             PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,

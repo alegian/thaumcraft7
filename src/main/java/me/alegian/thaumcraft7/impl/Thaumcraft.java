@@ -26,6 +26,7 @@ public class Thaumcraft {
     T7DataComponents.REGISTRAR.register(modEventBus);
     T7ParticleTypes.REGISTRAR.register(modEventBus);
     T7CreativeModeTabs.REGISTRAR.register(modEventBus);
+    T7TrunkPlacerTypes.REGISTRAR.register(modEventBus);
 
     NeoForge.EVENT_BUS.register(this);
   }

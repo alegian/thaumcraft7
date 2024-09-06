@@ -59,5 +59,10 @@ public class T7BlockTagProvider extends BlockTagsProvider {
         T7Blocks.GREATWOOD_LOG.get(),
         T7Blocks.GREATWOOD_PLANKS.get()
     );
+
+    tag(BlockTags.LEAVES).add(T7Blocks.GREATWOOD_LEAVES.get());
+    tag(BlockTags.LOGS_THAT_BURN).add(T7Blocks.GREATWOOD_LOG.get());
+    tag(BlockTags.SAPLINGS).add(T7Blocks.GREATWOOD_SAPLING.get());
+    tag(BlockTags.PLANKS).add(T7Blocks.GREATWOOD_PLANKS.get());
   }
 }
