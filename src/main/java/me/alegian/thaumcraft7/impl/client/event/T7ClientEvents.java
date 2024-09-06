@@ -27,6 +27,7 @@ import me.alegian.thaumcraft7.impl.common.block.AuraNodeBlock;
 import me.alegian.thaumcraft7.impl.common.item.TestaItem;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.*;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -116,6 +117,9 @@ public class T7ClientEvents {
       event.registerShader(new ShaderInstance(event.getResourceProvider(), ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "custom_shader"), DefaultVertexFormat.NEW_ENTITY), shaderInstance -> {
         T7RenderStateShards.customShader = shaderInstance;
       });
+      event.registerShader(new ShaderInstance(event.getResourceProvider(), ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "aspect_outline"), DefaultVertexFormat.POSITION_TEX_COLOR), shaderInstance -> {
+        T7RenderStateShards.aspectOutline = shaderInstance;
+      });
     }
 
     @SubscribeEvent
@@ -167,11 +171,7 @@ public class T7ClientEvents {
       ItemStack itemStack = event.getItemStack();
       AspectList aspects = AspectHelper.getAspects(itemStack.getItem());
       if (aspects == null) return;
-
-      var shiftDown = InputConstants.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), 340)
-          || InputConstants.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), 344);
-
-      if (!shiftDown) return;
+      if (!Screen.hasShiftDown()) return;
       if (!ClientHelper.isLocalPlayerWearingGoggles()) return;
 
       event.getTooltipElements().add(Either.right(new AspectTooltipComponent(itemStack)));
