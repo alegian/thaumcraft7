@@ -2,15 +2,19 @@
   "values": {
     "#c:cobblestones": [
       {
-        "amount": 5,
-        "aspect": "terra"
-      },
-      {
         "amount": 1,
         "aspect": "perditio"
+      },
+      {
+        "amount": 5,
+        "aspect": "terra"
       }
     ],
     "#c:concretes": [
+      {
+        "amount": 3,
+        "aspect": "terra"
+      },
       {
         "amount": 1,
         "aspect": "aqua"
@@ -22,10 +26,6 @@
       {
         "amount": 1,
         "aspect": "ordo"
-      },
-      {
-        "amount": 3,
-        "aspect": "terra"
       }
     ],
     "#c:glass_blocks/cheap": [
@@ -43,11 +43,11 @@
     "#c:sands": [
       {
         "amount": 5,
-        "aspect": "terra"
+        "aspect": "perditio"
       },
       {
         "amount": 5,
-        "aspect": "perditio"
+        "aspect": "terra"
       }
     ],
     "#c:stones": [
@@ -58,12 +58,12 @@
     ],
     "#minecraft:concrete_powder": [
       {
-        "amount": 3,
-        "aspect": "terra"
-      },
-      {
         "amount": 2,
         "aspect": "perditio"
+      },
+      {
+        "amount": 3,
+        "aspect": "terra"
       }
     ],
     "#minecraft:logs": [
@@ -81,19 +81,19 @@
     "#minecraft:terracotta": [
       {
         "amount": 15,
-        "aspect": "aqua"
+        "aspect": "terra"
       },
       {
-        "amount": 15,
-        "aspect": "terra"
+        "amount": 1,
+        "aspect": "sensus"
       },
       {
         "amount": 1,
         "aspect": "ignis"
       },
       {
-        "amount": 1,
-        "aspect": "sensus"
+        "amount": 15,
+        "aspect": "aqua"
       }
     ],
     "#minecraft:wooden_slabs": [
@@ -125,19 +125,19 @@
     "minecraft:bedrock": [
       {
         "amount": 25,
-        "aspect": "perditio"
-      },
-      {
-        "amount": 25,
-        "aspect": "tenebrae"
-      },
-      {
-        "amount": 25,
         "aspect": "terra"
       },
       {
         "amount": 25,
         "aspect": "vacuos"
+      },
+      {
+        "amount": 25,
+        "aspect": "perditio"
+      },
+      {
+        "amount": 25,
+        "aspect": "tenebrae"
       }
     ],
     "minecraft:coarse_dirt": [

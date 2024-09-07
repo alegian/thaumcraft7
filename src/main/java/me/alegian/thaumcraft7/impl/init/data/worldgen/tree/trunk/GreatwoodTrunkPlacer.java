@@ -53,7 +53,7 @@ public class GreatwoodTrunkPlacer extends GiantTrunkPlacer {
         k = (int) (1.5F + Mth.sin(f) * (float) l);
         BlockPos blockpos = pPos.offset(j, i - 3 + l / 2, k);
         this.placeLog(pLevel, pBlockSetter, pRandom, blockpos, pConfig);
-        if(l == 6 -1) list.add(new FoliagePlacer.FoliageAttachment(blockpos.above(), 0, false));
+        if(l == 6 -1) list.add(new FoliagePlacer.FoliageAttachment(blockpos.above(3), 0, false));
       }
     }
 

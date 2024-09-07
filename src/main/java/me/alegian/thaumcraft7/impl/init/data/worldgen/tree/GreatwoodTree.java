@@ -51,7 +51,7 @@ public class GreatwoodTree {
         BlockStateProvider.simple(T7Blocks.GREATWOOD_LOG.get()),
         new GreatwoodTrunkPlacer(18, 2, 6),
         BlockStateProvider.simple(T7Blocks.GREATWOOD_LEAVES.get()),
-        new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(-2), 3),
+        new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 3),
         new TwoLayersFeatureSize(1, 0, 1)
     );
   }
@@ -69,7 +69,7 @@ public class GreatwoodTree {
     context.register(PLACED_FEATURE, new PlacedFeature(
         otherRegistry.getOrThrow(CONFIGURED_FEATURE),
         List.of(
-            CountPlacement.of(ConstantInt.of(1)),
+            RarityFilter.onAverageOnceEvery(9),
             InSquarePlacement.spread(),
             SurfaceWaterDepthFilter.forMaxDepth(0),
             PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
