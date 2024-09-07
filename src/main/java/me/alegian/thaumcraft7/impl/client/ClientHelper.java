@@ -11,7 +11,7 @@ public class ClientHelper {
   public static boolean isLocalPlayerWearingGoggles(){
     var player = Minecraft.getInstance().player;
     if (player == null) return false;
-    var helmet = player.getInventory().armor.get(EquipmentSlot.HEAD.getIndex());
+    var helmet = player.getItemBySlot(EquipmentSlot.HEAD);
     return helmet.getCapability(T7Capabilities.REVEALING) != null;
   }
 }

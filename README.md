@@ -27,6 +27,7 @@ Good pick azanor ;-)
 - Reaves, for their awesome original models & textures
 - xoppa, for their [outline fragment shader gist](https://gist.github.com/xoppa/33589b7d5805205f8f08), that helped me make the outline shader for aspects
 - gigaherz, for their [custom core shader tutorial gist](https://gist.github.com/gigaherz/b8756ff463541f07a644ef8f14cb10f5), pretty much the only resource online that describes this process
+- The Artifacts team, for being open source. Their codebase taught me how to use Attribute Modifiers and how to render custom cuboids on HumanoidModels
 
 ## License
 

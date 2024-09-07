@@ -2,16 +2,22 @@ package me.alegian.thaumcraft7.impl.common.event;
 
 import me.alegian.thaumcraft7.api.data.map.T7DataMaps;
 import me.alegian.thaumcraft7.impl.Thaumcraft;
+import me.alegian.thaumcraft7.impl.common.entity.EntityHelper;
 import me.alegian.thaumcraft7.impl.init.data.providers.*;
+import me.alegian.thaumcraft7.impl.init.registries.T7AttributeModifiers;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7BlockEntities;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Blocks;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Items;
 import net.minecraft.data.loot.LootTableProvider;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
+import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.registries.datamaps.RegisterDataMapTypesEvent;
 
 import java.util.List;
@@ -56,6 +62,21 @@ public class T7CommonEvents {
       generator.addProvider(event.includeClient(), new T7ItemModelProvider(packOutput, existingFileHelper));
       generator.addProvider(event.includeClient(), new T7ParticleDescriptionProvider(packOutput, existingFileHelper));
       generator.addProvider(event.includeClient(), new T7LanguageProvider(packOutput, "en_us"));
+    }
+  }
+
+  @EventBusSubscriber(modid = Thaumcraft.MODID, bus = EventBusSubscriber.Bus.GAME)
+  public static class CommonGameEvents {
+    @SubscribeEvent
+    public static void entityTickPre(EntityTickEvent.Pre event) {
+      if (event.getEntity() instanceof LivingEntity livingEntity) {
+        AttributeInstance attribute = livingEntity.getAttribute(Attributes.STEP_HEIGHT);
+        if (attribute == null) return;
+
+        if (!EntityHelper.isEntityWearingBoots(livingEntity))
+          attribute.removeModifier(T7AttributeModifiers.STEP_HEIGHT);
+        else attribute.addOrUpdateTransientModifier(T7AttributeModifiers.STEP_HEIGHT);
+      }
     }
   }
 }
