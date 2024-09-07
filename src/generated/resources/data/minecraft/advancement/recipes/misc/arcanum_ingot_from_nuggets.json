@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_arcanum_nugget": {
+      "conditions": {
+        "items": [
+          {
+            "items": "thaumcraft7:arcanum_nugget"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:arcanum_ingot_from_nuggets"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_arcanum_nugget"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:arcanum_ingot_from_nuggets"
+    ]
+  }
+}

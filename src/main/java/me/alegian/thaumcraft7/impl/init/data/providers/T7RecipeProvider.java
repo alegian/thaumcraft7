@@ -23,8 +23,8 @@ public class T7RecipeProvider extends RecipeProvider {
     planksFromLog(pRecipeOutput, T7Blocks.GREATWOOD_PLANKS, T7Blocks.GREATWOOD_LOG);
     wandHandle(pRecipeOutput, T7Items.IRON_HANDLE.get(), Items.IRON_NUGGET);
     wand(pRecipeOutput, T7Items.IRON_WOOD_WAND.get(), T7Items.IRON_HANDLE.get(), Tags.Items.RODS_WOODEN);
-    ingot(pRecipeOutput, T7Items.ARCANUM_INGOT.get(), T7Items.ARCANUM_NUGGET.get());
-    ingot(pRecipeOutput, T7Items.ORICHALCUM_INGOT.get(), T7Items.ORICHALCUM_NUGGET.get());
+    ingot(pRecipeOutput, T7Items.ARCANUM_INGOT.get(), T7Items.ARCANUM_NUGGET.get(), T7Blocks.ARCANUM_BLOCK.get());
+    ingot(pRecipeOutput, T7Items.ORICHALCUM_INGOT.get(), T7Items.ORICHALCUM_NUGGET.get(), T7Blocks.ORICHALCUM_BLOCK.get());
 
     ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, T7Items.ARCANUM_SWORD.get())
         .define('a', T7Items.ARCANUM_INGOT.get())
@@ -68,8 +68,13 @@ public class T7RecipeProvider extends RecipeProvider {
         .save(pRecipeOutput);
   }
 
-  protected static void ingot(RecipeOutput pRecipeOutput, ItemLike ingot, ItemLike nugget){
-    nineBlockStorageRecipes(pRecipeOutput, RecipeCategory.MISC, nugget, RecipeCategory.MISC, ingot);
+  protected static void ingot(RecipeOutput pRecipeOutput, ItemLike ingot, ItemLike nugget, ItemLike block) {
+    nineBlockStorageRecipesRecipesWithCustomUnpacking(
+        pRecipeOutput, RecipeCategory.MISC, ingot, RecipeCategory.BUILDING_BLOCKS, block, getItemName(ingot) + "_from_iron_block", getItemName(ingot)
+    );
+    nineBlockStorageRecipesWithCustomPacking(
+        pRecipeOutput, RecipeCategory.MISC, nugget, RecipeCategory.MISC, ingot, getItemName(ingot) + "_from_nuggets", getItemName(ingot)
+    );
   }
 
   protected static void wand(RecipeOutput pRecipeOutput, ItemLike wand, ItemLike handle, ItemLike core) {

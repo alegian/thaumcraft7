@@ -25,6 +25,7 @@ public class T7Blocks {
   public static final DeferredItem<BlockItem> AURA_NODE_ITEM = T7Items.REGISTRAR.registerSimpleBlockItem("aura_node", AURA_NODE);
   public static final DeferredBlock<CrucibleBlock> CRUCIBLE = REGISTRAR.register("crucible", CrucibleBlock::new);
   public static final DeferredItem<BlockItem> CRUCIBLE_ITEM = T7Items.REGISTRAR.registerSimpleBlockItem("crucible", CRUCIBLE);
+
   public static final DeferredBlock<InfusedStoneBlock> IGNIS_INFUSED_STONE = REGISTRAR.register("ignis_ore", $ -> new InfusedStoneBlock(Aspect.IGNIS));
   public static final DeferredItem<BlockItem> IGNIS_INFUSED_STONE_ITEM = T7Items.REGISTRAR.registerSimpleBlockItem("ignis_ore", IGNIS_INFUSED_STONE);
   public static final DeferredBlock<InfusedStoneBlock> AER_INFUSED_STONE = REGISTRAR.register("aer_ore", $ -> new InfusedStoneBlock(Aspect.AER));
@@ -37,6 +38,7 @@ public class T7Blocks {
   public static final DeferredItem<BlockItem> ORDO_INFUSED_STONE_ITEM = T7Items.REGISTRAR.registerSimpleBlockItem("ordo_ore", ORDO_INFUSED_STONE);
   public static final DeferredBlock<InfusedStoneBlock> PERDITIO_INFUSED_STONE = REGISTRAR.register("perditio_ore", $ -> new InfusedStoneBlock(Aspect.PERDITIO));
   public static final DeferredItem<BlockItem> PERDITIO_INFUSED_STONE_ITEM = T7Items.REGISTRAR.registerSimpleBlockItem("perditio_ore", PERDITIO_INFUSED_STONE);
+
   public static final DeferredBlock<LeavesBlock> GREATWOOD_LEAVES = REGISTRAR.register("greatwood_leaves", T7Blocks::leaves);
   public static final DeferredItem<BlockItem> GREATWOOD_LEAVES_ITEM = T7Items.REGISTRAR.registerSimpleBlockItem("greatwood_leaves", GREATWOOD_LEAVES);
   public static final DeferredBlock<RotatedPillarBlock> GREATWOOD_LOG = REGISTRAR.register("greatwood_log", () -> log(MapColor.WOOD, MapColor.PODZOL));
@@ -46,6 +48,10 @@ public class T7Blocks {
   public static final DeferredBlock<SaplingBlock> GREATWOOD_SAPLING = REGISTRAR.register("greatwood_sapling", T7Blocks::sapling);
   public static final DeferredItem<BlockItem> GREATWOOD_SAPLING_ITEM = T7Items.REGISTRAR.registerSimpleBlockItem("greatwood_sapling", GREATWOOD_SAPLING);
 
+  public static final DeferredBlock<Block> ARCANUM_BLOCK = REGISTRAR.register("arcanum_block", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK)));
+  public static final DeferredItem<BlockItem> ARCANUM_BLOCK_ITEM = T7Items.REGISTRAR.registerSimpleBlockItem("arcanum_block", ARCANUM_BLOCK);
+  public static final DeferredBlock<Block> ORICHALCUM_BLOCK = REGISTRAR.register("orichalcum_block", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK)));
+  public static final DeferredItem<BlockItem> ORICHALCUM_BLOCK_ITEM = T7Items.REGISTRAR.registerSimpleBlockItem("orichalcum_block", ORICHALCUM_BLOCK);
 
   public static void registerCapabilities(RegisterCapabilitiesEvent event) {
   }

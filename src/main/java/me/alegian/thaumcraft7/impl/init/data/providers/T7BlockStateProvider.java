@@ -40,12 +40,18 @@ public class T7BlockStateProvider extends BlockStateProvider {
     crystalOreBlockWithItem(T7Blocks.PERDITIO_INFUSED_STONE.get());
 
     logBlockWithItem(T7Blocks.GREATWOOD_LOG.get());
-    simpleBlockWithItem(T7Blocks.GREATWOOD_PLANKS.get(), cubeAll(T7Blocks.GREATWOOD_PLANKS.get()));
+    simpleBlockWithItem(T7Blocks.GREATWOOD_PLANKS.get());
     leavesBlockWithItem(T7Blocks.GREATWOOD_LEAVES.get());
     saplingBlockWithItem(T7Blocks.GREATWOOD_SAPLING.get());
 
+    simpleBlockWithItem(T7Blocks.ARCANUM_BLOCK.get());
+    simpleBlockWithItem(T7Blocks.ORICHALCUM_BLOCK.get());
 
     itemModels().getBuilder(T7Blocks.AURA_NODE.getId().getPath()).parent(new ModelFile.UncheckedModelFile("item/generated")).renderType(RenderType.translucent().name).texture("layer0", ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "item/aura_node"));
+  }
+
+  private void simpleBlockWithItem(Block block) {
+    simpleBlockWithItem(block, cubeAll(block));
   }
 
   private void logBlockWithItem(RotatedPillarBlock block) {

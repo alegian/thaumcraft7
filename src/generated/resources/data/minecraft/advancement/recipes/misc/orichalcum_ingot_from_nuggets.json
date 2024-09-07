@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:orichalcum_ingot"
+        "recipe": "minecraft:orichalcum_ingot_from_nuggets"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:orichalcum_ingot"
+      "minecraft:orichalcum_ingot_from_nuggets"
     ]
   }
 }

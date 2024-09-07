@@ -34,6 +34,8 @@ public class T7BlockLootSubProvider extends BlockLootSubProvider {
     dropSelf(T7Blocks.CRUCIBLE.get());
     dropSelf(T7Blocks.GREATWOOD_SAPLING.get());
     dropSelf(T7Blocks.AURA_NODE.get()); // TODO: replace
+    dropSelf(T7Blocks.ARCANUM_BLOCK.get());
+    dropSelf(T7Blocks.ORICHALCUM_BLOCK.get());
     add(T7Blocks.GREATWOOD_LEAVES.get(), l -> createLeavesDrops(l, T7Blocks.GREATWOOD_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
     infusedStone(T7Blocks.IGNIS_INFUSED_STONE, T7Items.IGNIS_TESTA);
     infusedStone(T7Blocks.TERRA_INFUSED_STONE, T7Items.TERRA_TESTA);

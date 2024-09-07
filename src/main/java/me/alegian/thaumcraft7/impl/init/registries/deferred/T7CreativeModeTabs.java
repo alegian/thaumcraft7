@@ -28,6 +28,8 @@ public class T7CreativeModeTabs {
               output.accept(T7Blocks.GREATWOOD_LOG.get());
               output.accept(T7Blocks.GREATWOOD_PLANKS.get());
               output.accept(T7Blocks.GREATWOOD_SAPLING.get());
+              output.accept(T7Blocks.ARCANUM_BLOCK.get());
+              output.accept(T7Blocks.ORICHALCUM_BLOCK.get());
 
               output.accept(T7Items.IRON_HANDLE.get());
               output.accept(T7Items.RUNE.get());

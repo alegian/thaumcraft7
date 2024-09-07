@@ -1,9 +1,10 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "misc",
+  "group": "orichalcum_ingot",
   "key": {
     "#": {
-      "item": "thaumcraft7:arcanum_nugget"
+      "item": "thaumcraft7:orichalcum_nugget"
     }
   },
   "pattern": [
@@ -13,6 +14,6 @@
   ],
   "result": {
     "count": 1,
-    "id": "thaumcraft7:arcanum_ingot"
+    "id": "thaumcraft7:orichalcum_ingot"
   }
 }

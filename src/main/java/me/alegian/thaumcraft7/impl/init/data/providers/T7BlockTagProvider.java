@@ -45,7 +45,9 @@ public class T7BlockTagProvider extends BlockTagsProvider {
         T7Blocks.AQUA_INFUSED_STONE.get(),
         T7Blocks.ORDO_INFUSED_STONE.get(),
         T7Blocks.PERDITIO_INFUSED_STONE.get(),
-        T7Blocks.CRUCIBLE.get()
+        T7Blocks.CRUCIBLE.get(),
+        T7Blocks.ARCANUM_BLOCK.get(),
+        T7Blocks.ORICHALCUM_BLOCK.get()
     );
     tag(BlockTags.NEEDS_STONE_TOOL).add(
         T7Blocks.IGNIS_INFUSED_STONE.get(),
@@ -54,6 +56,10 @@ public class T7BlockTagProvider extends BlockTagsProvider {
         T7Blocks.AQUA_INFUSED_STONE.get(),
         T7Blocks.ORDO_INFUSED_STONE.get(),
         T7Blocks.PERDITIO_INFUSED_STONE.get()
+    );
+    tag(BlockTags.NEEDS_IRON_TOOL).add(
+        T7Blocks.ARCANUM_BLOCK.get(),
+        T7Blocks.ORICHALCUM_BLOCK.get()
     );
     tag(BlockTags.MINEABLE_WITH_AXE).add(
         T7Blocks.GREATWOOD_LOG.get(),
@@ -64,5 +70,15 @@ public class T7BlockTagProvider extends BlockTagsProvider {
     tag(BlockTags.LOGS_THAT_BURN).add(T7Blocks.GREATWOOD_LOG.get());
     tag(BlockTags.SAPLINGS).add(T7Blocks.GREATWOOD_SAPLING.get());
     tag(BlockTags.PLANKS).add(T7Blocks.GREATWOOD_PLANKS.get());
+
+    tag(Tags.Blocks.STORAGE_BLOCKS).add(
+        T7Blocks.ARCANUM_BLOCK.get(),
+        T7Blocks.ORICHALCUM_BLOCK.get()
+    );
+
+    tag(BlockTags.BEACON_BASE_BLOCKS).add(
+        T7Blocks.ARCANUM_BLOCK.get(),
+        T7Blocks.ORICHALCUM_BLOCK.get()
+    );
   }
 }

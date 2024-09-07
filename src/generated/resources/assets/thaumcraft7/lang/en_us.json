@@ -1,6 +1,7 @@
 {
   "block.thaumcraft7.aer_ore": "Aer Infused Stone",
   "block.thaumcraft7.aqua_ore": "Aqua Infused Stone",
+  "block.thaumcraft7.arcanum_block": "Arcanum Block",
   "block.thaumcraft7.aura_node": "Aura Node",
   "block.thaumcraft7.crucible": "Crucible",
   "block.thaumcraft7.greatwood_leaves": "Greatwood Leaves",
@@ -9,6 +10,7 @@
   "block.thaumcraft7.greatwood_sapling": "Greatwood Sapling",
   "block.thaumcraft7.ignis_ore": "Ignis Infused Stone",
   "block.thaumcraft7.ordo_ore": "Ordo Infused Stone",
+  "block.thaumcraft7.orichalcum_block": "Orichalcum Block",
   "block.thaumcraft7.perditio_ore": "Perditio Infused Stone",
   "block.thaumcraft7.terra_ore": "Terra Infused Stone",
   "item.thaumcraft7.aer_testa": "Aer Testa",

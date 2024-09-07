@@ -27,6 +27,7 @@ public class T7LanguageProvider extends LanguageProvider {
     add(T7Items.THAUMOMETER.get(), "Thaumometer");
     add(T7Items.THAUMONOMICON.get(), "Thaumonomicon");
     add(T7Items.GOGGLES.get(), "Goggles Of Revealing");
+
     add(T7Items.IGNIS_TESTA.get(), "Ignis Testa");
     add(T7Items.AER_TESTA.get(), "Aer Testa");
     add(T7Items.TERRA_TESTA.get(), "Terra Testa");
@@ -52,5 +53,7 @@ public class T7LanguageProvider extends LanguageProvider {
     add(T7Blocks.GREATWOOD_LEAVES.get(), "Greatwood Leaves");
     add(T7Blocks.GREATWOOD_PLANKS.get(), "Greatwood Planks");
     add(T7Blocks.GREATWOOD_SAPLING.get(), "Greatwood Sapling");
+    add(T7Blocks.ARCANUM_BLOCK.get(), "Arcanum Block");
+    add(T7Blocks.ORICHALCUM_BLOCK.get(), "Orichalcum Block");
   }
 }
