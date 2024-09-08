@@ -44,7 +44,7 @@ public class T7ItemTagProvider extends ItemTagsProvider {
         T7Items.ORICHALCUM_NUGGET.get()
     );
 
-    tag(ItemTags.SWORDS).add(T7Items.ARCANUM_SWORD.get());
+    tag(ItemTags.SWORDS).add(T7Items.ARCANUM_SWORD.get(), T7Items.ARCANUM_KATANA.get());
     tag(ItemTags.AXES).add(T7Items.ARCANUM_AXE.get());
     tag(ItemTags.PICKAXES).add(T7Items.ARCANUM_PICKAXE.get());
     tag(ItemTags.SHOVELS).add(T7Items.ARCANUM_SHOVEL.get());

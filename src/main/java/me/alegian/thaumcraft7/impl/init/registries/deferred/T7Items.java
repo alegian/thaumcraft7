@@ -71,6 +71,7 @@ public class T7Items {
           )
       )
   ));
+  public static final DeferredItem<KatanaItem> ARCANUM_KATANA = REGISTRAR.register("arcanum_katana", KatanaItem::new);
 
   public static final DeferredItem<WandItem> IRON_WOOD_WAND = REGISTRAR.registerItem("iron_wood_wand", WandItem::new, new Item.Properties().stacksTo(1));
   public static final DeferredItem<ThaumometerItem> THAUMOMETER = REGISTRAR.registerItem("thaumometer", ThaumometerItem::new);

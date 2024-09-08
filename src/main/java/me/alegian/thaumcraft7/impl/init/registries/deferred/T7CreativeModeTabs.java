@@ -55,6 +55,7 @@ public class T7CreativeModeTabs {
               output.accept(T7Items.ARCANUM_PICKAXE.get());
               output.accept(T7Items.ARCANUM_SHOVEL.get());
               output.accept(T7Items.ARCANUM_HOE.get());
+              output.accept(T7Items.ARCANUM_KATANA.get());
             })
             .build()
     );
