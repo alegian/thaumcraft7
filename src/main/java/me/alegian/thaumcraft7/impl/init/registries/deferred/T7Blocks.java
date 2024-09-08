@@ -48,6 +48,15 @@ public class T7Blocks {
   public static final DeferredBlock<SaplingBlock> GREATWOOD_SAPLING = REGISTRAR.register("greatwood_sapling", T7Blocks::sapling);
   public static final DeferredItem<BlockItem> GREATWOOD_SAPLING_ITEM = T7Items.REGISTRAR.registerSimpleBlockItem("greatwood_sapling", GREATWOOD_SAPLING);
 
+  public static final DeferredBlock<LeavesBlock> SILVERWOOD_LEAVES = REGISTRAR.register("silverwood_leaves", T7Blocks::leaves);
+  public static final DeferredItem<BlockItem> SILVERWOOD_LEAVES_ITEM = T7Items.REGISTRAR.registerSimpleBlockItem("silverwood_leaves", SILVERWOOD_LEAVES);
+  public static final DeferredBlock<RotatedPillarBlock> SILVERWOOD_LOG = REGISTRAR.register("silverwood_log", () -> log(MapColor.WOOD, MapColor.PODZOL));
+  public static final DeferredItem<BlockItem> SILVERWOOD_LOG_ITEM = T7Items.REGISTRAR.registerSimpleBlockItem("silverwood_log", SILVERWOOD_LOG);
+  public static final DeferredBlock<Block> SILVERWOOD_PLANKS = REGISTRAR.register("silverwood_planks", T7Blocks::plank);
+  public static final DeferredItem<BlockItem> SILVERWOOD_PLANKS_ITEM = T7Items.REGISTRAR.registerSimpleBlockItem("silverwood_planks", SILVERWOOD_PLANKS);
+  public static final DeferredBlock<SaplingBlock> SILVERWOOD_SAPLING = REGISTRAR.register("silverwood_sapling", T7Blocks::sapling);
+  public static final DeferredItem<BlockItem> SILVERWOOD_SAPLING_ITEM = T7Items.REGISTRAR.registerSimpleBlockItem("silverwood_sapling", SILVERWOOD_SAPLING);
+
   public static final DeferredBlock<Block> ARCANUM_BLOCK = REGISTRAR.register("arcanum_block", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK)));
   public static final DeferredItem<BlockItem> ARCANUM_BLOCK_ITEM = T7Items.REGISTRAR.registerSimpleBlockItem("arcanum_block", ARCANUM_BLOCK);
   public static final DeferredBlock<Block> ORICHALCUM_BLOCK = REGISTRAR.register("orichalcum_block", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK)));

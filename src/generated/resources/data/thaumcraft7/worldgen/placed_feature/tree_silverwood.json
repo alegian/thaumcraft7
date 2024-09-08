@@ -2,20 +2,8 @@
   "feature": "thaumcraft7:tree_silverwood",
   "placement": [
     {
-      "type": "minecraft:count",
-      "count": {
-        "type": "minecraft:weighted_list",
-        "distribution": [
-          {
-            "data": 10,
-            "weight": 9
-          },
-          {
-            "data": 11,
-            "weight": 1
-          }
-        ]
-      }
+      "type": "minecraft:rarity_filter",
+      "chance": 9
     },
     {
       "type": "minecraft:in_square"

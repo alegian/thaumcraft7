@@ -24,12 +24,18 @@ public class T7CreativeModeTabs {
               output.accept(T7Blocks.AQUA_INFUSED_STONE.get());
               output.accept(T7Blocks.ORDO_INFUSED_STONE.get());
               output.accept(T7Blocks.PERDITIO_INFUSED_STONE.get());
+              output.accept(T7Blocks.ARCANUM_BLOCK.get());
+              output.accept(T7Blocks.ORICHALCUM_BLOCK.get());
+
               output.accept(T7Blocks.GREATWOOD_LEAVES.get());
               output.accept(T7Blocks.GREATWOOD_LOG.get());
               output.accept(T7Blocks.GREATWOOD_PLANKS.get());
               output.accept(T7Blocks.GREATWOOD_SAPLING.get());
-              output.accept(T7Blocks.ARCANUM_BLOCK.get());
-              output.accept(T7Blocks.ORICHALCUM_BLOCK.get());
+
+              output.accept(T7Blocks.SILVERWOOD_LEAVES.get());
+              output.accept(T7Blocks.SILVERWOOD_SAPLING.get());
+              output.accept(T7Blocks.SILVERWOOD_LOG.get());
+              output.accept(T7Blocks.SILVERWOOD_PLANKS.get());
 
               output.accept(T7Items.IRON_HANDLE.get());
               output.accept(T7Items.RUNE.get());

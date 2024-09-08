@@ -21,6 +21,7 @@ public class T7RecipeProvider extends RecipeProvider {
   @Override
   protected void buildRecipes(RecipeOutput pRecipeOutput) {
     planksFromLog(pRecipeOutput, T7Blocks.GREATWOOD_PLANKS, T7Blocks.GREATWOOD_LOG);
+    planksFromLog(pRecipeOutput, T7Blocks.SILVERWOOD_PLANKS, T7Blocks.SILVERWOOD_LOG);
     wandHandle(pRecipeOutput, T7Items.IRON_HANDLE.get(), Items.IRON_NUGGET);
     wand(pRecipeOutput, T7Items.IRON_WOOD_WAND.get(), T7Items.IRON_HANDLE.get(), Tags.Items.RODS_WOODEN);
     ingot(pRecipeOutput, T7Items.ARCANUM_INGOT.get(), T7Items.ARCANUM_NUGGET.get(), T7Blocks.ARCANUM_BLOCK.get());

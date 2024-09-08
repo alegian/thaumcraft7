@@ -50,11 +50,16 @@ public class T7LanguageProvider extends LanguageProvider {
     add(T7Blocks.AQUA_INFUSED_STONE.get(), "Aqua Infused Stone");
     add(T7Blocks.ORDO_INFUSED_STONE.get(), "Ordo Infused Stone");
     add(T7Blocks.PERDITIO_INFUSED_STONE.get(), "Perditio Infused Stone");
+    add(T7Blocks.ARCANUM_BLOCK.get(), "Arcanum Block");
+    add(T7Blocks.ORICHALCUM_BLOCK.get(), "Orichalcum Block");
+
     add(T7Blocks.GREATWOOD_LOG.get(), "Greatwood Log");
     add(T7Blocks.GREATWOOD_LEAVES.get(), "Greatwood Leaves");
     add(T7Blocks.GREATWOOD_PLANKS.get(), "Greatwood Planks");
     add(T7Blocks.GREATWOOD_SAPLING.get(), "Greatwood Sapling");
-    add(T7Blocks.ARCANUM_BLOCK.get(), "Arcanum Block");
-    add(T7Blocks.ORICHALCUM_BLOCK.get(), "Orichalcum Block");
+    add(T7Blocks.SILVERWOOD_LOG.get(), "Silverwood Log");
+    add(T7Blocks.SILVERWOOD_LEAVES.get(), "Silverwood Leaves");
+    add(T7Blocks.SILVERWOOD_PLANKS.get(), "Silverwood Planks");
+    add(T7Blocks.SILVERWOOD_SAPLING.get(), "Silverwood Sapling");
   }
 }

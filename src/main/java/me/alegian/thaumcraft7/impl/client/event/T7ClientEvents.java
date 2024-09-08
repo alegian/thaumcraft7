@@ -98,7 +98,13 @@ public class T7ClientEvents {
             if (tintIndex == 0) return T7Colors.GREATWOOD_LEAVES;
             return 0xFFFFFFFF;
           },
-          T7Blocks.GREATWOOD_LEAVES_ITEM.get()
+          T7Blocks.GREATWOOD_LEAVES.get()
+      );
+      event.register((stack, tintIndex) -> {
+            if (tintIndex == 0) return T7Colors.SILVERWOOD_LEAVES;
+            return 0xFFFFFFFF;
+          },
+          T7Blocks.SILVERWOOD_LEAVES.get()
       );
     }
 
@@ -109,6 +115,12 @@ public class T7ClientEvents {
             return 0xFFFFFFFF;
           },
           T7Blocks.GREATWOOD_LEAVES.get()
+      );
+      event.register((blockState, blockAndTintGetter, blockPos, tintIndex) -> {
+            if (tintIndex == 0) return T7Colors.SILVERWOOD_LEAVES;
+            return 0xFFFFFFFF;
+          },
+          T7Blocks.SILVERWOOD_LEAVES.get()
       );
     }
 

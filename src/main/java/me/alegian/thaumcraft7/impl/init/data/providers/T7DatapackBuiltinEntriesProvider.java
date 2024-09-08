@@ -48,7 +48,7 @@ public class T7DatapackBuiltinEntriesProvider extends DatapackBuiltinEntriesProv
       })
       .add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, bootstrap -> {
         GreatwoodTree.registerBiomeModifier(bootstrap);
-        //SilverwoodTree.registerBiomeModifier(bootstrap);
+        SilverwoodTree.registerBiomeModifier(bootstrap);
         InfusedStoneOre.registerBiomeModifier(bootstrap);
       });
 }

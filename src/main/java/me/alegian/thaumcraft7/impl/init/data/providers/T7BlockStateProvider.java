@@ -44,6 +44,11 @@ public class T7BlockStateProvider extends BlockStateProvider {
     leavesBlockWithItem(T7Blocks.GREATWOOD_LEAVES.get());
     saplingBlockWithItem(T7Blocks.GREATWOOD_SAPLING.get());
 
+    logBlockWithItem(T7Blocks.SILVERWOOD_LOG.get());
+    simpleBlockWithItem(T7Blocks.SILVERWOOD_PLANKS.get());
+    leavesBlockWithItem(T7Blocks.SILVERWOOD_LEAVES.get());
+    saplingBlockWithItem(T7Blocks.SILVERWOOD_SAPLING.get());
+
     simpleBlockWithItem(T7Blocks.ARCANUM_BLOCK.get());
     simpleBlockWithItem(T7Blocks.ORICHALCUM_BLOCK.get());
 

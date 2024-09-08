@@ -12,8 +12,8 @@
     ],
     "#c:concretes": [
       {
-        "amount": 3,
-        "aspect": "terra"
+        "amount": 1,
+        "aspect": "aqua"
       },
       {
         "amount": 2,
@@ -24,8 +24,8 @@
         "aspect": "ordo"
       },
       {
-        "amount": 1,
-        "aspect": "aqua"
+        "amount": 3,
+        "aspect": "terra"
       }
     ],
     "#c:glass_blocks/cheap": [
@@ -81,19 +81,19 @@
     "#minecraft:terracotta": [
       {
         "amount": 15,
-        "aspect": "terra"
+        "aspect": "aqua"
       },
       {
-        "amount": 1,
-        "aspect": "sensus"
+        "amount": 15,
+        "aspect": "terra"
       },
       {
         "amount": 1,
         "aspect": "ignis"
       },
       {
-        "amount": 15,
-        "aspect": "aqua"
+        "amount": 1,
+        "aspect": "sensus"
       }
     ],
     "#minecraft:wooden_slabs": [
@@ -110,27 +110,19 @@
     ],
     "#minecraft:wool": [
       {
-        "amount": 3,
-        "aspect": "sensus"
-      },
-      {
         "amount": 11,
         "aspect": "bestia"
       },
       {
         "amount": 3,
         "aspect": "fabrico"
+      },
+      {
+        "amount": 3,
+        "aspect": "sensus"
       }
     ],
     "minecraft:bedrock": [
-      {
-        "amount": 25,
-        "aspect": "vacuos"
-      },
-      {
-        "amount": 25,
-        "aspect": "terra"
-      },
       {
         "amount": 25,
         "aspect": "perditio"
@@ -138,6 +130,14 @@
       {
         "amount": 25,
         "aspect": "tenebrae"
+      },
+      {
+        "amount": 25,
+        "aspect": "terra"
+      },
+      {
+        "amount": 25,
+        "aspect": "vacuos"
       }
     ],
     "minecraft:coarse_dirt": [
