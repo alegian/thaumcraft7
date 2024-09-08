@@ -168,13 +168,10 @@ public class T7ClientEvents {
 
     @SubscribeEvent
     public static void gatherTooltipComponents(RenderTooltipEvent.GatherComponents event) {
-      ItemStack itemStack = event.getItemStack();
-      AspectList aspects = AspectHelper.getAspects(itemStack.getItem());
-      if (aspects == null) return;
       if (!Screen.hasShiftDown()) return;
       if (!ClientHelper.isLocalPlayerWearingGoggles()) return;
 
-      event.getTooltipElements().add(Either.right(new AspectTooltipComponent(itemStack)));
+      event.getTooltipElements().add(Either.right(new AspectTooltipComponent(event.getItemStack())));
     }
   }
 }

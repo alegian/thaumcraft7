@@ -12,7 +12,7 @@ public class AspectTooltipComponent implements TooltipComponent {
   private static AspectList aspectList;
 
   public AspectTooltipComponent(ItemStack itemStack) {
-    aspectList = AspectHelper.getAspects(itemStack);
+    aspectList = AspectHelper.getAspects(itemStack.getItem());
   }
 
   public AspectList getAspectList() {
