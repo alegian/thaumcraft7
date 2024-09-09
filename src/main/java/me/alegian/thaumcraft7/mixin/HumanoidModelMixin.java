@@ -1,6 +1,7 @@
 package me.alegian.thaumcraft7.mixin;
 
 import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import org.spongepowered.asm.mixin.Mixin;
@@ -18,13 +19,11 @@ public class HumanoidModelMixin {
       )
   )
   private void thaumcraft7_setupKatanaAttackAnimationOffhand(LivingEntity pLivingEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch, CallbackInfo info) {
-    test(pLivingEntity, pAgeInTicks);
-  }
-
-  private void test(LivingEntity pLivingEntity, float pAgeInTicks) {
-    pLivingEntity.swingingArm = InteractionHand.OFF_HAND;
-    setupAttackAnimation(pLivingEntity, pAgeInTicks);
-    pLivingEntity.swingingArm = InteractionHand.MAIN_HAND;
+    if (pLivingEntity instanceof AbstractClientPlayer) {
+      pLivingEntity.swingingArm = InteractionHand.OFF_HAND;
+      setupAttackAnimation(pLivingEntity, pAgeInTicks);
+      pLivingEntity.swingingArm = InteractionHand.MAIN_HAND;
+    }
   }
 
   @Shadow
