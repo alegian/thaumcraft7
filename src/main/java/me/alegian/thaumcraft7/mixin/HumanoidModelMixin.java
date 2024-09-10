@@ -22,13 +22,20 @@ public class HumanoidModelMixin {
   )
   private void thaumcraft7_setupKatanaAttackAnimationOffhand(LivingEntity pLivingEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch, CallbackInfo info) {
     if (!(pLivingEntity instanceof AbstractClientPlayer)) return;
-    if (pLivingEntity.swingingArm != InteractionHand.MAIN_HAND) return;
-    if (!Minecraft.getInstance().player.getItemInHand(InteractionHand.MAIN_HAND).getItem().equals(T7Items.ARCANUM_KATANA.get()))
-      return;
+    if (!isHandKatana(InteractionHand.MAIN_HAND) || !isHandKatana(InteractionHand.OFF_HAND)) return;
 
-    pLivingEntity.swingingArm = InteractionHand.OFF_HAND;
+    invertSwingingArm(pLivingEntity);
     setupAttackAnimation(pLivingEntity, pAgeInTicks);
-    pLivingEntity.swingingArm = InteractionHand.MAIN_HAND;
+    invertSwingingArm(pLivingEntity);
+  }
+
+  private void invertSwingingArm(LivingEntity pLivingEntity) {
+    if (pLivingEntity.swingingArm == InteractionHand.MAIN_HAND) pLivingEntity.swingingArm = InteractionHand.OFF_HAND;
+    else pLivingEntity.swingingArm = InteractionHand.MAIN_HAND;
+  }
+
+  private boolean isHandKatana(InteractionHand hand) {
+    return Minecraft.getInstance().player.getItemInHand(hand).getItem().equals(T7Items.ARCANUM_KATANA.get());
   }
 
   @Shadow
