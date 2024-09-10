@@ -4,6 +4,7 @@
   "mixins": [
   ],
   "client": [
-    "HumanoidModelMixin"
+    "HumanoidModelMixin",
+    "ItemInHandRendererMixin"
   ]
 }
