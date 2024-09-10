@@ -1,44 +1,55 @@
 package me.alegian.thaumcraft7.mixin;
 
-import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Items;
-import net.minecraft.client.Minecraft;
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import me.alegian.thaumcraft7.impl.common.entity.EntityHelper;
 import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(value = HumanoidModel.class, remap = false)
-public class HumanoidModelMixin {
-  @Inject(
-      method = "setupAnim(Lnet/minecraft/world/entity/LivingEntity;FFFFF)V",
-      at = @At(value = "INVOKE",
-          target = "Lnet/minecraft/client/model/HumanoidModel;setupAttackAnimation(Lnet/minecraft/world/entity/LivingEntity;F)V"
-      )
-  )
-  private void thaumcraft7_setupKatanaAttackAnimationOffhand(LivingEntity pLivingEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch, CallbackInfo info) {
-    if (!(pLivingEntity instanceof AbstractClientPlayer)) return;
-    if (!isHandKatana(InteractionHand.MAIN_HAND) || !isHandKatana(InteractionHand.OFF_HAND)) return;
+public abstract class HumanoidModelMixin {
+  @WrapMethod(method = "setupAttackAnimation(Lnet/minecraft/world/entity/LivingEntity;F)V")
+  private void thaumcraft7_setupAttackAnimationWrapper(LivingEntity pLivingEntity, float pAgeInTicks, Operation<Void> original) {
+    if (!(pLivingEntity instanceof AbstractClientPlayer) || !EntityHelper.isHandKatana(InteractionHand.MAIN_HAND) || !EntityHelper.isHandKatana(InteractionHand.OFF_HAND)) {
+      original.call(pLivingEntity, pAgeInTicks);
+      return;
+    }
 
-    invertSwingingArm(pLivingEntity);
-    setupAttackAnimation(pLivingEntity, pAgeInTicks);
-    invertSwingingArm(pLivingEntity);
-  }
+    HumanoidArm mainArm = this.getAttackArm(pLivingEntity);
+    HumanoidArm offArm = mainArm.getOpposite();
+    // store the original poses
+    PartPose originalMainPose = this.getArm(mainArm).storePose();
+    PartPose originalOffPose = this.getArm(offArm).storePose();
 
-  private void invertSwingingArm(LivingEntity pLivingEntity) {
-    if (pLivingEntity.swingingArm == InteractionHand.MAIN_HAND) pLivingEntity.swingingArm = InteractionHand.OFF_HAND;
-    else pLivingEntity.swingingArm = InteractionHand.MAIN_HAND;
-  }
+    // simulate main hand animation & save result
+    original.call(pLivingEntity, pAgeInTicks);
+    PartPose correctMainPose = this.getArm(mainArm).storePose();
 
-  private boolean isHandKatana(InteractionHand hand) {
-    return Minecraft.getInstance().player.getItemInHand(hand).getItem().equals(T7Items.ARCANUM_KATANA.get());
+    // reset poses
+    this.getArm(mainArm).loadPose(originalMainPose);
+    this.getArm(offArm).loadPose(originalOffPose);
+
+    // actually run offhand animation
+    EntityHelper.invertSwingingArm(pLivingEntity);
+    original.call(pLivingEntity, pAgeInTicks);
+
+    // load the simulated main hand pose
+    this.getArm(mainArm).loadPose(correctMainPose);
+
+    // restore original swinging arm
+    EntityHelper.invertSwingingArm(pLivingEntity);
   }
 
   @Shadow
-  private void setupAttackAnimation(LivingEntity pLivingEntity, float pAgeInTicks) {
-  }
+  protected abstract HumanoidArm getAttackArm(LivingEntity pEntity);
+
+  @Shadow
+  protected abstract ModelPart getArm(HumanoidArm pSide);
 }
