@@ -14,7 +14,7 @@ public class EntityHelper {
   }
 
   public static void invertSwingingArm(LivingEntity pLivingEntity) {
-    if(pLivingEntity.swingingArm == InteractionHand.MAIN_HAND) pLivingEntity.swingingArm = InteractionHand.OFF_HAND;
+    if (pLivingEntity.swingingArm == InteractionHand.MAIN_HAND) pLivingEntity.swingingArm = InteractionHand.OFF_HAND;
     else pLivingEntity.swingingArm = InteractionHand.MAIN_HAND;
   }
 

@@ -14,13 +14,13 @@ import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.grower.TreeGrower;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.PineFoliagePlacer;
-import net.minecraft.world.level.levelgen.feature.foliageplacers.SpruceFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
 import net.minecraft.world.level.levelgen.placement.*;
@@ -29,12 +29,16 @@ import net.neoforged.neoforge.common.world.BiomeModifiers;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
 import java.util.List;
+import java.util.Optional;
 
 public class SilverwoodTree {
-  public static final ResourceLocation LOCATION = ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "tree_silverwood");
+  public static final String NAME = "silverwood";
+  public static final ResourceLocation LOCATION = ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "tree_" + NAME);
   public static final ResourceKey<ConfiguredFeature<?, ?>> CONFIGURED_FEATURE = ResourceKey.create(Registries.CONFIGURED_FEATURE, LOCATION);
   public static final ResourceKey<PlacedFeature> PLACED_FEATURE = ResourceKey.create(Registries.PLACED_FEATURE, LOCATION);
   public static final ResourceKey<BiomeModifier> BIOME_MODIFIER = ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, LOCATION);
+
+  public static final TreeGrower GROWER = new TreeGrower(NAME, Optional.empty(), Optional.of(CONFIGURED_FEATURE), Optional.empty());
 
   public static TreeConfiguration.TreeConfigurationBuilder createSilverwood() {
     return new TreeConfiguration.TreeConfigurationBuilder(

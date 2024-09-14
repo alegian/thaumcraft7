@@ -5,6 +5,8 @@ import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.common.block.AuraNodeBlock;
 import me.alegian.thaumcraft7.impl.common.block.CrucibleBlock;
 import me.alegian.thaumcraft7.impl.common.block.InfusedStoneBlock;
+import me.alegian.thaumcraft7.impl.init.data.worldgen.tree.GreatwoodTree;
+import me.alegian.thaumcraft7.impl.init.data.worldgen.tree.SilverwoodTree;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.*;
@@ -45,7 +47,7 @@ public class T7Blocks {
   public static final DeferredItem<BlockItem> GREATWOOD_LOG_ITEM = T7Items.REGISTRAR.registerSimpleBlockItem("greatwood_log", GREATWOOD_LOG);
   public static final DeferredBlock<Block> GREATWOOD_PLANKS = REGISTRAR.register("greatwood_planks", T7Blocks::plank);
   public static final DeferredItem<BlockItem> GREATWOOD_PLANKS_ITEM = T7Items.REGISTRAR.registerSimpleBlockItem("greatwood_planks", GREATWOOD_PLANKS);
-  public static final DeferredBlock<SaplingBlock> GREATWOOD_SAPLING = REGISTRAR.register("greatwood_sapling", T7Blocks::sapling);
+  public static final DeferredBlock<SaplingBlock> GREATWOOD_SAPLING = REGISTRAR.register("greatwood_sapling", () -> sapling(GreatwoodTree.GROWER));
   public static final DeferredItem<BlockItem> GREATWOOD_SAPLING_ITEM = T7Items.REGISTRAR.registerSimpleBlockItem("greatwood_sapling", GREATWOOD_SAPLING);
 
   public static final DeferredBlock<LeavesBlock> SILVERWOOD_LEAVES = REGISTRAR.register("silverwood_leaves", T7Blocks::leaves);
@@ -54,7 +56,7 @@ public class T7Blocks {
   public static final DeferredItem<BlockItem> SILVERWOOD_LOG_ITEM = T7Items.REGISTRAR.registerSimpleBlockItem("silverwood_log", SILVERWOOD_LOG);
   public static final DeferredBlock<Block> SILVERWOOD_PLANKS = REGISTRAR.register("silverwood_planks", T7Blocks::plank);
   public static final DeferredItem<BlockItem> SILVERWOOD_PLANKS_ITEM = T7Items.REGISTRAR.registerSimpleBlockItem("silverwood_planks", SILVERWOOD_PLANKS);
-  public static final DeferredBlock<SaplingBlock> SILVERWOOD_SAPLING = REGISTRAR.register("silverwood_sapling", T7Blocks::sapling);
+  public static final DeferredBlock<SaplingBlock> SILVERWOOD_SAPLING = REGISTRAR.register("silverwood_sapling", () -> sapling(SilverwoodTree.GROWER));
   public static final DeferredItem<BlockItem> SILVERWOOD_SAPLING_ITEM = T7Items.REGISTRAR.registerSimpleBlockItem("silverwood_sapling", SILVERWOOD_SAPLING);
 
   public static final DeferredBlock<Block> ARCANUM_BLOCK = REGISTRAR.register("arcanum_block", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK)));
@@ -104,9 +106,9 @@ public class T7Blocks {
     );
   }
 
-  private static SaplingBlock sapling() {
+  private static SaplingBlock sapling(TreeGrower treeGrower) {
     return new SaplingBlock(
-        TreeGrower.OAK,
+        treeGrower,
         BlockBehaviour.Properties.of()
             .mapColor(MapColor.PLANT)
             .noCollission()

@@ -22,13 +22,13 @@ public class AspectClientTooltipComponent implements ClientTooltipComponent {
 
   @Override
   public int getHeight() {
-    if(isEmpty()) return 0;
+    if (isEmpty()) return 0;
     return WIDTH + PADDING * 2;
   }
 
   @Override
   public int getWidth(Font pFont) {
-    if(isEmpty()) return 0;
+    if (isEmpty()) return 0;
     return (WIDTH + PADDING) * displayedAspects.size();
   }
 

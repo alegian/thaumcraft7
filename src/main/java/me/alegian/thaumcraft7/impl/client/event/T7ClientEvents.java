@@ -1,10 +1,7 @@
 package me.alegian.thaumcraft7.impl.client.event;
 
-import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.datafixers.util.Either;
-import me.alegian.thaumcraft7.api.aspect.AspectHelper;
-import me.alegian.thaumcraft7.api.aspect.AspectList;
 import me.alegian.thaumcraft7.api.capability.AspectContainerHelper;
 import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.client.ClientHelper;
@@ -30,7 +27,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.neoforged.api.distmarker.Dist;

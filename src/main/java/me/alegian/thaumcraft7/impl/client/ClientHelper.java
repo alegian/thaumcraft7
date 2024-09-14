@@ -8,7 +8,7 @@ import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class ClientHelper {
-  public static boolean isLocalPlayerWearingGoggles(){
+  public static boolean isLocalPlayerWearingGoggles() {
     var player = Minecraft.getInstance().player;
     if (player == null) return false;
     var helmet = player.getItemBySlot(EquipmentSlot.HEAD);
