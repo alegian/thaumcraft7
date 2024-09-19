@@ -60,7 +60,6 @@ public class WandItem extends Item implements GeoItem {
         //try receiving only on server
 
         player.startUsingItem(context.getHand());
-        // this may be running too many times
         if (!level.isClientSide() && level instanceof ServerLevel serverLevel) {
           level.addFreshEntity(new VisEntity(level, player, blockPos));
           triggerAnim(player, GeoItem.getOrAssignId(context.getItemInHand(), serverLevel), "Casting", "casting");

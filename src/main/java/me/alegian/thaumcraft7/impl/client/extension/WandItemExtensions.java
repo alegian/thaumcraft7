@@ -33,7 +33,7 @@ public class WandItemExtensions implements IClientItemExtensions {
 
     if (player.getUseItem() == itemInHand && player.isUsingItem()) {
       using = true;
-      float secondsUsing = (float) player.getTicksUsingItem() / 20;
+      float secondsUsing = (player.getTicksUsingItem() + partialTick) / 20;
 
       transformMatrix = transformMatrix
           .translate(i * 0.56F, -0.52F, -0.72F)
