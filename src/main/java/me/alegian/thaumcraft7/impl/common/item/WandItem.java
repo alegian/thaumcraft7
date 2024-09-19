@@ -1,10 +1,14 @@
 package me.alegian.thaumcraft7.impl.common.item;
 
+import me.alegian.thaumcraft7.impl.Thaumcraft;
+import me.alegian.thaumcraft7.impl.client.renderer.geo.WandRenderer;
 import me.alegian.thaumcraft7.impl.common.block.AuraNodeBlock;
 import me.alegian.thaumcraft7.impl.common.entity.FancyThaumonomiconEntity;
 import me.alegian.thaumcraft7.impl.common.entity.VisEntity;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Blocks;
+import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
@@ -16,8 +20,19 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
+import software.bernie.geckolib.animatable.GeoItem;
+import software.bernie.geckolib.animatable.client.GeoRenderProvider;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.model.DefaultedItemGeoModel;
+import software.bernie.geckolib.renderer.GeoItemRenderer;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class WandItem extends Item {
+import java.util.function.Consumer;
+
+public class WandItem extends Item implements GeoItem {
+  private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+
   public WandItem(Properties props) {
     super(props);
   }
@@ -74,5 +89,29 @@ public class WandItem extends Item {
   @Override
   public UseAnim getUseAnimation(ItemStack itemStack) {
     return UseAnim.CUSTOM;
+  }
+
+  @Override
+  public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+  }
+
+  @Override
+  public AnimatableInstanceCache getAnimatableInstanceCache() {
+    return this.cache;
+  }
+
+  @Override
+  public void createGeoRenderer(Consumer<GeoRenderProvider> consumer) {
+    consumer.accept(new GeoRenderProvider() {
+      private WandRenderer renderer;
+
+      @Override
+      public BlockEntityWithoutLevelRenderer getGeoItemRenderer() {
+        if (this.renderer == null)
+          this.renderer = new WandRenderer();
+
+        return this.renderer;
+      }
+    });
   }
 }
