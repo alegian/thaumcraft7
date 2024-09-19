@@ -31,7 +31,6 @@
   "item.thaumcraft7.goggles": "Goggles Of Revealing",
   "item.thaumcraft7.ignis_testa": "Ignis Testa",
   "item.thaumcraft7.iron_handle": "Iron Wand Handle",
-  "item.thaumcraft7.iron_wood_wand": "Iron Handle Wooden Wand",
   "item.thaumcraft7.ordo_testa": "Ordo Testa",
   "item.thaumcraft7.orichalcum_ingot": "Orichalcum Ingot",
   "item.thaumcraft7.orichalcum_nugget": "Orichalcum Nugget",
@@ -41,5 +40,6 @@
   "item.thaumcraft7.terra_testa": "Terra Testa",
   "item.thaumcraft7.thaumometer": "Thaumometer",
   "item.thaumcraft7.thaumonomicon": "Thaumonomicon",
+  "item.thaumcraft7.wand": "Iron Handle Wooden Wand",
   "thaumcraft": "Thaumcraft 7"
 }

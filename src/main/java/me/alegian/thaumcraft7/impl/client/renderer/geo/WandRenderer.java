@@ -27,8 +27,7 @@ public class WandRenderer extends DynamicGeoItemRenderer<WandItem> {
     return switch (bone.getName()) {
       case "handle" -> HANDLE;
       case "stick" -> CORE;
-      case "magic_circle" -> CIRCLE;
-      default -> null;
+      default -> CIRCLE;
     };
   }
 }

@@ -1,6 +1,5 @@
 package me.alegian.thaumcraft7.impl.common.item;
 
-import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.client.renderer.geo.WandRenderer;
 import me.alegian.thaumcraft7.impl.common.block.AuraNodeBlock;
 import me.alegian.thaumcraft7.impl.common.entity.FancyThaumonomiconEntity;
@@ -8,7 +7,7 @@ import me.alegian.thaumcraft7.impl.common.entity.VisEntity;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Blocks;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
@@ -20,21 +19,27 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
+import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoItem;
+import software.bernie.geckolib.animatable.SingletonGeoAnimatable;
 import software.bernie.geckolib.animatable.client.GeoRenderProvider;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.AnimatableManager;
-import software.bernie.geckolib.model.DefaultedItemGeoModel;
-import software.bernie.geckolib.renderer.GeoItemRenderer;
+import software.bernie.geckolib.animation.AnimationController;
+import software.bernie.geckolib.animation.PlayState;
+import software.bernie.geckolib.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.function.Consumer;
 
 public class WandItem extends Item implements GeoItem {
+  private static final RawAnimation CAST_ANIMATION = RawAnimation.begin().thenPlay("casting");
+  private static final RawAnimation IDLE_ANIMATION = RawAnimation.begin().thenPlay("idle");
   private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
   public WandItem(Properties props) {
     super(props);
+    SingletonGeoAnimatable.registerSyncedAnimatable(this);
   }
 
   /**
@@ -55,7 +60,11 @@ public class WandItem extends Item implements GeoItem {
         //try receiving only on server
 
         player.startUsingItem(context.getHand());
-        if (!level.isClientSide()) level.addFreshEntity(new VisEntity(level, player, blockPos));
+        // this may be running too many times
+        if (!level.isClientSide() && level instanceof ServerLevel serverLevel) {
+          level.addFreshEntity(new VisEntity(level, player, blockPos));
+          triggerAnim(player, GeoItem.getOrAssignId(context.getItemInHand(), serverLevel), "Casting", "casting");
+        }
         return InteractionResult.CONSUME;
       }
     }
@@ -78,7 +87,9 @@ public class WandItem extends Item implements GeoItem {
 
   @Override
   public void releaseUsing(ItemStack itemStack, Level level, LivingEntity entity, int someDuration) {
-    if (level.isClientSide() && entity instanceof Player) entity.sendSystemMessage(Component.literal("release using"));
+    if (!level.isClientSide() && level instanceof ServerLevel serverLevel) {
+      triggerAnim(entity, GeoItem.getOrAssignId(itemStack, serverLevel), "Casting", "idle");
+    }
   }
 
   @Override
@@ -93,6 +104,14 @@ public class WandItem extends Item implements GeoItem {
 
   @Override
   public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+    controllers.add(new AnimationController<GeoAnimatable>(this, "Casting", 0, state -> {
+          var controller = state.getController();
+          if (controller.getCurrentAnimation() == null) controller.setAnimation(IDLE_ANIMATION);
+          return PlayState.CONTINUE;
+        })
+        .triggerableAnim("casting", CAST_ANIMATION)
+        .triggerableAnim("idle", IDLE_ANIMATION)
+    );
   }
 
   @Override

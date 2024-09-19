@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "thaumcraft7:iron_wood_wand"
+        "recipe": "thaumcraft7:wand"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "thaumcraft7:iron_wood_wand"
+      "thaumcraft7:wand"
     ]
   }
 }
