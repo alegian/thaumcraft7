@@ -12,7 +12,7 @@ import net.minecraft.world.level.Level;
 public class ThaumonomiconItem extends Item {
 
   public ThaumonomiconItem(Properties props) {
-    super(props);
+    super(new Item.Properties().stacksTo(1));
   }
 
   @Override

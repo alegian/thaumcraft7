@@ -33,15 +33,11 @@ public class WandItemExtensions implements IClientItemExtensions {
 
     if (player.getUseItem() == itemInHand && player.isUsingItem()) {
       using = true;
-      float secondsUsing = (player.getTicksUsingItem() + partialTick) / 20;
 
       transformMatrix = transformMatrix
           .translate(i * 0.56F, -0.52F, -0.72F)
           .rotateX((float) (-1 * Math.PI / 4))
-          .rotateY((float) (secondsUsing * Math.PI))
-          .translate(0, -0.5F, 0)
-          .rotateX((float) (-1 * Math.PI / 16))
-          .translate(0, 0.5F, 0);
+          .rotateZ((float) (i * Math.PI / 16));
     }
 
     poseStack.mulPose(transformMatrix);
