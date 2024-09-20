@@ -5,6 +5,7 @@ import com.mojang.math.Axis;
 import me.alegian.thaumcraft7.impl.client.T7PoseStack;
 import me.alegian.thaumcraft7.impl.client.renderer.VisRenderer;
 import me.alegian.thaumcraft7.impl.common.entity.VisEntity;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.culling.Frustum;
@@ -47,11 +48,24 @@ public class VisER extends EntityRenderer<VisEntity> {
   private static void preparePlayerHandPose(float pPartialTick, LocalPlayer player, T7PoseStack t7pose) {
     Vec3 playerPos = player.getPosition(pPartialTick);
     t7pose.translate(playerPos);
-    var angle = Math.PI / 2 - player.getYRot() / 360F * 2 * Math.PI;
+
     var arm = player.getMainArm();
-    t7pose.rotate(Axis.YP, angle);
-    t7pose.translate(0, player.getEyeHeight() - .7f, arm == HumanoidArm.RIGHT ? -.5f : .5f);
-    t7pose.rotate(Axis.YP, -angle);
+
+    // for first person, if it is the client player, we follow the camera
+    if (player == Minecraft.getInstance().player && Minecraft.getInstance().options.getCameraType().isFirstPerson()) {
+      var angle = Math.PI / 2 - player.getViewYRot(pPartialTick) / 360F * 2 * Math.PI;
+      var translation = player.getViewVector(pPartialTick).normalize().scale(.1f);
+      t7pose.translate(0, player.getEyeHeight() + 0.01, 0);
+      t7pose.translate(translation);
+      t7pose.rotate(Axis.YP, angle);
+      t7pose.translate(0, 0, arm == HumanoidArm.RIGHT ? -.06f : .06f);
+      t7pose.rotate(Axis.YP, -angle);
+    } else { // for third person, we follow body rotation
+      var angle = Math.PI / 2 - player.getPreciseBodyRotation(pPartialTick) / 360F * 2 * Math.PI;
+      t7pose.rotate(Axis.YP, angle);
+      t7pose.translate(-1f, player.getEyeHeight() - .56f, arm == HumanoidArm.RIGHT ? -.4f : .4f);
+      t7pose.rotate(Axis.YP, -angle);
+    }
   }
 
   @Override
