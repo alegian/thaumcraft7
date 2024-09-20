@@ -101,6 +101,16 @@ public class WandItem extends Item implements GeoItem {
     return UseAnim.CUSTOM;
   }
 
+  /**
+   *  The normal implementation causes flickering in the wand animation
+   *  when aspects are synced from server. Therefore, we have to use a
+   *  less strict variant.
+   */
+  @Override
+  public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+    return !oldStack.getItem().equals(newStack.getItem());
+  }
+
   @Override
   public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
     controllers.add(new AnimationController<GeoAnimatable>(this, "Casting", 0, state -> {
