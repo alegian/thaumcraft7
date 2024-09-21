@@ -3,6 +3,7 @@ package me.alegian.thaumcraft7.impl.init.registries.deferred;
 import me.alegian.thaumcraft7.impl.Thaumcraft;
 import net.minecraft.Util;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
@@ -23,7 +24,21 @@ public class T7ArmorMaterials {
       25,
       SoundEvents.ARMOR_EQUIP_GENERIC,
       Ingredient::of,
-      List.of(),
+      List.of(      ),
+      0,
+      0
+  ));
+
+  public static final DeferredHolder<ArmorMaterial, ArmorMaterial> ARCANUM = REGISTRAR.register("arcanum", () -> new ArmorMaterial(
+      Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
+        map.put(ArmorItem.Type.HELMET, 1);
+      }),
+      25,
+      SoundEvents.ARMOR_EQUIP_GENERIC,
+      Ingredient::of,
+      List.of(
+          new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "arcanum"))
+      ),
       0,
       0
   ));

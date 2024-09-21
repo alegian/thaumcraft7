@@ -49,6 +49,7 @@ public class T7CreativeModeTabs {
               output.accept(T7Items.THAUMOMETER.get());
               output.accept(T7Items.THAUMONOMICON.get());
               output.accept(T7Items.GOGGLES.get());
+              output.accept(T7Items.ARCANUM_HELMET.get());
               output.accept(T7Items.IGNIS_TESTA.get());
               output.accept(T7Items.AER_TESTA.get());
               output.accept(T7Items.TERRA_TESTA.get());
