@@ -15,7 +15,7 @@ public class T7CreativeModeTabs {
         () -> CreativeModeTab
             .builder()
             .title(Component.translatable("thaumcraft"))
-            .icon(() -> T7Items.WAND.get().getDefaultInstance())
+            .icon(() -> T7Items.THAUMONOMICON.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
               output.accept(T7Blocks.AURA_NODE.get());
               output.accept(T7Blocks.IGNIS_INFUSED_STONE.get());

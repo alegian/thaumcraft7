@@ -73,7 +73,7 @@ public class T7Items {
   ));
   public static final DeferredItem<KatanaItem> ARCANUM_KATANA = REGISTRAR.register("arcanum_katana", KatanaItem::new);
 
-  public static final DeferredItem<WandItem> WAND = REGISTRAR.registerItem("wand", WandItem::new, new Item.Properties().stacksTo(1));
+  public static final DeferredItem<WandItem> WAND = REGISTRAR.registerItem("wand", (props)-> new WandItem(props, WandItem.HandleMaterial.IRON, WandItem.CoreMaterial.WOOD), new Item.Properties().stacksTo(1));
   public static final DeferredItem<ThaumometerItem> THAUMOMETER = REGISTRAR.registerItem("thaumometer", ThaumometerItem::new);
   public static final DeferredItem<ThaumonomiconItem> THAUMONOMICON = REGISTRAR.registerItem("thaumonomicon", ThaumonomiconItem::new);
   public static final DeferredItem<ArmorItem> GOGGLES = REGISTRAR.registerItem("goggles", GogglesItem::new, new Item.Properties().durability(ArmorItem.Type.HELMET.getDurability(15)));

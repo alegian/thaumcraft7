@@ -34,10 +34,14 @@ public class WandItem extends Item implements GeoItem {
   private static final RawAnimation CAST_ANIMATION = RawAnimation.begin().thenPlay("casting");
   private static final RawAnimation IDLE_ANIMATION = RawAnimation.begin().thenPlay("idle");
   private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+  private final HandleMaterial handleMaterial;
+  private final CoreMaterial coreMaterial;
 
-  public WandItem(Properties props) {
+  public WandItem(Properties props, HandleMaterial handleMaterial, CoreMaterial coreMaterial) {
     super(props);
     SingletonGeoAnimatable.registerSyncedAnimatable(this);
+    this.handleMaterial = handleMaterial;
+    this.coreMaterial = coreMaterial;
   }
 
   /**
@@ -134,10 +138,43 @@ public class WandItem extends Item implements GeoItem {
       @Override
       public BlockEntityWithoutLevelRenderer getGeoItemRenderer() {
         if (this.renderer == null)
-          this.renderer = new WandRenderer();
+          this.renderer = new WandRenderer(handleMaterial, coreMaterial);
 
         return this.renderer;
       }
     });
+  }
+
+  public enum HandleMaterial {
+    IRON("iron"),
+    GOLD("gold"),
+    ORICHALCUM("orichalcum"),
+    ARCANUM("arcanum");
+
+    private final String id;
+
+    HandleMaterial(String id) {
+      this.id = id;
+    }
+
+    public String getId() {
+      return id;
+    }
+  }
+
+  public enum CoreMaterial {
+    WOOD("wood"),
+    GREATWOOD("greatwood"),
+    SILVERWOOD("silverwood");
+
+    private final String id;
+
+    CoreMaterial(String id) {
+      this.id = id;
+    }
+
+    public String getId() {
+      return id;
+    }
   }
 }
