@@ -24,22 +24,25 @@ public class T7ArmorMaterials {
       25,
       SoundEvents.ARMOR_EQUIP_GENERIC,
       Ingredient::of,
-      List.of(      ),
+      List.of(),
       0,
       0
   ));
 
   public static final DeferredHolder<ArmorMaterial, ArmorMaterial> ARCANUM = REGISTRAR.register("arcanum", () -> new ArmorMaterial(
       Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
-        map.put(ArmorItem.Type.HELMET, 1);
+        map.put(ArmorItem.Type.BOOTS, 2);
+        map.put(ArmorItem.Type.LEGGINGS, 5);
+        map.put(ArmorItem.Type.CHESTPLATE, 6);
+        map.put(ArmorItem.Type.HELMET, 3);
       }),
       25,
       SoundEvents.ARMOR_EQUIP_GENERIC,
-      Ingredient::of,
+      () -> Ingredient.of(T7Items.ARCANUM_INGOT),
       List.of(
           new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "arcanum"))
       ),
-      0,
+      1.0F,
       0
   ));
 }

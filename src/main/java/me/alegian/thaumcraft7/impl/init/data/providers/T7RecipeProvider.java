@@ -27,7 +27,7 @@ public class T7RecipeProvider extends RecipeProvider {
     ingot(pRecipeOutput, T7Items.ARCANUM_INGOT.get(), T7Items.ARCANUM_NUGGET.get(), T7Blocks.ARCANUM_BLOCK.get());
     ingot(pRecipeOutput, T7Items.ORICHALCUM_INGOT.get(), T7Items.ORICHALCUM_NUGGET.get(), T7Blocks.ORICHALCUM_BLOCK.get());
 
-    ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, T7Items.ARCANUM_SWORD.get())
+    ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, T7Items.ARCANUM_SWORD.get())
         .define('a', T7Items.ARCANUM_INGOT.get())
         .define('s', Tags.Items.RODS_WOODEN)
         .pattern(" a ")
@@ -65,6 +65,32 @@ public class T7RecipeProvider extends RecipeProvider {
         .pattern("aa ")
         .pattern(" s ")
         .pattern(" s ")
+        .unlockedBy(getHasName(T7Items.ARCANUM_INGOT.get()), has(T7Items.ARCANUM_INGOT.get()))
+        .save(pRecipeOutput);
+    ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, T7Items.ARCANUM_HELMET)
+        .define('a', T7Items.ARCANUM_INGOT)
+        .pattern("aaa")
+        .pattern("a a")
+        .unlockedBy(getHasName(T7Items.ARCANUM_INGOT.get()), has(T7Items.ARCANUM_INGOT.get()))
+        .save(pRecipeOutput);
+    ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, T7Items.ARCANUM_CHESTPLATE)
+        .define('a', T7Items.ARCANUM_INGOT)
+        .pattern("a a")
+        .pattern("aaa")
+        .pattern("aaa")
+        .unlockedBy(getHasName(T7Items.ARCANUM_INGOT.get()), has(T7Items.ARCANUM_INGOT.get()))
+        .save(pRecipeOutput);
+    ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, T7Items.ARCANUM_LEGGINGS)
+        .define('a', T7Items.ARCANUM_INGOT)
+        .pattern("aaa")
+        .pattern("a a")
+        .pattern("a a")
+        .unlockedBy(getHasName(T7Items.ARCANUM_INGOT.get()), has(T7Items.ARCANUM_INGOT.get()))
+        .save(pRecipeOutput);
+    ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, T7Items.ARCANUM_BOOTS)
+        .define('a', T7Items.ARCANUM_INGOT)
+        .pattern("a a")
+        .pattern("a a")
         .unlockedBy(getHasName(T7Items.ARCANUM_INGOT.get()), has(T7Items.ARCANUM_INGOT.get()))
         .save(pRecipeOutput);
   }

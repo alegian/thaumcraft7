@@ -26,7 +26,12 @@ public class T7LanguageProvider extends LanguageProvider {
     add(T7Items.WAND.get(), "Iron Handle Wooden Wand");
     add(T7Items.THAUMOMETER.get(), "Thaumometer");
     add(T7Items.THAUMONOMICON.get(), "Thaumonomicon");
+
     add(T7Items.GOGGLES.get(), "Goggles Of Revealing");
+    add(T7Items.ARCANUM_BOOTS.get(), "Arcanum Boots");
+    add(T7Items.ARCANUM_HELMET.get(), "Arcanum Helmet");
+    add(T7Items.ARCANUM_CHESTPLATE.get(), "Arcanum Chestplate");
+    add(T7Items.ARCANUM_LEGGINGS.get(), "Arcanum Leggings");
 
     add(T7Items.IGNIS_TESTA.get(), "Ignis Testa");
     add(T7Items.AER_TESTA.get(), "Aer Testa");
