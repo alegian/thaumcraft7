@@ -19,7 +19,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.function.Consumer;
 
-public class ArcanumHelmetItem  extends ArmorItem implements GeoItem {
+public class ArcanumHelmetItem extends ArmorItem implements GeoItem {
   private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
   public ArcanumHelmetItem(Properties props) {

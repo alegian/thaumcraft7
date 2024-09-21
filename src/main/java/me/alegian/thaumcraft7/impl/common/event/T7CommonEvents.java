@@ -73,9 +73,11 @@ public class T7CommonEvents {
         AttributeInstance attribute = livingEntity.getAttribute(Attributes.STEP_HEIGHT);
         if (attribute == null) return;
 
-        if (!EntityHelper.isEntityWearingBoots(livingEntity))
-          attribute.removeModifier(T7AttributeModifiers.STEP_HEIGHT);
-        else attribute.addOrUpdateTransientModifier(T7AttributeModifiers.STEP_HEIGHT);
+        boolean hasStepHeightFromOtherModifier = attribute.getValue() >= 1.0 && !attribute.hasModifier(T7AttributeModifiers.StepHeight.LOCATION);
+
+        if (!EntityHelper.isEntityWearingBoots(livingEntity) || hasStepHeightFromOtherModifier || livingEntity.isCrouching())
+          attribute.removeModifier(T7AttributeModifiers.StepHeight.MODIFIER);
+        else attribute.addOrUpdateTransientModifier(T7AttributeModifiers.StepHeight.MODIFIER);
       }
     }
   }

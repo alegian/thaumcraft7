@@ -49,5 +49,10 @@ public class T7ItemTagProvider extends ItemTagsProvider {
     tag(ItemTags.PICKAXES).add(T7Items.ARCANUM_PICKAXE.get());
     tag(ItemTags.SHOVELS).add(T7Items.ARCANUM_SHOVEL.get());
     tag(ItemTags.HOES).add(T7Items.ARCANUM_HOE.get());
+
+    tag(ItemTags.FOOT_ARMOR).add(T7Items.ARCANUM_BOOTS.get());
+    tag(ItemTags.LEG_ARMOR).add(T7Items.ARCANUM_LEGGINGS.get());
+    tag(ItemTags.CHEST_ARMOR).add(T7Items.ARCANUM_CHESTPLATE.get());
+    tag(ItemTags.HEAD_ARMOR).add(T7Items.ARCANUM_HELMET.get());
   }
 }

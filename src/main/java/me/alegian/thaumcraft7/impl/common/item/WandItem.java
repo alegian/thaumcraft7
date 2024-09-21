@@ -6,13 +6,11 @@ import me.alegian.thaumcraft7.impl.common.entity.FancyThaumonomiconEntity;
 import me.alegian.thaumcraft7.impl.common.entity.VisEntity;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Blocks;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
@@ -102,9 +100,9 @@ public class WandItem extends Item implements GeoItem {
   }
 
   /**
-   *  The normal implementation causes flickering in the wand animation
-   *  when aspects are synced from server. Therefore, we have to use a
-   *  less strict variant.
+   * The normal implementation causes flickering in the wand animation
+   * when aspects are synced from server. Therefore, we have to use a
+   * less strict variant.
    */
   @Override
   public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
@@ -118,8 +116,8 @@ public class WandItem extends Item implements GeoItem {
           if (controller.getCurrentAnimation() == null) controller.setAnimation(IDLE_ANIMATION);
           return PlayState.CONTINUE;
         })
-        .triggerableAnim("casting", CAST_ANIMATION)
-        .triggerableAnim("idle", IDLE_ANIMATION)
+            .triggerableAnim("casting", CAST_ANIMATION)
+            .triggerableAnim("idle", IDLE_ANIMATION)
     );
   }
 
