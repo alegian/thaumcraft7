@@ -2,15 +2,14 @@ package me.alegian.thaumcraft7.impl.init.registries.deferred;
 
 import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.common.wand.WandHandleMaterial;
-import me.alegian.thaumcraft7.impl.init.registries.T7Registries;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import me.alegian.thaumcraft7.impl.init.registries.deferred.util.DeferredWandHandleMaterial;
+import me.alegian.thaumcraft7.impl.init.registries.deferred.util.T7DeferredRegister;
 
 public class WandHandleMaterials {
-  public static final DeferredRegister<WandHandleMaterial> REGISTRAR = DeferredRegister.create(T7Registries.WAND_HANDLE, Thaumcraft.MODID);
+  public static final T7DeferredRegister.WandHandleMaterials REGISTRAR = T7DeferredRegister.createWandHandleMaterials(Thaumcraft.MODID);
 
-  public static final DeferredHolder<WandHandleMaterial, WandHandleMaterial> IRON = REGISTRAR.register("iron", WandHandleMaterial::new);
-  public static final DeferredHolder<WandHandleMaterial, WandHandleMaterial> GOLD = REGISTRAR.register("gold", WandHandleMaterial::new);
-  public static final DeferredHolder<WandHandleMaterial, WandHandleMaterial> ORICHALCUM = REGISTRAR.register("orichalcum", WandHandleMaterial::new);
-  public static final DeferredHolder<WandHandleMaterial, WandHandleMaterial> ARCANUM = REGISTRAR.register("arcanum", WandHandleMaterial::new);
+  public static final DeferredWandHandleMaterial<WandHandleMaterial> IRON = REGISTRAR.registerWandHandleMaterial("iron", WandHandleMaterial::new);
+  public static final DeferredWandHandleMaterial<WandHandleMaterial> GOLD = REGISTRAR.registerWandHandleMaterial("gold", WandHandleMaterial::new);
+  public static final DeferredWandHandleMaterial<WandHandleMaterial> ORICHALCUM = REGISTRAR.registerWandHandleMaterial("orichalcum", WandHandleMaterial::new);
+  public static final DeferredWandHandleMaterial<WandHandleMaterial> ARCANUM = REGISTRAR.registerWandHandleMaterial("arcanum", WandHandleMaterial::new);
 }

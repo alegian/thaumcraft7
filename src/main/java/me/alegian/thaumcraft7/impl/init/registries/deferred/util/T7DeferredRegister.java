@@ -1,0 +1,57 @@
+package me.alegian.thaumcraft7.impl.init.registries.deferred.util;
+
+import me.alegian.thaumcraft7.impl.common.wand.WandCoreMaterial;
+import me.alegian.thaumcraft7.impl.common.wand.WandHandleMaterial;
+import me.alegian.thaumcraft7.impl.init.registries.T7Registries;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.neoforged.neoforge.registries.DeferredRegister;
+
+import java.util.function.Supplier;
+
+public class T7DeferredRegister<T> extends DeferredRegister<T> {
+  protected T7DeferredRegister(ResourceKey<? extends Registry<T>> registryKey, String namespace) {
+    super(registryKey, namespace);
+  }
+
+  public static T7DeferredRegister.WandCoreMaterials createWandCoreMaterials(String modid) {
+    return new WandCoreMaterials(modid);
+  }
+
+  public static T7DeferredRegister.WandHandleMaterials createWandHandleMaterials(String modid) {
+    return new WandHandleMaterials(modid);
+  }
+
+  public static class WandCoreMaterials extends DeferredRegister<WandCoreMaterial> {
+    protected WandCoreMaterials(String namespace) {
+      super(T7Registries.WAND_CORE.key(), namespace);
+    }
+
+    @SuppressWarnings("unchecked")
+    public <M extends WandCoreMaterial> DeferredWandCoreMaterial<M> registerWandCoreMaterial(String name, Supplier<? extends M> sup) {
+      return (DeferredWandCoreMaterial<M>) this.register(name, key -> sup.get());
+    }
+
+    @Override
+    protected <I extends WandCoreMaterial> DeferredWandCoreMaterial<I> createHolder(ResourceKey<? extends Registry<WandCoreMaterial>> registryKey, ResourceLocation key) {
+      return DeferredWandCoreMaterial.createMaterial(ResourceKey.create(registryKey, key));
+    }
+  }
+
+  public static class WandHandleMaterials extends DeferredRegister<WandHandleMaterial> {
+    protected WandHandleMaterials(String namespace) {
+      super(T7Registries.WAND_HANDLE.key(), namespace);
+    }
+
+    @SuppressWarnings("unchecked")
+    public <M extends WandHandleMaterial> DeferredWandHandleMaterial<M> registerWandHandleMaterial(String name, Supplier<? extends M> sup) {
+      return (DeferredWandHandleMaterial<M>) this.register(name, key -> sup.get());
+    }
+
+    @Override
+    protected <I extends WandHandleMaterial> DeferredWandHandleMaterial<I> createHolder(ResourceKey<? extends Registry<WandHandleMaterial>> registryKey, ResourceLocation key) {
+      return DeferredWandHandleMaterial.createMaterial(ResourceKey.create(registryKey, key));
+    }
+  }
+}
