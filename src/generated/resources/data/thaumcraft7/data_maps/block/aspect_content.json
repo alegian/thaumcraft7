@@ -2,22 +2,22 @@
   "values": {
     "#c:cobblestones": [
       {
-        "amount": 1,
-        "aspect": "perditio"
-      },
-      {
         "amount": 5,
         "aspect": "terra"
+      },
+      {
+        "amount": 1,
+        "aspect": "perditio"
       }
     ],
     "#c:concretes": [
       {
-        "amount": 2,
-        "aspect": "perditio"
-      },
-      {
         "amount": 1,
         "aspect": "aqua"
+      },
+      {
+        "amount": 2,
+        "aspect": "perditio"
       },
       {
         "amount": 3,
@@ -43,11 +43,11 @@
     "#c:sands": [
       {
         "amount": 5,
-        "aspect": "perditio"
+        "aspect": "terra"
       },
       {
         "amount": 5,
-        "aspect": "terra"
+        "aspect": "perditio"
       }
     ],
     "#c:stones": [
@@ -58,12 +58,12 @@
     ],
     "#minecraft:concrete_powder": [
       {
-        "amount": 2,
-        "aspect": "perditio"
-      },
-      {
         "amount": 3,
         "aspect": "terra"
+      },
+      {
+        "amount": 2,
+        "aspect": "perditio"
       }
     ],
     "#minecraft:logs": [
@@ -80,12 +80,12 @@
     ],
     "#minecraft:terracotta": [
       {
-        "amount": 1,
-        "aspect": "ignis"
-      },
-      {
         "amount": 15,
         "aspect": "aqua"
+      },
+      {
+        "amount": 1,
+        "aspect": "ignis"
       },
       {
         "amount": 15,
@@ -111,33 +111,33 @@
     "#minecraft:wool": [
       {
         "amount": 3,
+        "aspect": "fabrico"
+      },
+      {
+        "amount": 3,
         "aspect": "sensus"
       },
       {
         "amount": 11,
         "aspect": "bestia"
-      },
-      {
-        "amount": 3,
-        "aspect": "fabrico"
       }
     ],
     "minecraft:bedrock": [
-      {
-        "amount": 25,
-        "aspect": "perditio"
-      },
-      {
-        "amount": 25,
-        "aspect": "terra"
-      },
       {
         "amount": 25,
         "aspect": "tenebrae"
       },
       {
         "amount": 25,
+        "aspect": "perditio"
+      },
+      {
+        "amount": 25,
         "aspect": "vacuos"
+      },
+      {
+        "amount": 25,
+        "aspect": "terra"
       }
     ],
     "minecraft:coarse_dirt": [

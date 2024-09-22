@@ -39,6 +39,10 @@ public class T7ItemModelProvider extends ItemModelProvider {
     testaItem(T7Items.AQUA_TESTA);
     testaItem(T7Items.ORDO_TESTA);
     testaItem(T7Items.PERDITIO_TESTA);
+
+    for (var wand : T7Items.WANDS.values()) {
+      withExistingParent(wand.get().getName(), ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "wand"));
+    }
   }
 
   public void testaItem(DeferredItem<TestaItem> deferredItem) {

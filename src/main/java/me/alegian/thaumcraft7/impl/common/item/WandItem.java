@@ -7,6 +7,8 @@ import me.alegian.thaumcraft7.impl.common.entity.VisEntity;
 import me.alegian.thaumcraft7.impl.common.wand.WandCoreMaterial;
 import me.alegian.thaumcraft7.impl.common.wand.WandHandleMaterial;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Blocks;
+import me.alegian.thaumcraft7.impl.init.registries.deferred.util.DeferredWandCoreMaterial;
+import me.alegian.thaumcraft7.impl.init.registries.deferred.util.DeferredWandHandleMaterial;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -19,7 +21,6 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
-import net.neoforged.neoforge.registries.DeferredHolder;
 import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoItem;
 import software.bernie.geckolib.animatable.SingletonGeoAnimatable;
@@ -37,10 +38,10 @@ public class WandItem extends Item implements GeoItem {
   private static final RawAnimation CAST_ANIMATION = RawAnimation.begin().thenPlay("casting");
   private static final RawAnimation IDLE_ANIMATION = RawAnimation.begin().thenPlay("idle");
   private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-  private final DeferredHolder<WandHandleMaterial, WandHandleMaterial> handleMaterial;
-  private final DeferredHolder<WandCoreMaterial, WandCoreMaterial> coreMaterial;
+  private final DeferredWandHandleMaterial<WandHandleMaterial> handleMaterial;
+  private final DeferredWandCoreMaterial<WandCoreMaterial> coreMaterial;
 
-  public WandItem(Properties props, DeferredHolder<WandHandleMaterial, WandHandleMaterial> handleMaterial, DeferredHolder<WandCoreMaterial, WandCoreMaterial> coreMaterial) {
+  public WandItem(Properties props, DeferredWandHandleMaterial<WandHandleMaterial> handleMaterial, DeferredWandCoreMaterial<WandCoreMaterial> coreMaterial) {
     super(props);
     SingletonGeoAnimatable.registerSyncedAnimatable(this);
     this.handleMaterial = handleMaterial;
@@ -146,5 +147,15 @@ public class WandItem extends Item implements GeoItem {
         return this.renderer;
       }
     });
+  }
+
+  public String getName() {
+    return name(handleMaterial, coreMaterial);
+  }
+
+  public static String name(DeferredWandHandleMaterial<WandHandleMaterial> handleMaterial, DeferredWandCoreMaterial<WandCoreMaterial> coreMaterial) {
+    String handleName = handleMaterial.getId().getPath();
+    String coreName = coreMaterial.getId().getPath();
+    return handleName + "_" + coreName + "_wand";
   }
 }

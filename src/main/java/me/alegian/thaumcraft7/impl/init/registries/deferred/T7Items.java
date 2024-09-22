@@ -5,9 +5,12 @@ import me.alegian.thaumcraft7.api.capability.T7Capabilities;
 import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.common.data.capability.AspectContainer;
 import me.alegian.thaumcraft7.impl.common.item.*;
+import me.alegian.thaumcraft7.impl.common.util.DoubleMap;
+import me.alegian.thaumcraft7.impl.common.wand.WandCoreMaterial;
+import me.alegian.thaumcraft7.impl.common.wand.WandHandleMaterial;
 import me.alegian.thaumcraft7.impl.init.registries.T7Tiers;
-import net.minecraft.client.renderer.item.ItemProperties;
-import net.minecraft.resources.ResourceLocation;
+import me.alegian.thaumcraft7.impl.init.registries.deferred.util.DeferredWandCoreMaterial;
+import me.alegian.thaumcraft7.impl.init.registries.deferred.util.DeferredWandHandleMaterial;
 import net.minecraft.util.Unit;
 import net.minecraft.world.item.*;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
@@ -73,7 +76,6 @@ public class T7Items {
   ));
   public static final DeferredItem<KatanaItem> ARCANUM_KATANA = REGISTRAR.register("arcanum_katana", KatanaItem::new);
 
-  public static final DeferredItem<WandItem> WAND = REGISTRAR.registerItem("wand", (props) -> new WandItem(props, WandHandleMaterials.IRON, WandCoreMaterials.WOOD), new Item.Properties().stacksTo(1));
   public static final DeferredItem<ThaumometerItem> THAUMOMETER = REGISTRAR.registerItem("thaumometer", ThaumometerItem::new);
   public static final DeferredItem<ThaumonomiconItem> THAUMONOMICON = REGISTRAR.registerItem("thaumonomicon", ThaumonomiconItem::new);
   public static final DeferredItem<ArmorItem> GOGGLES = REGISTRAR.registerItem("goggles", GogglesItem::new, new Item.Properties().durability(ArmorItem.Type.HELMET.getDurability(15)));
@@ -89,17 +91,50 @@ public class T7Items {
   public static final DeferredItem<TestaItem> ORDO_TESTA = REGISTRAR.registerItem("ordo_testa", $ -> new TestaItem(Aspect.ORDO));
   public static final DeferredItem<TestaItem> PERDITIO_TESTA = REGISTRAR.registerItem("perditio_testa", $ -> new TestaItem(Aspect.PERDITIO));
 
+  public static final DoubleMap<String, String, DeferredItem<WandItem>> WANDS = new DoubleMap<>();
+
+  /*
+    Registers all wand combinations of handle and core.
+    WARNING: does not register wands with materials from addons,
+    these have to be registered manually by each addon.
+   */
+  static {
+    for (var handleMaterial : WandHandleMaterials.ALL) {
+      for (var coreMaterial : WandCoreMaterials.ALL) {
+        addWand(handleMaterial, coreMaterial);
+      }
+    }
+  }
+
   public static void registerCapabilities(RegisterCapabilitiesEvent event) {
-    event.registerItem(T7Capabilities.AspectContainer.ITEM, (itemStack, context) -> new AspectContainer(itemStack, 50), WAND);
+    for (var wand : WANDS.values()) {
+      event.registerItem(T7Capabilities.AspectContainer.ITEM, (itemStack, context) -> new AspectContainer(itemStack, 50), wand);
+    }
     event.registerItem(T7Capabilities.REVEALING, (itemStack, context) -> Unit.INSTANCE, GOGGLES);
   }
 
-  // "using" predicate to switch item models
-  // used in wand
-  static {
-    ItemProperties.registerGeneric(ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "using"), (itemStack, clientLevel, livingEntity, seed) ->
-        livingEntity != null && livingEntity.isUsingItem() && livingEntity.getUseItem() == itemStack
-            ? 1.0F : 0.0F
-    );
+  /**
+   * Registers a wand with the given handle and core materials
+   */
+  static void addWand(DeferredWandHandleMaterial<WandHandleMaterial> handleMaterial, DeferredWandCoreMaterial<WandCoreMaterial> coreMaterial) {
+    String handleName = handleMaterial.getId().getPath();
+    String coreName = coreMaterial.getId().getPath();
+    String wandName = WandItem.name(handleMaterial, coreMaterial);
+    WANDS.put(handleName, coreName, REGISTRAR.registerItem(wandName, (props) -> new WandItem(props, handleMaterial, coreMaterial), new Item.Properties().stacksTo(1)));
+  }
+
+  /**
+   * Helper that gets a wand from the DoubleMap of registered wands.
+   * WARNING: cannot get wands from addons, these have to be accessed manually.
+   */
+  static DeferredItem<WandItem> wand(DeferredWandHandleMaterial<WandHandleMaterial> handleMaterial, DeferredWandCoreMaterial<WandCoreMaterial> coreMaterial) {
+    String handleName = handleMaterial.getId().getPath();
+    String coreName = coreMaterial.getId().getPath();
+    var wand = WANDS.get(handleName, coreName);
+
+    if (wand == null)
+      throw new IllegalArgumentException("Thaumcraft Exception: Trying to Access Unregistered Wand Combination" + WandItem.name(handleMaterial, coreMaterial));
+
+    return wand;
   }
 }

@@ -63,7 +63,9 @@ public class T7ClientEvents {
 
     @SubscribeEvent
     public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
-      event.registerItem(new WandItemExtensions(), T7Items.WAND.get());
+      for (var wand : T7Items.WANDS.values()) {
+        event.registerItem(new WandItemExtensions(), wand.get());
+      }
       event.registerItem(new ThaumometerItemExtensions(), T7Items.THAUMOMETER.get());
     }
 

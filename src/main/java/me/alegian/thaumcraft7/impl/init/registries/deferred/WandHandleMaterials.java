@@ -5,6 +5,8 @@ import me.alegian.thaumcraft7.impl.common.wand.WandHandleMaterial;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.util.DeferredWandHandleMaterial;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.util.T7DeferredRegister;
 
+import java.util.List;
+
 public class WandHandleMaterials {
   public static final T7DeferredRegister.WandHandleMaterials REGISTRAR = T7DeferredRegister.createWandHandleMaterials(Thaumcraft.MODID);
 
@@ -12,4 +14,6 @@ public class WandHandleMaterials {
   public static final DeferredWandHandleMaterial<WandHandleMaterial> GOLD = REGISTRAR.registerWandHandleMaterial("gold", WandHandleMaterial::new);
   public static final DeferredWandHandleMaterial<WandHandleMaterial> ORICHALCUM = REGISTRAR.registerWandHandleMaterial("orichalcum", WandHandleMaterial::new);
   public static final DeferredWandHandleMaterial<WandHandleMaterial> ARCANUM = REGISTRAR.registerWandHandleMaterial("arcanum", WandHandleMaterial::new);
+
+  public static final List<DeferredWandHandleMaterial<WandHandleMaterial>> ALL = List.of(IRON, GOLD, ORICHALCUM, ARCANUM);
 }
