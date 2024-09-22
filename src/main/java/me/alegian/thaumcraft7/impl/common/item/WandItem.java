@@ -4,6 +4,8 @@ import me.alegian.thaumcraft7.impl.client.renderer.geo.WandRenderer;
 import me.alegian.thaumcraft7.impl.common.block.AuraNodeBlock;
 import me.alegian.thaumcraft7.impl.common.entity.FancyThaumonomiconEntity;
 import me.alegian.thaumcraft7.impl.common.entity.VisEntity;
+import me.alegian.thaumcraft7.impl.common.wand.WandCoreMaterial;
+import me.alegian.thaumcraft7.impl.common.wand.WandHandleMaterial;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Blocks;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.server.level.ServerLevel;
@@ -17,6 +19,7 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoItem;
 import software.bernie.geckolib.animatable.SingletonGeoAnimatable;
@@ -34,10 +37,10 @@ public class WandItem extends Item implements GeoItem {
   private static final RawAnimation CAST_ANIMATION = RawAnimation.begin().thenPlay("casting");
   private static final RawAnimation IDLE_ANIMATION = RawAnimation.begin().thenPlay("idle");
   private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-  private final HandleMaterial handleMaterial;
-  private final CoreMaterial coreMaterial;
+  private final DeferredHolder<WandHandleMaterial, WandHandleMaterial> handleMaterial;
+  private final DeferredHolder<WandCoreMaterial, WandCoreMaterial> coreMaterial;
 
-  public WandItem(Properties props, HandleMaterial handleMaterial, CoreMaterial coreMaterial) {
+  public WandItem(Properties props, DeferredHolder<WandHandleMaterial, WandHandleMaterial> handleMaterial, DeferredHolder<WandCoreMaterial, WandCoreMaterial> coreMaterial) {
     super(props);
     SingletonGeoAnimatable.registerSyncedAnimatable(this);
     this.handleMaterial = handleMaterial;
@@ -143,38 +146,5 @@ public class WandItem extends Item implements GeoItem {
         return this.renderer;
       }
     });
-  }
-
-  public enum HandleMaterial {
-    IRON("iron"),
-    GOLD("gold"),
-    ORICHALCUM("orichalcum"),
-    ARCANUM("arcanum");
-
-    private final String id;
-
-    HandleMaterial(String id) {
-      this.id = id;
-    }
-
-    public String getId() {
-      return id;
-    }
-  }
-
-  public enum CoreMaterial {
-    WOOD("wood"),
-    GREATWOOD("greatwood"),
-    SILVERWOOD("silverwood");
-
-    private final String id;
-
-    CoreMaterial(String id) {
-      this.id = id;
-    }
-
-    public String getId() {
-      return id;
-    }
   }
 }

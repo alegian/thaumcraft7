@@ -5,6 +5,7 @@ import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.common.entity.EntityHelper;
 import me.alegian.thaumcraft7.impl.init.data.providers.*;
 import me.alegian.thaumcraft7.impl.init.registries.T7AttributeModifiers;
+import me.alegian.thaumcraft7.impl.init.registries.T7Registries;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7BlockEntities;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Blocks;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Items;
@@ -18,6 +19,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
+import net.neoforged.neoforge.registries.NewRegistryEvent;
 import net.neoforged.neoforge.registries.datamaps.RegisterDataMapTypesEvent;
 
 import java.util.List;
@@ -25,6 +27,12 @@ import java.util.List;
 public class T7CommonEvents {
   @EventBusSubscriber(modid = Thaumcraft.MODID, bus = EventBusSubscriber.Bus.MOD)
   public static class CommonModEvents {
+    @SubscribeEvent
+    static void registerRegistries(NewRegistryEvent event) {
+      event.register(T7Registries.WAND_HANDLE);
+      event.register(T7Registries.WAND_CORE);
+    }
+
     @SubscribeEvent
     public static void registerCapabilities(RegisterCapabilitiesEvent event) {
       T7Items.registerCapabilities(event);
