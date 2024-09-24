@@ -1,8 +1,7 @@
 package me.alegian.thaumcraft7.impl.common.data.capability;
 
-import me.alegian.thaumcraft7.api.aspect.Aspect;
-import me.alegian.thaumcraft7.api.aspect.AspectList;
-import me.alegian.thaumcraft7.api.capability.IAspectContainer;
+import me.alegian.thaumcraft7.impl.common.aspect.Aspect;
+import me.alegian.thaumcraft7.impl.common.aspect.AspectList;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7DataComponents;
 import net.neoforged.neoforge.common.MutableDataComponentHolder;
 

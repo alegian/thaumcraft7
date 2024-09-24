@@ -1,6 +1,6 @@
 package me.alegian.thaumcraft7.impl.init.registries.deferred;
 
-import me.alegian.thaumcraft7.api.aspect.Aspect;
+import me.alegian.thaumcraft7.impl.common.aspect.Aspect;
 import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.common.block.AuraNodeBlock;
 import me.alegian.thaumcraft7.impl.common.block.CrucibleBlock;

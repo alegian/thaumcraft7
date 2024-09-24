@@ -1,7 +1,7 @@
 package me.alegian.thaumcraft7.impl.client.gui.tooltip;
 
-import me.alegian.thaumcraft7.api.aspect.AspectHelper;
-import me.alegian.thaumcraft7.api.aspect.AspectList;
+import me.alegian.thaumcraft7.impl.common.aspect.AspectHelper;
+import me.alegian.thaumcraft7.impl.common.aspect.AspectList;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;

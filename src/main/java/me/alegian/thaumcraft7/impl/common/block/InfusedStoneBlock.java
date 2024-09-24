@@ -1,6 +1,6 @@
 package me.alegian.thaumcraft7.impl.common.block;
 
-import me.alegian.thaumcraft7.api.aspect.Aspect;
+import me.alegian.thaumcraft7.impl.common.aspect.Aspect;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.NotNull;

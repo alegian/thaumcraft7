@@ -1,7 +1,7 @@
 package me.alegian.thaumcraft7.impl.common.entity;
 
-import me.alegian.thaumcraft7.api.aspect.Aspect;
-import me.alegian.thaumcraft7.api.capability.AspectContainerHelper;
+import me.alegian.thaumcraft7.impl.common.aspect.Aspect;
+import me.alegian.thaumcraft7.impl.common.data.capability.AspectContainerHelper;
 import me.alegian.thaumcraft7.impl.common.item.WandItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;

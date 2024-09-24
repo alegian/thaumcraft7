@@ -1,6 +1,6 @@
 package me.alegian.thaumcraft7.impl.common.event;
 
-import me.alegian.thaumcraft7.api.data.map.T7DataMaps;
+import me.alegian.thaumcraft7.impl.init.registries.T7DataMaps;
 import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.common.entity.EntityHelper;
 import me.alegian.thaumcraft7.impl.init.data.providers.*;

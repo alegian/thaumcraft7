@@ -1,6 +1,6 @@
 package me.alegian.thaumcraft7.impl.common.block.entity;
 
-import me.alegian.thaumcraft7.api.aspect.AspectList;
+import me.alegian.thaumcraft7.impl.common.aspect.AspectList;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7BlockEntities;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7DataComponents;
 import net.minecraft.core.BlockPos;

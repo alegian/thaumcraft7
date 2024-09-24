@@ -1,6 +1,6 @@
 package me.alegian.thaumcraft7.impl.init.registries.deferred;
 
-import me.alegian.thaumcraft7.api.capability.T7Capabilities;
+import me.alegian.thaumcraft7.impl.init.registries.T7Capabilities;
 import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.common.block.entity.AuraNodeBE;
 import me.alegian.thaumcraft7.impl.common.block.entity.CrucibleBE;

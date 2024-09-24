@@ -2,7 +2,7 @@ package me.alegian.thaumcraft7.impl.client.event;
 
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.datafixers.util.Either;
-import me.alegian.thaumcraft7.api.capability.AspectContainerHelper;
+import me.alegian.thaumcraft7.impl.common.data.capability.AspectContainerHelper;
 import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.client.ClientHelper;
 import me.alegian.thaumcraft7.impl.client.T7Colors;

@@ -1,9 +1,9 @@
 package me.alegian.thaumcraft7.impl.init.data.providers;
 
-import me.alegian.thaumcraft7.api.aspect.Aspect;
-import me.alegian.thaumcraft7.api.aspect.AspectList;
-import me.alegian.thaumcraft7.api.aspect.AspectStack;
-import me.alegian.thaumcraft7.api.data.map.T7DataMaps;
+import me.alegian.thaumcraft7.impl.common.aspect.Aspect;
+import me.alegian.thaumcraft7.impl.common.aspect.AspectList;
+import me.alegian.thaumcraft7.impl.common.aspect.AspectStack;
+import me.alegian.thaumcraft7.impl.init.registries.T7DataMaps;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;

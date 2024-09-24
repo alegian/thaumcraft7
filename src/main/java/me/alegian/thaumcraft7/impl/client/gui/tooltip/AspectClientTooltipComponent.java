@@ -1,7 +1,7 @@
 package me.alegian.thaumcraft7.impl.client.gui.tooltip;
 
 import com.google.common.collect.ImmutableList;
-import me.alegian.thaumcraft7.api.aspect.AspectStack;
+import me.alegian.thaumcraft7.impl.common.aspect.AspectStack;
 import me.alegian.thaumcraft7.impl.client.T7GuiGraphics;
 import me.alegian.thaumcraft7.impl.client.renderer.AspectRenderer;
 import net.minecraft.client.gui.Font;

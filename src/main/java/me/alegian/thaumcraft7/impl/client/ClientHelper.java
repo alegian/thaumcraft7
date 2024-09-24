@@ -1,6 +1,6 @@
 package me.alegian.thaumcraft7.impl.client;
 
-import me.alegian.thaumcraft7.api.capability.T7Capabilities;
+import me.alegian.thaumcraft7.impl.init.registries.T7Capabilities;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.neoforged.api.distmarker.Dist;
