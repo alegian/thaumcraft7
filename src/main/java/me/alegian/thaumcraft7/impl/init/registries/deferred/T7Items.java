@@ -108,7 +108,7 @@ public class T7Items {
 
   public static void registerCapabilities(RegisterCapabilitiesEvent event) {
     for (var wand : WANDS.values()) {
-      event.registerItem(T7Capabilities.AspectContainer.ITEM, (itemStack, context) -> new AspectContainer(itemStack, 50), wand);
+      event.registerItem(T7Capabilities.AspectContainer.ITEM, (itemStack, context) -> new AspectContainer(itemStack, wand.get().capacity()), wand);
     }
     event.registerItem(T7Capabilities.REVEALING, (itemStack, context) -> Unit.INSTANCE, GOGGLES);
   }
@@ -120,7 +120,7 @@ public class T7Items {
     String handleName = handleMaterial.getId().getPath();
     String coreName = coreMaterial.getId().getPath();
     String wandName = WandItem.name(handleMaterial, coreMaterial);
-    WANDS.put(handleName, coreName, REGISTRAR.registerItem(wandName, (props) -> new WandItem(props, handleMaterial, coreMaterial), new Item.Properties().stacksTo(1)));
+    WANDS.put(handleName, coreName, REGISTRAR.registerItem(wandName, (props) -> new WandItem(props, handleMaterial, coreMaterial)));
   }
 
   /**

@@ -45,7 +45,7 @@ public class WandItem extends Item implements GeoItem {
   private final DeferredWandCoreMaterial<WandCoreMaterial> coreMaterial;
 
   public WandItem(Properties props, DeferredWandHandleMaterial<WandHandleMaterial> handleMaterial, DeferredWandCoreMaterial<WandCoreMaterial> coreMaterial) {
-    super(props);
+    super(props.stacksTo(1));
     this.handleMaterial = handleMaterial;
     this.coreMaterial = coreMaterial;
     GeckoLibUtil.SYNCED_ANIMATABLES.put(syncableId(), this);
@@ -165,6 +165,10 @@ public class WandItem extends Item implements GeoItem {
         return this.renderer;
       }
     });
+  }
+
+  public int capacity() {
+    return coreMaterial.get().capacity();
   }
 
   public String displayName() {
