@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_iron_ingot": {
+    "has_iron_handle": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:iron_ingot"
+            "items": "thaumcraft7:iron_handle"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "thaumcraft7:iron_handle"
+        "recipe": "thaumcraft7:iron_wood_wand"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_iron_ingot"
+      "has_iron_handle"
     ]
   ],
   "rewards": {
     "recipes": [
-      "thaumcraft7:iron_handle"
+      "thaumcraft7:iron_wood_wand"
     ]
   }
 }

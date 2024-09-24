@@ -12,16 +12,16 @@
     ],
     "#c:concretes": [
       {
-        "amount": 1,
-        "aspect": "aqua"
+        "amount": 3,
+        "aspect": "terra"
       },
       {
         "amount": 2,
         "aspect": "perditio"
       },
       {
-        "amount": 3,
-        "aspect": "terra"
+        "amount": 1,
+        "aspect": "aqua"
       },
       {
         "amount": 1,
@@ -81,19 +81,19 @@
     "#minecraft:terracotta": [
       {
         "amount": 15,
-        "aspect": "aqua"
+        "aspect": "terra"
       },
       {
         "amount": 1,
         "aspect": "ignis"
       },
       {
-        "amount": 15,
-        "aspect": "terra"
-      },
-      {
         "amount": 1,
         "aspect": "sensus"
+      },
+      {
+        "amount": 15,
+        "aspect": "aqua"
       }
     ],
     "#minecraft:wooden_slabs": [
@@ -114,12 +114,12 @@
         "aspect": "fabrico"
       },
       {
-        "amount": 3,
-        "aspect": "sensus"
-      },
-      {
         "amount": 11,
         "aspect": "bestia"
+      },
+      {
+        "amount": 3,
+        "aspect": "sensus"
       }
     ],
     "minecraft:bedrock": [
@@ -129,7 +129,7 @@
       },
       {
         "amount": 25,
-        "aspect": "perditio"
+        "aspect": "terra"
       },
       {
         "amount": 25,
@@ -137,7 +137,7 @@
       },
       {
         "amount": 25,
-        "aspect": "terra"
+        "aspect": "perditio"
       }
     ],
     "minecraft:coarse_dirt": [
@@ -192,22 +192,22 @@
     ],
     "minecraft:short_grass": [
       {
-        "amount": 5,
-        "aspect": "herba"
-      },
-      {
         "amount": 1,
         "aspect": "aer"
+      },
+      {
+        "amount": 5,
+        "aspect": "herba"
       }
     ],
     "minecraft:tall_grass": [
       {
-        "amount": 5,
-        "aspect": "herba"
-      },
-      {
         "amount": 1,
         "aspect": "aer"
+      },
+      {
+        "amount": 5,
+        "aspect": "herba"
       }
     ]
   }

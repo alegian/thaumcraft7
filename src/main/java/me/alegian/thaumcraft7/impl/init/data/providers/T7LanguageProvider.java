@@ -46,6 +46,10 @@ public class T7LanguageProvider extends LanguageProvider {
     add(T7Items.ARCANUM_HOE.get(), "Arcanum Hoe");
     add(T7Items.ARCANUM_KATANA.get(), "Arcanum Katana");
 
+    for(var wand : T7Items.WANDS.values()) {
+      add(wand.get(), wand.get().displayName());
+    }
+
     add(T7Blocks.AURA_NODE.get(), "Aura Node");
     add(T7Blocks.CRUCIBLE.get(), "Crucible");
     add(T7Blocks.IGNIS_INFUSED_STONE.get(), "Ignis Infused Stone");

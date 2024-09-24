@@ -1,15 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "misc",
-  "group": "wand_cap",
+  "group": "wand_handle",
   "key": {
-    "m": {
+    "i": {
+      "item": "minecraft:iron_ingot"
+    },
+    "n": {
       "item": "minecraft:iron_nugget"
     }
   },
   "pattern": [
-    "mmm",
-    "m m"
+    " n ",
+    " in",
+    "i  "
   ],
   "result": {
     "count": 1,

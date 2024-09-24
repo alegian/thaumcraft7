@@ -10,9 +10,13 @@ import java.util.List;
 public class WandCoreMaterials {
   public static final T7DeferredRegister.WandCoreMaterials REGISTRAR = T7DeferredRegister.createWandCoreMaterials(Thaumcraft.MODID);
 
-  public static final DeferredWandCoreMaterial<WandCoreMaterial> WOOD = REGISTRAR.registerWandCoreMaterial("wood", WandCoreMaterial::new);
-  public static final DeferredWandCoreMaterial<WandCoreMaterial> GREATWOOD = REGISTRAR.registerWandCoreMaterial("greatwood", WandCoreMaterial::new);
-  public static final DeferredWandCoreMaterial<WandCoreMaterial> SILVERWOOD = REGISTRAR.registerWandCoreMaterial("silverwood", WandCoreMaterial::new);
+  public static final DeferredWandCoreMaterial<WandCoreMaterial> WOOD = register("wood", "Wooden");
+  public static final DeferredWandCoreMaterial<WandCoreMaterial> GREATWOOD = register("greatwood", "Greatwood");
+  public static final DeferredWandCoreMaterial<WandCoreMaterial> SILVERWOOD = register("silverwood", "Silverwood");
 
   public static final List<DeferredWandCoreMaterial<WandCoreMaterial>> ALL = List.of(WOOD, GREATWOOD, SILVERWOOD);
+
+  private static DeferredWandCoreMaterial<WandCoreMaterial> register(String name, String displayName) {
+    return REGISTRAR.registerWandCoreMaterial(name, () -> new WandCoreMaterial(displayName));
+  }
 }

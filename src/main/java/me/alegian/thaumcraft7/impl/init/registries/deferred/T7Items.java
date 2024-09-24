@@ -127,7 +127,7 @@ public class T7Items {
    * Helper that gets a wand from the DoubleMap of registered wands.
    * WARNING: cannot get wands from addons, these have to be accessed manually.
    */
-  static DeferredItem<WandItem> wand(DeferredWandHandleMaterial<WandHandleMaterial> handleMaterial, DeferredWandCoreMaterial<WandCoreMaterial> coreMaterial) {
+  public static DeferredItem<WandItem> wand(DeferredWandHandleMaterial<WandHandleMaterial> handleMaterial, DeferredWandCoreMaterial<WandCoreMaterial> coreMaterial) {
     String handleName = handleMaterial.getId().getPath();
     String coreName = coreMaterial.getId().getPath();
     var wand = WANDS.get(handleName, coreName);

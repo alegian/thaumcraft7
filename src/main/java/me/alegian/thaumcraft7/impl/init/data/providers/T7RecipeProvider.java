@@ -2,6 +2,8 @@ package me.alegian.thaumcraft7.impl.init.data.providers;
 
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Blocks;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Items;
+import me.alegian.thaumcraft7.impl.init.registries.deferred.WandCoreMaterials;
+import me.alegian.thaumcraft7.impl.init.registries.deferred.WandHandleMaterials;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
@@ -22,8 +24,8 @@ public class T7RecipeProvider extends RecipeProvider {
   protected void buildRecipes(RecipeOutput pRecipeOutput) {
     planksFromLog(pRecipeOutput, T7Blocks.GREATWOOD_PLANKS, T7Blocks.GREATWOOD_LOG);
     planksFromLog(pRecipeOutput, T7Blocks.SILVERWOOD_PLANKS, T7Blocks.SILVERWOOD_LOG);
-    wandHandle(pRecipeOutput, T7Items.IRON_HANDLE.get(), Items.IRON_NUGGET);
-    //wand(pRecipeOutput, T7Items.WAND.get(), T7Items.IRON_HANDLE.get(), Tags.Items.RODS_WOODEN);
+    wandHandle(pRecipeOutput, T7Items.IRON_HANDLE.get(), Items.IRON_INGOT, Items.IRON_NUGGET);
+    wand(pRecipeOutput, T7Items.wand(WandHandleMaterials.IRON, WandCoreMaterials.WOOD), T7Items.IRON_HANDLE.get(), Tags.Items.RODS_WOODEN);
     ingot(pRecipeOutput, T7Items.ARCANUM_INGOT.get(), T7Items.ARCANUM_NUGGET.get(), T7Blocks.ARCANUM_BLOCK.get());
     ingot(pRecipeOutput, T7Items.ORICHALCUM_INGOT.get(), T7Items.ORICHALCUM_NUGGET.get(), T7Blocks.ORICHALCUM_BLOCK.get());
 
@@ -129,13 +131,15 @@ public class T7RecipeProvider extends RecipeProvider {
         .save(pRecipeOutput);
   }
 
-  protected static void wandHandle(RecipeOutput pRecipeOutput, ItemLike cap, ItemLike material) {
+  protected static void wandHandle(RecipeOutput pRecipeOutput, ItemLike cap, ItemLike ingot, ItemLike nugget) {
     ShapedRecipeBuilder.shaped(RecipeCategory.MISC, cap)
-        .define('m', material)
-        .pattern("mmm")
-        .pattern("m m")
-        .group("wand_cap")
-        .unlockedBy(getHasName(material), has(material))
+        .define('i', ingot)
+        .define('n', nugget)
+        .pattern(" n ")
+        .pattern(" in")
+        .pattern("i  ")
+        .group("wand_handle")
+        .unlockedBy(getHasName(ingot), has(ingot))
         .save(pRecipeOutput);
   }
 
