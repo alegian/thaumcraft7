@@ -52,6 +52,7 @@ public class T7LanguageProvider extends LanguageProvider {
 
     add(T7Blocks.AURA_NODE.get(), "Aura Node");
     add(T7Blocks.CRUCIBLE.get(), "Crucible");
+    add(T7Blocks.ARCANE_WORKBENCH.get(), "Arcane Workbench");
     add(T7Blocks.IGNIS_INFUSED_STONE.get(), "Ignis Infused Stone");
     add(T7Blocks.AER_INFUSED_STONE.get(), "Aer Infused Stone");
     add(T7Blocks.TERRA_INFUSED_STONE.get(), "Terra Infused Stone");
@@ -69,5 +70,7 @@ public class T7LanguageProvider extends LanguageProvider {
     add(T7Blocks.SILVERWOOD_LEAVES.get(), "Silverwood Leaves");
     add(T7Blocks.SILVERWOOD_PLANKS.get(), "Silverwood Planks");
     add(T7Blocks.SILVERWOOD_SAPLING.get(), "Silverwood Sapling");
+
+    add("container." + Thaumcraft.MODID + ".arcane_workbench", "Arcane Workbench");
   }
 }

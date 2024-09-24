@@ -1,7 +1,8 @@
 package me.alegian.thaumcraft7.impl.init.registries.deferred;
 
-import me.alegian.thaumcraft7.impl.common.aspect.Aspect;
 import me.alegian.thaumcraft7.impl.Thaumcraft;
+import me.alegian.thaumcraft7.impl.common.aspect.Aspect;
+import me.alegian.thaumcraft7.impl.common.block.ArcaneWorkbenchBlock;
 import me.alegian.thaumcraft7.impl.common.block.AuraNodeBlock;
 import me.alegian.thaumcraft7.impl.common.block.CrucibleBlock;
 import me.alegian.thaumcraft7.impl.common.block.InfusedStoneBlock;
@@ -63,6 +64,9 @@ public class T7Blocks {
   public static final DeferredItem<BlockItem> ARCANUM_BLOCK_ITEM = T7Items.REGISTRAR.registerSimpleBlockItem("arcanum_block", ARCANUM_BLOCK);
   public static final DeferredBlock<Block> ORICHALCUM_BLOCK = REGISTRAR.register("orichalcum_block", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK)));
   public static final DeferredItem<BlockItem> ORICHALCUM_BLOCK_ITEM = T7Items.REGISTRAR.registerSimpleBlockItem("orichalcum_block", ORICHALCUM_BLOCK);
+
+  public static final DeferredBlock<ArcaneWorkbenchBlock> ARCANE_WORKBENCH = REGISTRAR.register("arcane_workbench", ArcaneWorkbenchBlock::new);
+  public static final DeferredItem<BlockItem> ARCANE_WORKBENCH_ITEM = T7Items.REGISTRAR.registerSimpleBlockItem("arcane_workbench", ARCANE_WORKBENCH);
 
   public static void registerCapabilities(RegisterCapabilitiesEvent event) {
   }

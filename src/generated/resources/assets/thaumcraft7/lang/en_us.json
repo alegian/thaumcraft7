@@ -1,6 +1,7 @@
 {
   "block.thaumcraft7.aer_ore": "Aer Infused Stone",
   "block.thaumcraft7.aqua_ore": "Aqua Infused Stone",
+  "block.thaumcraft7.arcane_workbench": "Arcane Workbench",
   "block.thaumcraft7.arcanum_block": "Arcanum Block",
   "block.thaumcraft7.aura_node": "Aura Node",
   "block.thaumcraft7.crucible": "Crucible",
@@ -17,6 +18,7 @@
   "block.thaumcraft7.silverwood_planks": "Silverwood Planks",
   "block.thaumcraft7.silverwood_sapling": "Silverwood Sapling",
   "block.thaumcraft7.terra_ore": "Terra Infused Stone",
+  "container.thaumcraft7.arcane_workbench": "Arcane Workbench",
   "item.thaumcraft7.aer_testa": "Aer Testa",
   "item.thaumcraft7.aqua_testa": "Aqua Testa",
   "item.thaumcraft7.arcanum_axe": "Arcanum Axe",

@@ -37,6 +37,8 @@ public class T7CreativeModeTabs {
               output.accept(T7Blocks.SILVERWOOD_LOG.get());
               output.accept(T7Blocks.SILVERWOOD_PLANKS.get());
 
+              output.accept(T7Blocks.ARCANE_WORKBENCH.get());
+
               output.accept(T7Items.IRON_HANDLE.get());
               output.accept(T7Items.RUNE.get());
               output.accept(T7Items.ARCANUM_INGOT.get());
