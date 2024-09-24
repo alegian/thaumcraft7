@@ -1,15 +1,18 @@
 package me.alegian.thaumcraft7.impl.common.event;
 
-import me.alegian.thaumcraft7.impl.init.registries.T7DataMaps;
 import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.common.entity.EntityHelper;
 import me.alegian.thaumcraft7.impl.init.data.providers.*;
 import me.alegian.thaumcraft7.impl.init.registries.T7AttributeModifiers;
+import me.alegian.thaumcraft7.impl.init.registries.T7DataMaps;
 import me.alegian.thaumcraft7.impl.init.registries.T7Registries;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7BlockEntities;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Blocks;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Items;
 import net.minecraft.data.loot.LootTableProvider;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -18,6 +21,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.registries.NewRegistryEvent;
 import net.neoforged.neoforge.registries.datamaps.RegisterDataMapTypesEvent;
@@ -86,6 +90,20 @@ public class T7CommonEvents {
         if (!EntityHelper.isEntityWearingBoots(livingEntity) || hasStepHeightFromOtherModifier || livingEntity.isCrouching())
           attribute.removeModifier(T7AttributeModifiers.StepHeight.MODIFIER);
         else attribute.addOrUpdateTransientModifier(T7AttributeModifiers.StepHeight.MODIFIER);
+      }
+    }
+
+    @SubscribeEvent
+    public static void livingDamagePost(LivingDamageEvent.Post event) {
+      var itemStack = event.getSource().getWeaponItem();
+      if (itemStack == null) return;
+      if (!itemStack.getItem().equals(T7Items.ARCANUM_KATANA.get())) return;
+
+      var entity = event.getEntity();
+      if (entity.getHealth() <= 10) {
+        entity.kill();
+        if (event.getSource().getEntity() instanceof ServerPlayer player)
+          entity.level().playSound(null, player.blockPosition(), SoundEvents.ENDER_DRAGON_GROWL, SoundSource.PLAYERS, 1.0F, 1.0F);
       }
     }
   }
