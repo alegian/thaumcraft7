@@ -27,6 +27,7 @@ public class Thaumcraft {
     T7ParticleTypes.REGISTRAR.register(modEventBus);
     T7CreativeModeTabs.REGISTRAR.register(modEventBus);
     T7TrunkPlacerTypes.REGISTRAR.register(modEventBus);
+    T7MenuTypes.REGISTRAR.register(modEventBus);
     WandCoreMaterials.REGISTRAR.register(modEventBus);
     WandHandleMaterials.REGISTRAR.register(modEventBus);
 

@@ -2,7 +2,6 @@ package me.alegian.thaumcraft7.impl.client.event;
 
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.datafixers.util.Either;
-import me.alegian.thaumcraft7.impl.common.data.capability.AspectContainerHelper;
 import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.client.ClientHelper;
 import me.alegian.thaumcraft7.impl.client.T7Colors;
@@ -19,8 +18,10 @@ import me.alegian.thaumcraft7.impl.client.renderer.blockentity.AuraNodeBER;
 import me.alegian.thaumcraft7.impl.client.renderer.blockentity.CrucibleBER;
 import me.alegian.thaumcraft7.impl.client.renderer.entity.FancyItemER;
 import me.alegian.thaumcraft7.impl.client.renderer.entity.VisER;
+import me.alegian.thaumcraft7.impl.client.screen.ArcaneWorkbenchScreen;
 import me.alegian.thaumcraft7.impl.client.texture.atlas.AspectAtlas;
 import me.alegian.thaumcraft7.impl.common.block.AuraNodeBlock;
+import me.alegian.thaumcraft7.impl.common.data.capability.AspectContainerHelper;
 import me.alegian.thaumcraft7.impl.common.item.TestaItem;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.*;
 import net.minecraft.client.Minecraft;
@@ -135,6 +136,11 @@ public class T7ClientEvents {
     @SubscribeEvent
     public static void registerClientTooltipComponentFactories(RegisterClientTooltipComponentFactoriesEvent event) {
       event.register(AspectTooltipComponent.class, AspectClientTooltipComponent::new);
+    }
+
+    @SubscribeEvent
+    public static void registerScreens(RegisterMenuScreensEvent event) {
+      event.register(T7MenuTypes.ARCANE_WORKBENCH.get(), ArcaneWorkbenchScreen::new);
     }
   }
 
