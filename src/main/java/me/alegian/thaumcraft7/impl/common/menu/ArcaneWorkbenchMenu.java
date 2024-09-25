@@ -36,6 +36,8 @@ public class ArcaneWorkbenchMenu extends AbstractContainerMenu {
 
     this.addSlot(new ResultSlot(pPlayerInventory.player, this.craftSlots, this.resultSlots, 0, 124, 35));
 
+    this.addSlot(new Slot(this.craftSlots, 1, 124, 9));
+
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 3; j++) {
         this.addSlot(new Slot(this.craftSlots, j + i * 3, 30 + j * 18, 17 + i * 18));
