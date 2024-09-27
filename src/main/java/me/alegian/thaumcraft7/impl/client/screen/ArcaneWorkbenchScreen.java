@@ -19,6 +19,12 @@ public class ArcaneWorkbenchScreen extends AbstractContainerScreen<ArcaneWorkben
   }
 
   @Override
+  public void render(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
+    super.render(pGuiGraphics, pMouseX, pMouseY, pPartialTick);
+    this.renderTooltip(pGuiGraphics, pMouseX, pMouseY);
+  }
+
+  @Override
   protected void renderBg(GuiGraphics pGuiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
     int i = this.leftPos;
     int j = (this.height - this.imageHeight) / 2;

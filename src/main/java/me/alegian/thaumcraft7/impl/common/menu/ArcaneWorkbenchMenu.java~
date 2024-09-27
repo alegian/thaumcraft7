@@ -63,11 +63,10 @@ public class ArcaneWorkbenchMenu extends AbstractContainerMenu implements Contai
 
   /**
    * Returns the modified ItemStack after the quick-move.
-   * This method may run multiple times if the quick-moved stack
-   * needs to be split across multiple slots.
+   * This method may run multiple times if 
    * Returning EMPTY has special meaning: it signals that
    * there is nothing more to be done, and there is no point
-   * retrying. Not returning it when needed may cause infinite loops.
+   * retrying.
    */
   @Override
   public ItemStack quickMoveStack(Player player, int slotIndex) {
