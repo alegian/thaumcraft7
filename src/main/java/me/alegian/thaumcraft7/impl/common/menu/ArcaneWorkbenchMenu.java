@@ -1,5 +1,7 @@
 package me.alegian.thaumcraft7.impl.common.menu;
 
+import me.alegian.thaumcraft7.impl.common.menu.container.WandContainer;
+import me.alegian.thaumcraft7.impl.common.menu.slot.WandSlot;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Blocks;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7MenuTypes;
 import net.minecraft.server.level.ServerPlayer;
@@ -16,26 +18,27 @@ public class ArcaneWorkbenchMenu extends AbstractContainerMenu implements Contai
   private final Player player;
   private final CraftingContainer craftingContainer = new TransientCraftingContainer(this, 3, 3);
   private final ResultContainer resultContainer = new ResultContainer();
-
+  private final WandContainer wandContainer = new WandContainer(this);
 
   public ArcaneWorkbenchMenu(int pContainerId, Inventory pPlayerInventory) {
     this(pContainerId, pPlayerInventory, ContainerLevelAccess.NULL);
   }
 
+  /**
+   * Slot index must be container unique, but not necessarily menu unique
+   */
   public ArcaneWorkbenchMenu(int pContainerId, Inventory pPlayerInventory, ContainerLevelAccess pAccess) {
     super(T7MenuTypes.ARCANE_WORKBENCH.get(), pContainerId);
     this.levelAccess = pAccess;
     this.player = pPlayerInventory.player;
-
-    this.addSlot(new ResultSlot(pPlayerInventory.player, this.craftingContainer, this.resultContainer, 0, 124, 35));
-
-    this.addSlot(new Slot(this.craftingContainer, 1, 124, 9));
 
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 3; j++) {
         this.addSlot(new Slot(this.craftingContainer, j + i * 3, 30 + j * 18, 17 + i * 18));
       }
     }
+
+    this.addSlot(new WandSlot(this.wandContainer, 0, 124, 9));
 
     for (int k = 0; k < 3; k++) {
       for (int i1 = 0; i1 < 9; i1++) {
@@ -46,6 +49,8 @@ public class ArcaneWorkbenchMenu extends AbstractContainerMenu implements Contai
     for (int l = 0; l < 9; l++) {
       this.addSlot(new Slot(pPlayerInventory, l, 8 + l * 18, 142));
     }
+
+    this.addSlot(new ResultSlot(pPlayerInventory.player, this.craftingContainer, this.resultContainer, 0, 124, 35));
 
     this.addSlotListener(this);
   }
@@ -62,12 +67,7 @@ public class ArcaneWorkbenchMenu extends AbstractContainerMenu implements Contai
   }
 
   /**
-   * Returns the modified ItemStack after the quick-move.
-   * This method may run multiple times if the quick-moved stack
-   * needs to be split across multiple slots.
-   * Returning EMPTY has special meaning: it signals that
-   * there is nothing more to be done, and there is no point
-   * retrying. Not returning it when needed may cause infinite loops.
+   * slotIndex is relative to this.slots and NOT slot id
    */
   @Override
   public ItemStack quickMoveStack(Player player, int slotIndex) {
@@ -79,10 +79,10 @@ public class ArcaneWorkbenchMenu extends AbstractContainerMenu implements Contai
 
       // try to move stack, making sure zeros are converted to EMPTY. auto-updates dest slot
       if (slotIndex < 9) {
-        if (!this.moveItemStackTo(slotItem, 9, 45, true)) {
+        if (!this.moveItemStackTo(slotItem, 10, 46, true)) {
           return ItemStack.EMPTY;
         }
-      } else if (!this.moveItemStackTo(slotItem, 0, 9, false)) {
+      } else if (!this.moveItemStackTo(slotItem, 0, 10, false)) {
         return ItemStack.EMPTY;
       }
 
@@ -113,6 +113,7 @@ public class ArcaneWorkbenchMenu extends AbstractContainerMenu implements Contai
   public void removed(Player pPlayer) {
     super.removed(pPlayer);
     this.levelAccess.execute((level, blockPos) -> this.clearContainer(pPlayer, this.craftingContainer));
+    this.levelAccess.execute((level, blockPos) -> this.clearContainer(pPlayer, this.wandContainer));
   }
 
   @Override
