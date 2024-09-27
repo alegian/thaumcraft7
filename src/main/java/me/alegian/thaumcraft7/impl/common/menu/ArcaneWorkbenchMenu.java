@@ -110,6 +110,12 @@ public class ArcaneWorkbenchMenu extends AbstractContainerMenu implements Contai
   }
 
   @Override
+  public void removed(Player pPlayer) {
+    super.removed(pPlayer);
+    this.levelAccess.execute((level, blockPos) -> this.clearContainer(pPlayer, this.craftingContainer));
+  }
+
+  @Override
   public void slotChanged(AbstractContainerMenu pContainerToSend, int pDataSlotIndex, ItemStack pStack) {
     this.refreshRecipeResult();
   }
