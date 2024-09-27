@@ -2,14 +2,14 @@
 
 ## Preface
 
-An attempt to rewrite azanor's Thaumcraft for modern versions of Minecraft. 
+A complete rewrite & re-imagination of azanor's Thaumcraft for modern versions of Minecraft.
 I am in no way associated with azanor and will not use any of their assets, 
-except perhaps the mod name.
+except perhaps temporarily the mod name (which I will also change upon release).
 
-What version of Thaumcraft am I copying? None specifically. The plan is to 
-keep the best features from each version, using Thaumcraft 4.2 as the skeleton
-(because I enjoyed it the most). I may add small features that did not exist 
-in the original mod, always staying faithful to the original experience.
+What version of Thaumcraft am I rewriting? None specifically. I am going to implement what
+I enjoyed most from each version (my favorite being Thaumcraft 4.2). I plan to add 
+features that did not exist in the original mod, and change old features to give them
+fresh new mechanics, visuals and names.
 
 I happen to be Greek, Thaumaturgy literally means "the act of performing miracles".
 Good pick azanor ;-)
