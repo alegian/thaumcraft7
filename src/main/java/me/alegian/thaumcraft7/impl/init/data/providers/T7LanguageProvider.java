@@ -1,10 +1,20 @@
 package me.alegian.thaumcraft7.impl.init.data.providers;
 
 import me.alegian.thaumcraft7.impl.Thaumcraft;
+import me.alegian.thaumcraft7.impl.common.item.WandItem;
+import me.alegian.thaumcraft7.impl.common.wand.WandCoreMaterial;
+import me.alegian.thaumcraft7.impl.common.wand.WandHandleMaterial;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Blocks;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Items;
+import me.alegian.thaumcraft7.impl.init.registries.deferred.WandCoreMaterials;
+import me.alegian.thaumcraft7.impl.init.registries.deferred.WandHandleMaterials;
+import me.alegian.thaumcraft7.impl.init.registries.deferred.util.DeferredWandCoreMaterial;
+import me.alegian.thaumcraft7.impl.init.registries.deferred.util.DeferredWandHandleMaterial;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.LanguageProvider;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class T7LanguageProvider extends LanguageProvider {
   public T7LanguageProvider(PackOutput output, String locale) {
@@ -46,8 +56,22 @@ public class T7LanguageProvider extends LanguageProvider {
     add(T7Items.ARCANUM_HOE.get(), "Arcanum Hoe");
     add(T7Items.ARCANUM_KATANA.get(), "Arcanum Katana");
 
-    for(var wand : T7Items.WANDS.values()) {
-      add(wand.get(), wand.get().displayName());
+    Map<DeferredWandHandleMaterial<WandHandleMaterial>, String> handleNames = new HashMap<>();
+    handleNames.put(WandHandleMaterials.IRON, "Iron Handle");
+    handleNames.put(WandHandleMaterials.GOLD, "Gold Handle");
+    handleNames.put(WandHandleMaterials.ORICHALCUM, "Orichalcum Handle");
+    handleNames.put(WandHandleMaterials.ARCANUM, "Arcanum Handle");
+
+    Map<DeferredWandCoreMaterial<WandCoreMaterial>, String> coreNames = new HashMap<>();
+    coreNames.put(WandCoreMaterials.WOOD, "Wooden");
+    coreNames.put(WandCoreMaterials.GREATWOOD, "Greatwood");
+    coreNames.put(WandCoreMaterials.SILVERWOOD, "Silverwood");
+
+    for (var handle : WandHandleMaterials.ALL) {
+      for (var core : WandCoreMaterials.ALL) {
+        WandItem wand = T7Items.wand(handle, core).get();
+        add(wand, handleNames.get(handle) + " " + coreNames.get(core) + " Wand");
+      }
     }
 
     add(T7Blocks.AURA_NODE.get(), "Aura Node");

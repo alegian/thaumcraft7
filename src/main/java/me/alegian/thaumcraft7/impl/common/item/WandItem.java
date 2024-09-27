@@ -171,12 +171,16 @@ public class WandItem extends Item implements GeoItem {
     return coreMaterial.get().capacity();
   }
 
-  public String displayName() {
-    return handleMaterial.get().displayName() + " " + coreMaterial.get().displayName() + " Wand";
-  }
-
   public String getName() {
     return name(handleMaterial, coreMaterial);
+  }
+
+  public WandCoreMaterial coreMaterial() {
+    return coreMaterial.get();
+  }
+
+  public WandHandleMaterial handleMaterial() {
+    return handleMaterial.get();
   }
 
   public static String name(DeferredWandHandleMaterial<WandHandleMaterial> handleMaterial, DeferredWandCoreMaterial<WandCoreMaterial> coreMaterial) {
