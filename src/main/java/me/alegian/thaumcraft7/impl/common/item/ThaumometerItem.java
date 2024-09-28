@@ -1,7 +1,7 @@
 package me.alegian.thaumcraft7.impl.common.item;
 
-import me.alegian.thaumcraft7.impl.common.data.capability.AspectContainerHelper;
 import me.alegian.thaumcraft7.impl.common.block.AuraNodeBlock;
+import me.alegian.thaumcraft7.impl.common.data.capability.AspectContainerHelper;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;

@@ -23,19 +23,19 @@ import java.util.stream.Collectors;
  * Any operation that adds or removes Aspects should return a new AspectList.
  */
 public class AspectList {
-  private final Map<Aspect, Integer> map;
+  private final Map<String, Integer> map;
   public static final AspectList EMPTY = new AspectList(new HashMap<>());
 
-  public AspectList(Map<Aspect, Integer> map) {
+  public AspectList(Map<String, Integer> map) {
     this.map = new HashMap<>(map);
   }
 
-  public static final Codec<Pair<Aspect, Integer>> PAIR_CODEC = Codec.pair(
-      Aspect.CODEC.fieldOf("aspect").codec(),
+  public static final Codec<Pair<String, Integer>> PAIR_CODEC = Codec.pair(
+      Codec.STRING.fieldOf("aspect").codec(),
       Codec.INT.fieldOf("amount").codec()
   );
 
-  public static final Codec<List<Pair<Aspect, Integer>>> PAIR_LIST_CODEC = PAIR_CODEC.listOf();
+  public static final Codec<List<Pair<String, Integer>>> PAIR_LIST_CODEC = PAIR_CODEC.listOf();
 
   public static final Codec<AspectList> CODEC = new Codec<>() {
     @Override
@@ -59,10 +59,10 @@ public class AspectList {
     }
   };
 
-  public static final StreamCodec<ByteBuf, Map<Aspect, Integer>> MAP_STREAM_CODEC =
+  public static final StreamCodec<ByteBuf, Map<String, Integer>> MAP_STREAM_CODEC =
       ByteBufCodecs.map(
           HashMap::new,
-          Aspect.STREAM_CODEC,
+          ByteBufCodecs.STRING_UTF8,
           ByteBufCodecs.INT
       );
 
@@ -73,22 +73,20 @@ public class AspectList {
       );
 
   public AspectList add(Aspect aspect, int amount) {
-    HashMap<Aspect, Integer> newMap = new HashMap<>(map);
-    newMap.put(aspect, amount);
+    HashMap<String, Integer> newMap = new HashMap<>(map);
+    newMap.put(aspect.getId(), amount);
     return new AspectList(newMap);
   }
 
   public AspectList scale(int scale) {
-    HashMap<Aspect, Integer> newMap = new HashMap<>();
+    HashMap<String, Integer> newMap = new HashMap<>();
     map.forEach((k, v) -> newMap.put(k, v * scale));
     return new AspectList(newMap);
   }
 
   public AspectList merge(AspectList other) {
-    HashMap<Aspect, Integer> newMap = new HashMap<>(map);
-    other.getMap().forEach((k, v) -> {
-      newMap.merge(k, v, Integer::sum);
-    });
+    HashMap<String, Integer> newMap = new HashMap<>(map);
+    other.getMap().forEach((k, v) -> newMap.merge(k, v, Integer::sum));
     return new AspectList(newMap);
   }
 
@@ -96,32 +94,32 @@ public class AspectList {
    * AspectList Maps are also immutable.
    * This is read-only access to copy the map into a new one.
    */
-  protected Map<Aspect, Integer> getMap() {
+  protected Map<String, Integer> getMap() {
     return map;
   }
 
   public static AspectList of(Aspect aspect, int amount) {
-    return new AspectList(Map.of(aspect, amount));
+    return new AspectList(Map.of(aspect.getId(), amount));
   }
 
   public static AspectList of(AspectStack... aspectStacks) {
-    Map<Aspect, Integer> map = new HashMap<>();
+    Map<String, Integer> map = new HashMap<>();
     for (AspectStack stack : aspectStacks) {
-      map.put(stack.aspect(), stack.amount());
+      map.put(stack.aspect().getId(), stack.amount());
     }
     return new AspectList(map);
   }
 
-  public static AspectList randomAura() {
-    HashMap<Aspect, Integer> map = new HashMap<>();
+  public static AspectList randomPrimals() {
+    HashMap<String, Integer> map = new HashMap<>();
     for (Aspect a : Aspect.PRIMAL_ASPECTS) {
-      map.put(a, (int) (Math.random() * 16 + 1));
+      map.put(a.getId(), (int) (Math.random() * 16 + 1));
     }
     return new AspectList(map);
   }
 
   public int get(Aspect aspect) {
-    return map.getOrDefault(aspect, 0);
+    return map.getOrDefault(aspect.getId(), 0);
   }
 
   public ImmutableList<AspectStack> displayedAspects() {
@@ -163,7 +161,7 @@ public class AspectList {
   public String toString() {
     StringBuilder str = new StringBuilder();
     map.forEach((k, v) ->
-        str.append(k.id).append(v)
+        str.append(k).append(v)
     );
     return str.toString();
   }

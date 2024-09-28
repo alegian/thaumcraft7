@@ -1,10 +1,10 @@
 package me.alegian.thaumcraft7.impl.init.registries.deferred;
 
-import me.alegian.thaumcraft7.impl.init.registries.T7Capabilities;
 import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.common.block.entity.AuraNodeBE;
 import me.alegian.thaumcraft7.impl.common.block.entity.CrucibleBE;
 import me.alegian.thaumcraft7.impl.common.data.capability.AspectContainer;
+import me.alegian.thaumcraft7.impl.init.registries.T7Capabilities;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.neoforge.capabilities.Capabilities;

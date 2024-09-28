@@ -18,7 +18,7 @@ public class AuraNodeBE extends DataComponentBE {
     if (!this.getLevel().isClientSide()) {
       var aspects = get(T7DataComponents.ASPECTS.get());
       if (aspects == null) {
-        set(T7DataComponents.ASPECTS.get(), AspectList.randomAura());
+        set(T7DataComponents.ASPECTS.get(), AspectList.randomPrimals());
       }
       this.getLevel().sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), Block.UPDATE_CLIENTS);
     }

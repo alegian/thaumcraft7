@@ -1,9 +1,9 @@
 package me.alegian.thaumcraft7.impl.client.gui;
 
+import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.common.aspect.Aspect;
 import me.alegian.thaumcraft7.impl.common.aspect.AspectList;
 import me.alegian.thaumcraft7.impl.common.data.capability.AspectContainerHelper;
-import me.alegian.thaumcraft7.impl.Thaumcraft;
 import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;

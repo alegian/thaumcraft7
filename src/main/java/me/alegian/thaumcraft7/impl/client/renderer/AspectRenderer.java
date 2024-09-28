@@ -2,13 +2,13 @@ package me.alegian.thaumcraft7.impl.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import me.alegian.thaumcraft7.impl.common.aspect.Aspect;
-import me.alegian.thaumcraft7.impl.common.aspect.AspectList;
-import me.alegian.thaumcraft7.impl.common.aspect.AspectStack;
 import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.client.T7GuiGraphics;
 import me.alegian.thaumcraft7.impl.client.T7RenderStateShards;
 import me.alegian.thaumcraft7.impl.client.texture.atlas.AspectAtlas;
+import me.alegian.thaumcraft7.impl.common.aspect.Aspect;
+import me.alegian.thaumcraft7.impl.common.aspect.AspectList;
+import me.alegian.thaumcraft7.impl.common.aspect.AspectStack;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
