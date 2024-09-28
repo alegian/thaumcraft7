@@ -22,12 +22,15 @@ import me.alegian.thaumcraft7.impl.client.screen.ArcaneWorkbenchScreen;
 import me.alegian.thaumcraft7.impl.client.texture.atlas.AspectAtlas;
 import me.alegian.thaumcraft7.impl.common.block.AuraNodeBlock;
 import me.alegian.thaumcraft7.impl.common.data.capability.AspectContainerHelper;
+import me.alegian.thaumcraft7.impl.common.item.HammerItem;
 import me.alegian.thaumcraft7.impl.common.item.TestaItem;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.ShaderInstance;
+import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.neoforged.api.distmarker.Dist;
@@ -36,9 +39,11 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
+import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
 import java.io.IOException;
+import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
 public class T7ClientEvents {
@@ -146,6 +151,8 @@ public class T7ClientEvents {
 
   @EventBusSubscriber(modid = Thaumcraft.MODID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.GAME)
   public static class T7ClientGameEvents {
+    private static boolean allowHammerBreakEvents = true;
+
     @SubscribeEvent
     public static void playerTick(PlayerTickEvent.Pre event) {
       VisGuiOverlay.update(event.getEntity());
@@ -188,6 +195,37 @@ public class T7ClientEvents {
       if (!ClientHelper.isLocalPlayerWearingGoggles()) return;
 
       event.getTooltipElements().add(Either.right(new AspectTooltipComponent(event.getItemStack())));
+    }
+
+    @SubscribeEvent
+    public static void breakBlock(BlockEvent.BreakEvent event) {
+      var player = event.getPlayer();
+      var item = player.getMainHandItem().getItem();
+      var blockPos = event.getPos();
+
+      if (player instanceof ServerPlayer serverPlayer && item instanceof HammerItem) {
+        // disallow nested hammer break events
+        if (!allowHammerBreakEvents) return;
+        allowHammerBreakEvents = false;
+
+        // find the 2 axes perpendicular to the player's direction
+        var playerAxis = player.getNearestViewDirection().getAxis();
+        var allAxes = List.of(Direction.Axis.X, Direction.Axis.Y, Direction.Axis.Z);
+        var perpendicularAxes = allAxes.stream().filter(a -> a != playerAxis).toList();
+
+        // 3x3 area, except original block
+        for (int i = -1; i <= 1; i++) {
+          for (int j = -1; j <= 1; j++) {
+            if (i != 0 || j != 0)
+              serverPlayer.gameMode.destroyBlock(blockPos
+                  .relative(perpendicularAxes.get(0), i)
+                  .relative(perpendicularAxes.get(1), j)
+              );
+          }
+        }
+
+        allowHammerBreakEvents = true;
+      }
     }
   }
 }
