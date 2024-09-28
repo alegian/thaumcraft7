@@ -35,6 +35,7 @@ public class T7ItemModelProvider extends ItemModelProvider {
     handheldItem(T7Items.ARCANUM_SWORD);
     handheldItem(T7Items.ARCANUM_AXE);
     handheldItem(T7Items.ARCANUM_PICKAXE);
+    handheldItem(T7Items.ARCANUM_HAMMER);
     handheldItem(T7Items.ARCANUM_SHOVEL);
     handheldItem(T7Items.ARCANUM_HOE);
 

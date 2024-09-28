@@ -56,6 +56,7 @@ public class T7LanguageProvider extends LanguageProvider {
     add(T7Items.ARCANUM_SWORD.get(), "Arcanum Sword");
     add(T7Items.ARCANUM_AXE.get(), "Arcanum Axe");
     add(T7Items.ARCANUM_PICKAXE.get(), "Arcanum Pickaxe");
+    add(T7Items.ARCANUM_HAMMER.get(), "Arcanum Hammer");
     add(T7Items.ARCANUM_SHOVEL.get(), "Arcanum Shovel");
     add(T7Items.ARCANUM_HOE.get(), "Arcanum Hoe");
     add(T7Items.ARCANUM_KATANA.get(), "Arcanum Katana");

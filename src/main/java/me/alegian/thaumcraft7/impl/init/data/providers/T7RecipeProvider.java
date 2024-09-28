@@ -45,6 +45,14 @@ public class T7RecipeProvider extends RecipeProvider {
         .pattern(" s ")
         .unlockedBy(getHasName(T7Items.ARCANUM_INGOT.get()), has(T7Items.ARCANUM_INGOT.get()))
         .save(pRecipeOutput);
+    ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, T7Items.ARCANUM_HAMMER.get())
+        .define('a', T7Items.ARCANUM_INGOT.get())
+        .define('s', Tags.Items.RODS_WOODEN)
+        .pattern("aaa")
+        .pattern("aaa")
+        .pattern(" s ")
+        .unlockedBy(getHasName(T7Items.ARCANUM_INGOT.get()), has(T7Items.ARCANUM_INGOT.get()))
+        .save(pRecipeOutput);
     ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, T7Items.ARCANUM_AXE.get())
         .define('a', T7Items.ARCANUM_INGOT.get())
         .define('s', Tags.Items.RODS_WOODEN)

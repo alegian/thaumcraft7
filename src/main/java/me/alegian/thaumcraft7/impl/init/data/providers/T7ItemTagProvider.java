@@ -52,6 +52,9 @@ public class T7ItemTagProvider extends ItemTagsProvider {
     tag(ItemTags.SWORDS).add(T7Items.ARCANUM_SWORD.get(), T7Items.ARCANUM_KATANA.get());
     tag(ItemTags.AXES).add(T7Items.ARCANUM_AXE.get());
     tag(ItemTags.PICKAXES).add(T7Items.ARCANUM_PICKAXE.get());
+    tag(ItemTags.MINING_ENCHANTABLE).add(T7Items.ARCANUM_HAMMER.get());
+    tag(ItemTags.MINING_LOOT_ENCHANTABLE).add(T7Items.ARCANUM_HAMMER.get());
+    tag(Tags.Items.MINING_TOOL_TOOLS).add(T7Items.ARCANUM_HAMMER.get());
     tag(ItemTags.SHOVELS).add(T7Items.ARCANUM_SHOVEL.get());
     tag(ItemTags.HOES).add(T7Items.ARCANUM_HOE.get());
 

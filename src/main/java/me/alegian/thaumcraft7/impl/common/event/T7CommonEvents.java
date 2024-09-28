@@ -9,6 +9,7 @@ import me.alegian.thaumcraft7.impl.init.registries.T7Registries;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7BlockEntities;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Blocks;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Items;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -21,6 +22,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
+import net.neoforged.neoforge.event.ModifyDefaultComponentsEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.registries.NewRegistryEvent;
@@ -74,6 +76,11 @@ public class T7CommonEvents {
       generator.addProvider(event.includeClient(), new T7ItemModelProvider(packOutput, existingFileHelper));
       generator.addProvider(event.includeClient(), new T7ParticleDescriptionProvider(packOutput, existingFileHelper));
       generator.addProvider(event.includeClient(), new T7LanguageProvider(packOutput, "en_us"));
+    }
+
+    @SubscribeEvent
+    public static void modifyDefaultComponents(ModifyDefaultComponentsEvent event) {
+      event.modify(T7Items.ARCANUM_HAMMER, builder -> builder.set(DataComponents.MAX_DAMAGE, T7Items.ARCANUM_HAMMER.get().getTier().getUses() * 2));
     }
   }
 

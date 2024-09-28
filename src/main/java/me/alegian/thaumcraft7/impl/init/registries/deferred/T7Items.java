@@ -60,6 +60,15 @@ public class T7Items {
           )
       )
   ));
+  public static final DeferredItem<HammerItem> ARCANUM_HAMMER = REGISTRAR.register("arcanum_hammer", () -> new HammerItem(
+      T7Tiers.ARCANUM_TIER,
+      new Item.Properties().attributes(
+          HammerItem.createAttributes(
+              T7Tiers.ARCANUM_TIER,
+              4.0F, -3.0F
+          )
+      )
+  ));
   public static final DeferredItem<AxeItem> ARCANUM_AXE = REGISTRAR.register("arcanum_axe", () -> new AxeItem(
       T7Tiers.ARCANUM_TIER,
       new Item.Properties().attributes(
