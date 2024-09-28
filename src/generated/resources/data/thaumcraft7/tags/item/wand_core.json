@@ -1,5 +1,7 @@
 {
   "values": [
-    "#c:rods/wooden"
+    "#c:rods/wooden",
+    "thaumcraft7:greatwood_core",
+    "thaumcraft7:silverwood_core"
   ]
 }

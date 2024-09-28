@@ -25,6 +25,9 @@ public class T7Items {
   public static final DeferredItem<Item> ORICHALCUM_HANDLE = REGISTRAR.registerSimpleItem("orichalcum_handle", new Item.Properties());
   public static final DeferredItem<Item> ARCANUM_HANDLE = REGISTRAR.registerSimpleItem("arcanum_handle", new Item.Properties());
 
+  public static final DeferredItem<Item> GREATWOOD_CORE = REGISTRAR.registerSimpleItem("greatwood_core", new Item.Properties());
+  public static final DeferredItem<Item> SILVERWOOD_CORE = REGISTRAR.registerSimpleItem("silverwood_core", new Item.Properties());
+
   public static final DeferredItem<Item> RUNE = REGISTRAR.registerSimpleItem("rune", new Item.Properties());
   public static final DeferredItem<Item> ARCANUM_INGOT = REGISTRAR.registerSimpleItem("arcanum_ingot", new Item.Properties());
   public static final DeferredItem<Item> ARCANUM_NUGGET = REGISTRAR.registerSimpleItem("arcanum_nugget", new Item.Properties());

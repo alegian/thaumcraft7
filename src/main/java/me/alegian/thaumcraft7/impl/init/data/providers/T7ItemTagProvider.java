@@ -21,14 +21,19 @@ public class T7ItemTagProvider extends ItemTagsProvider {
 
   @Override
   protected void addTags(HolderLookup.Provider pProvider) {
-    tag(T7Tags.WAND_CORE).addTag(Tags.Items.RODS_WOODEN);
-
     tag(T7Tags.WAND_HANDLE).add(
         T7Items.IRON_HANDLE.get(),
         T7Items.GOLD_HANDLE.get(),
         T7Items.ORICHALCUM_HANDLE.get(),
         T7Items.ARCANUM_HANDLE.get()
     );
+
+    tag(T7Tags.WAND_CORE)
+        .addTag(Tags.Items.RODS_WOODEN)
+        .add(
+            T7Items.GREATWOOD_CORE.get(),
+            T7Items.SILVERWOOD_CORE.get()
+        );
 
     tag(T7Tags.TESTA).add(
         T7Items.TERRA_TESTA.get(),
