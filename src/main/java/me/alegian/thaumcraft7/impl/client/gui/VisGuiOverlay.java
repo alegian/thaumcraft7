@@ -4,6 +4,7 @@ import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.common.aspect.Aspect;
 import me.alegian.thaumcraft7.impl.common.aspect.AspectList;
 import me.alegian.thaumcraft7.impl.common.data.capability.AspectContainerHelper;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
@@ -22,7 +23,7 @@ public class VisGuiOverlay {
   public static int maxAmount = 1;
 
   public static final LayeredDraw.Layer VIS_OVERLAY = ((guiGraphics, partialTick) -> {
-    if (visible && vis != null) {
+    if (visible && vis != null && !Minecraft.getInstance().options.hideGui) {
       float scale = 0.12f;
       int screenHeight = guiGraphics.guiHeight();
       float diskSize = (screenHeight * scale);
