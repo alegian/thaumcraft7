@@ -28,7 +28,6 @@ import me.alegian.thaumcraft7.impl.init.registries.deferred.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.ShaderInstance;
-import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.phys.BlockHitResult;
@@ -43,7 +42,6 @@ import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
 import java.io.IOException;
-import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
 public class T7ClientEvents {
@@ -200,29 +198,17 @@ public class T7ClientEvents {
     @SubscribeEvent
     public static void breakBlock(BlockEvent.BreakEvent event) {
       var player = event.getPlayer();
-      var item = player.getMainHandItem().getItem();
+      var itemStack = player.getMainHandItem();
+      var item = itemStack.getItem();
       var blockPos = event.getPos();
+      var level = event.getLevel();
 
-      if (player instanceof ServerPlayer serverPlayer && item instanceof HammerItem) {
-        // disallow nested hammer break events
+      if (player instanceof ServerPlayer serverPlayer && item instanceof HammerItem hammer) {
+        // disallow nested hammer break events, to avoid infinite recursion
         if (!allowHammerBreakEvents) return;
         allowHammerBreakEvents = false;
 
-        // find the 2 axes perpendicular to the player's direction
-        var playerAxis = player.getNearestViewDirection().getAxis();
-        var allAxes = List.of(Direction.Axis.X, Direction.Axis.Y, Direction.Axis.Z);
-        var perpendicularAxes = allAxes.stream().filter(a -> a != playerAxis).toList();
-
-        // 3x3 area, except original block
-        for (int i = -1; i <= 1; i++) {
-          for (int j = -1; j <= 1; j++) {
-            if (i != 0 || j != 0)
-              serverPlayer.gameMode.destroyBlock(blockPos
-                  .relative(perpendicularAxes.get(0), i)
-                  .relative(perpendicularAxes.get(1), j)
-              );
-          }
-        }
+        hammer.tryBreak3x3exceptOrigin(serverPlayer, blockPos, level, itemStack);
 
         allowHammerBreakEvents = true;
       }
