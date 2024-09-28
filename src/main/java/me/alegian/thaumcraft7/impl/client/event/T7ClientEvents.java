@@ -30,7 +30,6 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.neoforged.api.distmarker.Dist;
@@ -40,7 +39,6 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.ClientHooks;
 import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
-import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
 import java.io.IOException;
@@ -151,7 +149,6 @@ public class T7ClientEvents {
 
   @EventBusSubscriber(modid = Thaumcraft.MODID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.GAME)
   public static class T7ClientGameEvents {
-    private static boolean allowHammerBreakEvents = true;
     private static boolean allowHammerOutlineEvents = true;
 
     @SubscribeEvent
@@ -229,25 +226,6 @@ public class T7ClientEvents {
       if (!ClientHelper.isLocalPlayerWearingGoggles()) return;
 
       event.getTooltipElements().add(Either.right(new AspectTooltipComponent(event.getItemStack())));
-    }
-
-    @SubscribeEvent
-    public static void breakBlock(BlockEvent.BreakEvent event) {
-      var player = event.getPlayer();
-      var itemStack = player.getMainHandItem();
-      var item = itemStack.getItem();
-      var blockPos = event.getPos();
-      var level = event.getLevel();
-
-      if (player instanceof ServerPlayer serverPlayer && item instanceof HammerItem hammer) {
-        // disallow nested hammer break events, to avoid infinite recursion
-        if (!allowHammerBreakEvents) return;
-        allowHammerBreakEvents = false;
-
-        hammer.tryBreak3x3exceptOrigin(serverPlayer, blockPos, level, itemStack);
-
-        allowHammerBreakEvents = true;
-      }
     }
   }
 }

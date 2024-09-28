@@ -2,6 +2,7 @@ package me.alegian.thaumcraft7.impl.common.event;
 
 import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.common.entity.EntityHelper;
+import me.alegian.thaumcraft7.impl.common.item.HammerItem;
 import me.alegian.thaumcraft7.impl.init.data.providers.*;
 import me.alegian.thaumcraft7.impl.init.registries.T7AttributeModifiers;
 import me.alegian.thaumcraft7.impl.init.registries.T7DataMaps;
@@ -24,6 +25,7 @@ import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.event.ModifyDefaultComponentsEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
+import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.registries.NewRegistryEvent;
 import net.neoforged.neoforge.registries.datamaps.RegisterDataMapTypesEvent;
@@ -86,6 +88,8 @@ public class T7CommonEvents {
 
   @EventBusSubscriber(modid = Thaumcraft.MODID, bus = EventBusSubscriber.Bus.GAME)
   public static class CommonGameEvents {
+    private static boolean allowHammerBreakEvents = true;
+
     @SubscribeEvent
     public static void entityTickPre(EntityTickEvent.Pre event) {
       if (event.getEntity() instanceof LivingEntity livingEntity) {
@@ -111,6 +115,25 @@ public class T7CommonEvents {
         entity.kill();
         if (event.getSource().getEntity() instanceof ServerPlayer player)
           entity.level().playSound(null, player.blockPosition(), SoundEvents.ENDER_DRAGON_GROWL, SoundSource.PLAYERS, 1.0F, 1.0F);
+      }
+    }
+
+    @SubscribeEvent
+    public static void breakBlock(BlockEvent.BreakEvent event) {
+      var player = event.getPlayer();
+      var itemStack = player.getMainHandItem();
+      var item = itemStack.getItem();
+      var blockPos = event.getPos();
+      var level = event.getLevel();
+
+      if (player instanceof ServerPlayer serverPlayer && item instanceof HammerItem hammer) {
+        // disallow nested hammer break events, to avoid infinite recursion
+        if (!allowHammerBreakEvents) return;
+        allowHammerBreakEvents = false;
+
+        hammer.tryBreak3x3exceptOrigin(serverPlayer, blockPos, level, itemStack);
+
+        allowHammerBreakEvents = true;
       }
     }
   }
