@@ -123,7 +123,6 @@ public class T7CommonEvents {
       var player = event.getPlayer();
       var itemStack = player.getMainHandItem();
       var item = itemStack.getItem();
-      var blockPos = event.getPos();
       var level = event.getLevel();
 
       if (player instanceof ServerPlayer serverPlayer && item instanceof HammerItem hammer) {
@@ -131,7 +130,7 @@ public class T7CommonEvents {
         if (!allowHammerBreakEvents) return;
         allowHammerBreakEvents = false;
 
-        hammer.tryBreak3x3exceptOrigin(serverPlayer, blockPos, level, itemStack);
+        hammer.tryBreak3x3exceptOrigin(serverPlayer, level, itemStack);
 
         allowHammerBreakEvents = true;
       }

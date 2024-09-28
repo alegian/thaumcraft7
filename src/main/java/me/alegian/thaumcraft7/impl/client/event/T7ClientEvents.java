@@ -14,6 +14,7 @@ import me.alegian.thaumcraft7.impl.client.gui.tooltip.AspectTooltipComponent;
 import me.alegian.thaumcraft7.impl.client.model.CubeOverlayModel;
 import me.alegian.thaumcraft7.impl.client.particle.CrucibleBubbleParticle;
 import me.alegian.thaumcraft7.impl.client.renderer.AspectRenderer;
+import me.alegian.thaumcraft7.impl.client.renderer.HammerHighlightRenderer;
 import me.alegian.thaumcraft7.impl.client.renderer.blockentity.AuraNodeBER;
 import me.alegian.thaumcraft7.impl.client.renderer.blockentity.CrucibleBER;
 import me.alegian.thaumcraft7.impl.client.renderer.entity.FancyItemER;
@@ -27,7 +28,6 @@ import me.alegian.thaumcraft7.impl.common.item.TestaItem;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.BlockHitResult;
@@ -36,7 +36,6 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.ClientHooks;
 import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
@@ -167,28 +166,11 @@ public class T7ClientEvents {
       if (player == null) return;
       var itemStack = player.getMainHandItem();
       var item = itemStack.getItem();
-      var levelRenderer = event.getLevelRenderer();
-      var camera = event.getCamera();
 
-      // render outline for the block positions supplied by the hammer
-      // running nested highlight events for each one
       if (allowHammerOutlineEvents) {
         if (item instanceof HammerItem hammer) {
           allowHammerOutlineEvents = false;
-          for (var blockPos : hammer.getValid3x3PositionsExceptOrigin(player, targetPos, level, itemStack)) {
-            var currHitResult = new BlockHitResult(hitResult.getLocation(), hitResult.getDirection(), blockPos, hitResult.isInside());
-            if (!ClientHooks.onDrawHighlight(levelRenderer, camera, currHitResult, event.getDeltaTracker(), event.getPoseStack(), event.getMultiBufferSource()))
-              levelRenderer.renderHitOutline(
-                  event.getPoseStack(),
-                  event.getMultiBufferSource().getBuffer(RenderType.LINES),
-                  player,
-                  camera.getPosition().x,
-                  camera.getPosition().y,
-                  camera.getPosition().z,
-                  blockPos,
-                  level.getBlockState(blockPos)
-              );
-          }
+          HammerHighlightRenderer.render(event, hammer, player, level, itemStack, hitResult);
           allowHammerOutlineEvents = true;
         }
       }
