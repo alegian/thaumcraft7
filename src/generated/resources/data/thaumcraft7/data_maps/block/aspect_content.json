@@ -12,20 +12,20 @@
     ],
     "#c:concretes": [
       {
-        "amount": 1,
-        "aspect": "ordo"
+        "amount": 3,
+        "aspect": "terra"
       },
       {
         "amount": 2,
         "aspect": "perditio"
       },
       {
-        "amount": 3,
-        "aspect": "terra"
+        "amount": 1,
+        "aspect": "aqua"
       },
       {
         "amount": 1,
-        "aspect": "aqua"
+        "aspect": "ordo"
       }
     ],
     "#c:glass_blocks/cheap": [
@@ -110,12 +110,12 @@
     ],
     "#minecraft:wool": [
       {
-        "amount": 11,
-        "aspect": "bestia"
-      },
-      {
         "amount": 3,
         "aspect": "fabrico"
+      },
+      {
+        "amount": 11,
+        "aspect": "bestia"
       },
       {
         "amount": 3,
@@ -125,7 +125,7 @@
     "minecraft:bedrock": [
       {
         "amount": 25,
-        "aspect": "perditio"
+        "aspect": "tenebrae"
       },
       {
         "amount": 25,
@@ -137,7 +137,7 @@
       },
       {
         "amount": 25,
-        "aspect": "tenebrae"
+        "aspect": "perditio"
       }
     ],
     "minecraft:coarse_dirt": [
