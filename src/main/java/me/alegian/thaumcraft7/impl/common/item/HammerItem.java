@@ -4,12 +4,14 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DiggerItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.level.LevelAccessor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,6 +28,14 @@ public class HammerItem extends DiggerItem {
    * Used in event
    */
   public void tryBreak3x3exceptOrigin(ServerPlayer serverPlayer, BlockPos blockPos, LevelAccessor level, ItemStack itemStack) {
+    for (var pos : getValid3x3PositionsExceptOrigin(serverPlayer, blockPos, level, itemStack)) {
+      serverPlayer.gameMode.destroyBlock(pos);
+    }
+  }
+
+  public List<BlockPos> getValid3x3PositionsExceptOrigin(Player serverPlayer, BlockPos blockPos, LevelAccessor level, ItemStack itemStack) {
+    var positions = new ArrayList<BlockPos>();
+
     // find the 2 axes perpendicular to the player's direction
     var playerAxis = serverPlayer.getNearestViewDirection().getAxis();
     var allAxes = List.of(Direction.Axis.X, Direction.Axis.Y, Direction.Axis.Z);
@@ -40,8 +50,10 @@ public class HammerItem extends DiggerItem {
         var currBlockState = level.getBlockState(currPos);
 
         if ((i != 0 || j != 0) && this.isCorrectToolForDrops(itemStack, currBlockState))
-          serverPlayer.gameMode.destroyBlock(currPos);
+          positions.add(currPos);
       }
     }
+
+    return positions;
   }
 }
