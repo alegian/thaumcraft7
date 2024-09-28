@@ -5,6 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.DiggerItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -30,18 +31,18 @@ public class HammerItem extends DiggerItem {
    */
   public void tryBreak3x3exceptOrigin(ServerPlayer serverPlayer, LevelAccessor level, ItemStack itemStack) {
     var hitResult = EntityHelper.getServerHitResult(serverPlayer);
-    for (var pos : getValid3x3PositionsExceptOrigin(hitResult, level, itemStack)) {
+    for (var pos : getValid3x3PositionsExceptOrigin(hitResult, level, itemStack, serverPlayer)) {
       serverPlayer.gameMode.destroyBlock(pos);
     }
   }
 
-  public List<BlockPos> getValid3x3PositionsExceptOrigin(BlockHitResult hitResult, LevelAccessor level, ItemStack itemStack) {
+  public List<BlockPos> getValid3x3PositionsExceptOrigin(BlockHitResult hitResult, LevelAccessor level, ItemStack itemStack, LivingEntity entity) {
     var positions = new ArrayList<BlockPos>();
     var originBlockPos = hitResult.getBlockPos();
     var originBlockState = level.getBlockState(originBlockPos);
 
-    // doesn't do AoE if it cant break the original block
-    if (!this.isCorrectToolForDrops(itemStack, originBlockState)) return List.of();
+    // doesn't do AoE if it cant break the original block, or if crouching
+    if (!this.isCorrectToolForDrops(itemStack, originBlockState) || entity.isCrouching()) return List.of();
 
     // find the 2 axes perpendicular to the block hit direction
     var hitAxis = hitResult.getDirection().getAxis();

@@ -19,7 +19,7 @@ public class HammerHighlightRenderer {
     var levelRenderer = event.getLevelRenderer();
     var camera = event.getCamera();
 
-    for (var blockPos : hammer.getValid3x3PositionsExceptOrigin(event.getTarget(), level, itemStack)) {
+    for (var blockPos : hammer.getValid3x3PositionsExceptOrigin(event.getTarget(), level, itemStack, player)) {
       var currHitResult = new BlockHitResult(hitResult.getLocation(), hitResult.getDirection(), blockPos, hitResult.isInside());
       if (!ClientHooks.onDrawHighlight(levelRenderer, camera, currHitResult, event.getDeltaTracker(), event.getPoseStack(), event.getMultiBufferSource()))
         levelRenderer.renderHitOutline(
