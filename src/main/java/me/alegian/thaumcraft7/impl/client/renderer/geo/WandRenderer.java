@@ -13,7 +13,6 @@ import software.bernie.geckolib.renderer.specialty.DynamicGeoItemRenderer;
 import javax.annotation.Nullable;
 
 public class WandRenderer extends DynamicGeoItemRenderer<WandItem> {
-  private static final ResourceLocation CIRCLE = texture(ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "wand_circle"));
   private final ResourceLocation handleLocation;
   private final ResourceLocation coreLocation;
 
@@ -29,7 +28,7 @@ public class WandRenderer extends DynamicGeoItemRenderer<WandItem> {
     return switch (bone.getName()) {
       case "handle" -> handleLocation;
       case "stick" -> coreLocation;
-      default -> CIRCLE;
+      default -> null;
     };
   }
 
@@ -39,10 +38,6 @@ public class WandRenderer extends DynamicGeoItemRenderer<WandItem> {
 
   private static ResourceLocation coreTexture(ResourceLocation registeredLocation) {
     return texture(registeredLocation, "wand_stick_");
-  }
-
-  private static ResourceLocation texture(ResourceLocation registeredLocation) {
-    return texture(registeredLocation, "");
   }
 
   private static ResourceLocation texture(ResourceLocation registeredLocation, String prefix) {
