@@ -37,7 +37,7 @@ public class WandRenderer extends DynamicGeoItemRenderer<WandItem> {
   }
 
   private static ResourceLocation coreTexture(ResourceLocation registeredLocation) {
-    return texture(registeredLocation, "wand_stick_");
+    return texture(registeredLocation, "wand_core_");
   }
 
   private static ResourceLocation texture(ResourceLocation registeredLocation, String prefix) {
