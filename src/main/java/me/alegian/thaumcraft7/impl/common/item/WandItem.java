@@ -5,8 +5,10 @@ import me.alegian.thaumcraft7.impl.client.renderer.geo.WandRenderer;
 import me.alegian.thaumcraft7.impl.common.block.AuraNodeBlock;
 import me.alegian.thaumcraft7.impl.common.entity.FancyThaumonomiconEntity;
 import me.alegian.thaumcraft7.impl.common.entity.VisEntity;
+import me.alegian.thaumcraft7.impl.common.util.LevelHelper;
 import me.alegian.thaumcraft7.impl.common.wand.WandCoreMaterial;
 import me.alegian.thaumcraft7.impl.common.wand.WandHandleMaterial;
+import me.alegian.thaumcraft7.impl.init.registries.deferred.T7BlockEntities;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Blocks;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.util.DeferredWandCoreMaterial;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.util.DeferredWandHandleMaterial;
@@ -83,12 +85,21 @@ public class WandItem extends Item implements GeoItem {
       level.playSound(context.getPlayer(), blockPos, SoundEvents.PLAYER_LEVELUP, SoundSource.BLOCKS, 1.0F, 1.0F);
       return InteractionResult.SUCCESS;
     }
-    if (block == Blocks.BOOKSHELF) {
+    if (block.equals(Blocks.BOOKSHELF)) {
       if (!level.isClientSide() && level.removeBlock(blockPos, false)) {
         level.addFreshEntity(new FancyThaumonomiconEntity(level, blockPos));
       }
       level.playSound(context.getPlayer(), blockPos, SoundEvents.PLAYER_LEVELUP, SoundSource.BLOCKS, 1.0F, 1.0F);
       return InteractionResult.SUCCESS;
+    }
+    if (block.equals(Blocks.GLASS)) {
+      var direction = context.getClickedFace().getOpposite();
+      var behindPos = blockPos.relative(direction, 1);
+      return LevelHelper.getSafeBE(level, behindPos, T7BlockEntities.AURA_NODE.get())
+          .map(be -> {
+            if (be.jarInteraction()) return InteractionResult.SUCCESS;
+            return InteractionResult.FAIL;
+          }).orElse(InteractionResult.PASS);
     }
     return InteractionResult.PASS;
   }
