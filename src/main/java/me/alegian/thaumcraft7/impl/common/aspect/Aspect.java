@@ -1,5 +1,7 @@
 package me.alegian.thaumcraft7.impl.common.aspect;
 
+import com.mojang.datafixers.util.Pair;
+
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,9 +11,9 @@ public class Aspect {
 
   String id;
   int color;
-  Aspect[] components;
+  Pair<Aspect, Aspect> components;
 
-  public Aspect(String id, int color, Aspect[] components) {
+  public Aspect(String id, int color, Pair<Aspect, Aspect> components) {
     this.id = id;
     this.color = color;
     this.components = components;
@@ -40,7 +42,7 @@ public class Aspect {
     return new int[]{r, g, b};
   }
 
-  public Aspect[] getComponents() {
+  public Pair<Aspect, Aspect> getComponents() {
     return components;
   }
 
@@ -65,37 +67,37 @@ public class Aspect {
   public static final List<Aspect> PRIMAL_ASPECTS = List.of(IGNIS, AER, TERRA, AQUA, ORDO, PERDITIO);
 
   // SECONDARY (PRIMAL + PRIMAL)
-  public static final Aspect VACUOS = new Aspect("vacuos", 0xff888888, new Aspect[]{AER, PERDITIO});
-  public static final Aspect LUX = new Aspect("lux", 0xffffffc0, new Aspect[]{AER, IGNIS});
-  public static final Aspect MOTUS = new Aspect("motus", 0xffcdccf4, new Aspect[]{AER, ORDO});
-  public static final Aspect GELUM = new Aspect("gelum", 0xffe1ffff, new Aspect[]{IGNIS, PERDITIO});
-  public static final Aspect VITREUS = new Aspect("vitreus", 0xff80ffff, new Aspect[]{TERRA, AER});
-  public static final Aspect METALLUM = new Aspect("metallum", 0xffb5b5cd, new Aspect[]{TERRA, ORDO});
-  public static final Aspect VICTUS = new Aspect("victus", 0xffde0005, new Aspect[]{TERRA, AQUA});
-  public static final Aspect MORTUUS = new Aspect("mortuus", 0xff6a0005, new Aspect[]{AQUA, PERDITIO});
-  public static final Aspect POTENTIA = new Aspect("potentia", 0xffc0ffff, new Aspect[]{ORDO, IGNIS});
-  public static final Aspect PERMUTATIO = new Aspect("permutatio", 0xff578357, new Aspect[]{PERDITIO, ORDO});
+  public static final Aspect VACUOS = new Aspect("vacuos", 0xff888888, Pair.of(AER, PERDITIO));
+  public static final Aspect LUX = new Aspect("lux", 0xffffffc0, Pair.of(AER, IGNIS));
+  public static final Aspect MOTUS = new Aspect("motus", 0xffcdccf4, Pair.of(AER, ORDO));
+  public static final Aspect GELUM = new Aspect("gelum", 0xffe1ffff, Pair.of(IGNIS, PERDITIO));
+  public static final Aspect VITREUS = new Aspect("vitreus", 0xff80ffff, Pair.of(TERRA, AER));
+  public static final Aspect METALLUM = new Aspect("metallum", 0xffb5b5cd, Pair.of(TERRA, ORDO));
+  public static final Aspect VICTUS = new Aspect("victus", 0xffde0005, Pair.of(TERRA, AQUA));
+  public static final Aspect MORTUUS = new Aspect("mortuus", 0xff6a0005, Pair.of(AQUA, PERDITIO));
+  public static final Aspect POTENTIA = new Aspect("potentia", 0xffc0ffff, Pair.of(ORDO, IGNIS));
+  public static final Aspect PERMUTATIO = new Aspect("permutatio", 0xff578357, Pair.of(PERDITIO, ORDO));
 
   // TERTIARY
-  public static final Aspect PRAECANTATIO = new Aspect("praecantatio", 0xffcf00ff, new Aspect[]{POTENTIA, AER});
-  public static final Aspect AURAM = new Aspect("auram", 0xffffc0ff, new Aspect[]{PRAECANTATIO, AER});
-  public static final Aspect ALKIMIA = new Aspect("alkimia", 0xff23ac9d, new Aspect[]{PRAECANTATIO, AQUA});
-  public static final Aspect VITIUM = new Aspect("vitium", 0xff800080, new Aspect[]{PERDITIO, PRAECANTATIO});
-  public static final Aspect TENEBRAE = new Aspect("tenebrae", 0xff222222, new Aspect[]{VACUOS, LUX});
-  public static final Aspect ALIENIS = new Aspect("alienis", 0xff805080, new Aspect[]{VACUOS, TENEBRAE});
-  public static final Aspect VOLATUS = new Aspect("volatus", 0xffe7e7d7, new Aspect[]{AER, MOTUS});
-  public static final Aspect HERBA = new Aspect("herba", 0xff01ac00, new Aspect[]{VICTUS, TERRA});
-  public static final Aspect INSTRUMENTUM = new Aspect("instrumentum", 0xff4040ee, new Aspect[]{METALLUM, POTENTIA});
-  public static final Aspect FABRICO = new Aspect("fabrico", 0xff809d80, new Aspect[]{PERMUTATIO, INSTRUMENTUM});
-  public static final Aspect MACHINA = new Aspect("machina", 0xff8080a0, new Aspect[]{MOTUS, INSTRUMENTUM});
-  public static final Aspect VINCULUM = new Aspect("vinculum", 0xff9a8080, new Aspect[]{MOTUS, PERDITIO});
-  public static final Aspect SPIRITUS = new Aspect("spiritus", 0xffebebfb, new Aspect[]{VICTUS, MORTUUS});
-  public static final Aspect COGNITIO = new Aspect("cognitio", 0xfff9967f, new Aspect[]{IGNIS, SPIRITUS});
-  public static final Aspect SENSUS = new Aspect("sensus", 0xffc0ffc0, new Aspect[]{AER, SPIRITUS});
-  public static final Aspect AVERSIO = new Aspect("aversio", 0xffc05050, new Aspect[]{SPIRITUS, PERDITIO});
-  public static final Aspect PRAEMUNIO = new Aspect("praemunio", 0xff00c0c0, new Aspect[]{SPIRITUS, TERRA});
-  public static final Aspect DESIDERIUM = new Aspect("desiderium", 0xffe6be44, new Aspect[]{SPIRITUS, VACUOS});
-  public static final Aspect EXANIMIS = new Aspect("exanimis", 0xff3a4000, new Aspect[]{MOTUS, MORTUUS});
-  public static final Aspect BESTIA = new Aspect("bestia", 0xff9f6409, new Aspect[]{MOTUS, VICTUS});
-  public static final Aspect HUMANUS = new Aspect("humanus", 0xffffd7c0, new Aspect[]{SPIRITUS, VICTUS});
+  public static final Aspect PRAECANTATIO = new Aspect("praecantatio", 0xffcf00ff, Pair.of(POTENTIA, AER));
+  public static final Aspect AURAM = new Aspect("auram", 0xffffc0ff, Pair.of(PRAECANTATIO, AER));
+  public static final Aspect ALKIMIA = new Aspect("alkimia", 0xff23ac9d, Pair.of(PRAECANTATIO, AQUA));
+  public static final Aspect VITIUM = new Aspect("vitium", 0xff800080, Pair.of(PERDITIO, PRAECANTATIO));
+  public static final Aspect TENEBRAE = new Aspect("tenebrae", 0xff222222, Pair.of(VACUOS, LUX));
+  public static final Aspect ALIENIS = new Aspect("alienis", 0xff805080, Pair.of(VACUOS, TENEBRAE));
+  public static final Aspect VOLATUS = new Aspect("volatus", 0xffe7e7d7, Pair.of(AER, MOTUS));
+  public static final Aspect HERBA = new Aspect("herba", 0xff01ac00, Pair.of(VICTUS, TERRA));
+  public static final Aspect INSTRUMENTUM = new Aspect("instrumentum", 0xff4040ee, Pair.of(METALLUM, POTENTIA));
+  public static final Aspect FABRICO = new Aspect("fabrico", 0xff809d80, Pair.of(PERMUTATIO, INSTRUMENTUM));
+  public static final Aspect MACHINA = new Aspect("machina", 0xff8080a0, Pair.of(MOTUS, INSTRUMENTUM));
+  public static final Aspect VINCULUM = new Aspect("vinculum", 0xff9a8080, Pair.of(MOTUS, PERDITIO));
+  public static final Aspect SPIRITUS = new Aspect("spiritus", 0xffebebfb, Pair.of(VICTUS, MORTUUS));
+  public static final Aspect COGNITIO = new Aspect("cognitio", 0xfff9967f, Pair.of(IGNIS, SPIRITUS));
+  public static final Aspect SENSUS = new Aspect("sensus", 0xffc0ffc0, Pair.of(AER, SPIRITUS));
+  public static final Aspect AVERSIO = new Aspect("aversio", 0xffc05050, Pair.of(SPIRITUS, PERDITIO));
+  public static final Aspect PRAEMUNIO = new Aspect("praemunio", 0xff00c0c0, Pair.of(SPIRITUS, TERRA));
+  public static final Aspect DESIDERIUM = new Aspect("desiderium", 0xffe6be44, Pair.of(SPIRITUS, VACUOS));
+  public static final Aspect EXANIMIS = new Aspect("exanimis", 0xff3a4000, Pair.of(MOTUS, MORTUUS));
+  public static final Aspect BESTIA = new Aspect("bestia", 0xff9f6409, Pair.of(MOTUS, VICTUS));
+  public static final Aspect HUMANUS = new Aspect("humanus", 0xffffd7c0, Pair.of(SPIRITUS, VICTUS));
 }
