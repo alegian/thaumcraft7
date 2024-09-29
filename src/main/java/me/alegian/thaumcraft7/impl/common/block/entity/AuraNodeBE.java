@@ -7,6 +7,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -19,11 +20,18 @@ import java.util.List;
 public class AuraNodeBE extends DataComponentBE {
   private List<BlockPos> glassPositions = new ArrayList<>();
   private List<BlockPos> slabPositions = new ArrayList<>();
+  private int containingCountdown = -1;
 
   public AuraNodeBE(BlockPos pos, BlockState blockState) {
     super(T7BlockEntities.AURA_NODE.get(), pos, blockState);
     generateGlassPositions();
     generateSlabPositions();
+  }
+
+  public static void tick(Level level, BlockPos pos, BlockState state, AuraNodeBE blockEntity) {
+    var countdown = blockEntity.getContainingCountdown();
+    if (countdown == 0) blockEntity.contain();
+    else if (countdown > 0) blockEntity.decrementContainingCountdown();
   }
 
   @Override
@@ -39,7 +47,7 @@ public class AuraNodeBE extends DataComponentBE {
 
   /**
    * Cached possible positions of glass.
-   * Used for node-in-a-jar interactions.
+   * Used for contained aura node interactions.
    * 3x3x3 except center
    */
   public void generateGlassPositions() {
@@ -55,7 +63,7 @@ public class AuraNodeBE extends DataComponentBE {
 
   /**
    * Cached possible positions of wooden slabs.
-   * Used for node-in-a-jar interactions.
+   * Used for contained aura node interactions.
    * 3x1x3, above the center
    */
   public void generateSlabPositions() {
@@ -90,7 +98,25 @@ public class AuraNodeBE extends DataComponentBE {
       }
     }
 
+    containingCountdown = 40;
+
     return true;
+  }
+
+  public void contain() {
+    containingCountdown = -1;
+  }
+
+  /**
+   * The countdown in ticks after which a node will break
+   * itself and drop a contained aura node.
+   */
+  public int getContainingCountdown() {
+    return containingCountdown;
+  }
+
+  public void decrementContainingCountdown() {
+    containingCountdown--;
   }
 
   @Override

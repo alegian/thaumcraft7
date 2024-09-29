@@ -15,6 +15,8 @@ public class AuraNodeBER implements BlockEntityRenderer<AuraNodeBE> {
 
   @Override
   public void render(@NotNull AuraNodeBE be, float partialTick, PoseStack poseStack, @NotNull MultiBufferSource bufferSource, int combinedLight, int combinedOverlay) {
+    if (be.getContainingCountdown() > 0) return;
+
     poseStack.pushPose();
 
     // at the center of the block
