@@ -2,11 +2,14 @@ package me.alegian.thaumcraft7.impl.common.block.entity;
 
 import me.alegian.thaumcraft7.impl.common.aspect.AspectList;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7BlockEntities;
+import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Blocks;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7DataComponents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -18,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AuraNodeBE extends DataComponentBE {
+  public static final int MAX_COUNTDOWN = 60;
   private List<BlockPos> glassPositions = new ArrayList<>();
   private List<BlockPos> slabPositions = new ArrayList<>();
   private int containingCountdown = -1;
@@ -98,13 +102,20 @@ public class AuraNodeBE extends DataComponentBE {
       }
     }
 
-    containingCountdown = 40;
+    containingCountdown = MAX_COUNTDOWN;
 
     return true;
   }
 
   public void contain() {
     containingCountdown = -1;
+    level.removeBlock(this.getBlockPos(), false);
+    level.addFreshEntity(new ItemEntity(
+        level,
+        this.getBlockPos().getX()+0.5,
+        this.getBlockPos().getY()+0.5,
+        this.getBlockPos().getZ()+0.5,
+        new ItemStack(T7Blocks.AURA_NODE_ITEM.get())));
   }
 
   /**

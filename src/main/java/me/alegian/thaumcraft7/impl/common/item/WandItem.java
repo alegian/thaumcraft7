@@ -26,6 +26,7 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
+import net.neoforged.neoforge.common.Tags;
 import software.bernie.geckolib.GeckoLibServices;
 import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoItem;
@@ -92,7 +93,7 @@ public class WandItem extends Item implements GeoItem {
       level.playSound(context.getPlayer(), blockPos, SoundEvents.PLAYER_LEVELUP, SoundSource.BLOCKS, 1.0F, 1.0F);
       return InteractionResult.SUCCESS;
     }
-    if (blockState.is(Blocks.GLASS)) {
+    if (blockState.is(Tags.Blocks.GLASS_BLOCKS)) {
       var direction = context.getClickedFace().getOpposite();
       var behindPos = blockPos.relative(direction, 1);
       return LevelHelper.getSafeBE(level, behindPos, T7BlockEntities.AURA_NODE.get())
