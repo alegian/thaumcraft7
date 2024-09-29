@@ -63,9 +63,9 @@ public class WandItem extends Item implements GeoItem {
   public InteractionResult useOn(UseOnContext context) {
     var level = context.getLevel();
     var blockPos = context.getClickedPos();
-    var block = level.getBlockState(blockPos).getBlock();
+    var blockState = level.getBlockState(blockPos);
 
-    if (block instanceof AuraNodeBlock) {
+    if (blockState.is(T7Blocks.AURA_NODE.get())) {
       var player = context.getPlayer();
       if (player != null) { // and wand is not full and aura node is not empty
         //try receiving only on server
@@ -78,21 +78,21 @@ public class WandItem extends Item implements GeoItem {
         return InteractionResult.CONSUME;
       }
     }
-    if (block.equals(Blocks.CAULDRON)) {
+    if (blockState.is(Blocks.CAULDRON)) {
       if (!level.isClientSide()) {
         level.setBlockAndUpdate(blockPos, T7Blocks.CRUCIBLE.get().defaultBlockState());
       }
       level.playSound(context.getPlayer(), blockPos, SoundEvents.PLAYER_LEVELUP, SoundSource.BLOCKS, 1.0F, 1.0F);
       return InteractionResult.SUCCESS;
     }
-    if (block.equals(Blocks.BOOKSHELF)) {
+    if (blockState.is(Blocks.BOOKSHELF)) {
       if (!level.isClientSide() && level.removeBlock(blockPos, false)) {
         level.addFreshEntity(new FancyThaumonomiconEntity(level, blockPos));
       }
       level.playSound(context.getPlayer(), blockPos, SoundEvents.PLAYER_LEVELUP, SoundSource.BLOCKS, 1.0F, 1.0F);
       return InteractionResult.SUCCESS;
     }
-    if (block.equals(Blocks.GLASS)) {
+    if (blockState.is(Blocks.GLASS)) {
       var direction = context.getClickedFace().getOpposite();
       var behindPos = blockPos.relative(direction, 1);
       return LevelHelper.getSafeBE(level, behindPos, T7BlockEntities.AURA_NODE.get())
