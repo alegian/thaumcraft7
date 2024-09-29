@@ -33,7 +33,7 @@ import java.util.Optional;
 
 public class SilverwoodTree {
   public static final String NAME = "silverwood";
-  public static final ResourceLocation LOCATION = ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "tree_" + NAME);
+  public static final ResourceLocation LOCATION = Thaumcraft.id("tree_" + NAME);
   public static final ResourceKey<ConfiguredFeature<?, ?>> CONFIGURED_FEATURE = ResourceKey.create(Registries.CONFIGURED_FEATURE, LOCATION);
   public static final ResourceKey<PlacedFeature> PLACED_FEATURE = ResourceKey.create(Registries.PLACED_FEATURE, LOCATION);
   public static final ResourceKey<BiomeModifier> BIOME_MODIFIER = ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, LOCATION);

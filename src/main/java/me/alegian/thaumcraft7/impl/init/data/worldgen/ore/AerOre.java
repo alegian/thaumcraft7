@@ -18,11 +18,11 @@ public class AerOre {
   public static final String PATH = "ore_aer";
   public static final ResourceKey<ConfiguredFeature<?, ?>> CONFIGURED_FEATURE = ResourceKey.create(
       Registries.CONFIGURED_FEATURE,
-      ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, PATH)
+      Thaumcraft.id(PATH)
   );
   public static final ResourceKey<PlacedFeature> PLACED_FEATURE = ResourceKey.create(
       Registries.PLACED_FEATURE,
-      ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, PATH)
+      Thaumcraft.id(PATH)
   );
 
   public static Holder<ConfiguredFeature<?, ?>> registerConfigured(BootstrapContext<ConfiguredFeature<?, ?>> context) {

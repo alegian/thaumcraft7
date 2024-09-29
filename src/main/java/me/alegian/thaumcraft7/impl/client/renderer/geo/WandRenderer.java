@@ -17,7 +17,7 @@ public class WandRenderer extends DynamicGeoItemRenderer<WandItem> {
   private final ResourceLocation coreLocation;
 
   public WandRenderer(DeferredHolder<WandHandleMaterial, WandHandleMaterial> handleMaterial, DeferredHolder<WandCoreMaterial, WandCoreMaterial> coreMaterial) {
-    super(new DefaultedItemGeoModel<>(ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "wand")));
+    super(new DefaultedItemGeoModel<>(Thaumcraft.id("wand")));
     this.handleLocation = handleTexture(handleMaterial.getId());
     this.coreLocation = coreTexture(coreMaterial.getId());
   }

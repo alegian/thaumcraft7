@@ -12,7 +12,7 @@ import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class ArcaneWorkbenchScreen extends AbstractContainerScreen<ArcaneWorkbenchMenu> {
-  private static final ResourceLocation BG_LOCATION = ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "textures/gui/container/arcane_workbench.png");
+  private static final ResourceLocation BG_LOCATION = Thaumcraft.id("textures/gui/container/arcane_workbench.png");
 
   public ArcaneWorkbenchScreen(ArcaneWorkbenchMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
     super(pMenu, pPlayerInventory, pTitle);

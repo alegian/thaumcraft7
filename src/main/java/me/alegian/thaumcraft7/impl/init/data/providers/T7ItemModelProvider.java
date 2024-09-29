@@ -50,7 +50,7 @@ public class T7ItemModelProvider extends ItemModelProvider {
     testaItem(T7Items.PERDITIO_TESTA);
 
     for (var wand : T7Items.WANDS.values()) {
-      withExistingParent(wand.get().getName(), ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "wand"));
+      withExistingParent(wand.get().getName(), Thaumcraft.id("wand"));
     }
   }
 
@@ -73,6 +73,6 @@ public class T7ItemModelProvider extends ItemModelProvider {
 
   public void withVanillaParent(String itemPath, String texturePath, String parent) {
     withExistingParent(itemPath, parent)
-        .texture("layer0", ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "item/" + texturePath));
+        .texture("layer0", Thaumcraft.id("item/" + texturePath));
   }
 }

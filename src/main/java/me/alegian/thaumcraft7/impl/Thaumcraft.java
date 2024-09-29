@@ -2,6 +2,7 @@ package me.alegian.thaumcraft7.impl;
 
 import com.mojang.logging.LogUtils;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.*;
+import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
@@ -30,11 +31,9 @@ public class Thaumcraft {
     T7MenuTypes.REGISTRAR.register(modEventBus);
     WandCoreMaterials.REGISTRAR.register(modEventBus);
     WandHandleMaterials.REGISTRAR.register(modEventBus);
-
-    NeoForge.EVENT_BUS.register(this);
   }
 
-  @SubscribeEvent
-  public void onServerStarting(ServerStartingEvent event) {
+  public static ResourceLocation id(String path) {
+    return ResourceLocation.fromNamespaceAndPath(MODID, path);
   }
 }

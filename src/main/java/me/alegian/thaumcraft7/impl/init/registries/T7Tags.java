@@ -14,27 +14,27 @@ public class T7Tags {
   public static class CrucibleHeatSourceTag {
     public static final TagKey<Block> BLOCK = TagKey.create(
         Registries.BLOCK,
-        ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "crucible_heat_source")
+        Thaumcraft.id("crucible_heat_source")
     );
 
     public static final TagKey<Fluid> FLUID = TagKey.create(
         Registries.FLUID,
-        ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "crucible_heat_source")
+        Thaumcraft.id("crucible_heat_source")
     );
   }
 
   public static final TagKey<Item> WAND_HANDLE = TagKey.create(
       Registries.ITEM,
-      ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "wand_handle")
+      Thaumcraft.id("wand_handle")
   );
 
   public static final TagKey<Item> WAND_CORE = TagKey.create(
       Registries.ITEM,
-      ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "wand_core")
+      Thaumcraft.id("wand_core")
   );
 
   public static final TagKey<Item> TESTA = TagKey.create(
       Registries.ITEM,
-      ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "testa")
+      Thaumcraft.id("testa")
   );
 }

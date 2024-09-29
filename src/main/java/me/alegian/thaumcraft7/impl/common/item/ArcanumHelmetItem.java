@@ -44,7 +44,7 @@ public class ArcanumHelmetItem extends ArmorItem implements GeoItem {
       @Override
       public <T extends LivingEntity> HumanoidModel<?> getGeoArmorRenderer(@Nullable T livingEntity, ItemStack itemStack, @Nullable EquipmentSlot equipmentSlot, @Nullable HumanoidModel<T> original) {
         if (this.renderer == null)
-          this.renderer = new GeoArmorRenderer<>(new DefaultedItemGeoModel<GogglesItem>(ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "arcanum_armor")));
+          this.renderer = new GeoArmorRenderer<>(new DefaultedItemGeoModel<GogglesItem>(Thaumcraft.id("arcanum_armor")));
 
         return this.renderer;
       }

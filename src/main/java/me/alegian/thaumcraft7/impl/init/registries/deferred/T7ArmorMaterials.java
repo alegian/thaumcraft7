@@ -40,7 +40,7 @@ public class T7ArmorMaterials {
       SoundEvents.ARMOR_EQUIP_GENERIC,
       () -> Ingredient.of(T7Items.ARCANUM_INGOT),
       List.of(
-          new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "arcanum"))
+          new ArmorMaterial.Layer(Thaumcraft.id("arcanum"))
       ),
       1.0F,
       0

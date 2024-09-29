@@ -9,11 +9,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.registries.RegistryBuilder;
 
 public class T7Registries {
-  public static final Registry<WandHandleMaterial> WAND_HANDLE = new RegistryBuilder<WandHandleMaterial>(ResourceKey.createRegistryKey(ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "wand_handle")))
+  public static final Registry<WandHandleMaterial> WAND_HANDLE = new RegistryBuilder<WandHandleMaterial>(ResourceKey.createRegistryKey(Thaumcraft.id("wand_handle")))
       .maxId(Integer.MAX_VALUE)
       .create();
 
-  public static final Registry<WandCoreMaterial> WAND_CORE = new RegistryBuilder<WandCoreMaterial>(ResourceKey.createRegistryKey(ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "wand_core")))
+  public static final Registry<WandCoreMaterial> WAND_CORE = new RegistryBuilder<WandCoreMaterial>(ResourceKey.createRegistryKey(Thaumcraft.id("wand_core")))
       .maxId(Integer.MAX_VALUE)
       .create();
 }

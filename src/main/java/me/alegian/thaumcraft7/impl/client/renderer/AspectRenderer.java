@@ -64,7 +64,7 @@ public class AspectRenderer {
   }
 
   public static void blitAspectIcon(T7GuiGraphics guiGraphics, Aspect aspect, int pX, int pY) {
-    var sprite = AspectAtlas.sprite(ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, aspect.getId()));
+    var sprite = AspectAtlas.sprite(Thaumcraft.id(aspect.getId()));
 
     var color = aspect.getColor();
     guiGraphics.blit(

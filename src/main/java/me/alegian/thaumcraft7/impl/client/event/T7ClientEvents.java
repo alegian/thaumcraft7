@@ -48,7 +48,7 @@ public class T7ClientEvents {
   public static class T7ClientModEvents {
     @SubscribeEvent
     public static void registerGuiOverlays(RegisterGuiLayersEvent event) {
-      event.registerAboveAll(ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "vis_overlay"), VisGuiOverlay.VIS_OVERLAY);
+      event.registerAboveAll(Thaumcraft.id("vis_overlay"), VisGuiOverlay.VIS_OVERLAY);
     }
 
     @SubscribeEvent
@@ -127,10 +127,10 @@ public class T7ClientEvents {
 
     @SubscribeEvent
     public static void registerShaders(RegisterShadersEvent event) throws IOException {
-      event.registerShader(new ShaderInstance(event.getResourceProvider(), ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "custom_shader"), DefaultVertexFormat.NEW_ENTITY), shaderInstance -> {
+      event.registerShader(new ShaderInstance(event.getResourceProvider(), Thaumcraft.id("custom_shader"), DefaultVertexFormat.NEW_ENTITY), shaderInstance -> {
         T7RenderStateShards.customShader = shaderInstance;
       });
-      event.registerShader(new ShaderInstance(event.getResourceProvider(), ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "aspect_outline"), DefaultVertexFormat.POSITION_TEX_COLOR), shaderInstance -> {
+      event.registerShader(new ShaderInstance(event.getResourceProvider(), Thaumcraft.id("aspect_outline"), DefaultVertexFormat.POSITION_TEX_COLOR), shaderInstance -> {
         T7RenderStateShards.aspectOutline = shaderInstance;
       });
     }

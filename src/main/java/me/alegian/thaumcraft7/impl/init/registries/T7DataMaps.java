@@ -11,7 +11,7 @@ import net.neoforged.neoforge.registries.datamaps.DataMapType;
 public class T7DataMaps {
   public static class AspectContent {
     public static final DataMapType<Item, AspectList> ITEM = DataMapType.builder(
-        ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "aspect_content"),
+        Thaumcraft.id("aspect_content"),
         Registries.ITEM,
         AspectList.CODEC
     ).synced(
@@ -20,7 +20,7 @@ public class T7DataMaps {
     ).build();
 
     public static final DataMapType<Block, AspectList> BLOCK = DataMapType.builder(
-        ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "aspect_content"),
+        Thaumcraft.id("aspect_content"),
         Registries.BLOCK,
         AspectList.CODEC
     ).synced(

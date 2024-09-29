@@ -25,11 +25,11 @@ public class T7BlockStateProvider extends BlockStateProvider {
   protected void registerStatesAndModels() {
     simpleBlockWithItem(T7Blocks.CRUCIBLE.get(), models().getBuilder(T7Blocks.CRUCIBLE.getId().getPath())
         .parent(new ModelFile.UncheckedModelFile("block/cauldron"))
-        .texture("particle", ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "block/crucible_side"))
-        .texture("top", ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "block/crucible_top"))
-        .texture("bottom", ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "block/crucible_bottom"))
-        .texture("side", ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "block/crucible_side"))
-        .texture("inside", ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "block/crucible_inner"))
+        .texture("particle", Thaumcraft.id("block/crucible_side"))
+        .texture("top", Thaumcraft.id("block/crucible_top"))
+        .texture("bottom", Thaumcraft.id("block/crucible_bottom"))
+        .texture("side", Thaumcraft.id("block/crucible_side"))
+        .texture("inside", Thaumcraft.id("block/crucible_inner"))
     );
 
     crystalOreBlockWithItem(T7Blocks.IGNIS_INFUSED_STONE.get());
@@ -58,7 +58,7 @@ public class T7BlockStateProvider extends BlockStateProvider {
 
     simpleBlockWithItem(T7Blocks.ESSENTIA_CONTAINER.get(), models().getExistingFile(modLoc("essentia_container")));
 
-    itemModels().getBuilder(T7Blocks.AURA_NODE.getId().getPath()).parent(new ModelFile.UncheckedModelFile("item/generated")).renderType(RenderType.translucent().name).texture("layer0", ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "item/aura_node"));
+    itemModels().getBuilder(T7Blocks.AURA_NODE.getId().getPath()).parent(new ModelFile.UncheckedModelFile("item/generated")).renderType(RenderType.translucent().name).texture("layer0", Thaumcraft.id("item/aura_node"));
   }
 
   private void simpleBlockWithItem(Block block) {
@@ -74,7 +74,7 @@ public class T7BlockStateProvider extends BlockStateProvider {
   private void crystalOreBlockWithItem(InfusedStoneBlock block) {
     var crystalOreBlockModel = models().withExistingParent(name(block), mcLoc("block/stone"))
         .customLoader(CubeOverlayModel.Builder::new)
-        .spriteLocation(ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "block/crystal_ore"))
+        .spriteLocation(Thaumcraft.id("block/crystal_ore"))
         .color((block).getAspect().getColor())
         .end();
     simpleBlockWithItem(block, crystalOreBlockModel);

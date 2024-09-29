@@ -46,7 +46,7 @@ import static me.alegian.thaumcraft7.impl.client.model.BakedModelHelper.v;
 
 @OnlyIn(Dist.CLIENT)
 public class CubeOverlayModel implements IUnbakedGeometry<CubeOverlayModel> {
-  public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "cube_overlay");
+  public static final ResourceLocation ID = Thaumcraft.id("cube_overlay");
   public static final String SPRITE_KEY = "sprite_location";
   public static final String COLOR_KEY = "color";
   private final BlockModel base;

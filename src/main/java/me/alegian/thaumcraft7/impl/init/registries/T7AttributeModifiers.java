@@ -6,7 +6,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 
 public class T7AttributeModifiers {
   public static class StepHeight {
-    public static final ResourceLocation LOCATION = ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "step_height");
+    public static final ResourceLocation LOCATION = Thaumcraft.id("step_height");
     public static final AttributeModifier MODIFIER =
         new AttributeModifier(
             LOCATION,

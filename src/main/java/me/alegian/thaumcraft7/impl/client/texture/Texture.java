@@ -8,6 +8,6 @@ import net.neoforged.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public record Texture(ResourceLocation location, int width, int height) {
   public Texture(String path, int width, int height) {
-    this(ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "textures/" + path + ".png"), width, height);
+    this(Thaumcraft.id("textures/" + path + ".png"), width, height);
   }
 }

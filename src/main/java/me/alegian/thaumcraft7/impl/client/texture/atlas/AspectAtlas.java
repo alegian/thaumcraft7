@@ -13,11 +13,11 @@ import org.jetbrains.annotations.NotNull;
 @OnlyIn(Dist.CLIENT)
 public class AspectAtlas extends TextureAtlasHolder {
   public static final String KEY = "aspects";
-  public static final ResourceLocation LOCATION = ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "atlas/" + KEY);
+  public static final ResourceLocation LOCATION = Thaumcraft.id("atlas/" + KEY);
   public static final AspectAtlas INSTANCE = new AspectAtlas(Minecraft.getInstance().getTextureManager());
 
   public AspectAtlas(TextureManager pTextureManager) {
-    super(pTextureManager, LOCATION, ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, KEY));
+    super(pTextureManager, LOCATION, Thaumcraft.id(KEY));
   }
 
   @Override

@@ -47,7 +47,7 @@ public class KatanaItem extends SwordItem implements GeoItem {
       @Override
       public BlockEntityWithoutLevelRenderer getGeoItemRenderer() {
         if (this.renderer == null)
-          this.renderer = new GeoItemRenderer<>(new DefaultedItemGeoModel<KatanaItem>(ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "arcanum_katana")));
+          this.renderer = new GeoItemRenderer<>(new DefaultedItemGeoModel<KatanaItem>(Thaumcraft.id("arcanum_katana")));
 
         return this.renderer;
       }

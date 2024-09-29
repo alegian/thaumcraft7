@@ -207,7 +207,7 @@ public class WandItem extends Item implements GeoItem {
    * has multiple instances.
    */
   public String syncableId() {
-    var location = ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, getName());
+    var location = Thaumcraft.id(getName());
     return location.toString();
   }
 }

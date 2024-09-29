@@ -14,9 +14,9 @@ import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class VisGuiOverlay {
-  private static final ResourceLocation DISK = ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "textures/gui/overlay/disk.png");
-  private static final ResourceLocation VIAL = ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "textures/gui/overlay/vial.png");
-  private static final ResourceLocation VIAL_CONTENT = ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "textures/gui/overlay/vial_content.png");
+  private static final ResourceLocation DISK = Thaumcraft.id("textures/gui/overlay/disk.png");
+  private static final ResourceLocation VIAL = Thaumcraft.id("textures/gui/overlay/vial.png");
+  private static final ResourceLocation VIAL_CONTENT = Thaumcraft.id("textures/gui/overlay/vial_content.png");
 
   // updated via event
   public static boolean visible = false;
