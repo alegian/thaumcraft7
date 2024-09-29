@@ -1,12 +1,7 @@
 package me.alegian.thaumcraft7.impl.common.aspect;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.DataResult;
-import io.netty.buffer.ByteBuf;
-import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.network.codec.StreamCodec;
-
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Aspect {
@@ -25,25 +20,8 @@ public class Aspect {
     if (existing != null) throw new IllegalArgumentException("Thaumcraft Aspect Exception: Duplicate ID: " + id);
   }
 
-  public static final Codec<Aspect> CODEC = Codec.STRING.comapFlatMap(
-      s -> {
-        try {
-          return DataResult.success(valueOf(s));
-        } catch (IllegalArgumentException e) {
-          return DataResult.error(e::getMessage);
-        }
-      },
-      Aspect::getId
-  );
-
-  public static final StreamCodec<ByteBuf, Aspect> STREAM_CODEC =
-      ByteBufCodecs.STRING_UTF8.map(
-          Aspect::valueOf,
-          Aspect::getId
-      );
-
   public boolean isPrimal() {
-    return getComponents() == null;
+    return PRIMAL_ASPECTS.contains(this);
   }
 
   public String getId() {
@@ -84,7 +62,7 @@ public class Aspect {
   public static final Aspect AQUA = new Aspect("aqua", 0xff3cd4fc, null);
   public static final Aspect ORDO = new Aspect("ordo", 0xffd5d4ec, null);
   public static final Aspect PERDITIO = new Aspect("perditio", 0xff404040, null);
-  public static final Aspect[] PRIMAL_ASPECTS = {IGNIS, AER, TERRA, AQUA, ORDO, PERDITIO};
+  public static final List<Aspect> PRIMAL_ASPECTS = List.of(IGNIS, AER, TERRA, AQUA, ORDO, PERDITIO);
 
   // SECONDARY (PRIMAL + PRIMAL)
   public static final Aspect VACUOS = new Aspect("vacuos", 0xff888888, new Aspect[]{AER, PERDITIO});
