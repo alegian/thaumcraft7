@@ -2,7 +2,6 @@ package me.alegian.thaumcraft7.impl.common.item;
 
 import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.client.renderer.geo.WandRenderer;
-import me.alegian.thaumcraft7.impl.common.block.AuraNodeBlock;
 import me.alegian.thaumcraft7.impl.common.entity.FancyThaumonomiconEntity;
 import me.alegian.thaumcraft7.impl.common.entity.VisEntity;
 import me.alegian.thaumcraft7.impl.common.util.LevelHelper;
@@ -13,7 +12,6 @@ import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Blocks;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.util.DeferredWandCoreMaterial;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.util.DeferredWandHandleMaterial;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;

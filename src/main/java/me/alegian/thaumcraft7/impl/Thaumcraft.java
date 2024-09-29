@@ -4,10 +4,7 @@ import com.mojang.logging.LogUtils;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.*;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import org.slf4j.Logger;
 
 // must match value in META-INF/mods.toml
@@ -31,6 +28,7 @@ public class Thaumcraft {
     T7MenuTypes.REGISTRAR.register(modEventBus);
     WandCoreMaterials.REGISTRAR.register(modEventBus);
     WandHandleMaterials.REGISTRAR.register(modEventBus);
+    Aspects.REGISTRAR.register(modEventBus);
   }
 
   public static ResourceLocation id(String path) {

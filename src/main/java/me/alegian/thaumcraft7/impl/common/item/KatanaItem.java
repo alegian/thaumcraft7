@@ -3,7 +3,6 @@ package me.alegian.thaumcraft7.impl.common.item;
 import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.init.registries.T7Tiers;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SwordItem;
 import software.bernie.geckolib.animatable.GeoItem;

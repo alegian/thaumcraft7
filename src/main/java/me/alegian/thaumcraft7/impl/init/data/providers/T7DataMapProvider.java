@@ -1,9 +1,9 @@
 package me.alegian.thaumcraft7.impl.init.data.providers;
 
-import me.alegian.thaumcraft7.impl.common.aspect.Aspect;
 import me.alegian.thaumcraft7.impl.common.aspect.AspectList;
 import me.alegian.thaumcraft7.impl.common.aspect.AspectStack;
 import me.alegian.thaumcraft7.impl.init.registries.T7DataMaps;
+import me.alegian.thaumcraft7.impl.init.registries.deferred.Aspects;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
@@ -30,39 +30,39 @@ public class T7DataMapProvider extends DataMapProvider {
     var i = builder(T7DataMaps.AspectContent.ITEM);
     var b = builder(T7DataMaps.AspectContent.BLOCK);
 
-    block(b, Tags.Blocks.STONES, AspectStack.of(Aspect.TERRA, 5));
-    block(b, Blocks.DIRT, AspectStack.of(Aspect.TERRA, 5));
+    block(b, Tags.Blocks.STONES, AspectStack.of(Aspects.TERRA.get(), 5));
+    block(b, Blocks.DIRT, AspectStack.of(Aspects.TERRA.get(), 5));
 
-    block(b, Blocks.POLISHED_GRANITE, AspectStack.of(Aspect.TERRA, 3));
-    block(b, Blocks.POLISHED_DIORITE, AspectStack.of(Aspect.TERRA, 3));
-    block(b, Blocks.POLISHED_ANDESITE, AspectStack.of(Aspect.TERRA, 3));
-    block(b, Blocks.COARSE_DIRT, AspectStack.of(Aspect.TERRA, 3));
+    block(b, Blocks.POLISHED_GRANITE, AspectStack.of(Aspects.TERRA.get(), 3));
+    block(b, Blocks.POLISHED_DIORITE, AspectStack.of(Aspects.TERRA.get(), 3));
+    block(b, Blocks.POLISHED_ANDESITE, AspectStack.of(Aspects.TERRA.get(), 3));
+    block(b, Blocks.COARSE_DIRT, AspectStack.of(Aspects.TERRA.get(), 3));
 
-    block(b, Blocks.GRASS_BLOCK, AspectStack.of(Aspect.TERRA, 5), AspectStack.of(Aspect.HERBA, 2));
-    block(b, Blocks.PODZOL, AspectStack.of(Aspect.TERRA, 5), AspectStack.of(Aspect.HERBA, 1));
-    block(b, Blocks.SHORT_GRASS, AspectStack.of(Aspect.HERBA, 5), AspectStack.of(Aspect.AER, 1));
-    block(b, Blocks.TALL_GRASS, AspectStack.of(Aspect.HERBA, 5), AspectStack.of(Aspect.AER, 1));
+    block(b, Blocks.GRASS_BLOCK, AspectStack.of(Aspects.TERRA.get(), 5), AspectStack.of(Aspects.HERBA.get(), 2));
+    block(b, Blocks.PODZOL, AspectStack.of(Aspects.TERRA.get(), 5), AspectStack.of(Aspects.HERBA.get(), 1));
+    block(b, Blocks.SHORT_GRASS, AspectStack.of(Aspects.HERBA.get(), 5), AspectStack.of(Aspects.AER.get(), 1));
+    block(b, Blocks.TALL_GRASS, AspectStack.of(Aspects.HERBA.get(), 5), AspectStack.of(Aspects.AER.get(), 1));
 
-    block(b, Tags.Blocks.COBBLESTONES, AspectStack.of(Aspect.TERRA, 5), AspectStack.of(Aspect.PERDITIO, 1));
-    block(b, Tags.Blocks.SANDS, AspectStack.of(Aspect.TERRA, 5), AspectStack.of(Aspect.PERDITIO, 5));
+    block(b, Tags.Blocks.COBBLESTONES, AspectStack.of(Aspects.TERRA.get(), 5), AspectStack.of(Aspects.PERDITIO.get(), 1));
+    block(b, Tags.Blocks.SANDS, AspectStack.of(Aspects.TERRA.get(), 5), AspectStack.of(Aspects.PERDITIO.get(), 5));
 
-    block(b, BlockTags.TERRACOTTA, AspectStack.of(Aspect.AQUA, 15), AspectStack.of(Aspect.TERRA, 15), AspectStack.of(Aspect.IGNIS, 1), AspectStack.of(Aspect.SENSUS, 1));
-    block(b, BlockTags.CONCRETE_POWDER, AspectStack.of(Aspect.TERRA, 3), AspectStack.of(Aspect.PERDITIO, 2));
-    block(b, Tags.Blocks.CONCRETES, AspectStack.of(Aspect.TERRA, 3), AspectStack.of(Aspect.PERDITIO, 2), AspectStack.of(Aspect.AQUA, 1), AspectStack.of(Aspect.ORDO, 1));
+    block(b, BlockTags.TERRACOTTA, AspectStack.of(Aspects.AQUA.get(), 15), AspectStack.of(Aspects.TERRA.get(), 15), AspectStack.of(Aspects.IGNIS.get(), 1), AspectStack.of(Aspects.SENSUS.get(), 1));
+    block(b, BlockTags.CONCRETE_POWDER, AspectStack.of(Aspects.TERRA.get(), 3), AspectStack.of(Aspects.PERDITIO.get(), 2));
+    block(b, Tags.Blocks.CONCRETES, AspectStack.of(Aspects.TERRA.get(), 3), AspectStack.of(Aspects.PERDITIO.get(), 2), AspectStack.of(Aspects.AQUA.get(), 1), AspectStack.of(Aspects.ORDO.get(), 1));
 
-    block(b, BlockTags.PLANKS, AspectStack.of(Aspect.HERBA, 3));
-    block(b, BlockTags.WOODEN_STAIRS, AspectStack.of(Aspect.HERBA, 3));
-    block(b, BlockTags.WOODEN_SLABS, AspectStack.of(Aspect.HERBA, 1));
-    block(b, BlockTags.LOGS, AspectStack.of(Aspect.HERBA, 20));
+    block(b, BlockTags.PLANKS, AspectStack.of(Aspects.HERBA.get(), 3));
+    block(b, BlockTags.WOODEN_STAIRS, AspectStack.of(Aspects.HERBA.get(), 3));
+    block(b, BlockTags.WOODEN_SLABS, AspectStack.of(Aspects.HERBA.get(), 1));
+    block(b, BlockTags.LOGS, AspectStack.of(Aspects.HERBA.get(), 20));
 
-    block(b, BlockTags.WOOL, AspectStack.of(Aspect.BESTIA, 11), AspectStack.of(Aspect.SENSUS, 3), AspectStack.of(Aspect.FABRICO, 3));
+    block(b, BlockTags.WOOL, AspectStack.of(Aspects.BESTIA.get(), 11), AspectStack.of(Aspects.SENSUS.get(), 3), AspectStack.of(Aspects.FABRICO.get(), 3));
 
-    block(b, Tags.Blocks.GLASS_BLOCKS_CHEAP, AspectStack.of(Aspect.VITREUS, 5));
-    block(b, Tags.Blocks.GLASS_PANES, AspectStack.of(Aspect.VITREUS, 1));
+    block(b, Tags.Blocks.GLASS_BLOCKS_CHEAP, AspectStack.of(Aspects.VITREUS.get(), 5));
+    block(b, Tags.Blocks.GLASS_PANES, AspectStack.of(Aspects.VITREUS.get(), 1));
 
-    block(b, Blocks.BEDROCK, AspectStack.of(Aspect.VACUOS, 25), AspectStack.of(Aspect.PERDITIO, 25), AspectStack.of(Aspect.TERRA, 25), AspectStack.of(Aspect.TENEBRAE, 25));
+    block(b, Blocks.BEDROCK, AspectStack.of(Aspects.VACUOS.get(), 25), AspectStack.of(Aspects.PERDITIO.get(), 25), AspectStack.of(Aspects.TERRA.get(), 25), AspectStack.of(Aspects.TENEBRAE.get(), 25));
 
-    item(i, Items.DIAMOND, AspectStack.of(Aspect.VITREUS, 15), AspectStack.of(Aspect.DESIDERIUM, 15));
+    item(i, Items.DIAMOND, AspectStack.of(Aspects.VITREUS.get(), 15), AspectStack.of(Aspects.DESIDERIUM.get(), 15));
   }
 
   /**

@@ -1,8 +1,8 @@
 package me.alegian.thaumcraft7.impl.common.entity;
 
-import me.alegian.thaumcraft7.impl.common.aspect.Aspect;
 import me.alegian.thaumcraft7.impl.common.data.capability.AspectContainerHelper;
 import me.alegian.thaumcraft7.impl.common.item.WandItem;
+import me.alegian.thaumcraft7.impl.init.registries.deferred.Aspects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -47,7 +47,7 @@ public class VisEntity extends RendererEntity {
       this.kill();
     } else {
       var aspectContainer = AspectContainerHelper.getAspectContainerInHand(player);
-      aspectContainer.addAspect(Aspect.IGNIS, 5);
+      aspectContainer.addAspect(Aspects.IGNIS.get(), 5);
     }
   }
 

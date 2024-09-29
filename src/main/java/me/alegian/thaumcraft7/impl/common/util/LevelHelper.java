@@ -11,7 +11,7 @@ public class LevelHelper {
   public static <T extends BlockEntity> Optional<T> getSafeBE(Level level, BlockPos blockPos, BlockEntityType<T> blockEntityType) {
     var block = level.getBlockState(blockPos).getBlock();
 
-    if(blockEntityType.getValidBlocks().contains(block)) return level.getBlockEntity(blockPos, blockEntityType);
+    if (blockEntityType.getValidBlocks().contains(block)) return level.getBlockEntity(blockPos, blockEntityType);
     return Optional.empty();
   }
 }

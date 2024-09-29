@@ -3,7 +3,6 @@ package me.alegian.thaumcraft7.impl.init.registries.deferred;
 import me.alegian.thaumcraft7.impl.Thaumcraft;
 import net.minecraft.Util;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;

@@ -4,6 +4,7 @@ import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.common.aspect.Aspect;
 import me.alegian.thaumcraft7.impl.common.aspect.AspectList;
 import me.alegian.thaumcraft7.impl.common.data.capability.AspectContainerHelper;
+import me.alegian.thaumcraft7.impl.init.registries.deferred.Aspects;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.resources.ResourceLocation;
@@ -44,7 +45,8 @@ public class VisGuiOverlay {
     graphics.rotateZ(15);
     float ar = (float) 0.35;
 
-    for (Aspect a : Aspect.PRIMAL_ASPECTS) {
+    for (var deferredAspect : Aspects.PRIMAL_ASPECTS) {
+      Aspect a = deferredAspect.get();
       var color = a.getColorRGB();
       guiGraphics.setColor((float) color[0] / 255, (float) color[1] / 255, (float) color[2] / 255, 1);
       guiGraphics.blit(VIAL_CONTENT, (int) (-1 * vialSize * ar / 2), (int) (diskSize / 2), 0, 0, (int) (vialSize * ar), (int) vialSize * vis.get(a) / maxAmount, (int) (vialSize * ar), (int) vialSize);

@@ -3,7 +3,6 @@ package me.alegian.thaumcraft7.impl.common.item;
 import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7ArmorMaterials;
 import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ArmorItem;

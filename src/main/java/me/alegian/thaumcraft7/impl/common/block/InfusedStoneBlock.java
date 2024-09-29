@@ -5,15 +5,17 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.NotNull;
 
-public class InfusedStoneBlock extends Block {
-  private final Aspect aspect;
+import java.util.function.Supplier;
 
-  public InfusedStoneBlock(@NotNull Aspect aspect) {
+public class InfusedStoneBlock extends Block {
+  private final Supplier<Aspect> aspect;
+
+  public InfusedStoneBlock(@NotNull Supplier<Aspect> aspect) {
     super(Properties.ofFullCopy(Blocks.IRON_ORE));
     this.aspect = aspect;
   }
 
   public Aspect getAspect() {
-    return aspect;
+    return aspect.get();
   }
 }

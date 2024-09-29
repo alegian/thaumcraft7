@@ -24,10 +24,6 @@ public class T7DeferredRegister<T> extends DeferredRegister<T> {
     return new WandHandleMaterials(modid);
   }
 
-  public static T7DeferredRegister.Aspects createAspects(String modid) {
-    return new Aspects(modid);
-  }
-
   public static class WandCoreMaterials extends DeferredRegister<WandCoreMaterial> {
     protected WandCoreMaterials(String namespace) {
       super(T7Registries.WAND_CORE.key(), namespace);
@@ -66,12 +62,12 @@ public class T7DeferredRegister<T> extends DeferredRegister<T> {
     }
 
     @SuppressWarnings("unchecked")
-    public <A extends Aspect> DeferredAspect<A> registerAspect(String name, Supplier<? extends A> sup) {
-      return (DeferredAspect<A>) this.register(name, key -> sup.get());
+    public <M extends Aspect> DeferredAspect registerWandHandleMaterial(String name, Supplier<? extends M> sup) {
+      return (DeferredAspect) this.register(name, key -> sup.get());
     }
 
     @Override
-    protected <A extends Aspect> DeferredAspect<A> createHolder(ResourceKey<? extends Registry<Aspect>> registryKey, ResourceLocation key) {
+    protected DeferredAspect createHolder(ResourceKey<? extends Registry<Aspect>> registryKey, ResourceLocation key) {
       return DeferredAspect.createAspect(ResourceKey.create(registryKey, key));
     }
   }

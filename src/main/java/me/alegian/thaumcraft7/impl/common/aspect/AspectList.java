@@ -6,6 +6,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.DynamicOps;
 import io.netty.buffer.ByteBuf;
+import me.alegian.thaumcraft7.impl.init.registries.deferred.Aspects;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
@@ -15,6 +16,7 @@ import net.minecraft.network.codec.StreamCodec;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**
@@ -112,8 +114,8 @@ public class AspectList {
 
   public static AspectList randomPrimals() {
     HashMap<String, Integer> map = new HashMap<>();
-    for (Aspect a : Aspect.PRIMAL_ASPECTS) {
-      map.put(a.getId(), (int) (Math.random() * 16 + 1));
+    for (var a : Aspects.PRIMAL_ASPECTS) {
+      map.put(a.get().getId(), (int) (Math.random() * 16 + 1));
     }
     return new AspectList(map);
   }
@@ -124,7 +126,7 @@ public class AspectList {
 
   public ImmutableList<AspectStack> displayedAspects() {
     if (this == AspectList.EMPTY) return ImmutableList.of();
-    return Aspect.ASPECTS.values().stream().filter(a -> get(a) > 0).map(a -> AspectStack.of(a, get(a))).collect(ImmutableList.toImmutableList());
+    return Aspects.REGISTRAR.getEntries().stream().map(Supplier::get).filter(a -> get(a) > 0).map(a -> AspectStack.of(a, get(a))).collect(ImmutableList.toImmutableList());
   }
 
   public int size() {

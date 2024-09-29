@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import me.alegian.thaumcraft7.impl.client.T7PoseStack;
 import me.alegian.thaumcraft7.impl.client.T7RenderTypes;
-import me.alegian.thaumcraft7.impl.common.aspect.Aspect;
+import me.alegian.thaumcraft7.impl.init.registries.deferred.Aspects;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
@@ -78,7 +78,7 @@ public class VisRenderer {
       T7PoseStack t7pose
   ) {
     vc.addVertex(t7pose.pose(), 0, 0, 0)
-        .setColor(Aspect.PRAECANTATIO.getColor() & 0xFFFFFF | 0x88000000);
+        .setColor(Aspects.PRAECANTATIO.get().getColor() & 0xFFFFFF | 0x88000000);
   }
 
   /**

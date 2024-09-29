@@ -39,6 +39,7 @@ public class T7CommonEvents {
     static void registerRegistries(NewRegistryEvent event) {
       event.register(T7Registries.WAND_HANDLE);
       event.register(T7Registries.WAND_CORE);
+      event.register(T7Registries.ASPECT);
     }
 
     @SubscribeEvent

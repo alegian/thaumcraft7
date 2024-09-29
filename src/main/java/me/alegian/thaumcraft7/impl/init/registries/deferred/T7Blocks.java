@@ -1,7 +1,6 @@
 package me.alegian.thaumcraft7.impl.init.registries.deferred;
 
 import me.alegian.thaumcraft7.impl.Thaumcraft;
-import me.alegian.thaumcraft7.impl.common.aspect.Aspect;
 import me.alegian.thaumcraft7.impl.common.block.ArcaneWorkbenchBlock;
 import me.alegian.thaumcraft7.impl.common.block.AuraNodeBlock;
 import me.alegian.thaumcraft7.impl.common.block.CrucibleBlock;
@@ -29,17 +28,17 @@ public class T7Blocks {
   public static final DeferredBlock<CrucibleBlock> CRUCIBLE = REGISTRAR.register("crucible", CrucibleBlock::new);
   public static final DeferredItem<BlockItem> CRUCIBLE_ITEM = T7Items.REGISTRAR.registerSimpleBlockItem("crucible", CRUCIBLE);
 
-  public static final DeferredBlock<InfusedStoneBlock> IGNIS_INFUSED_STONE = REGISTRAR.register("ignis_ore", $ -> new InfusedStoneBlock(Aspect.IGNIS));
+  public static final DeferredBlock<InfusedStoneBlock> IGNIS_INFUSED_STONE = REGISTRAR.register("ignis_ore", $ -> new InfusedStoneBlock(Aspects.IGNIS));
   public static final DeferredItem<BlockItem> IGNIS_INFUSED_STONE_ITEM = T7Items.REGISTRAR.registerSimpleBlockItem("ignis_ore", IGNIS_INFUSED_STONE);
-  public static final DeferredBlock<InfusedStoneBlock> AER_INFUSED_STONE = REGISTRAR.register("aer_ore", $ -> new InfusedStoneBlock(Aspect.AER));
+  public static final DeferredBlock<InfusedStoneBlock> AER_INFUSED_STONE = REGISTRAR.register("aer_ore", $ -> new InfusedStoneBlock(Aspects.AER));
   public static final DeferredItem<BlockItem> AER_INFUSED_STONE_ITEM = T7Items.REGISTRAR.registerSimpleBlockItem("aer_ore", AER_INFUSED_STONE);
-  public static final DeferredBlock<InfusedStoneBlock> TERRA_INFUSED_STONE = REGISTRAR.register("terra_ore", $ -> new InfusedStoneBlock(Aspect.TERRA));
+  public static final DeferredBlock<InfusedStoneBlock> TERRA_INFUSED_STONE = REGISTRAR.register("terra_ore", $ -> new InfusedStoneBlock(Aspects.TERRA));
   public static final DeferredItem<BlockItem> TERRA_INFUSED_STONE_ITEM = T7Items.REGISTRAR.registerSimpleBlockItem("terra_ore", TERRA_INFUSED_STONE);
-  public static final DeferredBlock<InfusedStoneBlock> AQUA_INFUSED_STONE = REGISTRAR.register("aqua_ore", $ -> new InfusedStoneBlock(Aspect.AQUA));
+  public static final DeferredBlock<InfusedStoneBlock> AQUA_INFUSED_STONE = REGISTRAR.register("aqua_ore", $ -> new InfusedStoneBlock(Aspects.AQUA));
   public static final DeferredItem<BlockItem> AQUA_INFUSED_STONE_ITEM = T7Items.REGISTRAR.registerSimpleBlockItem("aqua_ore", AQUA_INFUSED_STONE);
-  public static final DeferredBlock<InfusedStoneBlock> ORDO_INFUSED_STONE = REGISTRAR.register("ordo_ore", $ -> new InfusedStoneBlock(Aspect.ORDO));
+  public static final DeferredBlock<InfusedStoneBlock> ORDO_INFUSED_STONE = REGISTRAR.register("ordo_ore", $ -> new InfusedStoneBlock(Aspects.ORDO));
   public static final DeferredItem<BlockItem> ORDO_INFUSED_STONE_ITEM = T7Items.REGISTRAR.registerSimpleBlockItem("ordo_ore", ORDO_INFUSED_STONE);
-  public static final DeferredBlock<InfusedStoneBlock> PERDITIO_INFUSED_STONE = REGISTRAR.register("perditio_ore", $ -> new InfusedStoneBlock(Aspect.PERDITIO));
+  public static final DeferredBlock<InfusedStoneBlock> PERDITIO_INFUSED_STONE = REGISTRAR.register("perditio_ore", $ -> new InfusedStoneBlock(Aspects.PERDITIO));
   public static final DeferredItem<BlockItem> PERDITIO_INFUSED_STONE_ITEM = T7Items.REGISTRAR.registerSimpleBlockItem("perditio_ore", PERDITIO_INFUSED_STONE);
 
   public static final DeferredBlock<LeavesBlock> GREATWOOD_LEAVES = REGISTRAR.register("greatwood_leaves", T7Blocks::leaves);
