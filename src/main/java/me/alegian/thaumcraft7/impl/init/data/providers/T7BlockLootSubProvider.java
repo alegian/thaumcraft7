@@ -43,7 +43,10 @@ public class T7BlockLootSubProvider extends BlockLootSubProvider {
     dropSelf(T7Blocks.AURA_NODE.get()); // TODO: replace
     dropSelf(T7Blocks.ARCANUM_BLOCK.get());
     dropSelf(T7Blocks.ORICHALCUM_BLOCK.get());
+
     dropSelf(T7Blocks.ARCANE_WORKBENCH.get());
+
+    dropSelf(T7Blocks.ESSENTIA_CONTAINER.get());
 
     infusedStone(T7Blocks.IGNIS_INFUSED_STONE, T7Items.IGNIS_TESTA);
     infusedStone(T7Blocks.TERRA_INFUSED_STONE, T7Items.TERRA_TESTA);

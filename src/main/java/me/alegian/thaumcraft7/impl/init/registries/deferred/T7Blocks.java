@@ -68,6 +68,9 @@ public class T7Blocks {
   public static final DeferredBlock<ArcaneWorkbenchBlock> ARCANE_WORKBENCH = REGISTRAR.register("arcane_workbench", ArcaneWorkbenchBlock::new);
   public static final DeferredItem<BlockItem> ARCANE_WORKBENCH_ITEM = T7Items.REGISTRAR.registerSimpleBlockItem("arcane_workbench", ARCANE_WORKBENCH);
 
+  public static final DeferredBlock<Block> ESSENTIA_CONTAINER = REGISTRAR.register("essentia_container", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS)));
+  public static final DeferredItem<BlockItem> ESSENTIA_CONTAINER_ITEM = T7Items.REGISTRAR.registerSimpleBlockItem("essentia_container", ESSENTIA_CONTAINER);
+
   public static void registerCapabilities(RegisterCapabilitiesEvent event) {
   }
 

@@ -39,6 +39,8 @@ public class T7CreativeModeTabs {
 
               output.accept(T7Blocks.ARCANE_WORKBENCH.get());
 
+              output.accept(T7Blocks.ESSENTIA_CONTAINER.get());
+
               output.accept(T7Items.IRON_HANDLE.get());
               output.accept(T7Items.GOLD_HANDLE.get());
               output.accept(T7Items.ORICHALCUM_HANDLE.get());

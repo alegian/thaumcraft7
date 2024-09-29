@@ -56,6 +56,8 @@ public class T7BlockStateProvider extends BlockStateProvider {
         .parent(new ModelFile.UncheckedModelFile("block/crafting_table"))
     );
 
+    simpleBlockWithItem(T7Blocks.ESSENTIA_CONTAINER.get(), models().getExistingFile(modLoc("essentia_container")));
+
     itemModels().getBuilder(T7Blocks.AURA_NODE.getId().getPath()).parent(new ModelFile.UncheckedModelFile("item/generated")).renderType(RenderType.translucent().name).texture("layer0", ResourceLocation.fromNamespaceAndPath(Thaumcraft.MODID, "item/aura_node"));
   }
 

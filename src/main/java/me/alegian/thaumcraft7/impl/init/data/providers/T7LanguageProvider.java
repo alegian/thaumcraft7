@@ -103,6 +103,8 @@ public class T7LanguageProvider extends LanguageProvider {
     add(T7Blocks.SILVERWOOD_PLANKS.get(), "Silverwood Planks");
     add(T7Blocks.SILVERWOOD_SAPLING.get(), "Silverwood Sapling");
 
+    add(T7Blocks.ESSENTIA_CONTAINER.get(), "Essentia Container");
+
     add("container." + Thaumcraft.MODID + ".arcane_workbench", "Arcane Workbench");
   }
 }
