@@ -41,6 +41,6 @@ public class WandRenderer extends DynamicGeoItemRenderer<WandItem> {
   }
 
   private static ResourceLocation texture(ResourceLocation registeredLocation, String prefix) {
-    return ResourceLocation.fromNamespaceAndPath(registeredLocation.getNamespace(), "textures/item/" + prefix + registeredLocation.getPath() + ".png");
+    return registeredLocation.withPrefix("textures/item/" + prefix).withSuffix(".png");
   }
 }

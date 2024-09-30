@@ -32,12 +32,12 @@ public class T7BlockStateProvider extends BlockStateProvider {
         .texture("inside", Thaumcraft.id("block/crucible_inner"))
     );
 
-    crystalOreBlockWithItem(T7Blocks.IGNIS_INFUSED_STONE.get());
-    crystalOreBlockWithItem(T7Blocks.AER_INFUSED_STONE.get());
-    crystalOreBlockWithItem(T7Blocks.TERRA_INFUSED_STONE.get());
-    crystalOreBlockWithItem(T7Blocks.AQUA_INFUSED_STONE.get());
-    crystalOreBlockWithItem(T7Blocks.ORDO_INFUSED_STONE.get());
-    crystalOreBlockWithItem(T7Blocks.PERDITIO_INFUSED_STONE.get());
+    infusedOreBlockWithItem(T7Blocks.IGNIS_INFUSED_STONE.get());
+    infusedOreBlockWithItem(T7Blocks.AER_INFUSED_STONE.get());
+    infusedOreBlockWithItem(T7Blocks.TERRA_INFUSED_STONE.get());
+    infusedOreBlockWithItem(T7Blocks.AQUA_INFUSED_STONE.get());
+    infusedOreBlockWithItem(T7Blocks.ORDO_INFUSED_STONE.get());
+    infusedOreBlockWithItem(T7Blocks.PERDITIO_INFUSED_STONE.get());
 
     logBlockWithItem(T7Blocks.GREATWOOD_LOG.get());
     simpleBlockWithItem(T7Blocks.GREATWOOD_PLANKS.get());
@@ -71,13 +71,13 @@ public class T7BlockStateProvider extends BlockStateProvider {
     itemModels().withExistingParent(name(block), blockRL);
   }
 
-  private void crystalOreBlockWithItem(InfusedStoneBlock block) {
-    var crystalOreBlockModel = models().withExistingParent(name(block), mcLoc("block/stone"))
+  private void infusedOreBlockWithItem(InfusedStoneBlock block) {
+    var infusedOreBlockModel = models().withExistingParent(name(block), mcLoc("block/stone"))
         .customLoader(CubeOverlayModel.Builder::new)
-        .spriteLocation(Thaumcraft.id("block/crystal_ore"))
+        .spriteLocation(Thaumcraft.id("block/infused_ore"))
         .color((block).getAspect().getColor())
         .end();
-    simpleBlockWithItem(block, crystalOreBlockModel);
+    simpleBlockWithItem(block, infusedOreBlockModel);
   }
 
   public void leavesBlockWithItem(LeavesBlock block) {

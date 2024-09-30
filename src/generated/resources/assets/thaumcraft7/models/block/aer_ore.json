@@ -2,5 +2,5 @@
   "parent": "minecraft:block/stone",
   "color": -130,
   "loader": "thaumcraft7:cube_overlay",
-  "sprite_location": "thaumcraft7:block/crystal_ore"
+  "sprite_location": "thaumcraft7:block/infused_ore"
 }

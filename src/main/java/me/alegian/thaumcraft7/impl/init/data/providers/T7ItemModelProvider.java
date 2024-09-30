@@ -72,6 +72,6 @@ public class T7ItemModelProvider extends ItemModelProvider {
 
   public void withVanillaParent(String itemPath, String texturePath, String parent) {
     withExistingParent(itemPath, parent)
-        .texture("layer0", Thaumcraft.id("item/" + texturePath));
+        .texture("layer0", Thaumcraft.id(texturePath).withPrefix("item/"));
   }
 }
