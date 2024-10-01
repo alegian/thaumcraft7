@@ -24,7 +24,7 @@ public class VisGuiOverlay {
   public static AspectList vis;
   public static int maxAmount = 1;
 
-  public static final LayeredDraw.Layer VIS_OVERLAY = ((guiGraphics, partialTick) -> {
+  public static final LayeredDraw.Layer LAYER = ((guiGraphics, partialTick) -> {
     if (!visible || vis == null || Minecraft.getInstance().options.hideGui) return;
 
     float scale = 0.12f;

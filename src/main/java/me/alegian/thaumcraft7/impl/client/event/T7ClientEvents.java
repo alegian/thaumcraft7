@@ -46,8 +46,8 @@ public class T7ClientEvents {
   @EventBusSubscriber(modid = Thaumcraft.MODID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
   public static class T7ClientModEvents {
     @SubscribeEvent
-    public static void registerGuiOverlays(RegisterGuiLayersEvent event) {
-      event.registerAboveAll(Thaumcraft.id("vis_overlay"), VisGuiOverlay.VIS_OVERLAY);
+    public static void registerGuiLayers(RegisterGuiLayersEvent event) {
+      event.registerAboveAll(Thaumcraft.id("vis"), VisGuiOverlay.LAYER);
     }
 
     @SubscribeEvent
