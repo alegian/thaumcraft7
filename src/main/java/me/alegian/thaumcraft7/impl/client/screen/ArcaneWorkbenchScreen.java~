@@ -37,13 +37,6 @@ public class ArcaneWorkbenchScreen extends AbstractContainerScreen<ArcaneWorkben
 
   protected void renderAspects(GuiGraphics guiGraphics){
     var middleSlot = this.menu.slots.get(4);
-
-    guiGraphics.pose().pushPose();
-    guiGraphics.pose().translate(this.leftPos, this.topPos, 0);
-    guiGraphics.pose().translate(middleSlot.x, middleSlot.y, 0);
-
-    AspectRenderer.blitAspectIcon(new T7GuiGraphics(guiGraphics), Aspects.IGNIS.get(), 0, 0);
-    
-    guiGraphics.pose().popPose();
+    AspectRenderer.blitAspectIcon(new T7GuiGraphics(guiGraphics), Aspects.IGNIS.get(), middleSlot.x, middleSlot.y);
   }
 }
