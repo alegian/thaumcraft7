@@ -4,8 +4,8 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FastColor;
@@ -27,8 +27,7 @@ public class T7GuiGraphics extends GuiGraphics {
       int pWidth,
       int pHeight,
       TextureAtlasSprite pSprite,
-      int color,
-      RenderStateShard.ShaderStateShard shaderStateShard
+      int color
   ) {
     this.innerBlit(
         pSprite.atlasLocation(),
@@ -44,8 +43,7 @@ public class T7GuiGraphics extends GuiGraphics {
         FastColor.ARGB32.red(color) / 255f,
         FastColor.ARGB32.green(color) / 255f,
         FastColor.ARGB32.blue(color) / 255f,
-        FastColor.ARGB32.alpha(color) / 255f,
-        shaderStateShard
+        FastColor.ARGB32.alpha(color) / 255f
     );
   }
 
@@ -63,11 +61,10 @@ public class T7GuiGraphics extends GuiGraphics {
       float pRed,
       float pGreen,
       float pBlue,
-      float pAlpha,
-      RenderStateShard.ShaderStateShard shaderStateShard
+      float pAlpha
   ) {
     RenderSystem.setShaderTexture(0, pAtlasLocation);
-    shaderStateShard.setupRenderState();
+    RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
     RenderSystem.enableBlend();
     Matrix4f matrix4f = this.pose().last().pose();
     BufferBuilder bufferbuilder = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR);

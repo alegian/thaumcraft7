@@ -4,7 +4,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.client.T7GuiGraphics;
-import me.alegian.thaumcraft7.impl.client.T7RenderStateShards;
 import me.alegian.thaumcraft7.impl.client.texture.atlas.AspectAtlas;
 import me.alegian.thaumcraft7.impl.common.aspect.Aspect;
 import me.alegian.thaumcraft7.impl.common.aspect.AspectList;
@@ -73,8 +72,7 @@ public class AspectRenderer {
         PIXEL_RESOLUTION,
         PIXEL_RESOLUTION,
         sprite,
-        color,
-        T7RenderStateShards.ASPECT_OUTLINE
+        color
     );
   }
 
@@ -97,7 +95,7 @@ public class AspectRenderer {
     var poseStack = guiGraphics.pose();
     poseStack.pushPose();
     poseStack.translate(pX + PIXEL_RESOLUTION, pY + PIXEL_RESOLUTION, 0.0001f); // start bottom right, like item count. slightly increase Z to avoid z fighting
-    poseStack.scale(0.5F, 0.5F, 1F);
+    poseStack.scale(0.5F, 0.5F, 0.5F);
     Font font = Minecraft.getInstance().font;
 
     guiGraphics.drawString(font, text, -font.width(text), -font.lineHeight, 0xFFFFFFFF);

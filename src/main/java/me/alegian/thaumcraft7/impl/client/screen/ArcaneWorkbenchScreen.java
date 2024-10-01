@@ -35,7 +35,7 @@ public class ArcaneWorkbenchScreen extends AbstractContainerScreen<ArcaneWorkben
     pGuiGraphics.blit(BG_LOCATION, i, j, 0, 0, this.imageWidth, this.imageHeight);
   }
 
-  protected void renderAspects(GuiGraphics guiGraphics){
+  protected void renderAspects(GuiGraphics guiGraphics) {
     var middleSlot = this.menu.slots.get(4);
 
     guiGraphics.pose().pushPose();
@@ -43,7 +43,7 @@ public class ArcaneWorkbenchScreen extends AbstractContainerScreen<ArcaneWorkben
     guiGraphics.pose().translate(middleSlot.x, middleSlot.y, 0);
 
     AspectRenderer.blitAspectIcon(new T7GuiGraphics(guiGraphics), Aspects.IGNIS.get(), 0, 0);
-    
+
     guiGraphics.pose().popPose();
   }
 }
