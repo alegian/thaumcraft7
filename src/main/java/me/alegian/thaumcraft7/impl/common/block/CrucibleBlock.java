@@ -12,6 +12,7 @@ import me.alegian.thaumcraft7.impl.init.registries.deferred.T7RecipeTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -120,7 +121,6 @@ public class CrucibleBlock extends Block implements EntityBlock {
     ) {
       if (pEntity.mayInteract(level, pPos)) {
         meltItem(serverLevel, pPos, itemEntity);
-        level.playSound(null, pPos, SoundEvents.GENERIC_SPLASH, SoundSource.BLOCKS, 1F, 1.0F);
         level.sendBlockUpdated(
             pPos,
             pState,
@@ -147,19 +147,28 @@ public class CrucibleBlock extends Block implements EntityBlock {
           input,
           level
       ).map(recipe -> {
+        if (!tryLowerFillLevel(level, pPos)) return false;
+        waterSplash(level, pPos);
+
         AspectContainerHelper
             .getAspectContainer(level, pPos)
             .ifPresent(container ->
                 container.subtract(recipe.value().getRequiredAspects())
             );
+
+        if (itemEntity.getOwner() instanceof ServerPlayer player) {
+          ItemEntity itementity = player.drop(recipe.value().getResult(), true, true);
+          if (itementity != null) {
+            itementity.setNoPickUpDelay();
+            itementity.setTarget(player.getUUID());
+          }
+          shrinkItemEntity(itemEntity);
+        }
+
         return true;
       }).orElse(false);
 
-      if (success) {
-        lowerFillLevel(level, pPos);
-        itemEntity.kill();
-        return;
-      }// if failed, try to melt item instead
+      if (success) return;// if catalyst failed, try to melt item instead
     }
 
     if (!AspectHelper.hasAspects(thrownStack)) return;
@@ -167,16 +176,17 @@ public class CrucibleBlock extends Block implements EntityBlock {
     AspectContainerHelper
         .getAspectContainer(level, pPos)
         .ifPresent(c -> c.addAspects(itemAspects));
-    itemEntity.kill();
+    waterSplash(level, pPos);
+    itemEntity.discard();
+  }
+
+  private static void waterSplash(ServerLevel level, BlockPos pPos) {
+    level.playSound(null, pPos, SoundEvents.GENERIC_SPLASH, SoundSource.BLOCKS, 1F, 1.0F);
   }
 
   // returns true if any water was drained
-  public static boolean lowerFillLevel(Level pLevel, BlockPos pPos) {
-    var be = pLevel.getBlockEntity(pPos);
-    if (be instanceof CrucibleBE crucibleBE) {
-      return crucibleBE.getFluidHandler().catalystDrain();
-    }
-    return false;
+  public static boolean tryLowerFillLevel(Level pLevel, BlockPos pPos) {
+    return pLevel.getBlockEntity(pPos, T7BlockEntities.CRUCIBLE.get()).map(be -> be.getFluidHandler().catalystDrain()).orElse(false);
   }
 
   // returns true if any water was filled
@@ -186,6 +196,13 @@ public class CrucibleBlock extends Block implements EntityBlock {
       return crucibleBE.getFluidHandler().fillUp();
     }
     return false;
+  }
+
+  public static void shrinkItemEntity(ItemEntity itemEntity) {
+    var stack = itemEntity.getItem();
+    stack.shrink(1);
+    if (stack.isEmpty()) itemEntity.discard();
+    else itemEntity.setItem(stack.copy());
   }
 
   public static boolean isHeatSource(LevelAccessor level, BlockPos pos) {
