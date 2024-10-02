@@ -93,6 +93,17 @@ public class AspectList {
   }
 
   /**
+   * Whether this AspectList contains all aspects (in greater quantity) than another.
+   * Useful for recipe checks
+   */
+  public boolean contains(AspectList other) {
+    for(String k : other.getMap().keySet()) {
+      if (this.getMap().get(k) < other.getMap().get(k)) return false;
+    }
+    return true;
+  }
+
+  /**
    * AspectList Maps are also immutable.
    * This is read-only access to copy the map into a new one.
    */
