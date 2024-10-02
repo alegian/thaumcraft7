@@ -11,8 +11,8 @@ import static net.minecraft.client.renderer.RenderStateShard.*;
 
 @OnlyIn(Dist.CLIENT)
 public class T7RenderTypes {
-  public static final RenderType SIMPLE_TRIANGLE = RenderType.create(
-      Thaumcraft.MODID + "_simple_triangle", T7VertexFormats.AURA_NODE, VertexFormat.Mode.TRIANGLES, RenderType.SMALL_BUFFER_SIZE, false, true, simpleTriangleState()
+  public static final RenderType AURA_NODE = RenderType.create(
+      Thaumcraft.MODID + "_simple_triangle", T7VertexFormats.AURA_NODE, VertexFormat.Mode.TRIANGLES, RenderType.SMALL_BUFFER_SIZE, false, true, auraNodeState()
   );
 
   public static final RenderType TRANSLUCENT_TRIANGLES = RenderType.create(
@@ -29,9 +29,9 @@ public class T7RenderTypes {
           .createCompositeState(false)
   );
 
-  private static RenderType.CompositeState simpleTriangleState() {
+  private static RenderType.CompositeState auraNodeState() {
     return RenderType.CompositeState.builder()
-        .setShaderState(T7RenderStateShards.CUSTOM_SHADER)
+        .setShaderState(T7RenderStateShards.AURA_NODE_SHADER)
         .setTransparencyState(T7RenderStateShards.SIMPLE_TRANSPARENCY)
         .setDepthTestState(NO_DEPTH_TEST)
         .setTextureState(NO_TEXTURE)

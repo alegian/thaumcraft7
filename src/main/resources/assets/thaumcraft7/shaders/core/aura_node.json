@@ -1,6 +1,6 @@
 {
-  "vertex": "thaumcraft7:custom_shader",
-  "fragment": "thaumcraft7:custom_shader",
+  "vertex": "thaumcraft7:aura_node",
+  "fragment": "thaumcraft7:aura_node",
   "samplers": [
   ],
   "attributes": [

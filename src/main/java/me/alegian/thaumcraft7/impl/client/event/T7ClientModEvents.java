@@ -111,8 +111,8 @@ public class T7ClientModEvents {
 
   @SubscribeEvent
   public static void registerShaders(RegisterShadersEvent event) throws IOException {
-    event.registerShader(new ShaderInstance(event.getResourceProvider(), Thaumcraft.id("custom_shader"), DefaultVertexFormat.NEW_ENTITY), shaderInstance -> {
-      T7RenderStateShards.customShader = shaderInstance;
+    event.registerShader(new ShaderInstance(event.getResourceProvider(), Thaumcraft.id("aura_node"), DefaultVertexFormat.NEW_ENTITY), shaderInstance -> {
+      T7RenderStateShards.auraNodeShader = shaderInstance;
     });
   }
 
