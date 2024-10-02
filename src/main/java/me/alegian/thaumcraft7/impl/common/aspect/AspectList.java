@@ -92,6 +92,12 @@ public class AspectList {
     return new AspectList(newMap);
   }
 
+  public AspectList subtract(AspectList other) {
+    HashMap<String, Integer> newMap = new HashMap<>(map);
+    other.getMap().forEach((k, v) -> newMap.merge(k, v, (a, b) -> a - b));
+    return new AspectList(newMap);
+  }
+
   /**
    * Whether this AspectList contains all aspects (in greater quantity) than another.
    * Useful for recipe checks

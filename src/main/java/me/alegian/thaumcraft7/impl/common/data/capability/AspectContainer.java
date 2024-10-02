@@ -46,9 +46,14 @@ public class AspectContainer implements IAspectContainer {
   public boolean addAspects(@Nullable AspectList aspects) {
     if (aspects == null) return false;
 
-    AspectList current = getAspects();
+    AspectList current = this.getAspects();
     holder.set(T7DataComponents.ASPECTS, current.merge(aspects));
     return true;
+  }
+
+  @Override
+  public void subtract(AspectList aspects) {
+    holder.set(T7DataComponents.ASPECTS, this.getAspects().subtract(aspects));
   }
 
   @Override

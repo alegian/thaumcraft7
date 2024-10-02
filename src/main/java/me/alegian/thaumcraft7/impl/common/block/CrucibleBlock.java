@@ -4,10 +4,14 @@ import me.alegian.thaumcraft7.impl.common.aspect.AspectHelper;
 import me.alegian.thaumcraft7.impl.common.aspect.AspectList;
 import me.alegian.thaumcraft7.impl.common.block.entity.CrucibleBE;
 import me.alegian.thaumcraft7.impl.common.data.capability.AspectContainerHelper;
+import me.alegian.thaumcraft7.impl.common.data.capability.IAspectContainer;
+import me.alegian.thaumcraft7.impl.common.recipe.CrucibleRecipeInput;
 import me.alegian.thaumcraft7.impl.init.registries.T7Tags;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7BlockEntities;
+import me.alegian.thaumcraft7.impl.init.registries.deferred.T7RecipeTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -19,6 +23,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -106,19 +111,17 @@ public class CrucibleBlock extends Block implements EntityBlock {
   }
 
   @Override
-  protected void entityInside(BlockState pState, Level pLevel, BlockPos pPos, Entity pEntity) {
-    if (!pLevel.isClientSide
+  protected void entityInside(BlockState pState, Level level, BlockPos pPos, Entity pEntity) {
+    if (!level.isClientSide
+        && level instanceof ServerLevel serverLevel
         && pState.getValue(BOILING)
         && pEntity instanceof ItemEntity itemEntity
         && this.isEntityInsideContent(pPos, pEntity)
     ) {
-      if (pEntity.mayInteract(pLevel, pPos) &&
-          AspectHelper.hasAspects(itemEntity) &&
-          lowerFillLevel(pLevel, pPos)
-      ) {
-        meltItem(pLevel, pPos, itemEntity);
-        pLevel.playSound(null, pPos, SoundEvents.GENERIC_SPLASH, SoundSource.BLOCKS, 1F, 1.0F);
-        pLevel.sendBlockUpdated(
+      if (pEntity.mayInteract(level, pPos)) {
+        meltItem(serverLevel, pPos, itemEntity);
+        level.playSound(null, pPos, SoundEvents.GENERIC_SPLASH, SoundSource.BLOCKS, 1F, 1.0F);
+        level.sendBlockUpdated(
             pPos,
             pState,
             pState,
@@ -128,12 +131,43 @@ public class CrucibleBlock extends Block implements EntityBlock {
     }
   }
 
-  public static void meltItem(Level pLevel, BlockPos pPos, ItemEntity itemEntity) {
+  public static void meltItem(ServerLevel level, BlockPos pPos, ItemEntity itemEntity) {
+    var thrownStack = itemEntity.getItem();
+
+    // try to use as catalyst
+    if (thrownStack.is(T7Tags.CATALYST)) {
+      AspectList crucibleAspects = AspectContainerHelper
+          .getAspectContainer(level, pPos).map(IAspectContainer::getAspects).orElseThrow();
+
+      RecipeManager recipes = level.getRecipeManager();
+      var input = new CrucibleRecipeInput(crucibleAspects, thrownStack);
+
+      boolean success = recipes.getRecipeFor(
+          T7RecipeTypes.CRUCIBLE.get(),
+          input,
+          level
+      ).map(recipe -> {
+        AspectContainerHelper
+            .getAspectContainer(level, pPos)
+            .ifPresent(container ->
+                container.subtract(recipe.value().getRequiredAspects())
+            );
+        return true;
+      }).orElse(false);
+
+      if (success) {
+        lowerFillLevel(level, pPos);
+        itemEntity.kill();
+        return;
+      }// if failed, try to melt item instead
+    }
+
+    if (!AspectHelper.hasAspects(thrownStack)) return;
     AspectList itemAspects = AspectHelper.getAspects(itemEntity);
-    itemEntity.kill();
     AspectContainerHelper
-        .getAspectContainer(pLevel, pPos)
-        .map(c -> c.addAspects(itemAspects));
+        .getAspectContainer(level, pPos)
+        .ifPresent(c -> c.addAspects(itemAspects));
+    itemEntity.kill();
   }
 
   // returns true if any water was drained

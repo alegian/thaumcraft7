@@ -30,6 +30,8 @@ public class AspectHelper {
   }
 
   public static AspectList getAspects(ItemStack itemStack) {
-    return getAspects(itemStack.getItem()).scale(itemStack.getCount());
+    var itemAspects = getAspects(itemStack.getItem());
+    if(itemAspects == null) return null;
+    return itemAspects.scale(itemStack.getCount());
   }
 }
