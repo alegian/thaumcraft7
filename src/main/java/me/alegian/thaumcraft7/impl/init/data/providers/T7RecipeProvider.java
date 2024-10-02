@@ -1,15 +1,17 @@
 package me.alegian.thaumcraft7.impl.init.data.providers;
 
-import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Blocks;
-import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Items;
-import me.alegian.thaumcraft7.impl.init.registries.deferred.WandCoreMaterials;
-import me.alegian.thaumcraft7.impl.init.registries.deferred.WandHandleMaterials;
+import me.alegian.thaumcraft7.impl.common.aspect.AspectList;
+import me.alegian.thaumcraft7.impl.common.aspect.AspectStack;
+import me.alegian.thaumcraft7.impl.init.data.providers.builders.CrucibleRecipeBuilder;
+import me.alegian.thaumcraft7.impl.init.registries.deferred.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.common.Tags;
 
@@ -103,6 +105,12 @@ public class T7RecipeProvider extends RecipeProvider {
         .pattern("a a")
         .unlockedBy(getHasName(T7Items.ARCANUM_INGOT.get()), has(T7Items.ARCANUM_INGOT.get()))
         .save(pRecipeOutput);
+
+    inCrucible(pRecipeOutput,
+        new ItemStack(Items.DIAMOND),
+        AspectList.of(AspectStack.of(Aspects.TERRA.get(), 6), AspectStack.of(Aspects.PERDITIO.get(), 2)),
+        Ingredient.of(Items.DRAGON_EGG)
+    );
   }
 
   protected static void ingot(RecipeOutput pRecipeOutput, ItemLike ingot, ItemLike nugget, ItemLike block) {
@@ -157,5 +165,12 @@ public class T7RecipeProvider extends RecipeProvider {
         .group("planks")
         .unlockedBy("has_logs", has(pLog))
         .save(pRecipeOutput);
+  }
+
+  protected static void inCrucible(RecipeOutput output, ItemStack result, AspectList aspects, Ingredient catalyst) {
+    var catalystItem = catalyst.getItems()[0].getItem();
+    new CrucibleRecipeBuilder(result, aspects, catalyst)
+        .unlockedBy(getHasName(catalystItem), has(catalystItem))
+        .save(output);
   }
 }

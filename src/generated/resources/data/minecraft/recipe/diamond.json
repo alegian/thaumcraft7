@@ -1,0 +1,20 @@
+{
+  "type": "thaumcraft7:crucible",
+  "aspects": [
+    {
+      "amount": 2,
+      "aspect": "perditio"
+    },
+    {
+      "amount": 6,
+      "aspect": "terra"
+    }
+  ],
+  "catalyst": {
+    "item": "minecraft:dragon_egg"
+  },
+  "result": {
+    "count": 1,
+    "id": "minecraft:diamond"
+  }
+}

@@ -36,4 +36,9 @@ public class T7Tags {
       Registries.ITEM,
       Thaumcraft.id("testa")
   );
+
+  public static final TagKey<Item> CATALYST = TagKey.create(
+      Registries.ITEM,
+      Thaumcraft.id("catalyst")
+  );
 }

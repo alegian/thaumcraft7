@@ -97,7 +97,7 @@ public class AspectList {
    * Useful for recipe checks
    */
   public boolean contains(AspectList other) {
-    for(String k : other.getMap().keySet()) {
+    for (String k : other.getMap().keySet()) {
       if (this.getMap().get(k) < other.getMap().get(k)) return false;
     }
     return true;

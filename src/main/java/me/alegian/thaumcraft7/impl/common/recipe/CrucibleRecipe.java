@@ -17,6 +17,9 @@ public class CrucibleRecipe implements Recipe<CrucibleRecipeInput> {
   private final Ingredient requiredCatalyst;
   private final ItemStack result;
 
+  /**
+   * Catalyst Items should be tagged as such, otherwise the crucible is going to melt them anyway
+   */
   public CrucibleRecipe(AspectList requiredAspects, Ingredient requiredCatalyst, ItemStack result) {
     this.requiredAspects = requiredAspects;
     this.requiredCatalyst = requiredCatalyst;

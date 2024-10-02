@@ -7,6 +7,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
@@ -67,5 +68,7 @@ public class T7ItemTagProvider extends ItemTagsProvider {
     tag(ItemTags.LEG_ARMOR).add(T7Items.ARCANUM_LEGGINGS.get());
     tag(ItemTags.CHEST_ARMOR).add(T7Items.ARCANUM_CHESTPLATE.get());
     tag(ItemTags.HEAD_ARMOR).add(T7Items.ARCANUM_HELMET.get());
+
+    tag(T7Tags.CATALYST).add(Items.DRAGON_EGG);
   }
 }
