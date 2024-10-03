@@ -56,7 +56,7 @@ public class AspectList {
 
     @Override
     public <T> DataResult<T> encode(AspectList aspectList, DynamicOps<T> dynamicOps, T t) {
-      var listOfPairs = aspectList.map.entrySet().stream().map(e -> Pair.of(e.getKey(), e.getValue())).toList();
+      var listOfPairs = aspectList.map.entrySet().stream().filter(e -> e.getValue() > 0).map(e -> Pair.of(e.getKey(), e.getValue())).toList();
       return PAIR_LIST_CODEC.encode(listOfPairs, dynamicOps, t);
     }
   };
@@ -94,8 +94,12 @@ public class AspectList {
 
   public AspectList subtract(AspectList other) {
     HashMap<String, Integer> newMap = new HashMap<>(map);
-    other.getMap().forEach((k, v) -> newMap.merge(k, v, (a, b) -> a - b));
+    other.getMap().forEach((k, v) -> newMap.merge(k, v, (a, b) -> nullIfZero(a - b)));
     return new AspectList(newMap);
+  }
+
+  private static Integer nullIfZero(Integer amount) {
+    return amount == 0 ? null : amount;
   }
 
   /**
