@@ -3,6 +3,7 @@ package me.alegian.thaumcraft7.impl.client;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -10,6 +11,8 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FastColor;
 import org.joml.Matrix4f;
+
+import javax.annotation.Nullable;
 
 public class T7GuiGraphics extends GuiGraphics {
   public T7GuiGraphics(Minecraft pMinecraft, PoseStack pPose, MultiBufferSource.BufferSource pBufferSource) {
@@ -82,5 +85,21 @@ public class T7GuiGraphics extends GuiGraphics {
         .setColor(pRed, pGreen, pBlue, pAlpha);
     BufferUploader.drawWithShader(bufferbuilder.buildOrThrow());
     RenderSystem.disableBlend();
+  }
+
+  public void drawSeeThroughText(Font font, String text, float pX, float pY, int color, boolean shadow) {
+    font.drawInBatch(
+        text,
+        pX,
+        pY,
+        color,
+        shadow,
+        this.pose().last().pose(),
+        this.bufferSource(),
+        Font.DisplayMode.SEE_THROUGH,
+        0,
+        15728880,
+        font.isBidirectional()
+    );
   }
 }

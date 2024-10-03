@@ -42,7 +42,7 @@ public class ArcaneWorkbenchScreen extends AbstractContainerScreen<ArcaneWorkben
     guiGraphics.pose().translate(this.leftPos, this.topPos, 0);
     guiGraphics.pose().translate(middleSlot.x, middleSlot.y, 0);
 
-    AspectRenderer.blitAspectIcon(new T7GuiGraphics(guiGraphics), Aspects.IGNIS.get(), 0, 0);
+    AspectRenderer.drawAspectIcon(new T7GuiGraphics(guiGraphics), Aspects.IGNIS.get(), 0, 0);
 
     guiGraphics.pose().popPose();
   }

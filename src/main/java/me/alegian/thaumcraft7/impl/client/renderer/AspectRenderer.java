@@ -11,7 +11,6 @@ import me.alegian.thaumcraft7.impl.common.aspect.AspectStack;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -37,8 +36,11 @@ public class AspectRenderer {
     poseStack.mulPose(Axis.YP.rotation(angle));
     poseStack.scale(QUAD_SIZE, QUAD_SIZE, 1); // this puts us in "aspect space" where 1 means 1 aspect width
 
+    T7GuiGraphics guiGraphics = new T7GuiGraphics(Minecraft.getInstance(), poseStack, Minecraft.getInstance().renderBuffers().bufferSource());
+
     // these offsets account for wrapping to new lines, and centering the aspects
     Vector2f[] offsets = calculateOffsets(aspects.size());
+
     int i = 0;
     for (AspectStack aspectStack : aspects.displayedAspects()) {
       poseStack.pushPose();
@@ -46,22 +48,22 @@ public class AspectRenderer {
 
       // gui rendering is done in pixel space
       poseStack.scale(1f / PIXEL_RESOLUTION, -1f / PIXEL_RESOLUTION, 1f);
-      T7GuiGraphics guiGraphics = new T7GuiGraphics(Minecraft.getInstance(), poseStack, Minecraft.getInstance().renderBuffers().bufferSource());
       renderAspect(guiGraphics, aspectStack, -PIXEL_RESOLUTION / 2, -PIXEL_RESOLUTION / 2);
 
       poseStack.popPose();
       i++;
     }
 
+    guiGraphics.flush();
     poseStack.popPose();
   }
 
   public static void renderAspect(T7GuiGraphics guiGraphics, AspectStack aspectStack, int pX, int pY) {
-    blitAspectIcon(guiGraphics, aspectStack.aspect(), pX, pY);
-    drawText(guiGraphics, String.valueOf(aspectStack.amount()), pX, pY);
+    drawAspectIcon(guiGraphics, aspectStack.aspect(), pX, pY);
+    drawCount(guiGraphics, String.valueOf(aspectStack.amount()), pX, pY);
   }
 
-  public static void blitAspectIcon(T7GuiGraphics guiGraphics, Aspect aspect, int pX, int pY) {
+  public static void drawAspectIcon(T7GuiGraphics guiGraphics, Aspect aspect, int pX, int pY) {
     var sprite = AspectAtlas.sprite(Thaumcraft.id(aspect.getId()));
 
     var color = aspect.getColor();
@@ -91,14 +93,14 @@ public class AspectRenderer {
     return offsets;
   }
 
-  public static void drawText(GuiGraphics guiGraphics, String text, int pX, int pY) {
+  public static void drawCount(T7GuiGraphics guiGraphics, String text, int pX, int pY) {
     var poseStack = guiGraphics.pose();
     poseStack.pushPose();
     poseStack.translate(pX + PIXEL_RESOLUTION, pY + PIXEL_RESOLUTION, 0.0001f); // start bottom right, like item count. slightly increase Z to avoid z fighting
     poseStack.scale(0.5F, 0.5F, 0.5F);
     Font font = Minecraft.getInstance().font;
 
-    guiGraphics.drawString(font, text, -font.width(text), -font.lineHeight, 0xFFFFFFFF);
+    guiGraphics.drawSeeThroughText(font, text, -font.width(text), -font.lineHeight, 0xFFFFFFFF, true);
     poseStack.popPose();
   }
 
