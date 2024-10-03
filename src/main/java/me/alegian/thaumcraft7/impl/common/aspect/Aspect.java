@@ -1,17 +1,17 @@
 package me.alegian.thaumcraft7.impl.common.aspect;
 
-import com.mojang.datafixers.util.Pair;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.Aspects;
 
+import java.util.List;
 import java.util.Random;
 import java.util.function.Supplier;
 
 public class Aspect {
   String id;
   int color;
-  Pair<Supplier<Aspect>, Supplier<Aspect>> components;
+  List<Supplier<Aspect>> components;
 
-  public Aspect(String id, int color, Pair<Supplier<Aspect>, Supplier<Aspect>> components) {
+  public Aspect(String id, int color, List<Supplier<Aspect>> components) {
     this.id = id;
     this.color = color;
     this.components = components;
@@ -37,7 +37,7 @@ public class Aspect {
     return new int[]{r, g, b};
   }
 
-  public Pair<Supplier<Aspect>, Supplier<Aspect>> getComponents() {
+  public List<Supplier<Aspect>> getComponents() {
     return components;
   }
 
