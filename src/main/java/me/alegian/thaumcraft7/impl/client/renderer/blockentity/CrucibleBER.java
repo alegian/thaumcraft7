@@ -8,11 +8,13 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.client.RenderTypeHelper;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 
 @OnlyIn(Dist.CLIENT)
@@ -27,7 +29,8 @@ public class CrucibleBER implements BlockEntityRenderer<CrucibleBE> {
 
     pPoseStack.translate(0.5d, crucibleBE.getWaterHeight(), 0.5d);
 
-    renderWaterQuad(pPoseStack.last(), pBufferSource.getBuffer(RenderType.translucent()), pPackedLight);
+    var renderType = RenderTypeHelper.getEntityRenderType(RenderType.translucent(), false);
+    renderWaterQuad(pPoseStack.last(), pBufferSource.getBuffer(renderType), pPackedLight);
 
     pPoseStack.popPose();
   }
@@ -49,24 +52,28 @@ public class CrucibleBER implements BlockEntityRenderer<CrucibleBE> {
         .setColor(color)
         .setUv(minU, minV)
         .setLight(packedLight)
+        .setOverlay(OverlayTexture.NO_OVERLAY)
         .setNormal(pose, 0, 1, 0);
 
     buffer.addVertex(pose, -width / 2, 0, width / 2)
         .setColor(color)
         .setUv(minU, maxV)
         .setLight(packedLight)
+        .setOverlay(OverlayTexture.NO_OVERLAY)
         .setNormal(pose, 0, 1, 0);
 
     buffer.addVertex(pose, width / 2, 0, width / 2)
         .setColor(color)
         .setUv(maxU, maxV)
         .setLight(packedLight)
+        .setOverlay(OverlayTexture.NO_OVERLAY)
         .setNormal(pose, 0, 1, 0);
 
     buffer.addVertex(pose, width / 2, 0, -width / 2)
         .setColor(color)
         .setUv(maxU, minV)
         .setLight(packedLight)
+        .setOverlay(OverlayTexture.NO_OVERLAY)
         .setNormal(pose, 0, 1, 0);
   }
 
