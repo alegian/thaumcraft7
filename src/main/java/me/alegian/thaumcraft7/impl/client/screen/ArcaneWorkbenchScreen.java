@@ -1,21 +1,24 @@
 package me.alegian.thaumcraft7.impl.client.screen;
 
-import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.client.T7GuiGraphics;
 import me.alegian.thaumcraft7.impl.client.renderer.AspectRenderer;
+import me.alegian.thaumcraft7.impl.client.texture.Texture;
 import me.alegian.thaumcraft7.impl.common.menu.ArcaneWorkbenchMenu;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.Aspects;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.ResultSlot;
+import net.minecraft.world.inventory.Slot;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class ArcaneWorkbenchScreen extends AbstractContainerScreen<ArcaneWorkbenchMenu> {
-  private static final ResourceLocation BG_LOCATION = Thaumcraft.id("textures/gui/container/arcane_workbench.png");
+  private static final Texture BG_TEXTURE = new Texture("gui/container/arcane_workbench", 176, 166);
+  private static final Texture SLOT_TEXTURE = new Texture("gui/container/arcane_workbench_slot", 18, 18);
+  private static final Texture RESULT_SLOT_TEXTURE = new Texture("gui/container/arcane_workbench_result_slot", 26, 26);
 
   public ArcaneWorkbenchScreen(ArcaneWorkbenchMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
     super(pMenu, pPlayerInventory, pTitle);
@@ -32,7 +35,18 @@ public class ArcaneWorkbenchScreen extends AbstractContainerScreen<ArcaneWorkben
   protected void renderBg(GuiGraphics pGuiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
     int i = this.leftPos;
     int j = (this.height - this.imageHeight) / 2;
-    pGuiGraphics.blit(BG_LOCATION, i, j, 0, 0, this.imageWidth, this.imageHeight);
+    pGuiGraphics.blit(BG_TEXTURE.location(), i, j, 0, 0, this.imageWidth, this.imageHeight);
+
+    for (var slot : this.menu.slots) {
+      renderSlotBg(pGuiGraphics, slot);
+    }
+  }
+
+  protected void renderSlotBg(GuiGraphics pGuiGraphics, Slot slot) {
+    Texture texture = SLOT_TEXTURE;
+    if (slot instanceof ResultSlot) texture = RESULT_SLOT_TEXTURE;
+
+    pGuiGraphics.blit(texture.location(), this.leftPos + slot.x, this.topPos + slot.y, 0, 0, texture.width(), texture.height());
   }
 
   protected void renderAspects(GuiGraphics guiGraphics) {
