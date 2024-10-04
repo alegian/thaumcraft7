@@ -36,14 +36,26 @@ public class ArcaneWorkbenchScreen extends AbstractContainerScreen<ArcaneWorkben
   }
 
   protected void renderAspects(GuiGraphics guiGraphics) {
+    final int RADIUS = 45;
     var middleSlot = this.menu.slots.get(4);
+    var t7graphics = new T7GuiGraphics(guiGraphics);
 
-    guiGraphics.pose().pushPose();
-    guiGraphics.pose().translate(this.leftPos, this.topPos, 0);
-    guiGraphics.pose().translate(middleSlot.x, middleSlot.y, 0);
+    t7graphics.push();
+    t7graphics.translateXY(this.leftPos, this.topPos);
+    t7graphics.translateXY(middleSlot.x, middleSlot.y);
 
-    AspectRenderer.drawAspectIcon(new T7GuiGraphics(guiGraphics), Aspects.IGNIS.get(), 0, 0);
+    // draw aspects at hexagon points
+    int i = 0;
+    for (var a : Aspects.PRIMAL_ASPECTS) {
+      t7graphics.push();
+      t7graphics.rotateZ(60 * i);
+      t7graphics.translateXY(RADIUS, 0);
+      t7graphics.rotateZ(-60 * i);
+      AspectRenderer.drawAspectIcon(t7graphics, a.get(), 0, 0);
+      t7graphics.pop();
+      i++;
+    }
 
-    guiGraphics.pose().popPose();
+    t7graphics.pop();
   }
 }
