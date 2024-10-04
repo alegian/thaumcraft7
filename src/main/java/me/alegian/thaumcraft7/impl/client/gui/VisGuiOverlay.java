@@ -1,6 +1,7 @@
 package me.alegian.thaumcraft7.impl.client.gui;
 
 import me.alegian.thaumcraft7.impl.Thaumcraft;
+import me.alegian.thaumcraft7.impl.client.T7GuiGraphics;
 import me.alegian.thaumcraft7.impl.common.aspect.Aspect;
 import me.alegian.thaumcraft7.impl.common.aspect.AspectList;
 import me.alegian.thaumcraft7.impl.common.data.capability.AspectContainerHelper;
@@ -31,7 +32,7 @@ public class VisGuiOverlay {
     int screenHeight = guiGraphics.guiHeight();
     float diskSize = (screenHeight * scale);
     float vialSize = 0.7f * diskSize;
-    final var graphics = new GuiGraphicsWrapper(guiGraphics);
+    final var graphics = new T7GuiGraphics(guiGraphics);
 
     guiGraphics.pose().pushPose();
 

@@ -1,6 +1,6 @@
 package me.alegian.thaumcraft7.impl.client.gui.thaumonomicon.widget;
 
-import me.alegian.thaumcraft7.impl.client.gui.GuiGraphicsWrapper;
+import me.alegian.thaumcraft7.impl.client.T7GuiGraphics;
 import me.alegian.thaumcraft7.impl.client.gui.thaumonomicon.grid.Grid;
 import me.alegian.thaumcraft7.impl.client.gui.thaumonomicon.grid.GridRenderable;
 import me.alegian.thaumcraft7.impl.client.texture.T7Textures;
@@ -52,7 +52,7 @@ public class Tab implements Renderable {
 
   @Override
   public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float tickDelta) {
-    final var graphics = new GuiGraphicsWrapper(guiGraphics);
+    final var graphics = new T7GuiGraphics(guiGraphics);
     graphics.push();
 
     int screenHeight = guiGraphics.guiHeight();
@@ -63,7 +63,7 @@ public class Tab implements Renderable {
     // background stars
     graphics.translateXY(screenWidth * 0.5f, screenHeight * 0.5f);
     graphics.scaleXY((float) Math.pow(ZOOM_MULTIPLIER, -zoom));
-    graphics.drawTexture(
+    graphics.blit(
         T7Textures.Thaumonomicon.TAB_BG.location(),
         -3840,
         -2160,

@@ -10,10 +10,11 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FastColor;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import org.joml.Matrix4f;
 
-import javax.annotation.Nullable;
-
+@OnlyIn(Dist.CLIENT)
 public class T7GuiGraphics extends GuiGraphics {
   public T7GuiGraphics(Minecraft pMinecraft, PoseStack pPose, MultiBufferSource.BufferSource pBufferSource) {
     super(pMinecraft, pPose, pBufferSource);
@@ -101,5 +102,52 @@ public class T7GuiGraphics extends GuiGraphics {
         15728880,
         font.isBidirectional()
     );
+  }
+
+  // assumes no z-index, no texture offset and no cropping
+  public void blitSimple(ResourceLocation resourceLocation, int screenLeftX, int screenTopY, int drawWidth, int drawHeight) {
+    this.blit(
+        resourceLocation,
+        screenLeftX,
+        screenTopY,
+        0,
+        0,
+        0,
+        drawWidth,
+        drawHeight,
+        drawWidth,
+        drawHeight
+    );
+  }
+
+  public void enableCrop(int leftX, int topY) {
+    int screenHeight = this.guiHeight();
+    int screenWidth = this.guiWidth();
+
+    this.enableScissor(leftX, topY, screenWidth - leftX, screenHeight - topY);
+  }
+
+  public void disableCrop() {
+    this.disableScissor();
+  }
+
+  public void translateXY(float x, float y) {
+    this.pose().mulPose(new Matrix4f().translate(x, y, 0));
+  }
+
+  public void rotateZ(float deg) {
+    this.pose().mulPose(new Matrix4f().rotateZ((float) (deg / 180 * Math.PI)));
+  }
+
+  public void scaleXY(float scale) {
+    this.pose().mulPose(new Matrix4f().scale(scale, scale, 1));
+  }
+
+  public void push() {
+    this.pose().pushPose();
+  }
+
+  public void pop() {
+    this.pose().popPose();
   }
 }

@@ -1,6 +1,6 @@
 package me.alegian.thaumcraft7.impl.client.gui.thaumonomicon.widget;
 
-import me.alegian.thaumcraft7.impl.client.gui.GuiGraphicsWrapper;
+import me.alegian.thaumcraft7.impl.client.T7GuiGraphics;
 import me.alegian.thaumcraft7.impl.client.texture.T7Textures;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Renderable;
@@ -15,9 +15,9 @@ public class Frame implements Renderable {
   public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float tickDelta) {
     final int screenHeight = guiGraphics.guiHeight();
     final int screenWidth = guiGraphics.guiWidth();
-    final var graphics = new GuiGraphicsWrapper(guiGraphics);
+    final var graphics = new T7GuiGraphics(guiGraphics);
 
-    graphics.drawSimpleTexture(
+    graphics.blitSimple(
         T7Textures.Thaumonomicon.FRAME.location(),
         0,
         0,

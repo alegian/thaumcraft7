@@ -1,6 +1,6 @@
 package me.alegian.thaumcraft7.impl.client.gui.thaumonomicon.grid;
 
-import me.alegian.thaumcraft7.impl.client.gui.GuiGraphicsWrapper;
+import me.alegian.thaumcraft7.impl.client.T7GuiGraphics;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
@@ -42,7 +42,7 @@ public class GridRenderable {
   }
 
   public void render(GuiGraphics guiGraphics, int cellSize, double scrollX, double scrollY, boolean hovered, float tickDelta) {
-    final var graphics = new GuiGraphicsWrapper(guiGraphics);
+    final var graphics = new T7GuiGraphics(guiGraphics);
     double xPos = cellSize * (x - sizeX / 2f);
     double yPos = cellSize * (y - sizeY / 2f);
 
@@ -50,7 +50,7 @@ public class GridRenderable {
     graphics.translateXY((float) -scrollX, (float) -scrollY);
     graphics.rotateZ(rotationDegrees);
     graphics.translateXY((float) xPos, (float) yPos);
-    graphics.drawSimpleTexture(
+    graphics.blitSimple(
         texture,
         0,
         0,
