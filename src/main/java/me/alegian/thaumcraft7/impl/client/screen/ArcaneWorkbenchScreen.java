@@ -44,9 +44,13 @@ public class ArcaneWorkbenchScreen extends AbstractContainerScreen<ArcaneWorkben
 
   protected void renderSlotBg(GuiGraphics pGuiGraphics, Slot slot) {
     Texture texture = SLOT_TEXTURE;
-    if (slot instanceof ResultSlot) texture = RESULT_SLOT_TEXTURE;
+    int borderWidth = 1;
+    if (slot instanceof ResultSlot) {
+      texture = RESULT_SLOT_TEXTURE;
+      borderWidth = 5;
+    }
 
-    pGuiGraphics.blit(texture.location(), this.leftPos + slot.x, this.topPos + slot.y, 0, 0, texture.width(), texture.height());
+    pGuiGraphics.blit(texture.location(), this.leftPos + slot.x - borderWidth, this.topPos + slot.y - borderWidth, 0, 0, texture.width(), texture.height(), texture.width(), texture.height());
   }
 
   protected void renderAspects(GuiGraphics guiGraphics) {
