@@ -51,7 +51,7 @@ public class T7ClientModEvents {
   @SubscribeEvent
   public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
     for (var wand : T7Items.WANDS.values()) {
-      event.registerItem(new WandItemExtensions(), wand.get());
+      event.registerItem(new WandItemExtensions(), wand);
     }
     event.registerItem(new ThaumometerItemExtensions(), T7Items.THAUMOMETER.get());
   }

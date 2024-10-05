@@ -31,7 +31,7 @@ public class AspectHelper {
 
   public static AspectList getAspects(ItemStack itemStack) {
     var itemAspects = getAspects(itemStack.getItem());
-    if(itemAspects == null) return null;
+    if (itemAspects == null) return null;
     return itemAspects.scale(itemStack.getCount());
   }
 }

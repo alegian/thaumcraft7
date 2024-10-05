@@ -7,7 +7,10 @@ import me.alegian.thaumcraft7.impl.init.registries.T7Registries;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7BlockEntities;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Blocks;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Items;
+import me.alegian.thaumcraft7.impl.init.registries.deferred.callback.WandCoreCombinations;
+import me.alegian.thaumcraft7.impl.init.registries.deferred.callback.WandHandleCombinations;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -15,6 +18,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.event.ModifyDefaultComponentsEvent;
+import net.neoforged.neoforge.registries.ModifyRegistriesEvent;
 import net.neoforged.neoforge.registries.NewRegistryEvent;
 import net.neoforged.neoforge.registries.datamaps.RegisterDataMapTypesEvent;
 
@@ -27,6 +31,16 @@ public class T7CommonModEvents {
     event.register(T7Registries.WAND_HANDLE);
     event.register(T7Registries.WAND_CORE);
     event.register(T7Registries.ASPECT);
+  }
+
+  @SubscribeEvent
+  static void modifyRegistries(ModifyRegistriesEvent event) {
+    var itemRegistry = event.getRegistry(Registries.ITEM);
+    var coreRegistry = event.getRegistry(T7Registries.WAND_CORE.key());
+    var handleRegistry = event.getRegistry(T7Registries.WAND_HANDLE.key());
+
+    coreRegistry.addCallback(new WandCoreCombinations(itemRegistry, handleRegistry));
+    handleRegistry.addCallback(new WandHandleCombinations(itemRegistry, coreRegistry));
   }
 
   @SubscribeEvent

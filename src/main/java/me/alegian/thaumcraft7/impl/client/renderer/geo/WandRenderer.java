@@ -5,7 +5,6 @@ import me.alegian.thaumcraft7.impl.common.item.WandItem;
 import me.alegian.thaumcraft7.impl.common.wand.WandCoreMaterial;
 import me.alegian.thaumcraft7.impl.common.wand.WandHandleMaterial;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.neoforge.registries.DeferredHolder;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.model.DefaultedItemGeoModel;
 import software.bernie.geckolib.renderer.specialty.DynamicGeoItemRenderer;
@@ -16,10 +15,10 @@ public class WandRenderer extends DynamicGeoItemRenderer<WandItem> {
   private final ResourceLocation handleLocation;
   private final ResourceLocation coreLocation;
 
-  public WandRenderer(DeferredHolder<WandHandleMaterial, WandHandleMaterial> handleMaterial, DeferredHolder<WandCoreMaterial, WandCoreMaterial> coreMaterial) {
+  public WandRenderer(WandHandleMaterial handleMaterial, WandCoreMaterial coreMaterial) {
     super(new DefaultedItemGeoModel<>(Thaumcraft.id("wand")));
-    this.handleLocation = handleTexture(handleMaterial.getId());
-    this.coreLocation = coreTexture(coreMaterial.getId());
+    this.handleLocation = handleTexture(handleMaterial.getRegisteredLocation());
+    this.coreLocation = coreTexture(coreMaterial.getRegisteredLocation());
   }
 
   @Nullable

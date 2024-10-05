@@ -9,8 +9,6 @@ import me.alegian.thaumcraft7.impl.common.wand.WandCoreMaterial;
 import me.alegian.thaumcraft7.impl.common.wand.WandHandleMaterial;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7BlockEntities;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Blocks;
-import me.alegian.thaumcraft7.impl.init.registries.deferred.util.DeferredWandCoreMaterial;
-import me.alegian.thaumcraft7.impl.init.registries.deferred.util.DeferredWandHandleMaterial;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -42,10 +40,10 @@ public class WandItem extends Item implements GeoItem {
   private final RawAnimation CAST_ANIMATION = RawAnimation.begin().thenPlay("casting");
   private final RawAnimation IDLE_ANIMATION = RawAnimation.begin().thenPlay("idle");
   private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-  private final DeferredWandHandleMaterial<WandHandleMaterial> handleMaterial;
-  private final DeferredWandCoreMaterial<WandCoreMaterial> coreMaterial;
+  private final WandHandleMaterial handleMaterial;
+  private final WandCoreMaterial coreMaterial;
 
-  public WandItem(Properties props, DeferredWandHandleMaterial<WandHandleMaterial> handleMaterial, DeferredWandCoreMaterial<WandCoreMaterial> coreMaterial) {
+  public WandItem(Properties props, WandHandleMaterial handleMaterial, WandCoreMaterial coreMaterial) {
     super(props.stacksTo(1));
     this.handleMaterial = handleMaterial;
     this.coreMaterial = coreMaterial;
@@ -178,7 +176,7 @@ public class WandItem extends Item implements GeoItem {
   }
 
   public int capacity() {
-    return coreMaterial.get().capacity();
+    return coreMaterial.capacity();
   }
 
   public String getName() {
@@ -186,17 +184,15 @@ public class WandItem extends Item implements GeoItem {
   }
 
   public WandCoreMaterial coreMaterial() {
-    return coreMaterial.get();
+    return coreMaterial;
   }
 
   public WandHandleMaterial handleMaterial() {
-    return handleMaterial.get();
+    return handleMaterial;
   }
 
-  public static String name(DeferredWandHandleMaterial<WandHandleMaterial> handleMaterial, DeferredWandCoreMaterial<WandCoreMaterial> coreMaterial) {
-    String handleName = handleMaterial.getId().getPath();
-    String coreName = coreMaterial.getId().getPath();
-    return handleName + "_" + coreName + "_wand";
+  public static String name(WandHandleMaterial handleMaterial, WandCoreMaterial coreMaterial) {
+    return handleMaterial.getRegisteredName() + "_" + coreMaterial.getRegisteredName() + "_wand";
   }
 
   /**

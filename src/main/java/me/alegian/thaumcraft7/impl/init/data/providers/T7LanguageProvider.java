@@ -8,8 +8,6 @@ import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Blocks;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Items;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.WandCoreMaterials;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.WandHandleMaterials;
-import me.alegian.thaumcraft7.impl.init.registries.deferred.util.DeferredWandCoreMaterial;
-import me.alegian.thaumcraft7.impl.init.registries.deferred.util.DeferredWandHandleMaterial;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 
@@ -64,21 +62,21 @@ public class T7LanguageProvider extends LanguageProvider {
     add(T7Items.ARCANUM_HOE.get(), "Arcanum Hoe");
     add(T7Items.ARCANUM_KATANA.get(), "Arcanum Katana");
 
-    Map<DeferredWandHandleMaterial<WandHandleMaterial>, String> handleNames = new HashMap<>();
-    handleNames.put(WandHandleMaterials.IRON, "Iron Handle");
-    handleNames.put(WandHandleMaterials.GOLD, "Gold Handle");
-    handleNames.put(WandHandleMaterials.ORICHALCUM, "Orichalcum Handle");
-    handleNames.put(WandHandleMaterials.ARCANUM, "Arcanum Handle");
+    Map<WandHandleMaterial, String> handleNames = new HashMap<>();
+    handleNames.put(WandHandleMaterials.IRON.get(), "Iron Handle");
+    handleNames.put(WandHandleMaterials.GOLD.get(), "Gold Handle");
+    handleNames.put(WandHandleMaterials.ORICHALCUM.get(), "Orichalcum Handle");
+    handleNames.put(WandHandleMaterials.ARCANUM.get(), "Arcanum Handle");
 
-    Map<DeferredWandCoreMaterial<WandCoreMaterial>, String> coreNames = new HashMap<>();
-    coreNames.put(WandCoreMaterials.WOOD, "Wooden");
-    coreNames.put(WandCoreMaterials.GREATWOOD, "Greatwood");
-    coreNames.put(WandCoreMaterials.SILVERWOOD, "Silverwood");
+    Map<WandCoreMaterial, String> coreNames = new HashMap<>();
+    coreNames.put(WandCoreMaterials.WOOD.get(), "Wooden");
+    coreNames.put(WandCoreMaterials.GREATWOOD.get(), "Greatwood");
+    coreNames.put(WandCoreMaterials.SILVERWOOD.get(), "Silverwood");
 
-    for (var handle : WandHandleMaterials.ALL) {
-      for (var core : WandCoreMaterials.ALL) {
-        WandItem wand = T7Items.wand(handle, core).get();
-        add(wand, handleNames.get(handle) + " " + coreNames.get(core) + " Wand");
+    for (var handleEntry : handleNames.entrySet()) {
+      for (var coreEntry : coreNames.entrySet()) {
+        WandItem wand = T7Items.wandOrThrow(handleEntry.getKey(), coreEntry.getKey());
+        add(wand, handleEntry.getValue() + " " + coreEntry.getValue() + " Wand");
       }
     }
 

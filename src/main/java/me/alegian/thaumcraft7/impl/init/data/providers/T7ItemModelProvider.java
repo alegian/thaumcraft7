@@ -49,7 +49,7 @@ public class T7ItemModelProvider extends ItemModelProvider {
     testaItem(T7Items.PERDITIO_TESTA);
 
     for (var wand : T7Items.WANDS.values()) {
-      withExistingParent(wand.get().getName(), Thaumcraft.id("wand"));
+      withExistingParent(wand.getName(), Thaumcraft.id("wand"));
     }
   }
 

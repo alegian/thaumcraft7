@@ -59,9 +59,9 @@ public class T7CreativeModeTabs {
               output.accept(T7Items.THAUMOMETER.get());
               output.accept(T7Items.THAUMONOMICON.get());
 
-              output.accept(T7Items.wand(WandHandleMaterials.IRON, WandCoreMaterials.WOOD));
-              output.accept(T7Items.wand(WandHandleMaterials.GOLD, WandCoreMaterials.GREATWOOD));
-              output.accept(T7Items.wand(WandHandleMaterials.ARCANUM, WandCoreMaterials.SILVERWOOD));
+              output.accept(T7Items.wandOrThrow(WandHandleMaterials.IRON.get(), WandCoreMaterials.WOOD.get()));
+              output.accept(T7Items.wandOrThrow(WandHandleMaterials.GOLD.get(), WandCoreMaterials.GREATWOOD.get()));
+              output.accept(T7Items.wandOrThrow(WandHandleMaterials.ARCANUM.get(), WandCoreMaterials.SILVERWOOD.get()));
 
               output.accept(T7Items.GOGGLES.get());
               output.accept(T7Items.ARCANUM_HELMET.get());

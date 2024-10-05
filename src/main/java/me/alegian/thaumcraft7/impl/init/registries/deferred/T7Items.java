@@ -8,8 +8,7 @@ import me.alegian.thaumcraft7.impl.common.wand.WandCoreMaterial;
 import me.alegian.thaumcraft7.impl.common.wand.WandHandleMaterial;
 import me.alegian.thaumcraft7.impl.init.registries.T7Capabilities;
 import me.alegian.thaumcraft7.impl.init.registries.T7Tiers;
-import me.alegian.thaumcraft7.impl.init.registries.deferred.util.DeferredWandCoreMaterial;
-import me.alegian.thaumcraft7.impl.init.registries.deferred.util.DeferredWandHandleMaterial;
+import net.minecraft.core.Registry;
 import net.minecraft.util.Unit;
 import net.minecraft.world.item.*;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
@@ -106,24 +105,12 @@ public class T7Items {
   public static final DeferredItem<TestaItem> ORDO_TESTA = REGISTRAR.registerItem("ordo_testa", $ -> new TestaItem(Aspects.ORDO));
   public static final DeferredItem<TestaItem> PERDITIO_TESTA = REGISTRAR.registerItem("perditio_testa", $ -> new TestaItem(Aspects.PERDITIO));
 
-  public static final DoubleMap<String, String, DeferredItem<WandItem>> WANDS = new DoubleMap<>();
-
-  /*
-    Registers all wand combinations of handle and core.
-    WARNING: does not register wands with materials from addons,
-    these have to be registered manually by each addon.
-   */
-  static {
-    for (var handleMaterial : WandHandleMaterials.ALL) {
-      for (var coreMaterial : WandCoreMaterials.ALL) {
-        addWand(handleMaterial, coreMaterial);
-      }
-    }
-  }
+  // (handleName, coreName)->wand. populated on Item Registry bake
+  public static final DoubleMap<String, String, WandItem> WANDS = new DoubleMap<>();
 
   public static void registerCapabilities(RegisterCapabilitiesEvent event) {
     for (var wand : WANDS.values()) {
-      event.registerItem(T7Capabilities.AspectContainer.ITEM, (itemStack, context) -> new AspectContainer(itemStack, wand.get().capacity()), wand);
+      event.registerItem(T7Capabilities.AspectContainer.ITEM, (itemStack, context) -> new AspectContainer(itemStack, wand.capacity()), wand);
     }
     event.registerItem(T7Capabilities.REVEALING, (itemStack, context) -> Unit.INSTANCE, GOGGLES);
   }
@@ -131,25 +118,34 @@ public class T7Items {
   /**
    * Registers a wand with the given handle and core materials
    */
-  static void addWand(DeferredWandHandleMaterial<WandHandleMaterial> handleMaterial, DeferredWandCoreMaterial<WandCoreMaterial> coreMaterial) {
-    String handleName = handleMaterial.getId().getPath();
-    String coreName = coreMaterial.getId().getPath();
+  public static void registerWand(Registry<Item> registry, WandHandleMaterial handleMaterial, WandCoreMaterial coreMaterial) {
+    String handleName = handleMaterial.getRegisteredName();
+    String coreName = coreMaterial.getRegisteredName();
     String wandName = WandItem.name(handleMaterial, coreMaterial);
-    WANDS.put(handleName, coreName, REGISTRAR.registerItem(wandName, (props) -> new WandItem(props, handleMaterial, coreMaterial)));
+
+    var newWand = new WandItem(new Item.Properties(), handleMaterial, coreMaterial);
+    Registry.register(registry, Thaumcraft.id(wandName), newWand);
+    WANDS.put(handleName, coreName, newWand);
   }
 
   /**
    * Helper that gets a wand from the DoubleMap of registered wands.
    * WARNING: cannot get wands from addons, these have to be accessed manually.
    */
-  public static DeferredItem<WandItem> wand(DeferredWandHandleMaterial<WandHandleMaterial> handleMaterial, DeferredWandCoreMaterial<WandCoreMaterial> coreMaterial) {
-    String handleName = handleMaterial.getId().getPath();
-    String coreName = coreMaterial.getId().getPath();
+  public static WandItem wandOrThrow(WandHandleMaterial handleMaterial, WandCoreMaterial coreMaterial) {
+    String handleName = handleMaterial.getRegisteredName();
+    String coreName = coreMaterial.getRegisteredName();
     var wand = WANDS.get(handleName, coreName);
 
     if (wand == null)
       throw new IllegalArgumentException("Thaumcraft Exception: Trying to Access Unregistered Wand Combination" + WandItem.name(handleMaterial, coreMaterial));
 
     return wand;
+  }
+
+  public static boolean isWandRegistered(WandHandleMaterial handleMaterial, WandCoreMaterial coreMaterial) {
+    String handleName = handleMaterial.getRegisteredName();
+    String coreName = coreMaterial.getRegisteredName();
+    return WANDS.get(handleName, coreName) != null;
   }
 }
