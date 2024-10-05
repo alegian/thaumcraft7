@@ -19,6 +19,7 @@ public class ArcaneWorkbenchScreen extends AbstractContainerScreen<ArcaneWorkben
   private static final Texture BG_TEXTURE = new Texture("gui/container/arcane_workbench", 176, 166);
   private static final Texture SLOT_TEXTURE = new Texture("gui/container/arcane_workbench_slot", 18, 18);
   private static final Texture RESULT_SLOT_TEXTURE = new Texture("gui/container/arcane_workbench_result_slot", 26, 26);
+  private static final Texture ASPECT_SLOT_TEXTURE = new Texture("gui/container/arcane_workbench_aspect_slot", 20, 20);
 
   public ArcaneWorkbenchScreen(ArcaneWorkbenchMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
     super(pMenu, pPlayerInventory, pTitle);
@@ -35,7 +36,7 @@ public class ArcaneWorkbenchScreen extends AbstractContainerScreen<ArcaneWorkben
   protected void renderBg(GuiGraphics pGuiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
     int i = this.leftPos;
     int j = (this.height - this.imageHeight) / 2;
-    pGuiGraphics.blit(BG_TEXTURE.location(), i, j, 0, 0, this.imageWidth, this.imageHeight);
+    pGuiGraphics.blit(BG_TEXTURE.location(), i, j, 0, 0, BG_TEXTURE.width(), BG_TEXTURE.height());
 
     for (var slot : this.menu.slots) {
       renderSlotBg(pGuiGraphics, slot);
@@ -69,6 +70,8 @@ public class ArcaneWorkbenchScreen extends AbstractContainerScreen<ArcaneWorkben
       t7graphics.rotateZ(60 * i);
       t7graphics.translateXY(RADIUS, 0);
       t7graphics.rotateZ(-60 * i);
+      Texture texture = ASPECT_SLOT_TEXTURE;
+      t7graphics.blit(texture.location(), -2, -2, 0, 0, texture.width(), texture.height(), texture.width(), texture.height());
       AspectRenderer.drawAspectIcon(t7graphics, a.get(), 0, 0);
       t7graphics.pop();
       i++;
