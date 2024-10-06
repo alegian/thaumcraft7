@@ -46,6 +46,10 @@ public class T7LanguageProvider extends LanguageProvider {
     add(T7Items.ARCANUM_HELMET.get(), "Arcanum Helmet");
     add(T7Items.ARCANUM_CHESTPLATE.get(), "Arcanum Chestplate");
     add(T7Items.ARCANUM_LEGGINGS.get(), "Arcanum Leggings");
+    add(T7Items.CUSTOS_ARCANUM_BOOTS.get(), "Custos Arcanum Boots");
+    add(T7Items.CUSTOS_ARCANUM_HELMET.get(), "Custos Arcanum Helmet");
+    add(T7Items.CUSTOS_ARCANUM_CHESTPLATE.get(), "Custos Arcanum Chestplate");
+    add(T7Items.CUSTOS_ARCANUM_LEGGINGS.get(), "Custos Arcanum Leggings");
 
     add(T7Items.IGNIS_TESTA.get(), "Ignis Testa");
     add(T7Items.AER_TESTA.get(), "Aer Testa");

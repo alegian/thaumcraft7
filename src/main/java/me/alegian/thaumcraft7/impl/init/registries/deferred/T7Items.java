@@ -98,6 +98,11 @@ public class T7Items {
   public static final DeferredItem<ArmorItem> ARCANUM_LEGGINGS = REGISTRAR.registerItem("arcanum_leggings", props -> new ArmorItem(T7ArmorMaterials.ARCANUM, ArmorItem.Type.LEGGINGS, props), new Item.Properties().durability(ArmorItem.Type.LEGGINGS.getDurability(21)));
   public static final DeferredItem<ArmorItem> ARCANUM_BOOTS = REGISTRAR.registerItem("arcanum_boots", props -> new ArmorItem(T7ArmorMaterials.ARCANUM, ArmorItem.Type.BOOTS, props), new Item.Properties().durability(ArmorItem.Type.BOOTS.getDurability(21)));
 
+  public static final DeferredItem<ArmorItem> CUSTOS_ARCANUM_HELMET = REGISTRAR.registerItem("custos_arcanum_helmet", props -> new CustosArcanumArmorItem(ArmorItem.Type.HELMET, props), new Item.Properties().durability(ArmorItem.Type.HELMET.getDurability(21)));
+  public static final DeferredItem<ArmorItem> CUSTOS_ARCANUM_CHESTPLATE = REGISTRAR.registerItem("custos_arcanum_chestplate", props -> new CustosArcanumArmorItem(ArmorItem.Type.CHESTPLATE, props), new Item.Properties().durability(ArmorItem.Type.CHESTPLATE.getDurability(21)));
+  public static final DeferredItem<ArmorItem> CUSTOS_ARCANUM_LEGGINGS = REGISTRAR.registerItem("custos_arcanum_leggings", props -> new CustosArcanumArmorItem(ArmorItem.Type.LEGGINGS, props), new Item.Properties().durability(ArmorItem.Type.LEGGINGS.getDurability(21)));
+  public static final DeferredItem<ArmorItem> CUSTOS_ARCANUM_BOOTS = REGISTRAR.registerItem("custos_arcanum_boots", props -> new CustosArcanumArmorItem(ArmorItem.Type.BOOTS, props), new Item.Properties().durability(ArmorItem.Type.BOOTS.getDurability(21)));
+
   public static final DeferredItem<TestaItem> IGNIS_TESTA = REGISTRAR.registerItem("ignis_testa", $ -> new TestaItem(Aspects.IGNIS));
   public static final DeferredItem<TestaItem> AER_TESTA = REGISTRAR.registerItem("aer_testa", $ -> new TestaItem(Aspects.AER));
   public static final DeferredItem<TestaItem> TERRA_TESTA = REGISTRAR.registerItem("terra_testa", $ -> new TestaItem(Aspects.TERRA));

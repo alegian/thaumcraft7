@@ -64,10 +64,23 @@ public class T7ItemTagProvider extends ItemTagsProvider {
     tag(ItemTags.SHOVELS).add(T7Items.ARCANUM_SHOVEL.get());
     tag(ItemTags.HOES).add(T7Items.ARCANUM_HOE.get());
 
-    tag(ItemTags.FOOT_ARMOR).add(T7Items.ARCANUM_BOOTS.get());
-    tag(ItemTags.LEG_ARMOR).add(T7Items.ARCANUM_LEGGINGS.get());
-    tag(ItemTags.CHEST_ARMOR).add(T7Items.ARCANUM_CHESTPLATE.get());
-    tag(ItemTags.HEAD_ARMOR).add(T7Items.ARCANUM_HELMET.get());
+    tag(ItemTags.FOOT_ARMOR).add(
+        T7Items.ARCANUM_BOOTS.get(),
+        T7Items.CUSTOS_ARCANUM_BOOTS.get()
+    );
+    tag(ItemTags.LEG_ARMOR).add(
+        T7Items.ARCANUM_LEGGINGS.get(),
+        T7Items.CUSTOS_ARCANUM_LEGGINGS.get()
+    );
+    tag(ItemTags.CHEST_ARMOR).add(
+        T7Items.ARCANUM_CHESTPLATE.get(),
+        T7Items.CUSTOS_ARCANUM_CHESTPLATE.get()
+    );
+    tag(ItemTags.HEAD_ARMOR).add(
+        T7Items.GOGGLES.get(),
+        T7Items.ARCANUM_HELMET.get(),
+        T7Items.CUSTOS_ARCANUM_HELMET.get()
+    );
 
     tag(T7Tags.CATALYST).add(Items.DRAGON_EGG);
   }

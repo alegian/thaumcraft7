@@ -18,11 +18,11 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.function.Consumer;
 
-public class ArcanumHelmetItem extends ArmorItem implements GeoItem {
+public class CustosArcanumArmorItem extends ArmorItem implements GeoItem {
   private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
-  public ArcanumHelmetItem(Properties props) {
-    super(T7ArmorMaterials.ARCANUM, ArmorItem.Type.HELMET, props);
+  public CustosArcanumArmorItem(ArmorItem.Type type, Properties properties) {
+    super(T7ArmorMaterials.ARCANUM, type, properties);
   }
 
   @Override
@@ -31,7 +31,7 @@ public class ArcanumHelmetItem extends ArmorItem implements GeoItem {
 
   @Override
   public AnimatableInstanceCache getAnimatableInstanceCache() {
-    return cache;
+    return this.cache;
   }
 
   @Override
@@ -42,7 +42,7 @@ public class ArcanumHelmetItem extends ArmorItem implements GeoItem {
       @Override
       public <T extends LivingEntity> HumanoidModel<?> getGeoArmorRenderer(@Nullable T livingEntity, ItemStack itemStack, @Nullable EquipmentSlot equipmentSlot, @Nullable HumanoidModel<T> original) {
         if (this.renderer == null)
-          this.renderer = new GeoArmorRenderer<>(new DefaultedItemGeoModel<GogglesItem>(Thaumcraft.id("arcanum_armor")));
+          this.renderer = new GeoArmorRenderer<>(new DefaultedItemGeoModel<GogglesItem>(Thaumcraft.id("custos_arcanum_armor")));
 
         return this.renderer;
       }
