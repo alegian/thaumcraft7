@@ -42,12 +42,12 @@ public class ArcaneWorkbenchMenu extends AbstractContainerMenu implements Contai
 
     for (int k = 0; k < 3; k++) {
       for (int i1 = 0; i1 < 9; i1++) {
-        this.addSlot(new Slot(pPlayerInventory, i1 + k * 9 + 9, 28 + i1 * 18, 142 + k * 18));
+        this.addSlot(new Slot(pPlayerInventory, i1 + k * 9 + 9, 28 + i1 * 18, 146 + k * 18));
       }
     }
 
     for (int l = 0; l < 9; l++) {
-      this.addSlot(new Slot(pPlayerInventory, l, 28 + l * 18, 200));
+      this.addSlot(new Slot(pPlayerInventory, l, 28 + l * 18, 204));
     }
 
     this.addSlot(new ResultSlot(pPlayerInventory.player, this.craftingContainer, this.resultContainer, 0, 177, 62));
