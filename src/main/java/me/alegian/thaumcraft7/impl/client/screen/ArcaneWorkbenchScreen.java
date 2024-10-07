@@ -16,7 +16,7 @@ import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class ArcaneWorkbenchScreen extends AbstractContainerScreen<ArcaneWorkbenchMenu> {
-  private static final Texture BG_TEXTURE = new Texture("gui/container/arcane_workbench", 216, 206);
+  private static final Texture BG_TEXTURE = new Texture("gui/container/arcane_workbench", 216, 224);
   private static final Texture SLOT_TEXTURE = new Texture("gui/container/arcane_workbench_slot", 18, 18);
   private static final Texture RESULT_SLOT_TEXTURE = new Texture("gui/container/arcane_workbench_result_slot", 26, 26);
   private static final Texture ASPECT_SLOT_TEXTURE = new Texture("gui/container/arcane_workbench_aspect_slot", 20, 20);
@@ -24,7 +24,8 @@ public class ArcaneWorkbenchScreen extends AbstractContainerScreen<ArcaneWorkben
   public ArcaneWorkbenchScreen(ArcaneWorkbenchMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
     super(pMenu, pPlayerInventory, pTitle);
     this.inventoryLabelX += 20;
-    this.inventoryLabelY += 40;
+    this.inventoryLabelY += 58;
+    this.titleLabelY -= 1;
     this.imageWidth = BG_TEXTURE.width();
     this.imageHeight = BG_TEXTURE.height();
   }
