@@ -34,6 +34,16 @@ public class T7ItemModelProvider extends ItemModelProvider {
     basicItem(T7Items.RESEARCH_SCROLL.get());
     basicItem(T7Items.COMPLETED_RESEARCH.get());
 
+    basicItem(T7Items.ARCANUM_HELMET.get());
+    basicItem(T7Items.ARCANUM_CHESTPLATE.get());
+    basicItem(T7Items.ARCANUM_LEGGINGS.get());
+    basicItem(T7Items.ARCANUM_BOOTS.get());
+
+    basicItem(T7Items.CUSTOS_ARCANUM_HELMET.get());
+    basicItem(T7Items.CUSTOS_ARCANUM_CHESTPLATE.get());
+    basicItem(T7Items.CUSTOS_ARCANUM_LEGGINGS.get());
+    basicItem(T7Items.CUSTOS_ARCANUM_BOOTS.get());
+
     handheldItem(T7Items.ARCANUM_SWORD);
     handheldItem(T7Items.ARCANUM_AXE);
     handheldItem(T7Items.ARCANUM_PICKAXE);
