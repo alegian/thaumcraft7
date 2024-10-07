@@ -7,7 +7,7 @@ transparent background, black blur 16 shadows and 64px dimensions.
 - aer: Gold shell
 - aqua: At sea
 - terra: Mountains
-- ordo: Yin yang
+- ordo: Overmind
 - perditio: Shatter
 - vacuos: Glass ball
 - lux: Candle light
@@ -40,3 +40,5 @@ transparent background, black blur 16 shadows and 64px dimensions.
 - exanimis: Dread skull
 - bestia: Wolf
 - humanus: Two shadows
+
+- unknown: Help
