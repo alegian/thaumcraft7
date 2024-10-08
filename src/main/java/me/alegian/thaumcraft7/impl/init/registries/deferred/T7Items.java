@@ -89,6 +89,7 @@ public class T7Items {
       )
   ));
   public static final DeferredItem<KatanaItem> ARCANUM_KATANA = REGISTRAR.register("arcanum_katana", KatanaItem::new);
+  public static final DeferredItem<ZephyrItem> ZEPHYR = REGISTRAR.register("zephyr", ZephyrItem::new);
 
   public static final DeferredItem<ThaumometerItem> THAUMOMETER = REGISTRAR.registerItem("thaumometer", ThaumometerItem::new);
   public static final DeferredItem<ThaumonomiconItem> THAUMONOMICON = REGISTRAR.registerItem("thaumonomicon", ThaumonomiconItem::new);

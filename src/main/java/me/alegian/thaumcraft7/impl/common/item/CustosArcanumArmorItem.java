@@ -42,7 +42,7 @@ public class CustosArcanumArmorItem extends ArmorItem implements GeoItem {
       @Override
       public <T extends LivingEntity> HumanoidModel<?> getGeoArmorRenderer(@Nullable T livingEntity, ItemStack itemStack, @Nullable EquipmentSlot equipmentSlot, @Nullable HumanoidModel<T> original) {
         if (this.renderer == null)
-          this.renderer = new GeoArmorRenderer<>(new DefaultedItemGeoModel<GogglesItem>(Thaumcraft.id("custos_arcanum_armor")));
+          this.renderer = new GeoArmorRenderer<>(new DefaultedItemGeoModel<CustosArcanumArmorItem>(Thaumcraft.id("custos_arcanum_armor")));
 
         return this.renderer;
       }

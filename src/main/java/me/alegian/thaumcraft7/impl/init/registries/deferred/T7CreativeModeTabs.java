@@ -80,13 +80,15 @@ public class T7CreativeModeTabs {
               output.accept(T7Items.ORDO_TESTA.get());
               output.accept(T7Items.PERDITIO_TESTA.get());
 
-              output.accept(T7Items.ARCANUM_SWORD.get());
               output.accept(T7Items.ARCANUM_AXE.get());
               output.accept(T7Items.ARCANUM_PICKAXE.get());
               output.accept(T7Items.ARCANUM_HAMMER.get());
               output.accept(T7Items.ARCANUM_SHOVEL.get());
               output.accept(T7Items.ARCANUM_HOE.get());
+
+              output.accept(T7Items.ARCANUM_SWORD.get());
               output.accept(T7Items.ARCANUM_KATANA.get());
+              output.accept(T7Items.ZEPHYR.get());
             })
             .build()
     );

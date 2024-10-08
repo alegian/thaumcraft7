@@ -55,7 +55,11 @@ public class T7ItemTagProvider extends ItemTagsProvider {
         T7Items.ORICHALCUM_NUGGET.get()
     );
 
-    tag(ItemTags.SWORDS).add(T7Items.ARCANUM_SWORD.get(), T7Items.ARCANUM_KATANA.get());
+    tag(ItemTags.SWORDS).add(
+        T7Items.ARCANUM_SWORD.get(),
+        T7Items.ARCANUM_KATANA.get(),
+        T7Items.ZEPHYR.get()
+    );
     tag(ItemTags.AXES).add(T7Items.ARCANUM_AXE.get());
     tag(ItemTags.PICKAXES).add(T7Items.ARCANUM_PICKAXE.get());
     tag(ItemTags.MINING_ENCHANTABLE).add(T7Items.ARCANUM_HAMMER.get());

@@ -65,6 +65,7 @@ public class T7LanguageProvider extends LanguageProvider {
     add(T7Items.ARCANUM_SHOVEL.get(), "Arcanum Shovel");
     add(T7Items.ARCANUM_HOE.get(), "Arcanum Hoe");
     add(T7Items.ARCANUM_KATANA.get(), "Arcanum Katana");
+    add(T7Items.ZEPHYR.get(), "Zephyr");
 
     Map<WandHandleMaterial, String> handleNames = new HashMap<>();
     handleNames.put(WandHandleMaterials.IRON.get(), "Iron Handle");
