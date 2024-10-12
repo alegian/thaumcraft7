@@ -1,6 +1,8 @@
 package me.alegian.thaumcraft7.impl.common.menu;
 
 import me.alegian.thaumcraft7.impl.common.menu.container.WandContainer;
+import me.alegian.thaumcraft7.impl.common.menu.slot.SlotPose;
+import me.alegian.thaumcraft7.impl.common.menu.slot.T7Slot;
 import me.alegian.thaumcraft7.impl.common.menu.slot.WandSlot;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Blocks;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7MenuTypes;
@@ -19,6 +21,7 @@ public class ArcaneWorkbenchMenu extends AbstractContainerMenu implements Contai
   private final CraftingContainer craftingContainer = new TransientCraftingContainer(this, 3, 3);
   private final ResultContainer resultContainer = new ResultContainer();
   private final WandContainer wandContainer = new WandContainer(this);
+  private final SlotPose slotPose = new SlotPose();
 
   public ArcaneWorkbenchMenu(int pContainerId, Inventory pPlayerInventory) {
     this(pContainerId, pPlayerInventory, ContainerLevelAccess.NULL);
@@ -32,10 +35,14 @@ public class ArcaneWorkbenchMenu extends AbstractContainerMenu implements Contai
     this.levelAccess = pAccess;
     this.player = pPlayerInventory.player;
 
+    slotPose.push(50, 42);
     for (int i = 0; i < 3; i++) {
+      slotPose.pushX();
       for (int j = 0; j < 3; j++) {
-        this.addSlot(new Slot(this.craftingContainer, j + i * 3, 50 + j * 18, 42 + i * 18));
+        addSlot(new T7Slot(this.craftingContainer, j + i * 3, slotPose, 18));
       }
+      slotPose.popX();
+      slotPose.translateY(18);
     }
 
     this.addSlot(new WandSlot(this.wandContainer, 0, 177, 36));
@@ -53,6 +60,11 @@ public class ArcaneWorkbenchMenu extends AbstractContainerMenu implements Contai
     this.addSlot(new ResultSlot(pPlayerInventory.player, this.craftingContainer, this.resultContainer, 0, 177, 62));
 
     this.addSlotListener(this);
+  }
+
+  protected Slot addSlot(T7Slot slot) {
+    slotPose.translateX(slot.getSize());
+    return super.addSlot(slot);
   }
 
   private void refreshRecipeResult() {

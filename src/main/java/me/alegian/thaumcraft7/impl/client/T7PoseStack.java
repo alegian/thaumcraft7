@@ -19,6 +19,10 @@ public class T7PoseStack {
     this.poseStack = poseStack;
   }
 
+  public T7PoseStack() {
+    this.poseStack = new PoseStack();
+  }
+
   public void push() {
     poseStack.pushPose();
   }
