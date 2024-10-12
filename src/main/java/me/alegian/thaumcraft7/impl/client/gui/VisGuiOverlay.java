@@ -34,8 +34,8 @@ public class VisGuiOverlay {
     // draw the disk
     graphics.scaleXY(0.7f);
     graphics.translateXY(32, 16);
-    graphics.setColor(1, 1, 1, 1);
-    graphics.blit(DISK.location(), 0, 0, 0, 0, 128, 128, 128, 128);
+    graphics.resetColor();
+    graphics.blit(DISK.location(), 0, 0, 0, 0, DISK.width(), DISK.height(), DISK.width(), DISK.height());
 
     // draw the vials
     var halfDisk = 64;
@@ -49,9 +49,9 @@ public class VisGuiOverlay {
       graphics.translateXY(0, halfDisk);
       graphics.pose().scale(1, 1.4f, 1);
       graphics.setColor((float) color[0] / 255, (float) color[1] / 255, (float) color[2] / 255, 1);
-      graphics.blit(VIAL_CONTENT.location(), -VIAL_CONTENT.width()/2, 0, 0, 0, VIAL_CONTENT.width(), VIAL_CONTENT.height()/2, VIAL_CONTENT.width(), VIAL_CONTENT.height());
-      graphics.setColor(1, 1, 1, 1);
-      graphics.blit(VIAL.location(), -VIAL.width()/2, 0, 0, 0, VIAL.width(), VIAL.height(), VIAL.width(), VIAL.height());
+      graphics.blit(VIAL_CONTENT.location(), -VIAL_CONTENT.width() / 2, 0, 0, 0, VIAL_CONTENT.width(), VIAL_CONTENT.height() * vis.get(a) / maxAmount, VIAL_CONTENT.width(), VIAL_CONTENT.height());
+      graphics.resetColor();
+      graphics.blit(VIAL.location(), -VIAL.width() / 2, 0, 0, 0, VIAL.width(), VIAL.height(), VIAL.width(), VIAL.height());
       graphics.pop();
       graphics.rotateZ(-24);
     }

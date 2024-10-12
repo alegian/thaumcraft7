@@ -143,6 +143,10 @@ public class T7GuiGraphics extends GuiGraphics {
     this.pose().mulPose(new Matrix4f().scale(scale, scale, 1));
   }
 
+  public void resetColor() {
+    this.setColor(1, 1, 1, 1);
+  }
+
   public void push() {
     this.pose().pushPose();
   }
