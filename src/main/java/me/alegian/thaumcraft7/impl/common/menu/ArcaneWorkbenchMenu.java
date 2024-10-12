@@ -1,10 +1,8 @@
 package me.alegian.thaumcraft7.impl.common.menu;
 
 import me.alegian.thaumcraft7.impl.common.menu.container.WandContainer;
-import me.alegian.thaumcraft7.impl.common.menu.slot.SlotPose;
-import me.alegian.thaumcraft7.impl.common.menu.slot.T7ResultSlot;
-import me.alegian.thaumcraft7.impl.common.menu.slot.T7Slot;
-import me.alegian.thaumcraft7.impl.common.menu.slot.WandSlot;
+import me.alegian.thaumcraft7.impl.common.menu.slot.SlotRange;
+import me.alegian.thaumcraft7.impl.common.menu.slot.*;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Blocks;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7MenuTypes;
 import net.minecraft.server.level.ServerPlayer;
@@ -23,6 +21,9 @@ public class ArcaneWorkbenchMenu extends AbstractContainerMenu implements Contai
   private final ResultContainer resultContainer = new ResultContainer();
   private final WandContainer wandContainer = new WandContainer(this);
   private final SlotPose slotPose = new SlotPose();
+  private final SlotRange inventoryRange = new SlotRange();
+  private final SlotRange craftingRange = new SlotRange();
+  private final SlotRange.Single wandIndex = new SlotRange.Single();
 
   public ArcaneWorkbenchMenu(int pContainerId, Inventory pPlayerInventory) {
     this(pContainerId, pPlayerInventory, ContainerLevelAccess.NULL);
@@ -36,6 +37,7 @@ public class ArcaneWorkbenchMenu extends AbstractContainerMenu implements Contai
     this.levelAccess = pAccess;
     this.player = pPlayerInventory.player;
 
+    craftingRange.start(slots);
     slotPose.push(50, 42);
     for (int i = 0; i < 3; i++) {
       slotPose.pushX();
@@ -46,11 +48,14 @@ public class ArcaneWorkbenchMenu extends AbstractContainerMenu implements Contai
       slotPose.translateY(18);
     }
     slotPose.pop();
+    craftingRange.end(slots);
 
     slotPose.push(177, 36);
     this.addSlot(new WandSlot(this.wandContainer, 0, slotPose));
     slotPose.pop();
+    wandIndex.track(slots);
 
+    inventoryRange.start(slots);
     slotPose.push(28, 146);
     for (int i = 0; i < 3; i++) {
       slotPose.pushX();
@@ -66,6 +71,7 @@ public class ArcaneWorkbenchMenu extends AbstractContainerMenu implements Contai
       this.addSlot(new T7Slot(pPlayerInventory, i, slotPose, 18));
     }
     slotPose.pop();
+    inventoryRange.end(slots);
 
     slotPose.push(177, 62);
     this.addSlot(new T7ResultSlot(pPlayerInventory.player, this.craftingContainer, this.resultContainer, 0, slotPose, 26));
@@ -102,12 +108,14 @@ public class ArcaneWorkbenchMenu extends AbstractContainerMenu implements Contai
       originalItem = slotItem.copy();
 
       // try to move stack, making sure zeros are converted to EMPTY. auto-updates dest slot
-      boolean isCraftingSlot = slotIndex < 9;
-      if (isCraftingSlot) {
-        if (!this.moveItemStackTo(slotItem, 10, 46, true)) {
+      boolean isInventorySlot = inventoryRange.contains(slotIndex);
+      if (isInventorySlot) {
+        if (!moveItemStackToRange(slotItem, wandIndex) &&
+            !moveItemStackToRange(slotItem, craftingRange)
+        ) {
           return ItemStack.EMPTY;
         }
-      } else if (!this.moveItemStackTo(slotItem, 0, 10, false)) {
+      } else if (!moveItemStackToRange(slotItem, inventoryRange)) {
         return ItemStack.EMPTY;
       }
 
@@ -127,6 +135,10 @@ public class ArcaneWorkbenchMenu extends AbstractContainerMenu implements Contai
     }
 
     return originalItem;
+  }
+
+  private boolean moveItemStackToRange(ItemStack slotItem, SlotRange range) {
+    return this.moveItemStackTo(slotItem, range.getStart(), range.getEnd() + 1, false);
   }
 
   @Override
