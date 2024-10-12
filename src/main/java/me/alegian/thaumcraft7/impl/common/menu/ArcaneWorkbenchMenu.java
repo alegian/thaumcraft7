@@ -102,7 +102,8 @@ public class ArcaneWorkbenchMenu extends AbstractContainerMenu implements Contai
       originalItem = slotItem.copy();
 
       // try to move stack, making sure zeros are converted to EMPTY. auto-updates dest slot
-      if (slotIndex < 9) {
+      boolean isCraftingSlot = slotIndex < 9;
+      if (isCraftingSlot) {
         if (!this.moveItemStackTo(slotItem, 10, 46, true)) {
           return ItemStack.EMPTY;
         }

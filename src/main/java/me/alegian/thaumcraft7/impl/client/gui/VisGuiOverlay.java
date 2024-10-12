@@ -1,14 +1,13 @@
 package me.alegian.thaumcraft7.impl.client.gui;
 
-import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.client.T7GuiGraphics;
+import me.alegian.thaumcraft7.impl.client.texture.Texture;
 import me.alegian.thaumcraft7.impl.common.aspect.Aspect;
 import me.alegian.thaumcraft7.impl.common.aspect.AspectList;
 import me.alegian.thaumcraft7.impl.common.data.capability.AspectContainerHelper;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.Aspects;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.LayeredDraw;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -16,9 +15,9 @@ import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class VisGuiOverlay {
-  private static final ResourceLocation DISK = Thaumcraft.id("textures/gui/overlay/disk.png");
-  private static final ResourceLocation VIAL = Thaumcraft.id("textures/gui/overlay/vial.png");
-  private static final ResourceLocation VIAL_CONTENT = Thaumcraft.id("textures/gui/overlay/vial_content.png");
+  private static final Texture DISK = new Texture("gui/overlay/disk", 128, 128);
+  private static final Texture VIAL = new Texture("gui/overlay/vial", 64, 64);
+  private static final Texture VIAL_CONTENT = new Texture("gui/overlay/vial_content", 64, 64);
 
   // updated via event
   public static boolean visible = false;
@@ -28,35 +27,36 @@ public class VisGuiOverlay {
   public static final LayeredDraw.Layer LAYER = ((guiGraphics, partialTick) -> {
     if (!visible || vis == null || Minecraft.getInstance().options.hideGui) return;
 
-    float scale = 0.12f;
-    int screenHeight = guiGraphics.guiHeight();
-    float diskSize = (screenHeight * scale);
-    float vialSize = 0.7f * diskSize;
     final var graphics = new T7GuiGraphics(guiGraphics);
 
-    guiGraphics.pose().pushPose();
+    graphics.push();
 
     // draw the disk
-    graphics.translateXY(screenHeight * 0.02f, screenHeight * 0.02f);
-    guiGraphics.setColor(1, 1, 1, 1);
-    guiGraphics.blit(DISK, 0, 0, 0, 0, (int) diskSize, (int) diskSize, (int) diskSize, (int) diskSize);
+    graphics.scaleXY(0.7f);
+    graphics.translateXY(32, 16);
+    graphics.setColor(1, 1, 1, 1);
+    graphics.blit(DISK.location(), 0, 0, 0, 0, 128, 128, 128, 128);
 
     // draw the vials
-    graphics.translateXY(diskSize / 2, diskSize / 2);
+    var halfDisk = 64;
+    graphics.translateXY(halfDisk, halfDisk);
     graphics.rotateZ(15);
-    float ar = (float) 0.35;
 
     for (var deferredAspect : Aspects.PRIMAL_ASPECTS) {
       Aspect a = deferredAspect.get();
       var color = a.getColorRGB();
-      guiGraphics.setColor((float) color[0] / 255, (float) color[1] / 255, (float) color[2] / 255, 1);
-      guiGraphics.blit(VIAL_CONTENT, (int) (-1 * vialSize * ar / 2), (int) (diskSize / 2), 0, 0, (int) (vialSize * ar), (int) vialSize * vis.get(a) / maxAmount, (int) (vialSize * ar), (int) vialSize);
-      guiGraphics.setColor(1, 1, 1, 1);
-      guiGraphics.blit(VIAL, (int) (-1 * vialSize * ar / 2), (int) (diskSize / 2), 0, 0, (int) (vialSize * ar), (int) vialSize, (int) (vialSize * ar), (int) vialSize);
+      graphics.push();
+      graphics.translateXY(0, halfDisk);
+      graphics.pose().scale(1, 1.4f, 1);
+      graphics.setColor((float) color[0] / 255, (float) color[1] / 255, (float) color[2] / 255, 1);
+      graphics.blit(VIAL_CONTENT.location(), -VIAL_CONTENT.width()/2, 0, 0, 0, VIAL_CONTENT.width(), VIAL_CONTENT.height()/2, VIAL_CONTENT.width(), VIAL_CONTENT.height());
+      graphics.setColor(1, 1, 1, 1);
+      graphics.blit(VIAL.location(), -VIAL.width()/2, 0, 0, 0, VIAL.width(), VIAL.height(), VIAL.width(), VIAL.height());
+      graphics.pop();
       graphics.rotateZ(-24);
     }
 
-    guiGraphics.pose().popPose();
+    graphics.pop();
   });
 
   public static void update(Player player) {
