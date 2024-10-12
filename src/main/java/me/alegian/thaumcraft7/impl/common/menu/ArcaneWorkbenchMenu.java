@@ -2,6 +2,7 @@ package me.alegian.thaumcraft7.impl.common.menu;
 
 import me.alegian.thaumcraft7.impl.common.menu.container.WandContainer;
 import me.alegian.thaumcraft7.impl.common.menu.slot.SlotPose;
+import me.alegian.thaumcraft7.impl.common.menu.slot.T7ResultSlot;
 import me.alegian.thaumcraft7.impl.common.menu.slot.T7Slot;
 import me.alegian.thaumcraft7.impl.common.menu.slot.WandSlot;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Blocks;
@@ -44,20 +45,31 @@ public class ArcaneWorkbenchMenu extends AbstractContainerMenu implements Contai
       slotPose.popX();
       slotPose.translateY(18);
     }
+    slotPose.pop();
 
-    this.addSlot(new WandSlot(this.wandContainer, 0, 177, 36));
+    slotPose.push(177, 36);
+    this.addSlot(new WandSlot(this.wandContainer, 0, slotPose));
+    slotPose.pop();
 
-    for (int k = 0; k < 3; k++) {
-      for (int i1 = 0; i1 < 9; i1++) {
-        this.addSlot(new Slot(pPlayerInventory, i1 + k * 9 + 9, 28 + i1 * 18, 146 + k * 18));
+    slotPose.push(28, 146);
+    for (int i = 0; i < 3; i++) {
+      slotPose.pushX();
+      for (int j = 0; j < 9; j++) {
+        this.addSlot(new T7Slot(pPlayerInventory, j + i * 9 + 9, slotPose, 18));
       }
+      slotPose.popX();
+      slotPose.translateY(18);
     }
 
-    for (int l = 0; l < 9; l++) {
-      this.addSlot(new Slot(pPlayerInventory, l, 28 + l * 18, 204));
+    slotPose.translateY(4);
+    for (int i = 0; i < 9; i++) {
+      this.addSlot(new T7Slot(pPlayerInventory, i, slotPose, 18));
     }
+    slotPose.pop();
 
-    this.addSlot(new ResultSlot(pPlayerInventory.player, this.craftingContainer, this.resultContainer, 0, 177, 62));
+    slotPose.push(177, 62);
+    this.addSlot(new T7ResultSlot(pPlayerInventory.player, this.craftingContainer, this.resultContainer, 0, slotPose, 26));
+    slotPose.pop();
 
     this.addSlotListener(this);
   }
