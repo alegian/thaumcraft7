@@ -4,7 +4,7 @@ import me.alegian.thaumcraft7.impl.common.menu.Menu;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.Slot;
 
-public class T7Slot extends Slot {
+public class T7Slot extends Slot implements Sized{
   int size;
 
   public T7Slot(Container container, int id, Menu menu, int size) {
@@ -12,6 +12,7 @@ public class T7Slot extends Slot {
     this.size = size;
   }
 
+  @Override
   public int getSize() {
     return size;
   }

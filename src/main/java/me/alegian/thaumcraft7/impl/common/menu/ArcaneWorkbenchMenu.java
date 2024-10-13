@@ -1,5 +1,7 @@
 package me.alegian.thaumcraft7.impl.common.menu;
 
+import me.alegian.thaumcraft7.impl.common.menu.container.CraftingContainer3x3;
+import me.alegian.thaumcraft7.impl.common.menu.container.T7ResultContainer;
 import me.alegian.thaumcraft7.impl.common.menu.container.WandContainer;
 import me.alegian.thaumcraft7.impl.common.menu.slot.SlotRange;
 import me.alegian.thaumcraft7.impl.common.menu.slot.*;
@@ -16,12 +18,10 @@ import net.minecraft.world.level.block.CrafterBlock;
 
 public class ArcaneWorkbenchMenu extends Menu {
   private final ContainerLevelAccess levelAccess;
-  private final Player player;
-  private final CraftingContainer craftingContainer = new TransientCraftingContainer(this, 3, 3);
-  private final ResultContainer resultContainer = new ResultContainer();
+  private final CraftingContainer3x3 craftingContainer = new CraftingContainer3x3(this);
   private final WandContainer wandContainer = new WandContainer(this);
   private final SlotRange inventoryRange = new SlotRange(this);
-  private final SlotRange craftingRange = new SlotRange(this);
+  private final T7ResultContainer resultContainer = new T7ResultContainer(this, craftingContainer);
 
   public ArcaneWorkbenchMenu(int pContainerId, Inventory pPlayerInventory) {
     this(pContainerId, pPlayerInventory, ContainerLevelAccess.NULL);
@@ -31,27 +31,16 @@ public class ArcaneWorkbenchMenu extends Menu {
    * Slot index must be container unique, but not necessarily menu unique
    */
   public ArcaneWorkbenchMenu(int pContainerId, Inventory pPlayerInventory, ContainerLevelAccess pAccess) {
-    super(T7MenuTypes.ARCANE_WORKBENCH.get(), pContainerId);
+    super(T7MenuTypes.ARCANE_WORKBENCH.get(), pContainerId, pPlayerInventory);
     this.levelAccess = pAccess;
-    this.player = pPlayerInventory.player;
 
-    craftingRange.start();
     slotPose.push(50, 42);
-    for (int i = 0; i < 3; i++) {
-      slotPose.pushX();
-      for (int j = 0; j < 3; j++) {
-        addSlot(new T7Slot(this.craftingContainer, j + i * 3, this, 18));
-      }
-      slotPose.popX();
-      slotPose.translateY(18);
-    }
+    craftingContainer.addSlots();
     slotPose.pop();
-    craftingRange.end();
 
     slotPose.push(177, 36);
     wandContainer.addSlots();
     slotPose.pop();
-
 
     inventoryRange.start();
     slotPose.push(28, 146);
@@ -72,14 +61,14 @@ public class ArcaneWorkbenchMenu extends Menu {
     inventoryRange.end();
 
     slotPose.push(177, 62);
-    this.addSlot(new T7ResultSlot(pPlayerInventory.player, this.craftingContainer, this.resultContainer, 0, slotPose, 26));
+    resultContainer.addSlots();
     slotPose.pop();
 
     this.addSlotListener(this);
   }
 
   private void refreshRecipeResult() {
-    if (this.player instanceof ServerPlayer serverplayer) {
+    if (this.getPlayer() instanceof ServerPlayer serverplayer) {
       Level level = serverplayer.level();
       CraftingInput craftinginput = this.craftingContainer.asCraftInput();
       ItemStack itemstack = CrafterBlock.getPotentialResults(level, craftinginput)
@@ -104,7 +93,7 @@ public class ArcaneWorkbenchMenu extends Menu {
       boolean isInventorySlot = inventoryRange.contains(slotIndex);
       if (isInventorySlot) {
         if (!moveItemStackToRange(slotItem, wandContainer.getRange()) &&
-            !moveItemStackToRange(slotItem, craftingRange)
+            !moveItemStackToRange(slotItem, craftingContainer.getRange())
         ) {
           return ItemStack.EMPTY;
         }
