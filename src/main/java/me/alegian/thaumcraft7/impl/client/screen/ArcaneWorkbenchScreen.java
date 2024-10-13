@@ -16,7 +16,8 @@ import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class ArcaneWorkbenchScreen extends AbstractContainerScreen<ArcaneWorkbenchMenu> {
-  private static final Texture BG_TEXTURE = new Texture("gui/container/arcane_workbench", 216, 228);
+  private static final Texture WORKBENCH_BG = new Texture("gui/container/arcane_workbench", 216, 127);
+  private static final Texture INVENTORY_BG = new Texture("gui/container/inventory", 176, 99);
   private static final Texture SLOT_TEXTURE = new Texture("gui/container/arcane_workbench_slot", 18, 18);
   private static final Texture RESULT_SLOT_TEXTURE = new Texture("gui/container/arcane_workbench_result_slot", 26, 26);
   private static final Texture ASPECT_SLOT_TEXTURE = new Texture("gui/container/arcane_workbench_aspect_slot", 20, 20);
@@ -26,8 +27,8 @@ public class ArcaneWorkbenchScreen extends AbstractContainerScreen<ArcaneWorkben
     this.inventoryLabelX += 20;
     this.inventoryLabelY += 62;
     this.titleLabelY -= 1;
-    this.imageWidth = BG_TEXTURE.width();
-    this.imageHeight = BG_TEXTURE.height();
+    this.imageWidth = Math.max(WORKBENCH_BG.width(), INVENTORY_BG.width());
+    this.imageHeight = WORKBENCH_BG.height() + 2 + INVENTORY_BG.height();
   }
 
   @Override
@@ -39,7 +40,8 @@ public class ArcaneWorkbenchScreen extends AbstractContainerScreen<ArcaneWorkben
 
   @Override
   protected void renderBg(GuiGraphics pGuiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
-    pGuiGraphics.blit(BG_TEXTURE.location(), this.leftPos, this.topPos, 0, 0, BG_TEXTURE.width(), BG_TEXTURE.height());
+    pGuiGraphics.blit(WORKBENCH_BG.location(), this.leftPos, this.topPos, 0, 0, WORKBENCH_BG.width(), WORKBENCH_BG.height());
+    pGuiGraphics.blit(INVENTORY_BG.location(), this.leftPos + (WORKBENCH_BG.width() - INVENTORY_BG.width()) / 2, this.topPos + WORKBENCH_BG.height() + 2, 0, 0, INVENTORY_BG.width(), INVENTORY_BG.height());
 
     for (var slot : this.menu.slots) {
       renderSlotBg(pGuiGraphics, slot);
