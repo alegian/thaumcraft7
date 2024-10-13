@@ -1,5 +1,6 @@
 package me.alegian.thaumcraft7.impl.common.menu;
 
+import me.alegian.thaumcraft7.impl.common.menu.container.T7Inventory;
 import me.alegian.thaumcraft7.impl.common.menu.slot.Sized;
 import me.alegian.thaumcraft7.impl.common.menu.slot.SlotPose;
 import me.alegian.thaumcraft7.impl.common.menu.slot.SlotRange;
@@ -19,11 +20,11 @@ import org.jetbrains.annotations.Nullable;
  */
 public abstract class Menu extends AbstractContainerMenu implements ContainerListener {
   protected final SlotPose slotPose = new SlotPose();
-  private Inventory playerInventory;
+  protected T7Inventory playerInventory;
 
   protected Menu(@Nullable MenuType<?> menuType, int containerId, Inventory playerInventory) {
     super(menuType, containerId);
-    this.playerInventory = playerInventory;
+    this.playerInventory = new T7Inventory(playerInventory, this);
   }
 
   public Slot addSlot(Slot slot) {
@@ -41,7 +42,7 @@ public abstract class Menu extends AbstractContainerMenu implements ContainerLis
   }
 
   public Player getPlayer() {
-    return this.playerInventory.player;
+    return this.playerInventory.getPlayer();
   }
 
   @Override

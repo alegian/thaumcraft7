@@ -3,14 +3,14 @@ package me.alegian.thaumcraft7.impl.common.menu;
 import me.alegian.thaumcraft7.impl.common.menu.container.CraftingContainer3x3;
 import me.alegian.thaumcraft7.impl.common.menu.container.T7ResultContainer;
 import me.alegian.thaumcraft7.impl.common.menu.container.WandContainer;
-import me.alegian.thaumcraft7.impl.common.menu.slot.SlotRange;
-import me.alegian.thaumcraft7.impl.common.menu.slot.*;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Blocks;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7MenuTypes;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.*;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.level.Level;
@@ -20,7 +20,6 @@ public class ArcaneWorkbenchMenu extends Menu {
   private final ContainerLevelAccess levelAccess;
   private final CraftingContainer3x3 craftingContainer = new CraftingContainer3x3(this);
   private final WandContainer wandContainer = new WandContainer(this);
-  private final SlotRange inventoryRange = new SlotRange(this);
   private final T7ResultContainer resultContainer = new T7ResultContainer(this, craftingContainer);
 
   public ArcaneWorkbenchMenu(int pContainerId, Inventory pPlayerInventory) {
@@ -42,23 +41,9 @@ public class ArcaneWorkbenchMenu extends Menu {
     wandContainer.addSlots();
     slotPose.pop();
 
-    inventoryRange.start();
     slotPose.push(28, 146);
-    for (int i = 0; i < 3; i++) {
-      slotPose.pushX();
-      for (int j = 0; j < 9; j++) {
-        this.addSlot(new T7Slot(pPlayerInventory, j + i * 9 + 9, this, 18));
-      }
-      slotPose.popX();
-      slotPose.translateY(18);
-    }
-
-    slotPose.translateY(4);
-    for (int i = 0; i < 9; i++) {
-      this.addSlot(new T7Slot(pPlayerInventory, i, this, 18));
-    }
+    playerInventory.addSlots();
     slotPose.pop();
-    inventoryRange.end();
 
     slotPose.push(177, 62);
     resultContainer.addSlots();
@@ -72,7 +57,7 @@ public class ArcaneWorkbenchMenu extends Menu {
       Level level = serverplayer.level();
       CraftingInput craftinginput = this.craftingContainer.asCraftInput();
       ItemStack itemstack = CrafterBlock.getPotentialResults(level, craftinginput)
-          .map(p_344359_ -> p_344359_.value().assemble(craftinginput, level.registryAccess()))
+          .map(recipeHolder -> recipeHolder.value().assemble(craftinginput, level.registryAccess()))
           .orElse(ItemStack.EMPTY);
       this.resultContainer.setItem(0, itemstack);
     }
@@ -90,14 +75,14 @@ public class ArcaneWorkbenchMenu extends Menu {
       originalItem = slotItem.copy();
 
       // try to move stack, making sure zeros are converted to EMPTY. auto-updates dest slot
-      boolean isInventorySlot = inventoryRange.contains(slotIndex);
+      boolean isInventorySlot = playerInventory.getRange().contains(slotIndex);
       if (isInventorySlot) {
         if (!moveItemStackToRange(slotItem, wandContainer.getRange()) &&
             !moveItemStackToRange(slotItem, craftingContainer.getRange())
         ) {
           return ItemStack.EMPTY;
         }
-      } else if (!moveItemStackToRange(slotItem, inventoryRange)) {
+      } else if (!moveItemStackToRange(slotItem, playerInventory.getRange())) {
         return ItemStack.EMPTY;
       }
 
@@ -134,9 +119,5 @@ public class ArcaneWorkbenchMenu extends Menu {
   @Override
   public void slotChanged(AbstractContainerMenu pContainerToSend, int pDataSlotIndex, ItemStack pStack) {
     this.refreshRecipeResult();
-  }
-
-  @Override
-  public void dataChanged(AbstractContainerMenu pContainerMenu, int pDataSlotIndex, int pValue) {
   }
 }
