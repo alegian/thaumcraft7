@@ -15,9 +15,9 @@ import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class VisGuiOverlay {
-  private static final Texture STAR = new Texture("gui/overlay/disk", 128, 128);
-  private static final Texture BAR_FRAME = new Texture("gui/overlay/vial", 64, 64);
-  private static final Texture BAR_CONTENT = new Texture("gui/overlay/vial_content", 12, 36);
+  private static final Texture STAR = new Texture("gui/overlay/star", 130, 130);
+  private static final Texture BAR_FRAME = new Texture("gui/overlay/bar_frame", 64, 66);
+  private static final Texture BAR_CONTENT = new Texture("gui/overlay/bar_content", 12, 36);
 
   // updated via event
   public static boolean visible = false;
@@ -32,7 +32,7 @@ public class VisGuiOverlay {
     graphics.push();
 
     // draw the disk
-    graphics.scaleXY(0.7f);
+    graphics.scaleXY(0.5f);
     graphics.translateXY(32, 16);
     graphics.resetColor();
     graphics.blit(STAR.location(), 0, 0, 0, 0, STAR.width(), STAR.height(), STAR.width(), STAR.height());
@@ -46,7 +46,6 @@ public class VisGuiOverlay {
       var color = a.getColorRGB();
       graphics.push();
       graphics.translateXY(0, STAR.height() / 2f);
-      graphics.pose().scale(1, 1.4f, 1);
       graphics.setColor((float) color[0] / 255, (float) color[1] / 255, (float) color[2] / 255, 1);
       graphics.blit(BAR_CONTENT.location(), -BAR_CONTENT.width() / 2, (BAR_FRAME.height() - BAR_CONTENT.height()) / 2, 0, 0, BAR_CONTENT.width(), BAR_CONTENT.height() * vis.get(a) / maxAmount, BAR_CONTENT.width(), BAR_CONTENT.height());
       graphics.resetColor();
