@@ -1,5 +1,6 @@
 package me.alegian.thaumcraft7.impl.common.menu;
 
+import me.alegian.thaumcraft7.impl.common.menu.container.T7Container;
 import me.alegian.thaumcraft7.impl.common.menu.container.T7Inventory;
 import me.alegian.thaumcraft7.impl.common.menu.slot.Sized;
 import me.alegian.thaumcraft7.impl.common.menu.slot.SlotPose;
@@ -12,6 +13,8 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 /**
  * An AbstractContainerMenu that has a SlotPose and a player Inventory.
@@ -43,6 +46,52 @@ public abstract class Menu extends AbstractContainerMenu implements ContainerLis
 
   public Player getPlayer() {
     return this.playerInventory.getPlayer();
+  }
+
+  /**
+   * slotIndex is relative to this.slots and NOT slot id
+   */
+  @Override
+  public ItemStack quickMoveStack(Player player, int slotIndex) {
+    ItemStack originalItem = ItemStack.EMPTY;
+    Slot slot = this.slots.get(slotIndex);
+    if (slot.hasItem()) {
+      ItemStack slotItem = slot.getItem();
+      originalItem = slotItem.copy();
+
+      // attempt to move stack, one by one to each target container, until one succeeds
+      // zeros are converted to EMPTY. auto-updates dest slot
+      boolean isInventorySlot = playerInventory.getRange().contains(slotIndex);
+      if (isInventorySlot) {
+        if (getQuickMovePriorities().stream().noneMatch(container ->
+            moveItemStackToRange(slotItem, container.getRange()))
+        ) {
+          return ItemStack.EMPTY;
+        }
+      } else if (!moveItemStackToRange(slotItem, playerInventory.getRange())) {
+        return ItemStack.EMPTY;
+      }
+
+      // update source slot, zeros are converted to EMPTY
+      if (slotItem.isEmpty()) {
+        slot.set(ItemStack.EMPTY);
+      } else {
+        slot.setChanged();
+      }
+
+      // if nothing was done (there is no space), signal to avoid retrying
+      if (slotItem.getCount() == originalItem.getCount()) {
+        return ItemStack.EMPTY;
+      }
+
+      slot.onTake(player, slotItem);
+    }
+
+    return originalItem;
+  }
+
+  protected List<T7Container> getQuickMovePriorities() {
+    return List.of();
   }
 
   @Override

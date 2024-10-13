@@ -20,7 +20,7 @@ public class T7ResultContainer extends ResultContainer implements T7Container {
 
   @Override
   public void addSlots() {
-    menu.addSlot(new T7ResultSlot(menu, craftingContainer, this, 0,  26));
+    menu.addSlot(new T7ResultSlot(menu, craftingContainer, this, 0, 26));
   }
 
   @Override

@@ -1,6 +1,7 @@
 package me.alegian.thaumcraft7.impl.common.menu;
 
 import me.alegian.thaumcraft7.impl.common.menu.container.CraftingContainer3x3;
+import me.alegian.thaumcraft7.impl.common.menu.container.T7Container;
 import me.alegian.thaumcraft7.impl.common.menu.container.T7ResultContainer;
 import me.alegian.thaumcraft7.impl.common.menu.container.WandContainer;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Blocks;
@@ -10,11 +11,12 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.CrafterBlock;
+
+import java.util.List;
 
 public class ArcaneWorkbenchMenu extends Menu {
   private final ContainerLevelAccess levelAccess;
@@ -63,45 +65,9 @@ public class ArcaneWorkbenchMenu extends Menu {
     }
   }
 
-  /**
-   * slotIndex is relative to this.slots and NOT slot id
-   */
   @Override
-  public ItemStack quickMoveStack(Player player, int slotIndex) {
-    ItemStack originalItem = ItemStack.EMPTY;
-    Slot slot = this.slots.get(slotIndex);
-    if (slot.hasItem()) {
-      ItemStack slotItem = slot.getItem();
-      originalItem = slotItem.copy();
-
-      // try to move stack, making sure zeros are converted to EMPTY. auto-updates dest slot
-      boolean isInventorySlot = playerInventory.getRange().contains(slotIndex);
-      if (isInventorySlot) {
-        if (!moveItemStackToRange(slotItem, wandContainer.getRange()) &&
-            !moveItemStackToRange(slotItem, craftingContainer.getRange())
-        ) {
-          return ItemStack.EMPTY;
-        }
-      } else if (!moveItemStackToRange(slotItem, playerInventory.getRange())) {
-        return ItemStack.EMPTY;
-      }
-
-      // update source slot, zeros are converted to EMPTY
-      if (slotItem.isEmpty()) {
-        slot.set(ItemStack.EMPTY);
-      } else {
-        slot.setChanged();
-      }
-
-      // if nothing was done (there is no space), signal to avoid retrying
-      if (slotItem.getCount() == originalItem.getCount()) {
-        return ItemStack.EMPTY;
-      }
-
-      slot.onTake(player, slotItem);
-    }
-
-    return originalItem;
+  protected List<T7Container> getQuickMovePriorities() {
+    return List.of(wandContainer, craftingContainer);
   }
 
   @Override

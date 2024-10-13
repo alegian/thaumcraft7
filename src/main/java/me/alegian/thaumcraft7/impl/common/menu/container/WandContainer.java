@@ -4,10 +4,8 @@ import me.alegian.thaumcraft7.impl.common.menu.Menu;
 import me.alegian.thaumcraft7.impl.common.menu.slot.SlotRange;
 import me.alegian.thaumcraft7.impl.common.menu.slot.WandSlot;
 import net.minecraft.core.NonNullList;
-import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 
 public class WandContainer implements T7Container {

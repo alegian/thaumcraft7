@@ -7,7 +7,7 @@ import net.minecraft.world.inventory.Slot;
 /**
  * A Slot that implements Sized, and has a back-reference to a Menu
  */
-public class T7Slot extends Slot implements Sized{
+public class T7Slot extends Slot implements Sized {
   int size;
 
   public T7Slot(Container container, int id, Menu menu, int size) {
