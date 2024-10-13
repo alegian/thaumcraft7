@@ -16,8 +16,8 @@ import net.neoforged.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class VisGuiOverlay {
   private static final Texture STAR = new Texture("gui/overlay/star", 130, 130);
-  private static final Texture BAR_FRAME = new Texture("gui/overlay/bar_frame", 64, 66);
-  private static final Texture BAR_CONTENT = new Texture("gui/overlay/bar_content", 12, 36);
+  private static final Texture BAR_FRAME = new Texture("gui/overlay/bar_frame", 96, 96);
+  private static final Texture BAR_CONTENT = new Texture("gui/overlay/bar_content", 18, 64);
 
   // updated via event
   public static boolean visible = false;
