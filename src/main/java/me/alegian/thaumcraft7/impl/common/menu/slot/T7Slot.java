@@ -4,6 +4,9 @@ import me.alegian.thaumcraft7.impl.common.menu.Menu;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.Slot;
 
+/**
+ * A Slot that implements Sized, and has a back-reference to a Menu
+ */
 public class T7Slot extends Slot implements Sized{
   int size;
 

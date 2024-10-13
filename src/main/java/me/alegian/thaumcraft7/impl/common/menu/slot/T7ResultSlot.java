@@ -5,6 +5,9 @@ import net.minecraft.world.Container;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.inventory.ResultSlot;
 
+/**
+ * A Sized ResultSlot
+ */
 public class T7ResultSlot extends ResultSlot implements Sized {
   private final int size;
 

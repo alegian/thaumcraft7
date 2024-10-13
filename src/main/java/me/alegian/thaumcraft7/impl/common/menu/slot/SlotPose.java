@@ -2,6 +2,11 @@ package me.alegian.thaumcraft7.impl.common.menu.slot;
 
 import java.util.Stack;
 
+/**
+ * Aims to be similar to vanilla Pose, but for slots.
+ * Provides separate poseX and poseY stacks for utility.
+ * For example, popping X is used for slot new-lines
+ */
 public class SlotPose {
   private Stack<Integer> poseX = new Stack<>();
   private Stack<Integer> poseY = new Stack<>();

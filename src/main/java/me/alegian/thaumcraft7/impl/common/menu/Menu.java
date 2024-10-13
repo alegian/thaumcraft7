@@ -3,7 +3,6 @@ package me.alegian.thaumcraft7.impl.common.menu;
 import me.alegian.thaumcraft7.impl.common.menu.slot.Sized;
 import me.alegian.thaumcraft7.impl.common.menu.slot.SlotPose;
 import me.alegian.thaumcraft7.impl.common.menu.slot.SlotRange;
-import me.alegian.thaumcraft7.impl.common.menu.slot.T7Slot;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -13,6 +12,11 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * An AbstractContainerMenu that has a SlotPose and a player Inventory.
+ * Used to dynamically position Slots, and dynamically generate the
+ * quick-move operations between all children containers.
+ */
 public abstract class Menu extends AbstractContainerMenu implements ContainerListener {
   protected final SlotPose slotPose = new SlotPose();
   private Inventory playerInventory;
@@ -23,7 +27,7 @@ public abstract class Menu extends AbstractContainerMenu implements ContainerLis
   }
 
   public Slot addSlot(Slot slot) {
-    if(slot instanceof Sized sizedSlot) slotPose.translateX(sizedSlot.getSize());
+    if (slot instanceof Sized sizedSlot) slotPose.translateX(sizedSlot.getSize());
     else slotPose.translateX(18);
     return super.addSlot(slot);
   }
