@@ -176,7 +176,7 @@ public class WandItem extends Item implements GeoItem {
   }
 
   public int capacity() {
-    return coreMaterial.capacity();
+    return coreMaterial.capacity;
   }
 
   public String getName() {

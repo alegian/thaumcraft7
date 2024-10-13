@@ -24,7 +24,7 @@ public class WandHandleCombinations implements AddCallback<WandHandleMaterial> {
   @Override
   public void onAdd(Registry<WandHandleMaterial> handleRegistry, int id, ResourceKey<WandHandleMaterial> key, WandHandleMaterial newHandle) {
     for (var core : coreRegistry) {
-      if (core.registerCombinations() && !T7Items.isWandRegistered(newHandle, core))
+      if (core.registerCombinations && !T7Items.isWandRegistered(newHandle, core))
         T7Items.registerWand(itemRegistry, newHandle, core);
     }
   }
