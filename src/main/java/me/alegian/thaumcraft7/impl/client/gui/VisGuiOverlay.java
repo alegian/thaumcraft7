@@ -15,9 +15,9 @@ import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class VisGuiOverlay {
-  private static final Texture DISK = new Texture("gui/overlay/disk", 128, 128);
-  private static final Texture VIAL = new Texture("gui/overlay/vial", 64, 64);
-  private static final Texture VIAL_CONTENT = new Texture("gui/overlay/vial_content", 64, 64);
+  private static final Texture STAR = new Texture("gui/overlay/disk", 128, 128);
+  private static final Texture BAR_FRAME = new Texture("gui/overlay/vial", 64, 64);
+  private static final Texture BAR_CONTENT = new Texture("gui/overlay/vial_content", 12, 36);
 
   // updated via event
   public static boolean visible = false;
@@ -35,23 +35,22 @@ public class VisGuiOverlay {
     graphics.scaleXY(0.7f);
     graphics.translateXY(32, 16);
     graphics.resetColor();
-    graphics.blit(DISK.location(), 0, 0, 0, 0, DISK.width(), DISK.height(), DISK.width(), DISK.height());
+    graphics.blit(STAR.location(), 0, 0, 0, 0, STAR.width(), STAR.height(), STAR.width(), STAR.height());
 
     // draw the vials
-    var halfDisk = 64;
-    graphics.translateXY(halfDisk, halfDisk);
+    graphics.translateXY(STAR.width() / 2f, STAR.height() / 2f);
     graphics.rotateZ(15);
 
     for (var deferredAspect : Aspects.PRIMAL_ASPECTS) {
       Aspect a = deferredAspect.get();
       var color = a.getColorRGB();
       graphics.push();
-      graphics.translateXY(0, halfDisk);
+      graphics.translateXY(0, STAR.height() / 2f);
       graphics.pose().scale(1, 1.4f, 1);
       graphics.setColor((float) color[0] / 255, (float) color[1] / 255, (float) color[2] / 255, 1);
-      graphics.blit(VIAL_CONTENT.location(), -VIAL_CONTENT.width() / 2, 0, 0, 0, VIAL_CONTENT.width(), VIAL_CONTENT.height() * vis.get(a) / maxAmount, VIAL_CONTENT.width(), VIAL_CONTENT.height());
+      graphics.blit(BAR_CONTENT.location(), -BAR_CONTENT.width() / 2, (BAR_FRAME.height() - BAR_CONTENT.height()) / 2, 0, 0, BAR_CONTENT.width(), BAR_CONTENT.height() * vis.get(a) / maxAmount, BAR_CONTENT.width(), BAR_CONTENT.height());
       graphics.resetColor();
-      graphics.blit(VIAL.location(), -VIAL.width() / 2, 0, 0, 0, VIAL.width(), VIAL.height(), VIAL.width(), VIAL.height());
+      graphics.blit(BAR_FRAME.location(), -BAR_FRAME.width() / 2, 0, 0, 0, BAR_FRAME.width(), BAR_FRAME.height(), BAR_FRAME.width(), BAR_FRAME.height());
       graphics.pop();
       graphics.rotateZ(-24);
     }
