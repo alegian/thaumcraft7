@@ -1,28 +1,28 @@
 package me.alegian.thaumcraft7.impl.common.menu.slot;
 
-import net.minecraft.world.inventory.Slot;
-
-import java.util.List;
+import me.alegian.thaumcraft7.impl.common.menu.Menu;
 
 /**
  * Keeps track of slot index ranges. Need to call start() and end() before the
  * addition of the first slot and after the addition of the last slot
  */
 public class SlotRange {
+  protected Menu menu;
   protected int start;
   protected int end;
 
-  public SlotRange() {
+  public SlotRange(Menu menu) {
+    this.menu = menu;
     this.start = 0;
     this.end = 0;
   }
 
-  public void start(List<Slot> slots) {
-    this.start = slots.size();
+  public void start() {
+    this.start = this.menu.slots.size();
   }
 
-  public void end(List<Slot> slots) {
-    this.end = slots.size() - 1;
+  public void end() {
+    this.end = this.menu.slots.size() - 1;
   }
 
   public int getStart() {
@@ -41,9 +41,13 @@ public class SlotRange {
    * Tracking single slots should be done AFTER adding them
    */
   public static class Single extends SlotRange {
-    public void track(List<Slot> slots) {
-      this.start = slots.size() - 1;
-      this.end = slots.size() - 1;
+    public Single(Menu menu) {
+      super(menu);
+    }
+
+    public void track() {
+      this.start = this.menu.slots.size() - 1;
+      this.end = this.menu.slots.size() - 1;
     }
 
     public boolean is(int slotId) {
