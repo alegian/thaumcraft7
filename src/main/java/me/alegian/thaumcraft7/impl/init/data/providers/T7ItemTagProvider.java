@@ -70,15 +70,18 @@ public class T7ItemTagProvider extends ItemTagsProvider {
 
     tag(ItemTags.FOOT_ARMOR).add(
         T7Items.ARCANUM_BOOTS.get(),
-        T7Items.CUSTOS_ARCANUM_BOOTS.get()
+        T7Items.CUSTOS_ARCANUM_BOOTS.get(),
+        T7Items.RESEARCHER_BOOTS.get()
     );
     tag(ItemTags.LEG_ARMOR).add(
         T7Items.ARCANUM_LEGGINGS.get(),
-        T7Items.CUSTOS_ARCANUM_LEGGINGS.get()
+        T7Items.CUSTOS_ARCANUM_LEGGINGS.get(),
+        T7Items.RESEARCHER_LEGGINGS.get()
     );
     tag(ItemTags.CHEST_ARMOR).add(
         T7Items.ARCANUM_CHESTPLATE.get(),
-        T7Items.CUSTOS_ARCANUM_CHESTPLATE.get()
+        T7Items.CUSTOS_ARCANUM_CHESTPLATE.get(),
+        T7Items.RESEARCHER_CHESTPLATE.get()
     );
     tag(ItemTags.HEAD_ARMOR).add(
         T7Items.GOGGLES.get(),

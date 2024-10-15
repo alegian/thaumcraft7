@@ -28,6 +28,20 @@ public class T7ArmorMaterials {
       0
   ));
 
+  public static final DeferredHolder<ArmorMaterial, ArmorMaterial> RESEARCHER = REGISTRAR.register("researcher", () -> new ArmorMaterial(
+      Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
+        map.put(ArmorItem.Type.CHESTPLATE, 1);
+        map.put(ArmorItem.Type.LEGGINGS, 1);
+        map.put(ArmorItem.Type.BOOTS, 1);
+      }),
+      25,
+      SoundEvents.ARMOR_EQUIP_GENERIC,
+      Ingredient::of,
+      List.of(),
+      0,
+      0
+  ));
+
   public static final DeferredHolder<ArmorMaterial, ArmorMaterial> ARCANUM = REGISTRAR.register("arcanum", () -> new ArmorMaterial(
       Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
         map.put(ArmorItem.Type.BOOTS, 2);

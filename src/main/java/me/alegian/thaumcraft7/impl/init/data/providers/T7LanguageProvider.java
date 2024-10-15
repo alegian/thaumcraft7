@@ -42,10 +42,15 @@ public class T7LanguageProvider extends LanguageProvider {
     add(T7Items.THAUMONOMICON.get(), "Thaumonomicon");
 
     add(T7Items.GOGGLES.get(), "Goggles Of Revealing");
+    add(T7Items.RESEARCHER_BOOTS.get(), "Researcher Boots");
+    add(T7Items.RESEARCHER_CHESTPLATE.get(), "Researcher Chestplate");
+    add(T7Items.RESEARCHER_LEGGINGS.get(), "Researcher Leggings");
+
     add(T7Items.ARCANUM_BOOTS.get(), "Arcanum Boots");
     add(T7Items.ARCANUM_HELMET.get(), "Arcanum Helmet");
     add(T7Items.ARCANUM_CHESTPLATE.get(), "Arcanum Chestplate");
     add(T7Items.ARCANUM_LEGGINGS.get(), "Arcanum Leggings");
+
     add(T7Items.CUSTOS_ARCANUM_BOOTS.get(), "Custos Arcanum Boots");
     add(T7Items.CUSTOS_ARCANUM_HELMET.get(), "Custos Arcanum Helmet");
     add(T7Items.CUSTOS_ARCANUM_CHESTPLATE.get(), "Custos Arcanum Chestplate");

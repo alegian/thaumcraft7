@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:air"
+          "name": "thaumcraft7:elemental_stone"
         }
       ],
       "rolls": 1.0

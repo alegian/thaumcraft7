@@ -16,8 +16,6 @@ public class T7ItemModelProvider extends ItemModelProvider {
 
   @Override
   protected void registerModels() {
-    basicItem(T7Items.GOGGLES.get());
-
     basicItem(T7Items.IRON_HANDLE.get());
     basicItem(T7Items.GOLD_HANDLE.get());
     basicItem(T7Items.ORICHALCUM_HANDLE.get());
@@ -33,6 +31,11 @@ public class T7ItemModelProvider extends ItemModelProvider {
     basicItem(T7Items.ORICHALCUM_NUGGET.get());
     basicItem(T7Items.RESEARCH_SCROLL.get());
     basicItem(T7Items.COMPLETED_RESEARCH.get());
+
+    basicItem(T7Items.GOGGLES.get());
+    basicItem(T7Items.RESEARCHER_CHESTPLATE.get());
+    basicItem(T7Items.RESEARCHER_LEGGINGS.get());
+    basicItem(T7Items.RESEARCHER_BOOTS.get());
 
     basicItem(T7Items.ARCANUM_HELMET.get());
     basicItem(T7Items.ARCANUM_CHESTPLATE.get());
