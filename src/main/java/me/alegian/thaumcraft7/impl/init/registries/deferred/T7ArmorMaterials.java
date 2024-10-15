@@ -59,7 +59,7 @@ public class T7ArmorMaterials {
       0
   ));
 
-  public static final DeferredHolder<ArmorMaterial, ArmorMaterial> CUSTOS_ARCANUM = REGISTRAR.register("arcanum", () -> new ArmorMaterial(
+  public static final DeferredHolder<ArmorMaterial, ArmorMaterial> CUSTOS_ARCANUM = REGISTRAR.register("custos_arcanum", () -> new ArmorMaterial(
       Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
         map.put(ArmorItem.Type.BOOTS, 3);
         map.put(ArmorItem.Type.LEGGINGS, 6);
