@@ -25,8 +25,12 @@ public class T7Blocks {
 
   public static final DeferredBlock<AuraNodeBlock> AURA_NODE = REGISTRAR.register("aura_node", AuraNodeBlock::new);
   public static final DeferredItem<BlockItem> AURA_NODE_ITEM = T7Items.REGISTRAR.registerSimpleBlockItem("aura_node", AURA_NODE);
+
   public static final DeferredBlock<CrucibleBlock> CRUCIBLE = REGISTRAR.register("crucible", CrucibleBlock::new);
   public static final DeferredItem<BlockItem> CRUCIBLE_ITEM = T7Items.REGISTRAR.registerSimpleBlockItem("crucible", CRUCIBLE);
+
+  public static final DeferredBlock<Block> ELEMENTAL_STONE = REGISTRAR.register("elemental_stone", $ -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)));
+  public static final DeferredItem<BlockItem> ELEMENTAL_STONE_ITEM = T7Items.REGISTRAR.registerSimpleBlockItem("elemental_stone", ELEMENTAL_STONE);
 
   public static final DeferredBlock<InfusedStoneBlock> IGNIS_INFUSED_STONE = REGISTRAR.register("ignis_ore", $ -> new InfusedStoneBlock(Aspects.IGNIS));
   public static final DeferredItem<BlockItem> IGNIS_INFUSED_STONE_ITEM = T7Items.REGISTRAR.registerSimpleBlockItem("ignis_ore", IGNIS_INFUSED_STONE);

@@ -52,6 +52,8 @@ public class T7BlockStateProvider extends BlockStateProvider {
     simpleBlockWithItem(T7Blocks.ARCANUM_BLOCK.get());
     simpleBlockWithItem(T7Blocks.ORICHALCUM_BLOCK.get());
 
+    simpleBlockWithItem(T7Blocks.ELEMENTAL_STONE.get());
+
     simpleBlockWithItem(T7Blocks.ARCANE_WORKBENCH.get(), models().getBuilder(T7Blocks.ARCANE_WORKBENCH.getId().getPath())
         .parent(new ModelFile.UncheckedModelFile("block/crafting_table"))
     );
