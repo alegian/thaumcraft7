@@ -12,6 +12,7 @@ import me.alegian.thaumcraft7.impl.common.data.capability.AspectContainerHelper;
 import me.alegian.thaumcraft7.impl.common.item.HammerItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.neoforged.api.distmarker.Dist;
@@ -19,12 +20,15 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RenderHighlightEvent;
 import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
+import net.neoforged.neoforge.client.event.RenderPlayerEvent;
 import net.neoforged.neoforge.client.event.RenderTooltipEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
 @EventBusSubscriber(modid = Thaumcraft.MODID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.GAME)
 public class T7ClientGameEvents {
   private static boolean allowHammerOutlineEvents = true;
+  private static boolean disabledUpperSkinParts = false;
+  private static boolean disabledLowerSkinParts = false;
 
   @SubscribeEvent
   public static void playerTick(PlayerTickEvent.Pre event) {
@@ -84,5 +88,24 @@ public class T7ClientGameEvents {
     if (!ClientHelper.isLocalPlayerWearingGoggles()) return;
 
     event.getTooltipElements().add(Either.right(new AspectTooltipComponent(event.getItemStack())));
+  }
+
+  @SubscribeEvent
+  public static void renderPlayerPre(RenderPlayerEvent.Pre event) {
+    var model = event.getRenderer().getModel();
+
+    // if chestplate exists, disable sleeves & jacket to prevent clipping with thin armors
+    ClientHelper.getLocalPlayerEquipmentItem(EquipmentSlot.CHEST).ifPresent($ -> {
+      model.leftSleeve.visible = false;
+      model.rightSleeve.visible = false;
+      model.jacket.visible = false;
+      disabledUpperSkinParts = true;
+    });
+    // if leggings exist, disable pants to prevent clipping with thin armors
+    ClientHelper.getLocalPlayerEquipmentItem(EquipmentSlot.LEGS).ifPresent($ -> {
+      model.leftPants.visible = false;
+      model.rightPants.visible = false;
+      disabledLowerSkinParts = true;
+    });
   }
 }
