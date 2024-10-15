@@ -20,7 +20,7 @@ public class KatanaItem extends SwordItem implements GeoItem {
 
   public KatanaItem() {
     super(T7Tiers.ARCANUM_TIER,
-        new Item.Properties().attributes(
+        new Item.Properties().fireResistant().attributes(
             SwordItem.createAttributes(
                 T7Tiers.ARCANUM_TIER,
                 3, -2.4f

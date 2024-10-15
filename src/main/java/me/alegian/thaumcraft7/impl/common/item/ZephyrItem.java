@@ -20,7 +20,7 @@ public class ZephyrItem extends SwordItem implements GeoItem {
 
   public ZephyrItem() {
     super(T7Tiers.ARCANUM_TIER,
-        new Item.Properties().attributes(
+        new Item.Properties().fireResistant().attributes(
             SwordItem.createAttributes(
                 T7Tiers.ARCANUM_TIER,
                 3, -2.4f
