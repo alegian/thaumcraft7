@@ -31,6 +31,7 @@ public class T7CommonModEvents {
     event.register(T7Registries.WAND_HANDLE);
     event.register(T7Registries.WAND_CORE);
     event.register(T7Registries.ASPECT);
+    event.register(T7Registries.RESEARCH);
   }
 
   @SubscribeEvent
