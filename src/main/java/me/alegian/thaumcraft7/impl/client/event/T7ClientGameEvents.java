@@ -27,8 +27,6 @@ import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 @EventBusSubscriber(modid = Thaumcraft.MODID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.GAME)
 public class T7ClientGameEvents {
   private static boolean allowHammerOutlineEvents = true;
-  private static boolean disabledUpperSkinParts = false;
-  private static boolean disabledLowerSkinParts = false;
 
   @SubscribeEvent
   public static void playerTick(PlayerTickEvent.Pre event) {
@@ -99,13 +97,11 @@ public class T7ClientGameEvents {
       model.leftSleeve.visible = false;
       model.rightSleeve.visible = false;
       model.jacket.visible = false;
-      disabledUpperSkinParts = true;
     });
     // if leggings exist, disable pants to prevent clipping with thin armors
     ClientHelper.getLocalPlayerEquipmentItem(EquipmentSlot.LEGS).ifPresent($ -> {
       model.leftPants.visible = false;
       model.rightPants.visible = false;
-      disabledLowerSkinParts = true;
     });
   }
 }
