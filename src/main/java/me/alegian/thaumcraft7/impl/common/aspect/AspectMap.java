@@ -21,14 +21,14 @@ import java.util.stream.Collectors;
 
 /**
  * Immutable.
- * Represents a list of Aspects and their amounts.
- * Any operation that adds or removes Aspects should return a new AspectList.
+ * Represents a map of Aspects to their amounts.
+ * Any operation that adds or removes Aspects should return a new AspectMap.
  */
-public class AspectList {
+public class AspectMap {
   private final Map<String, Integer> map;
-  public static final AspectList EMPTY = new AspectList(new HashMap<>());
+  public static final AspectMap EMPTY = new AspectMap(new HashMap<>());
 
-  public AspectList(Map<String, Integer> map) {
+  public AspectMap(Map<String, Integer> map) {
     this.map = new HashMap<>(map);
   }
 
@@ -39,24 +39,24 @@ public class AspectList {
 
   public static final Codec<List<Pair<String, Integer>>> PAIR_LIST_CODEC = PAIR_CODEC.listOf();
 
-  public static final Codec<AspectList> CODEC = new Codec<>() {
+  public static final Codec<AspectMap> CODEC = new Codec<>() {
     @Override
-    public <T> DataResult<Pair<AspectList, T>> decode(DynamicOps<T> dynamicOps, T t) {
+    public <T> DataResult<Pair<AspectMap, T>> decode(DynamicOps<T> dynamicOps, T t) {
       var optionalListOfPairs = PAIR_LIST_CODEC.parse(dynamicOps, t)
           .resultOrPartial(System.out::println);
 
       return optionalListOfPairs.map(o ->
               o.stream().collect(Collectors.toMap(Pair::getFirst, Pair::getSecond))
           )
-          .map(AspectList::new)
+          .map(AspectMap::new)
           .map(m -> new Pair<>(m, t))
           .map(DataResult::success)
-          .orElse(DataResult.success(new Pair<>(AspectList.EMPTY, t)));
+          .orElse(DataResult.success(new Pair<>(AspectMap.EMPTY, t)));
     }
 
     @Override
-    public <T> DataResult<T> encode(AspectList aspectList, DynamicOps<T> dynamicOps, T t) {
-      var listOfPairs = aspectList.map.entrySet().stream().filter(e -> e.getValue() > 0).map(e -> Pair.of(e.getKey(), e.getValue())).toList();
+    public <T> DataResult<T> encode(AspectMap aspectMap, DynamicOps<T> dynamicOps, T t) {
+      var listOfPairs = aspectMap.map.entrySet().stream().filter(e -> e.getValue() > 0).map(e -> Pair.of(e.getKey(), e.getValue())).toList();
       return PAIR_LIST_CODEC.encode(listOfPairs, dynamicOps, t);
     }
   };
@@ -68,34 +68,34 @@ public class AspectList {
           ByteBufCodecs.INT
       );
 
-  public static final StreamCodec<ByteBuf, AspectList> STREAM_CODEC =
+  public static final StreamCodec<ByteBuf, AspectMap> STREAM_CODEC =
       StreamCodec.composite(
-          MAP_STREAM_CODEC, AspectList::getMap,
-          AspectList::new
+          MAP_STREAM_CODEC, AspectMap::getMap,
+          AspectMap::new
       );
 
-  public AspectList add(Aspect aspect, int amount) {
+  public AspectMap add(Aspect aspect, int amount) {
     HashMap<String, Integer> newMap = new HashMap<>(map);
     newMap.put(aspect.getId(), amount);
-    return new AspectList(newMap);
+    return new AspectMap(newMap);
   }
 
-  public AspectList scale(int scale) {
+  public AspectMap scale(int scale) {
     HashMap<String, Integer> newMap = new HashMap<>();
     map.forEach((k, v) -> newMap.put(k, v * scale));
-    return new AspectList(newMap);
+    return new AspectMap(newMap);
   }
 
-  public AspectList merge(AspectList other) {
+  public AspectMap merge(AspectMap other) {
     HashMap<String, Integer> newMap = new HashMap<>(map);
     other.getMap().forEach((k, v) -> newMap.merge(k, v, Integer::sum));
-    return new AspectList(newMap);
+    return new AspectMap(newMap);
   }
 
-  public AspectList subtract(AspectList other) {
+  public AspectMap subtract(AspectMap other) {
     HashMap<String, Integer> newMap = new HashMap<>(map);
     other.getMap().forEach((k, v) -> newMap.merge(k, v, (a, b) -> nullIfZero(a - b)));
-    return new AspectList(newMap);
+    return new AspectMap(newMap);
   }
 
   private static Integer nullIfZero(Integer amount) {
@@ -103,10 +103,10 @@ public class AspectList {
   }
 
   /**
-   * Whether this AspectList contains all aspects (in greater quantity) than another.
+   * Whether this AspectMap contains all aspects (in greater quantity) than another.
    * Useful for recipe checks
    */
-  public boolean contains(AspectList other) {
+  public boolean contains(AspectMap other) {
     for (String k : other.getMap().keySet()) {
       if (this.getMap().get(k) < other.getMap().get(k)) return false;
     }
@@ -114,31 +114,31 @@ public class AspectList {
   }
 
   /**
-   * AspectList Maps are also immutable.
+   * AspectMap.map is also immutable.
    * This is read-only access to copy the map into a new one.
    */
   protected Map<String, Integer> getMap() {
     return map;
   }
 
-  public static AspectList of(Aspect aspect, int amount) {
-    return new AspectList(Map.of(aspect.getId(), amount));
+  public static AspectMap of(Aspect aspect, int amount) {
+    return new AspectMap(Map.of(aspect.getId(), amount));
   }
 
-  public static AspectList of(AspectStack... aspectStacks) {
+  public static AspectMap of(AspectStack... aspectStacks) {
     Map<String, Integer> map = new HashMap<>();
     for (AspectStack stack : aspectStacks) {
       map.put(stack.aspect().getId(), stack.amount());
     }
-    return new AspectList(map);
+    return new AspectMap(map);
   }
 
-  public static AspectList randomPrimals() {
+  public static AspectMap randomPrimals() {
     HashMap<String, Integer> map = new HashMap<>();
     for (var a : Aspects.PRIMAL_ASPECTS) {
       map.put(a.get().getId(), (int) (Math.random() * 16 + 1));
     }
-    return new AspectList(map);
+    return new AspectMap(map);
   }
 
   public int get(Aspect aspect) {
@@ -146,7 +146,7 @@ public class AspectList {
   }
 
   public ImmutableList<AspectStack> displayedAspects() {
-    if (this == AspectList.EMPTY) return ImmutableList.of();
+    if (this == AspectMap.EMPTY) return ImmutableList.of();
     return Aspects.REGISTRAR.getEntries().stream().map(Supplier::get).filter(a -> get(a) > 0).map(a -> AspectStack.of(a, get(a))).collect(ImmutableList.toImmutableList());
   }
 
@@ -155,7 +155,7 @@ public class AspectList {
   }
 
   public boolean isEmpty() {
-    return this == AspectList.EMPTY || map.values().stream().noneMatch(i -> i > 0);
+    return this == AspectMap.EMPTY || map.values().stream().noneMatch(i -> i > 0);
   }
 
   public Tag save(HolderLookup.Provider lookupProvider) {
@@ -163,11 +163,11 @@ public class AspectList {
         .getOrThrow();
   }
 
-  public static AspectList parse(HolderLookup.Provider lookupProvider, Tag tag) {
-    var optionalAspectList = CODEC.parse(lookupProvider.createSerializationContext(NbtOps.INSTANCE), tag)
+  public static AspectMap parse(HolderLookup.Provider lookupProvider, Tag tag) {
+    var optionalAspectMap = CODEC.parse(lookupProvider.createSerializationContext(NbtOps.INSTANCE), tag)
         .resultOrPartial(System.out::println);
 
-    return optionalAspectList.orElse(AspectList.EMPTY);
+    return optionalAspectMap.orElse(AspectMap.EMPTY);
   }
 
   @Override

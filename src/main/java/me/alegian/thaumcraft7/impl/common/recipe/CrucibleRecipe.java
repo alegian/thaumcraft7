@@ -1,6 +1,6 @@
 package me.alegian.thaumcraft7.impl.common.recipe;
 
-import me.alegian.thaumcraft7.impl.common.aspect.AspectList;
+import me.alegian.thaumcraft7.impl.common.aspect.AspectMap;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7RecipeSerializers;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7RecipeTypes;
 import net.minecraft.core.HolderLookup;
@@ -13,14 +13,14 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
 public class CrucibleRecipe implements Recipe<CrucibleRecipeInput> {
-  private final AspectList requiredAspects;
+  private final AspectMap requiredAspects;
   private final Ingredient requiredCatalyst;
   private final ItemStack result;
 
   /**
    * Catalyst Items should be tagged as such, otherwise the crucible is going to melt them anyway
    */
-  public CrucibleRecipe(AspectList requiredAspects, Ingredient requiredCatalyst, ItemStack result) {
+  public CrucibleRecipe(AspectMap requiredAspects, Ingredient requiredCatalyst, ItemStack result) {
     this.requiredAspects = requiredAspects;
     this.requiredCatalyst = requiredCatalyst;
     this.result = result;
@@ -31,7 +31,7 @@ public class CrucibleRecipe implements Recipe<CrucibleRecipeInput> {
     return NonNullList.of(this.requiredCatalyst);
   }
 
-  public AspectList getRequiredAspects() {
+  public AspectMap getRequiredAspects() {
     return this.requiredAspects;
   }
 

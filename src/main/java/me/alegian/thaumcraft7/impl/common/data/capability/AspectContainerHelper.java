@@ -1,7 +1,7 @@
 package me.alegian.thaumcraft7.impl.common.data.capability;
 
 import me.alegian.thaumcraft7.impl.common.aspect.Aspect;
-import me.alegian.thaumcraft7.impl.common.aspect.AspectList;
+import me.alegian.thaumcraft7.impl.common.aspect.AspectMap;
 import me.alegian.thaumcraft7.impl.init.registries.T7Capabilities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
@@ -18,7 +18,7 @@ public class AspectContainerHelper {
     ).orElse(false);
   }
 
-  public static Optional<AspectList> getAspects(Level level, BlockPos pos) {
+  public static Optional<AspectMap> getAspects(Level level, BlockPos pos) {
     return getAspectContainer(level, pos).map(IAspectContainer::getAspects);
   }
 

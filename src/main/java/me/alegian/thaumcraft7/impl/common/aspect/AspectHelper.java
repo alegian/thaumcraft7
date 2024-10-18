@@ -16,20 +16,20 @@ public class AspectHelper {
     return getAspects(itemStack) != null;
   }
 
-  public static AspectList getAspects(ItemEntity itemEntity) {
+  public static AspectMap getAspects(ItemEntity itemEntity) {
     return getAspects(itemEntity.getItem());
   }
 
   /**
    * This method checks for Block aspects before returning Item aspects.
    */
-  public static AspectList getAspects(Item item) {
+  public static AspectMap getAspects(Item item) {
     if (item instanceof BlockItem blockItem)
       return BuiltInRegistries.BLOCK.wrapAsHolder(blockItem.getBlock()).getData(T7DataMaps.AspectContent.BLOCK);
     return BuiltInRegistries.ITEM.wrapAsHolder(item).getData(T7DataMaps.AspectContent.ITEM);
   }
 
-  public static AspectList getAspects(ItemStack itemStack) {
+  public static AspectMap getAspects(ItemStack itemStack) {
     var itemAspects = getAspects(itemStack.getItem());
     if (itemAspects == null) return null;
     return itemAspects.scale(itemStack.getCount());

@@ -6,7 +6,7 @@ import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.client.T7GuiGraphics;
 import me.alegian.thaumcraft7.impl.client.texture.atlas.AspectAtlas;
 import me.alegian.thaumcraft7.impl.common.aspect.Aspect;
-import me.alegian.thaumcraft7.impl.common.aspect.AspectList;
+import me.alegian.thaumcraft7.impl.common.aspect.AspectMap;
 import me.alegian.thaumcraft7.impl.common.aspect.AspectStack;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
@@ -26,7 +26,7 @@ public class AspectRenderer {
    * Renders the Aspect contents of an AspectContainer, using GuiGraphics.<br>
    * GuiGraphics assumes integer pixel coordinates, so we multiply everything by 16 (so a block is 16x16).
    */
-  public static void renderAfterWeather(AspectList aspects, PoseStack poseStack, Camera camera, BlockPos blockPos) {
+  public static void renderAfterWeather(AspectMap aspects, PoseStack poseStack, Camera camera, BlockPos blockPos) {
     if (aspects.isEmpty()) return;
 
     poseStack.pushPose();

@@ -1,7 +1,7 @@
 package me.alegian.thaumcraft7.impl.common.data.capability;
 
 import me.alegian.thaumcraft7.impl.common.aspect.Aspect;
-import me.alegian.thaumcraft7.impl.common.aspect.AspectList;
+import me.alegian.thaumcraft7.impl.common.aspect.AspectMap;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7DataComponents;
 import net.neoforged.neoforge.common.MutableDataComponentHolder;
 
@@ -29,30 +29,30 @@ public class AspectContainer implements IAspectContainer {
   }
 
   @Override
-  public AspectList getAspects() {
-    AspectList aspectList = holder.get(T7DataComponents.ASPECTS);
-    if (aspectList == null) return AspectList.EMPTY;
-    return aspectList;
+  public AspectMap getAspects() {
+    AspectMap aspectMap = holder.get(T7DataComponents.ASPECTS);
+    if (aspectMap == null) return AspectMap.EMPTY;
+    return aspectMap;
   }
 
   @Override
   public boolean addAspect(Aspect aspect, int amount) {
-    AspectList current = getAspects();
+    AspectMap current = getAspects();
     holder.set(T7DataComponents.ASPECTS, current.add(aspect, amount));
     return true;
   }
 
   @Override
-  public boolean addAspects(@Nullable AspectList aspects) {
+  public boolean addAspects(@Nullable AspectMap aspects) {
     if (aspects == null) return false;
 
-    AspectList current = this.getAspects();
+    AspectMap current = this.getAspects();
     holder.set(T7DataComponents.ASPECTS, current.merge(aspects));
     return true;
   }
 
   @Override
-  public void subtract(AspectList aspects) {
+  public void subtract(AspectMap aspects) {
     holder.set(T7DataComponents.ASPECTS, this.getAspects().subtract(aspects));
   }
 

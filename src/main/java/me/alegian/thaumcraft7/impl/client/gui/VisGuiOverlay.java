@@ -3,7 +3,7 @@ package me.alegian.thaumcraft7.impl.client.gui;
 import me.alegian.thaumcraft7.impl.client.T7GuiGraphics;
 import me.alegian.thaumcraft7.impl.client.texture.Texture;
 import me.alegian.thaumcraft7.impl.common.aspect.Aspect;
-import me.alegian.thaumcraft7.impl.common.aspect.AspectList;
+import me.alegian.thaumcraft7.impl.common.aspect.AspectMap;
 import me.alegian.thaumcraft7.impl.common.data.capability.AspectContainerHelper;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.Aspects;
 import net.minecraft.client.Minecraft;
@@ -21,7 +21,7 @@ public class VisGuiOverlay {
 
   // updated via event
   public static boolean visible = false;
-  public static AspectList vis;
+  public static AspectMap vis;
   public static int maxAmount = 1;
 
   public static final LayeredDraw.Layer LAYER = ((guiGraphics, partialTick) -> {

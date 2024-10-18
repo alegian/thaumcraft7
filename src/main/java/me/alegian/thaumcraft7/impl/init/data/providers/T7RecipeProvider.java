@@ -1,6 +1,6 @@
 package me.alegian.thaumcraft7.impl.init.data.providers;
 
-import me.alegian.thaumcraft7.impl.common.aspect.AspectList;
+import me.alegian.thaumcraft7.impl.common.aspect.AspectMap;
 import me.alegian.thaumcraft7.impl.common.aspect.AspectStack;
 import me.alegian.thaumcraft7.impl.init.data.providers.builders.CrucibleRecipeBuilder;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.*;
@@ -108,7 +108,7 @@ public class T7RecipeProvider extends RecipeProvider {
 
     inCrucible(pRecipeOutput,
         new ItemStack(Items.DIAMOND),
-        AspectList.of(AspectStack.of(Aspects.TERRA.get(), 6), AspectStack.of(Aspects.PERDITIO.get(), 2)),
+        AspectMap.of(AspectStack.of(Aspects.TERRA.get(), 6), AspectStack.of(Aspects.PERDITIO.get(), 2)),
         Ingredient.of(Items.DRAGON_EGG)
     );
   }
@@ -167,7 +167,7 @@ public class T7RecipeProvider extends RecipeProvider {
         .save(pRecipeOutput);
   }
 
-  protected static void inCrucible(RecipeOutput output, ItemStack result, AspectList aspects, Ingredient catalyst) {
+  protected static void inCrucible(RecipeOutput output, ItemStack result, AspectMap aspects, Ingredient catalyst) {
     var catalystItem = catalyst.getItems()[0].getItem();
     new CrucibleRecipeBuilder(result, aspects, catalyst)
         .unlockedBy(getHasName(catalystItem), has(catalystItem))

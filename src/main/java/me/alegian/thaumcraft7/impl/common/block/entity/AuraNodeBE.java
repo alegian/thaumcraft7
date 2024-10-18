@@ -1,6 +1,6 @@
 package me.alegian.thaumcraft7.impl.common.block.entity;
 
-import me.alegian.thaumcraft7.impl.common.aspect.AspectList;
+import me.alegian.thaumcraft7.impl.common.aspect.AspectMap;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7BlockEntities;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Blocks;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7DataComponents;
@@ -43,7 +43,7 @@ public class AuraNodeBE extends DataComponentBE {
     if (!this.getLevel().isClientSide()) {
       var aspects = get(T7DataComponents.ASPECTS.get());
       if (aspects == null) {
-        set(T7DataComponents.ASPECTS.get(), AspectList.randomPrimals());
+        set(T7DataComponents.ASPECTS.get(), AspectMap.randomPrimals());
       }
       this.getLevel().sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), Block.UPDATE_CLIENTS);
     }

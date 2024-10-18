@@ -1,7 +1,7 @@
 package me.alegian.thaumcraft7.impl.common.block;
 
 import me.alegian.thaumcraft7.impl.common.aspect.AspectHelper;
-import me.alegian.thaumcraft7.impl.common.aspect.AspectList;
+import me.alegian.thaumcraft7.impl.common.aspect.AspectMap;
 import me.alegian.thaumcraft7.impl.common.block.entity.CrucibleBE;
 import me.alegian.thaumcraft7.impl.common.data.capability.AspectContainerHelper;
 import me.alegian.thaumcraft7.impl.common.data.capability.IAspectContainer;
@@ -136,7 +136,7 @@ public class CrucibleBlock extends Block implements EntityBlock {
 
     // try to use as catalyst
     if (thrownStack.is(T7Tags.CATALYST)) {
-      AspectList crucibleAspects = AspectContainerHelper
+      AspectMap crucibleAspects = AspectContainerHelper
           .getAspectContainer(level, pPos).map(IAspectContainer::getAspects).orElseThrow();
 
       RecipeManager recipes = level.getRecipeManager();
@@ -172,7 +172,7 @@ public class CrucibleBlock extends Block implements EntityBlock {
     }
 
     if (!AspectHelper.hasAspects(thrownStack)) return;
-    AspectList itemAspects = AspectHelper.getAspects(itemEntity);
+    AspectMap itemAspects = AspectHelper.getAspects(itemEntity);
     AspectContainerHelper
         .getAspectContainer(level, pPos)
         .ifPresent(c -> c.addAspects(itemAspects));

@@ -17,7 +17,7 @@ public class AspectClientTooltipComponent implements ClientTooltipComponent {
   private static final int PADDING = 3;
 
   public AspectClientTooltipComponent(AspectTooltipComponent tooltip) {
-    displayedAspects = tooltip.getAspectList().displayedAspects();
+    displayedAspects = tooltip.getAspectMap().displayedAspects();
   }
 
   @Override

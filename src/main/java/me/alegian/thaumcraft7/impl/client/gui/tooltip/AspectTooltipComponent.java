@@ -1,7 +1,7 @@
 package me.alegian.thaumcraft7.impl.client.gui.tooltip;
 
 import me.alegian.thaumcraft7.impl.common.aspect.AspectHelper;
-import me.alegian.thaumcraft7.impl.common.aspect.AspectList;
+import me.alegian.thaumcraft7.impl.common.aspect.AspectMap;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
@@ -9,14 +9,14 @@ import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class AspectTooltipComponent implements TooltipComponent {
-  private static AspectList aspectList;
+  private static AspectMap aspectMap;
 
   public AspectTooltipComponent(ItemStack itemStack) {
-    aspectList = AspectHelper.getAspects(itemStack.getItem());
+    aspectMap = AspectHelper.getAspects(itemStack.getItem());
   }
 
-  public AspectList getAspectList() {
-    if (aspectList == null) return AspectList.EMPTY;
-    return aspectList;
+  public AspectMap getAspectMap() {
+    if (aspectMap == null) return AspectMap.EMPTY;
+    return aspectMap;
   }
 }

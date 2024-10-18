@@ -1,6 +1,6 @@
 package me.alegian.thaumcraft7.impl.init.data.providers;
 
-import me.alegian.thaumcraft7.impl.common.aspect.AspectList;
+import me.alegian.thaumcraft7.impl.common.aspect.AspectMap;
 import me.alegian.thaumcraft7.impl.common.aspect.AspectStack;
 import me.alegian.thaumcraft7.impl.init.registries.T7DataMaps;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.Aspects;
@@ -69,18 +69,18 @@ public class T7DataMapProvider extends DataMapProvider {
    * When checking for Aspect contents, the Block aspects are prioritized over the Item aspects.
    * Therefore, to avoid ambiguities, BlockItem aspect registration is forbidden.
    */
-  private void item(DataMapProvider.Builder<AspectList, Item> builder, Item item, AspectStack... aspects) {
+  private void item(DataMapProvider.Builder<AspectMap, Item> builder, Item item, AspectStack... aspects) {
     if (item instanceof BlockItem)
       throw new IllegalArgumentException("Cannot register Aspects for BlockItems, you should register for their Blocks instead");
-    builder.add(key(item), AspectList.of(aspects), false);
+    builder.add(key(item), AspectMap.of(aspects), false);
   }
 
-  private void block(DataMapProvider.Builder<AspectList, Block> builder, Block block, AspectStack... aspects) {
-    builder.add(key(block), AspectList.of(aspects), false);
+  private void block(DataMapProvider.Builder<AspectMap, Block> builder, Block block, AspectStack... aspects) {
+    builder.add(key(block), AspectMap.of(aspects), false);
   }
 
-  private void block(DataMapProvider.Builder<AspectList, Block> builder, TagKey<Block> tag, AspectStack... aspects) {
-    builder.add(tag, AspectList.of(aspects), false);
+  private void block(DataMapProvider.Builder<AspectMap, Block> builder, TagKey<Block> tag, AspectStack... aspects) {
+    builder.add(tag, AspectMap.of(aspects), false);
   }
 
   private ResourceKey<Item> key(Item item) {

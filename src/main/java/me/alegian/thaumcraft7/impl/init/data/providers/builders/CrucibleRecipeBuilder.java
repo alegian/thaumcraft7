@@ -1,6 +1,6 @@
 package me.alegian.thaumcraft7.impl.init.data.providers.builders;
 
-import me.alegian.thaumcraft7.impl.common.aspect.AspectList;
+import me.alegian.thaumcraft7.impl.common.aspect.AspectMap;
 import me.alegian.thaumcraft7.impl.common.recipe.CrucibleRecipe;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
@@ -19,11 +19,11 @@ import java.util.Map;
 
 public class CrucibleRecipeBuilder implements RecipeBuilder {
   private final ItemStack result;
-  private final AspectList aspects;
+  private final AspectMap aspects;
   private final Ingredient catalyst;
   private final Map<String, Criterion<?>> criteria = new LinkedHashMap<>();
 
-  public CrucibleRecipeBuilder(ItemStack result, AspectList aspects, Ingredient catalyst) {
+  public CrucibleRecipeBuilder(ItemStack result, AspectMap aspects, Ingredient catalyst) {
     this.result = result;
     this.aspects = aspects;
     this.catalyst = catalyst;

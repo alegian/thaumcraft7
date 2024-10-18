@@ -1,7 +1,7 @@
 package me.alegian.thaumcraft7.impl.common.data.capability;
 
 import me.alegian.thaumcraft7.impl.common.aspect.Aspect;
-import me.alegian.thaumcraft7.impl.common.aspect.AspectList;
+import me.alegian.thaumcraft7.impl.common.aspect.AspectMap;
 
 import javax.annotation.Nullable;
 
@@ -11,13 +11,13 @@ import javax.annotation.Nullable;
  * a Thaumometer.
  */
 public interface IAspectContainer {
-  AspectList getAspects();
+  AspectMap getAspects();
 
   boolean addAspect(Aspect aspect, int amount);
 
-  boolean addAspects(@Nullable AspectList aspects);
+  boolean addAspects(@Nullable AspectMap aspects);
 
-  void subtract(AspectList aspects);
+  void subtract(AspectMap aspects);
 
   int getMaxAmount();
 
