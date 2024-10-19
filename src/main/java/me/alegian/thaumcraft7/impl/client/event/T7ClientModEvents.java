@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.client.T7Colors;
 import me.alegian.thaumcraft7.impl.client.T7RenderStateShards;
-import me.alegian.thaumcraft7.impl.client.extension.ThaumometerItemExtensions;
+import me.alegian.thaumcraft7.impl.client.extension.OculusItemExtensions;
 import me.alegian.thaumcraft7.impl.client.extension.WandItemExtensions;
 import me.alegian.thaumcraft7.impl.client.gui.VisGuiOverlay;
 import me.alegian.thaumcraft7.impl.client.gui.tooltip.AspectClientTooltipComponent;
@@ -53,7 +53,7 @@ public class T7ClientModEvents {
     for (var wand : T7Items.WANDS.values()) {
       event.registerItem(new WandItemExtensions(), wand);
     }
-    event.registerItem(new ThaumometerItemExtensions(), T7Items.THAUMOMETER.get());
+    event.registerItem(new OculusItemExtensions(), T7Items.OCULUS.get());
   }
 
   @SubscribeEvent

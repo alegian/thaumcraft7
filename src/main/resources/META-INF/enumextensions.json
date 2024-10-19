@@ -11,10 +11,10 @@
     },
     {
       "enum": "net/minecraft/client/model/HumanoidModel$ArmPose",
-      "name": "thaumcraft7_THAUMOMETER",
+      "name": "thaumcraft7_OCULUS",
       "constructor": "(ZLnet/neoforged/neoforge/client/IArmPoseTransformer;)V",
       "parameters": {
-        "class": "me/alegian/thaumcraft7/impl/common/enumextension/ThaumometerArmPose",
+        "class": "me/alegian/thaumcraft7/impl/common/enumextension/OculusArmPose",
         "field": "ENUM_PARAMS"
       }
     }

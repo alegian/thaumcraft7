@@ -91,7 +91,7 @@ public class T7Items {
   public static final DeferredItem<KatanaItem> ARCANUM_KATANA = REGISTRAR.register("arcanum_katana", KatanaItem::new);
   public static final DeferredItem<ZephyrItem> ZEPHYR = REGISTRAR.register("zephyr", ZephyrItem::new);
 
-  public static final DeferredItem<ThaumometerItem> THAUMOMETER = REGISTRAR.registerItem("thaumometer", ThaumometerItem::new);
+  public static final DeferredItem<OculusItem> OCULUS = REGISTRAR.registerItem("oculus", OculusItem::new);
   public static final DeferredItem<ThaumonomiconItem> THAUMONOMICON = REGISTRAR.registerItem("thaumonomicon", ThaumonomiconItem::new);
 
   public static final DeferredItem<ArmorItem> GOGGLES = REGISTRAR.registerItem("goggles", GogglesItem::new, new Item.Properties().durability(ArmorItem.Type.HELMET.getDurability(15)));

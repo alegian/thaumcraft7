@@ -60,7 +60,7 @@ public class T7CreativeModeTabs {
               output.accept(T7Items.ORICHALCUM_NUGGET.get());
               output.accept(T7Items.RESEARCH_SCROLL.get());
               output.accept(T7Items.COMPLETED_RESEARCH.get());
-              output.accept(T7Items.THAUMOMETER.get());
+              output.accept(T7Items.OCULUS.get());
               output.accept(T7Items.THAUMONOMICON.get());
 
               output.accept(T7Items.wandOrThrow(WandHandleMaterials.IRON.get(), WandCoreMaterials.WOOD.get()));

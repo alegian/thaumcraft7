@@ -1,8 +1,12 @@
 package me.alegian.thaumcraft7.impl.common.item;
 
+import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.common.block.AuraNodeBlock;
 import me.alegian.thaumcraft7.impl.common.data.capability.AspectContainerHelper;
+import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -13,9 +17,21 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.animatable.GeoItem;
+import software.bernie.geckolib.animatable.client.GeoRenderProvider;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.model.DefaultedItemGeoModel;
+import software.bernie.geckolib.renderer.GeoItemRenderer;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class ThaumometerItem extends Item {
-  public ThaumometerItem(Properties props) {
+import java.util.function.Consumer;
+
+public class OculusItem extends Item implements GeoItem {
+  private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+
+  public OculusItem(Properties props) {
     super(props);
   }
 
@@ -53,5 +69,35 @@ public class ThaumometerItem extends Item {
   @Override
   public UseAnim getUseAnimation(ItemStack itemStack) {
     return UseAnim.CUSTOM;
+  }
+
+  @Override
+  public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+
+  }
+
+  @Override
+  public AnimatableInstanceCache getAnimatableInstanceCache() {
+    return this.cache;
+  }
+
+  @Override
+  public void createGeoRenderer(Consumer<GeoRenderProvider> consumer) {
+    consumer.accept(new GeoRenderProvider() {
+      private GeoItemRenderer<?> renderer;
+
+      @Override
+      public BlockEntityWithoutLevelRenderer getGeoItemRenderer() {
+        if (this.renderer == null)
+          this.renderer = new GeoItemRenderer<>(new DefaultedItemGeoModel<OculusItem>(Thaumcraft.id("oculus")){
+            @Override
+            public RenderType getRenderType(OculusItem animatable, ResourceLocation texture) {
+              return RenderType.entityTranslucent(texture);
+            }
+          });
+
+        return this.renderer;
+      }
+    });
   }
 }

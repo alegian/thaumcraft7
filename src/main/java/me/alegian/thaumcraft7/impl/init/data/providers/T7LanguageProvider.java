@@ -38,7 +38,7 @@ public class T7LanguageProvider extends LanguageProvider {
     add(T7Items.ORICHALCUM_NUGGET.get(), "Orichalcum Nugget");
     add(T7Items.RESEARCH_SCROLL.get(), "Research Scroll");
     add(T7Items.COMPLETED_RESEARCH.get(), "Completed Research");
-    add(T7Items.THAUMOMETER.get(), "Thaumometer");
+    add(T7Items.OCULUS.get(), "Oculus");
     add(T7Items.THAUMONOMICON.get(), "Thaumonomicon");
 
     add(T7Items.GOGGLES.get(), "Goggles Of Revealing");
