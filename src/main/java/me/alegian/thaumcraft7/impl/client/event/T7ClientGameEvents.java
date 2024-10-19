@@ -73,7 +73,7 @@ public class T7ClientGameEvents {
 
     // aspect renderer
     if (!AspectContainerHelper.isAspectContainer(minecraft.level, blockPos)) return;
-    if (!ClientHelper.isLocalPlayerWearingGoggles()) return;
+    if (!ClientHelper.localPlayerHasRevealing()) return;
 
     AspectContainerHelper.getAspects(minecraft.level, blockPos).ifPresent(
         aspects -> AspectRenderer.renderAfterWeather(aspects, event.getPoseStack(), event.getCamera(), blockPos)
@@ -83,7 +83,7 @@ public class T7ClientGameEvents {
   @SubscribeEvent
   public static void gatherTooltipComponents(RenderTooltipEvent.GatherComponents event) {
     if (!Screen.hasShiftDown()) return;
-    if (!ClientHelper.isLocalPlayerWearingGoggles()) return;
+    if (!ClientHelper.localPlayerHasRevealing()) return;
 
     event.getTooltipElements().add(Either.right(new AspectTooltipComponent(event.getItemStack())));
   }

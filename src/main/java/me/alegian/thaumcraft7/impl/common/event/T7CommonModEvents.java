@@ -4,6 +4,7 @@ import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.init.data.providers.*;
 import me.alegian.thaumcraft7.impl.init.registries.T7DataMaps;
 import me.alegian.thaumcraft7.impl.init.registries.T7Registries;
+import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Attributes;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7BlockEntities;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Blocks;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Items;
@@ -12,12 +13,15 @@ import me.alegian.thaumcraft7.impl.init.registries.deferred.callback.WandHandleC
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.loot.LootTableProvider;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.event.ModifyDefaultComponentsEvent;
+import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
+import net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent;
 import net.neoforged.neoforge.registries.ModifyRegistriesEvent;
 import net.neoforged.neoforge.registries.NewRegistryEvent;
 import net.neoforged.neoforge.registries.datamaps.RegisterDataMapTypesEvent;
@@ -86,5 +90,11 @@ public class T7CommonModEvents {
   @SubscribeEvent
   public static void modifyDefaultComponents(ModifyDefaultComponentsEvent event) {
     event.modify(T7Items.ARCANUM_HAMMER, builder -> builder.set(DataComponents.MAX_DAMAGE, T7Items.ARCANUM_HAMMER.get().getTier().getUses() * 2));
+  }
+
+  @SubscribeEvent
+  public static void entityAttributeModification(EntityAttributeModificationEvent event){
+    if(!event.has(EntityType.PLAYER, T7Attributes.REVEALING))
+      event.add(EntityType.PLAYER, T7Attributes.REVEALING);
   }
 }

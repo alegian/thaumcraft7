@@ -4,12 +4,14 @@ import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.common.item.WandItem;
 import me.alegian.thaumcraft7.impl.common.wand.WandCoreMaterial;
 import me.alegian.thaumcraft7.impl.common.wand.WandHandleMaterial;
-import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Blocks;
-import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Items;
-import me.alegian.thaumcraft7.impl.init.registries.deferred.WandCoreMaterials;
-import me.alegian.thaumcraft7.impl.init.registries.deferred.WandHandleMaterials;
+import me.alegian.thaumcraft7.impl.init.registries.deferred.*;
+import net.minecraft.Util;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
+import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.neoforged.neoforge.common.data.LanguageProvider;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -117,5 +119,11 @@ public class T7LanguageProvider extends LanguageProvider {
     add(T7Blocks.ESSENTIA_CONTAINER.get(), "Essentia Container");
 
     add("container." + Thaumcraft.MODID + ".arcane_workbench", "Arcane Workbench");
+
+    add(T7Attributes.REVEALING, "Revealing");
+  }
+
+  private void add(DeferredHolder<Attribute, Attribute> attributeHolder, String name) {
+    add(Util.makeDescriptionId(Registries.ATTRIBUTE.location().getPath(), attributeHolder.getId()), name);
   }
 }

@@ -32,6 +32,7 @@ public class Thaumcraft {
     WandHandleMaterials.REGISTRAR.register(modEventBus);
     Aspects.REGISTRAR.register(modEventBus);
     Researches.REGISTRAR.register(modEventBus);
+    T7Attributes.REGISTRAR.register(modEventBus);
   }
 
   public static ResourceLocation id(String path) {

@@ -1,6 +1,6 @@
 package me.alegian.thaumcraft7.impl.client;
 
-import me.alegian.thaumcraft7.impl.init.registries.T7Capabilities;
+import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Attributes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Item;
@@ -13,9 +13,10 @@ import java.util.Optional;
 
 @OnlyIn(Dist.CLIENT)
 public class ClientHelper {
-  public static boolean isLocalPlayerWearingGoggles() {
-    return getLocalPlayerEquipment(EquipmentSlot.HEAD)
-        .map(h -> h.getCapability(T7Capabilities.REVEALING) != null)
+  public static boolean localPlayerHasRevealing() {
+    return Optional.ofNullable(Minecraft.getInstance().player)
+        .map(p -> p.getAttribute(T7Attributes.REVEALING))
+        .map(a -> a.getValue() == 1)
         .orElse(false);
   }
 

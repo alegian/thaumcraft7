@@ -15,7 +15,6 @@ import java.util.function.Supplier;
 
 public class T7Attachments {
   public static final DeferredRegister<AttachmentType<?>> REGISTRAR = DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, Thaumcraft.MODID);
-
 //  private static final Codec<Map<Research, Boolean>> CODEC = Codec.
 //
 //  private static final Supplier<AttachmentType<Map<Research, Boolean>>> RESEARCH = REGISTRAR.register(

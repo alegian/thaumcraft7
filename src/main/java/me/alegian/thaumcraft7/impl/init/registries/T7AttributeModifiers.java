@@ -14,4 +14,14 @@ public class T7AttributeModifiers {
             AttributeModifier.Operation.ADD_VALUE
         );
   }
+
+  public static class Revealing {
+    public static final ResourceLocation LOCATION = Thaumcraft.id("revealing");
+    public static final AttributeModifier MODIFIER =
+        new AttributeModifier(
+            LOCATION,
+            1.0,
+            AttributeModifier.Operation.ADD_VALUE
+        );
+  }
 }

@@ -18,9 +18,4 @@ public final class T7Capabilities {
         IAspectContainer.class
     );
   }
-
-  public static final ItemCapability<Unit, Void> REVEALING = ItemCapability.createVoid(
-      Thaumcraft.id("goggle"),
-      Unit.class
-  );
 }
