@@ -79,6 +79,15 @@ public class T7RecipeProvider extends RecipeProvider {
         .pattern(" s ")
         .unlockedBy(getHasName(T7Items.ARCANUM_INGOT.get()), has(T7Items.ARCANUM_INGOT.get()))
         .save(pRecipeOutput);
+    ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, T7Items.GOGGLES.get())
+        .define('o', T7Items.OCULUS)
+        .define('g', Items.GOLD_INGOT)
+        .define('l', Items.LEATHER)
+        .pattern("lgl")
+        .pattern("l l")
+        .pattern("ogo")
+        .unlockedBy(getHasName(T7Items.OCULUS.get()), has(T7Items.OCULUS.get()))
+        .save(pRecipeOutput);
     ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, T7Items.ARCANUM_HELMET)
         .define('a', T7Items.ARCANUM_INGOT)
         .pattern("aaa")

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "g": {
+      "item": "minecraft:gold_ingot"
+    },
+    "l": {
+      "item": "minecraft:leather"
+    },
+    "o": {
+      "item": "thaumcraft7:oculus"
+    }
+  },
+  "pattern": [
+    "lgl",
+    "l l",
+    "ogo"
+  ],
+  "result": {
+    "count": 1,
+    "id": "thaumcraft7:goggles"
+  }
+}
