@@ -15,11 +15,22 @@ public class T7AttributeModifiers {
         );
   }
 
+  /**
+   * Different sources of revealing should have different attribute modifiers,
+   * otherwise race conditions may occur
+   */
   public static class Revealing {
     public static final ResourceLocation LOCATION = Thaumcraft.id("revealing");
-    public static final AttributeModifier MODIFIER =
+
+    public static final AttributeModifier GOGGLES =
         new AttributeModifier(
-            LOCATION,
+            LOCATION.withSuffix("goggles"),
+            1.0,
+            AttributeModifier.Operation.ADD_VALUE
+        );
+    public static final AttributeModifier OCULUS =
+        new AttributeModifier(
+            LOCATION.withSuffix("oculus"),
             1.0,
             AttributeModifier.Operation.ADD_VALUE
         );

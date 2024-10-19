@@ -32,6 +32,7 @@ import software.bernie.geckolib.animation.AnimatableManager;
 import software.bernie.geckolib.animation.AnimationController;
 import software.bernie.geckolib.animation.PlayState;
 import software.bernie.geckolib.animation.RawAnimation;
+import software.bernie.geckolib.network.packet.SingletonAnimTriggerPacket;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.function.Consumer;
@@ -116,11 +117,12 @@ public class WandItem extends Item implements GeoItem {
   }
 
   /**
-   * Faster variant, if we already have the serverLevel
+   * Faster variant, if we already have the serverLevel.
+   * Sends a gecko internal packet with custom syncableId, to avoid non-singleton bugs
    */
   protected void animateCircle(boolean isCasting, Entity entity, ItemStack itemStack, ServerLevel level) {
-    var animationId = isCasting ? "casting" : "idle";
-    GeckoLibServices.NETWORK.triggerSingletonAnim(syncableId(), entity, GeoItem.getOrAssignId(itemStack, level), "Casting", animationId);
+    var animationName = isCasting ? "casting" : "idle";
+    GeckoLibServices.NETWORK.sendToAllPlayersTrackingEntity(new SingletonAnimTriggerPacket(syncableId(), GeoItem.getOrAssignId(itemStack, level), "Casting", animationName), entity);
   }
 
   @Override

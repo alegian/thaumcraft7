@@ -10,10 +10,7 @@ import me.alegian.thaumcraft7.impl.init.registries.T7AttributeModifiers;
 import me.alegian.thaumcraft7.impl.init.registries.T7Capabilities;
 import me.alegian.thaumcraft7.impl.init.registries.T7Tiers;
 import net.minecraft.core.Registry;
-import net.minecraft.util.Unit;
 import net.minecraft.world.entity.EquipmentSlotGroup;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
@@ -99,15 +96,7 @@ public class T7Items {
   public static final DeferredItem<OculusItem> OCULUS = REGISTRAR.registerItem("oculus", OculusItem::new);
   public static final DeferredItem<ThaumonomiconItem> THAUMONOMICON = REGISTRAR.registerItem("thaumonomicon", ThaumonomiconItem::new);
 
-  public static final DeferredItem<ArmorItem> GOGGLES = REGISTRAR.registerItem("goggles", GogglesItem::new, new Item.Properties()
-      .durability(ArmorItem.Type.HELMET.getDurability(15))
-      .attributes(
-          ItemAttributeModifiers.builder().add(
-              T7Attributes.REVEALING,
-              T7AttributeModifiers.Revealing.MODIFIER,
-              EquipmentSlotGroup.HEAD
-          ).build()
-      ));
+  public static final DeferredItem<ArmorItem> GOGGLES = REGISTRAR.registerItem("goggles", GogglesItem::new);
   public static final DeferredItem<ArmorItem> RESEARCHER_CHESTPLATE = REGISTRAR.registerItem("researcher_chestplate", props -> new ResearcherArmorItem(ArmorItem.Type.CHESTPLATE, props), new Item.Properties().durability(ArmorItem.Type.CHESTPLATE.getDurability(21)));
   public static final DeferredItem<ArmorItem> RESEARCHER_LEGGINGS = REGISTRAR.registerItem("researcher_leggings", props -> new ResearcherArmorItem(ArmorItem.Type.LEGGINGS, props), new Item.Properties().durability(ArmorItem.Type.LEGGINGS.getDurability(21)));
   public static final DeferredItem<ArmorItem> RESEARCHER_BOOTS = REGISTRAR.registerItem("researcher_boots", props -> new ResearcherArmorItem(ArmorItem.Type.BOOTS, props), new Item.Properties().durability(ArmorItem.Type.BOOTS.getDurability(21)));

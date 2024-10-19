@@ -14,7 +14,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -39,7 +38,7 @@ public class OculusItem extends Item implements GeoItem {
     super(props.attributes(
         ItemAttributeModifiers.builder().add(
             T7Attributes.REVEALING,
-            T7AttributeModifiers.Revealing.MODIFIER,
+            T7AttributeModifiers.Revealing.OCULUS,
             EquipmentSlotGroup.MAINHAND
         ).build()
     ).stacksTo(1));
