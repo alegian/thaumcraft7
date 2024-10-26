@@ -1,5 +1,6 @@
 package me.alegian.thaumcraft7.impl.init.data.providers.builders;
 
+import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.common.aspect.AspectMap;
 import me.alegian.thaumcraft7.impl.common.recipe.CrucibleRecipe;
 import net.minecraft.advancements.Advancement;
@@ -55,6 +56,7 @@ public class CrucibleRecipeBuilder implements RecipeBuilder {
 
     var recipe = new CrucibleRecipe(this.aspects, this.catalyst, this.result);
 
+    id = Thaumcraft.id(id.getPath()).withSuffix("_crucible");
     output.accept(id, recipe, advancement.build(id.withPrefix("recipes/")));
   }
 }

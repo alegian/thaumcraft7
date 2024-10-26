@@ -1,7 +1,6 @@
 {
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
-  "group": "arcanum_ingot",
   "ingredients": [
     {
       "item": "thaumcraft7:arcanum_block"

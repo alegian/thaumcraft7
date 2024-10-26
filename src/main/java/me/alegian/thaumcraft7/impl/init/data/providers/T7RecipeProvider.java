@@ -5,6 +5,7 @@ import me.alegian.thaumcraft7.impl.common.aspect.AspectStack;
 import me.alegian.thaumcraft7.impl.init.data.providers.builders.CrucibleRecipeBuilder;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.*;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.tags.TagKey;
@@ -123,11 +124,11 @@ public class T7RecipeProvider extends RecipeProvider {
   }
 
   protected static void ingot(RecipeOutput pRecipeOutput, ItemLike ingot, ItemLike nugget, ItemLike block) {
-    nineBlockStorageRecipesRecipesWithCustomUnpacking(
-        pRecipeOutput, RecipeCategory.MISC, ingot, RecipeCategory.BUILDING_BLOCKS, block, getItemName(ingot) + "_from_iron_block", getItemName(ingot)
+    nineBlockStorageRecipes(
+        pRecipeOutput, RecipeCategory.MISC, ingot, RecipeCategory.BUILDING_BLOCKS, block, itemLoc(block), null, itemLoc(ingot) + "_from_block", null
     );
-    nineBlockStorageRecipesWithCustomPacking(
-        pRecipeOutput, RecipeCategory.MISC, nugget, RecipeCategory.MISC, ingot, getItemName(ingot) + "_from_nuggets", getItemName(ingot)
+    nineBlockStorageRecipes(
+        pRecipeOutput, RecipeCategory.MISC, nugget, RecipeCategory.MISC, ingot, itemLoc(ingot) + "_from_nuggets", null, itemLoc(nugget), null
     );
   }
 
@@ -181,5 +182,9 @@ public class T7RecipeProvider extends RecipeProvider {
     new CrucibleRecipeBuilder(result, aspects, catalyst)
         .unlockedBy(getHasName(catalystItem), has(catalystItem))
         .save(output);
+  }
+
+  protected static String itemLoc(ItemLike itemLike) {
+    return BuiltInRegistries.ITEM.getKey(itemLike.asItem()).toString();
   }
 }

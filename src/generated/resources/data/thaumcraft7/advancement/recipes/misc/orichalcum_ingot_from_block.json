@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_orichalcum_nugget": {
+    "has_orichalcum_block": {
       "conditions": {
         "items": [
           {
-            "items": "thaumcraft7:orichalcum_nugget"
+            "items": "thaumcraft7:orichalcum_block"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:orichalcum_ingot_from_nuggets"
+        "recipe": "thaumcraft7:orichalcum_ingot_from_block"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_orichalcum_nugget"
+      "has_orichalcum_block"
     ]
   ],
   "rewards": {
     "recipes": [
-      "minecraft:orichalcum_ingot_from_nuggets"
+      "thaumcraft7:orichalcum_ingot_from_block"
     ]
   }
 }
