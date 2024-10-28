@@ -2,12 +2,12 @@
   "type": "thaumcraft7:crucible",
   "aspects": [
     {
-      "amount": 2,
-      "aspect": "perditio"
-    },
-    {
       "amount": 6,
       "aspect": "terra"
+    },
+    {
+      "amount": 2,
+      "aspect": "perditio"
     }
   ],
   "catalyst": {

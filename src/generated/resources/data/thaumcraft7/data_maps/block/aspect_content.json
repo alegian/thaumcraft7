@@ -2,30 +2,30 @@
   "values": {
     "#c:cobblestones": [
       {
-        "amount": 1,
-        "aspect": "perditio"
-      },
-      {
         "amount": 5,
         "aspect": "terra"
+      },
+      {
+        "amount": 1,
+        "aspect": "perditio"
       }
     ],
     "#c:concretes": [
-      {
-        "amount": 1,
-        "aspect": "aqua"
-      },
       {
         "amount": 3,
         "aspect": "terra"
       },
       {
-        "amount": 1,
-        "aspect": "ordo"
-      },
-      {
         "amount": 2,
         "aspect": "perditio"
+      },
+      {
+        "amount": 1,
+        "aspect": "aqua"
+      },
+      {
+        "amount": 1,
+        "aspect": "ordo"
       }
     ],
     "#c:glass_blocks/cheap": [
@@ -43,11 +43,11 @@
     "#c:sands": [
       {
         "amount": 5,
-        "aspect": "perditio"
+        "aspect": "terra"
       },
       {
         "amount": 5,
-        "aspect": "terra"
+        "aspect": "perditio"
       }
     ],
     "#c:stones": [
@@ -58,12 +58,12 @@
     ],
     "#minecraft:concrete_powder": [
       {
-        "amount": 2,
-        "aspect": "perditio"
-      },
-      {
         "amount": 3,
         "aspect": "terra"
+      },
+      {
+        "amount": 2,
+        "aspect": "perditio"
       }
     ],
     "#minecraft:logs": [
@@ -129,11 +129,11 @@
       },
       {
         "amount": 25,
-        "aspect": "terra"
+        "aspect": "perditio"
       },
       {
         "amount": 25,
-        "aspect": "perditio"
+        "aspect": "terra"
       },
       {
         "amount": 25,
@@ -154,22 +154,22 @@
     ],
     "minecraft:grass_block": [
       {
-        "amount": 2,
-        "aspect": "herba"
-      },
-      {
         "amount": 5,
         "aspect": "terra"
+      },
+      {
+        "amount": 2,
+        "aspect": "herba"
       }
     ],
     "minecraft:podzol": [
       {
-        "amount": 1,
-        "aspect": "herba"
-      },
-      {
         "amount": 5,
         "aspect": "terra"
+      },
+      {
+        "amount": 1,
+        "aspect": "herba"
       }
     ],
     "minecraft:polished_andesite": [
