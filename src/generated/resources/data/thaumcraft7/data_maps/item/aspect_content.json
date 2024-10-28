@@ -3,11 +3,11 @@
     "minecraft:diamond": [
       {
         "amount": 15,
-        "aspect": "vitreus"
+        "aspect": "thaumcraft7:vitreus"
       },
       {
         "amount": 15,
-        "aspect": "desiderium"
+        "aspect": "thaumcraft7:desiderium"
       }
     ]
   }

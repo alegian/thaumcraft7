@@ -3,11 +3,11 @@
   "aspects": [
     {
       "amount": 6,
-      "aspect": "terra"
+      "aspect": "thaumcraft7:terra"
     },
     {
       "amount": 2,
-      "aspect": "perditio"
+      "aspect": "thaumcraft7:perditio"
     }
   ],
   "catalyst": {

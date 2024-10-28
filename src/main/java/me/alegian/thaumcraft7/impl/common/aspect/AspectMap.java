@@ -28,23 +28,23 @@ import java.util.stream.Collectors;
  * Using a non-sequenced map might cause undefined behavior.
  */
 public class AspectMap {
-  private final LinkedHashMap<String, Integer> map;
+  private final LinkedHashMap<Aspect, Integer> map;
   public static final AspectMap EMPTY = new AspectMap(new LinkedHashMap<>());
 
   /**
    * This argument should ideally be a LinkedHashMap, but is a Map instead,
    * to make codecs easier
    */
-  private AspectMap(Map<String, Integer> map) {
+  private AspectMap(Map<Aspect, Integer> map) {
     this.map = new LinkedHashMap<>(map);
   }
 
-  public static final Codec<Pair<String, Integer>> PAIR_CODEC = Codec.pair(
-      Codec.STRING.fieldOf("aspect").codec(),
+  public static final Codec<Pair<Aspect, Integer>> PAIR_CODEC = Codec.pair(
+      Aspect.CODEC.fieldOf("aspect").codec(),
       Codec.INT.fieldOf("amount").codec()
   );
 
-  public static final Codec<List<Pair<String, Integer>>> PAIR_LIST_CODEC = PAIR_CODEC.listOf();
+  public static final Codec<List<Pair<Aspect, Integer>>> PAIR_LIST_CODEC = PAIR_CODEC.listOf();
 
   public static final Codec<AspectMap> CODEC = new Codec<>() {
     @Override
@@ -68,10 +68,10 @@ public class AspectMap {
     }
   };
 
-  public static final StreamCodec<ByteBuf, LinkedHashMap<String, Integer>> MAP_STREAM_CODEC =
+  public static final StreamCodec<ByteBuf, LinkedHashMap<Aspect, Integer>> MAP_STREAM_CODEC =
       ByteBufCodecs.map(
           LinkedHashMap::new,
-          ByteBufCodecs.STRING_UTF8,
+          Aspect.STREAM_CODEC,
           ByteBufCodecs.INT
       );
 
@@ -82,25 +82,25 @@ public class AspectMap {
       );
 
   public AspectMap add(Aspect aspect, int amount) {
-    LinkedHashMap<String, Integer> newMap = new LinkedHashMap<>(map);
-    newMap.put(aspect.getId(), amount);
+    LinkedHashMap<Aspect, Integer> newMap = new LinkedHashMap<>(map);
+    newMap.put(aspect, amount);
     return new AspectMap(newMap);
   }
 
   public AspectMap scale(int scale) {
-    LinkedHashMap<String, Integer> newMap = new LinkedHashMap<>();
+    LinkedHashMap<Aspect, Integer> newMap = new LinkedHashMap<>();
     map.forEach((k, v) -> newMap.put(k, v * scale));
     return new AspectMap(newMap);
   }
 
   public AspectMap merge(AspectMap other) {
-    LinkedHashMap<String, Integer> newMap = new LinkedHashMap<>(map);
+    LinkedHashMap<Aspect, Integer> newMap = new LinkedHashMap<>(map);
     other.getMap().forEach((k, v) -> newMap.merge(k, v, Integer::sum));
     return new AspectMap(newMap);
   }
 
   public AspectMap subtract(AspectMap other) {
-    LinkedHashMap<String, Integer> newMap = new LinkedHashMap<>(map);
+    LinkedHashMap<Aspect, Integer> newMap = new LinkedHashMap<>(map);
     other.getMap().forEach((k, v) -> newMap.merge(k, v, (a, b) -> nullIfZero(a - b)));
     return new AspectMap(newMap);
   }
@@ -114,8 +114,8 @@ public class AspectMap {
    * Useful for recipe checks
    */
   public boolean contains(AspectMap other) {
-    for (String k : other.getMap().keySet()) {
-      if (this.getMap().get(k) < other.getMap().get(k)) return false;
+    for (Aspect a : other.getMap().keySet()) {
+      if (this.getMap().get(a) < other.getMap().get(a)) return false;
     }
     return true;
   }
@@ -124,28 +124,28 @@ public class AspectMap {
    * AspectMap.map is also immutable.
    * This is read-only access to copy the map into a new one.
    */
-  protected LinkedHashMap<String, Integer> getMap() {
+  protected LinkedHashMap<Aspect, Integer> getMap() {
     return map;
   }
 
   public static AspectMap of(AspectStack... aspectStacks) {
-    LinkedHashMap<String, Integer> map = new LinkedHashMap<>();
+    LinkedHashMap<Aspect, Integer> map = new LinkedHashMap<>();
     for (AspectStack stack : aspectStacks) {
-      map.put(stack.aspect().getId(), stack.amount());
+      map.put(stack.aspect(), stack.amount());
     }
     return new AspectMap(map);
   }
 
   public static AspectMap randomPrimals() {
-    LinkedHashMap<String, Integer> map = new LinkedHashMap<>();
+    LinkedHashMap<Aspect, Integer> map = new LinkedHashMap<>();
     for (var a : Aspects.PRIMAL_ASPECTS) {
-      map.put(a.get().getId(), (int) (Math.random() * 16 + 1));
+      map.put(a.get(), (int) (Math.random() * 16 + 1));
     }
     return new AspectMap(map);
   }
 
   public int get(Aspect aspect) {
-    return map.getOrDefault(aspect.getId(), 0);
+    return map.getOrDefault(aspect, 0);
   }
 
   public ImmutableList<AspectStack> displayedAspects() {

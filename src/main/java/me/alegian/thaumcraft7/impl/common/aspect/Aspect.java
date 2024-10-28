@@ -1,6 +1,12 @@
 package me.alegian.thaumcraft7.impl.common.aspect;
 
+import com.mojang.serialization.Codec;
+import io.netty.buffer.ByteBuf;
+import me.alegian.thaumcraft7.impl.init.registries.T7Registries;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.Aspects;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.ResourceLocation;
 
 import java.util.List;
 import java.util.Random;
@@ -45,4 +51,11 @@ public class Aspect {
     var registeredAspects = Aspects.REGISTRAR.getEntries();
     return registeredAspects.stream().skip(new Random().nextInt(registeredAspects.size())).findFirst().get().get();
   }
+
+  public static final StreamCodec<ByteBuf, Aspect> STREAM_CODEC = ByteBufCodecs.STRING_UTF8.map(
+      s -> T7Registries.ASPECT.get(ResourceLocation.parse(s)),
+      a -> T7Registries.ASPECT.getKey(a).toString()
+  );
+
+  public static final Codec<Aspect> CODEC = T7Registries.ASPECT.byNameCodec();
 }
