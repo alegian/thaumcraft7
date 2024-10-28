@@ -40,11 +40,13 @@ public abstract class DataComponentBE extends BlockEntity implements MutableData
 
   @Override
   public <T> @Nullable T set(@NotNull DataComponentType<? super T> componentType, @Nullable T value) {
+    this.setChanged();
     return this.components.set(componentType, value);
   }
 
   @Override
   public <T> @Nullable T remove(@NotNull DataComponentType<? extends T> componentType) {
+    this.setChanged();
     return this.components.remove(componentType);
   }
 
