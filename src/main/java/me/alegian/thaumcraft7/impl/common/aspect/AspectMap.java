@@ -13,7 +13,7 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -23,13 +23,20 @@ import java.util.stream.Collectors;
  * Immutable.
  * Represents a map of Aspects to their amounts.
  * Any operation that adds or removes Aspects should return a new AspectMap.
+ * <p>
+ * Internally uses a LinkedHashMap (i.e. a SequencedMap) for deterministic iteration order.
+ * Using a non-sequenced map might cause undefined behavior.
  */
 public class AspectMap {
-  private final Map<String, Integer> map;
-  public static final AspectMap EMPTY = new AspectMap(new HashMap<>());
+  private final LinkedHashMap<String, Integer> map;
+  public static final AspectMap EMPTY = new AspectMap(new LinkedHashMap<>());
 
-  public AspectMap(Map<String, Integer> map) {
-    this.map = new HashMap<>(map);
+  /**
+   * This argument should ideally be a LinkedHashMap, but is a Map instead,
+   * to make codecs easier
+   */
+  private AspectMap(Map<String, Integer> map) {
+    this.map = new LinkedHashMap<>(map);
   }
 
   public static final Codec<Pair<String, Integer>> PAIR_CODEC = Codec.pair(
@@ -61,9 +68,9 @@ public class AspectMap {
     }
   };
 
-  public static final StreamCodec<ByteBuf, Map<String, Integer>> MAP_STREAM_CODEC =
+  public static final StreamCodec<ByteBuf, LinkedHashMap<String, Integer>> MAP_STREAM_CODEC =
       ByteBufCodecs.map(
-          HashMap::new,
+          LinkedHashMap::new,
           ByteBufCodecs.STRING_UTF8,
           ByteBufCodecs.INT
       );
@@ -75,25 +82,25 @@ public class AspectMap {
       );
 
   public AspectMap add(Aspect aspect, int amount) {
-    HashMap<String, Integer> newMap = new HashMap<>(map);
+    LinkedHashMap<String, Integer> newMap = new LinkedHashMap<>(map);
     newMap.put(aspect.getId(), amount);
     return new AspectMap(newMap);
   }
 
   public AspectMap scale(int scale) {
-    HashMap<String, Integer> newMap = new HashMap<>();
+    LinkedHashMap<String, Integer> newMap = new LinkedHashMap<>();
     map.forEach((k, v) -> newMap.put(k, v * scale));
     return new AspectMap(newMap);
   }
 
   public AspectMap merge(AspectMap other) {
-    HashMap<String, Integer> newMap = new HashMap<>(map);
+    LinkedHashMap<String, Integer> newMap = new LinkedHashMap<>(map);
     other.getMap().forEach((k, v) -> newMap.merge(k, v, Integer::sum));
     return new AspectMap(newMap);
   }
 
   public AspectMap subtract(AspectMap other) {
-    HashMap<String, Integer> newMap = new HashMap<>(map);
+    LinkedHashMap<String, Integer> newMap = new LinkedHashMap<>(map);
     other.getMap().forEach((k, v) -> newMap.merge(k, v, (a, b) -> nullIfZero(a - b)));
     return new AspectMap(newMap);
   }
@@ -117,16 +124,12 @@ public class AspectMap {
    * AspectMap.map is also immutable.
    * This is read-only access to copy the map into a new one.
    */
-  protected Map<String, Integer> getMap() {
+  protected LinkedHashMap<String, Integer> getMap() {
     return map;
   }
 
-  public static AspectMap of(Aspect aspect, int amount) {
-    return new AspectMap(Map.of(aspect.getId(), amount));
-  }
-
   public static AspectMap of(AspectStack... aspectStacks) {
-    Map<String, Integer> map = new HashMap<>();
+    LinkedHashMap<String, Integer> map = new LinkedHashMap<>();
     for (AspectStack stack : aspectStacks) {
       map.put(stack.aspect().getId(), stack.amount());
     }
@@ -134,7 +137,7 @@ public class AspectMap {
   }
 
   public static AspectMap randomPrimals() {
-    HashMap<String, Integer> map = new HashMap<>();
+    LinkedHashMap<String, Integer> map = new LinkedHashMap<>();
     for (var a : Aspects.PRIMAL_ASPECTS) {
       map.put(a.get().getId(), (int) (Math.random() * 16 + 1));
     }
