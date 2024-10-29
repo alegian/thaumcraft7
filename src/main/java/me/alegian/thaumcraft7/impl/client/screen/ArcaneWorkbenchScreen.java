@@ -16,11 +16,13 @@ import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class ArcaneWorkbenchScreen extends AbstractContainerScreen<ArcaneWorkbenchMenu> {
-  private static final Texture WORKBENCH_BG = new Texture("gui/container/arcane_workbench", 216, 127);
-  private static final Texture INVENTORY_BG = new Texture("gui/container/inventory", 176, 99);
+  private static final Texture WORKBENCH_BG = new Texture("gui/container/arcane_workbench", 216, 127, 255, 255);
+  private static final Texture INVENTORY_BG = new Texture("gui/container/inventory", 176, 99, 255, 255);
   private static final Texture SLOT_TEXTURE = new Texture("gui/container/arcane_workbench_slot", 18, 18);
   private static final Texture RESULT_SLOT_TEXTURE = new Texture("gui/container/arcane_workbench_result_slot", 26, 26);
   private static final Texture ASPECT_SLOT_TEXTURE = new Texture("gui/container/arcane_workbench_aspect_slot", 20, 20);
+  protected static final int PADDING = 2;
+  protected static final int SLOT_SIZE = 16;
 
   public ArcaneWorkbenchScreen(ArcaneWorkbenchMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
     super(pMenu, pPlayerInventory, pTitle);
@@ -28,7 +30,7 @@ public class ArcaneWorkbenchScreen extends AbstractContainerScreen<ArcaneWorkben
     this.inventoryLabelY += 62;
     this.titleLabelY -= 1;
     this.imageWidth = Math.max(WORKBENCH_BG.width(), INVENTORY_BG.width());
-    this.imageHeight = WORKBENCH_BG.height() + 2 + INVENTORY_BG.height();
+    this.imageHeight = WORKBENCH_BG.height() + PADDING + INVENTORY_BG.height();
   }
 
   @Override
@@ -40,23 +42,32 @@ public class ArcaneWorkbenchScreen extends AbstractContainerScreen<ArcaneWorkben
 
   @Override
   protected void renderBg(GuiGraphics pGuiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
-    pGuiGraphics.blit(WORKBENCH_BG.location(), this.leftPos, this.topPos, 0, 0, WORKBENCH_BG.width(), WORKBENCH_BG.height());
-    pGuiGraphics.blit(INVENTORY_BG.location(), this.leftPos + (WORKBENCH_BG.width() - INVENTORY_BG.width()) / 2, this.topPos + WORKBENCH_BG.height() + 2, 0, 0, INVENTORY_BG.width(), INVENTORY_BG.height());
+    var t7graphics = new T7GuiGraphics(pGuiGraphics);
+    t7graphics.push();
+    t7graphics.translateXY(this.leftPos, this.topPos);
+
+    t7graphics.blit(WORKBENCH_BG);
+    t7graphics.translateXY((WORKBENCH_BG.width() - INVENTORY_BG.width()) / 2f, WORKBENCH_BG.height());
+    t7graphics.translateXY(0, PADDING);
+    t7graphics.blit(INVENTORY_BG);
+
+    t7graphics.pop();
 
     for (var slot : this.menu.slots) {
-      renderSlotBg(pGuiGraphics, slot);
+      renderSlotBg(t7graphics, slot);
     }
   }
 
-  protected void renderSlotBg(GuiGraphics pGuiGraphics, Slot slot) {
+  protected void renderSlotBg(T7GuiGraphics t7graphics, Slot slot) {
     Texture texture = SLOT_TEXTURE;
-    int borderWidth = 1;
-    if (slot instanceof ResultSlot) {
-      texture = RESULT_SLOT_TEXTURE;
-      borderWidth = 5;
-    }
+    if (slot instanceof ResultSlot) texture = RESULT_SLOT_TEXTURE;
 
-    pGuiGraphics.blit(texture.location(), this.leftPos + slot.x - borderWidth, this.topPos + slot.y - borderWidth, 0, 0, texture.width(), texture.height(), texture.width(), texture.height());
+    t7graphics.push();
+    // go to the center of the slot and draw the texture centered there
+    t7graphics.translateXY(this.leftPos + slot.x + SLOT_SIZE / 2f, this.topPos + slot.y + SLOT_SIZE / 2f);
+    t7graphics.translateXY(-texture.width() / 2f, -texture.height() / 2f);
+    t7graphics.blit(texture);
+    t7graphics.pop();
   }
 
   protected void renderAspects(GuiGraphics guiGraphics) {

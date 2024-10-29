@@ -10,8 +10,12 @@ import net.neoforged.api.distmarker.OnlyIn;
  * In practice many textures (like inventories) have huge empty spaces we don't care about;
  */
 @OnlyIn(Dist.CLIENT)
-public record Texture(ResourceLocation location, int width, int height) {
+public record Texture(ResourceLocation location, int width, int height, int canvasWidth, int canvasHeight) {
   public Texture(String path, int width, int height) {
-    this(Thaumcraft.id("textures/" + path + ".png"), width, height);
+    this(Thaumcraft.id("textures/" + path + ".png"), width, height, width, height);
+  }
+
+  public Texture(String path, int width, int height, int canvasWidth, int canvasHeight) {
+    this(Thaumcraft.id("textures/" + path + ".png"), width, height, canvasWidth, canvasHeight);
   }
 }

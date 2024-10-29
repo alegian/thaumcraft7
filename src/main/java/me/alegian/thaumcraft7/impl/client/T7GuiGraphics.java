@@ -2,6 +2,7 @@ package me.alegian.thaumcraft7.impl.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
+import me.alegian.thaumcraft7.impl.client.texture.Texture;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -22,6 +23,10 @@ public class T7GuiGraphics extends GuiGraphics {
 
   public T7GuiGraphics(GuiGraphics guiGraphics) {
     super(Minecraft.getInstance(), guiGraphics.pose(), guiGraphics.bufferSource());
+  }
+
+  public void blit(Texture texture) {
+    this.blit(texture.location(), 0, 0, 0, 0, texture.width(), texture.height(), texture.canvasWidth(), texture.canvasHeight());
   }
 
   public void blit(
