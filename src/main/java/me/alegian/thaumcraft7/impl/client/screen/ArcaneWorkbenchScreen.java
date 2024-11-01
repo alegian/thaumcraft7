@@ -1,5 +1,6 @@
 package me.alegian.thaumcraft7.impl.client.screen;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import me.alegian.thaumcraft7.impl.client.T7GuiGraphics;
 import me.alegian.thaumcraft7.impl.client.renderer.AspectRenderer;
 import me.alegian.thaumcraft7.impl.client.texture.Texture;
@@ -7,12 +8,15 @@ import me.alegian.thaumcraft7.impl.common.menu.ArcaneWorkbenchMenu;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.Aspects;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ResultSlot;
 import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.Nullable;
 
 @OnlyIn(Dist.CLIENT)
 public class ArcaneWorkbenchScreen extends AbstractContainerScreen<ArcaneWorkbenchMenu> {
@@ -94,5 +98,13 @@ public class ArcaneWorkbenchScreen extends AbstractContainerScreen<ArcaneWorkben
     }
 
     t7graphics.pop();
+  }
+
+  @Override
+  protected void renderSlotContents(GuiGraphics guiGraphics, ItemStack itemstack, Slot slot, @Nullable String countString) {
+    super.renderSlotContents(guiGraphics, itemstack, slot, countString);
+    //todo if insufficient vis
+    if (slot instanceof ResultSlot)
+      guiGraphics.fill(RenderType.guiGhostRecipeOverlay(), slot.x, slot.y, slot.x + 16, slot.y + 16, 0x30FFFFFF);
   }
 }
