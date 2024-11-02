@@ -17,4 +17,9 @@ public class T7RecipeTypes {
           "crucible",
           () -> RecipeType.simple(Thaumcraft.id("crucible"))
       );
+  public static final Supplier<RecipeType<CrucibleRecipe>> ARCANE_WORKBENCH =
+      REGISTRAR.register(
+          "arcane_workbench",
+          () -> RecipeType.simple(Thaumcraft.id("arcane_workbench"))
+      );
 }

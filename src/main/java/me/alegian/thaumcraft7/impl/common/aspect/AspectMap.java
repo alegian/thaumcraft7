@@ -161,6 +161,10 @@ public class AspectMap {
     return this == AspectMap.EMPTY || map.values().stream().noneMatch(i -> i > 0);
   }
 
+  public AspectMap copy() {
+    return new AspectMap(map);
+  }
+
   public Tag save(HolderLookup.Provider lookupProvider) {
     return CODEC.encodeStart(lookupProvider.createSerializationContext(NbtOps.INSTANCE), this)
         .getOrThrow();

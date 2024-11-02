@@ -3,6 +3,7 @@ package me.alegian.thaumcraft7.impl.init.data.providers;
 import me.alegian.thaumcraft7.impl.common.aspect.AspectMap;
 import me.alegian.thaumcraft7.impl.common.aspect.AspectStack;
 import me.alegian.thaumcraft7.impl.init.data.providers.builders.CrucibleRecipeBuilder;
+import me.alegian.thaumcraft7.impl.init.data.providers.builders.WorkbenchRecipeBuilder;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -14,6 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.Tags;
 
 import java.util.concurrent.CompletableFuture;
@@ -121,6 +123,18 @@ public class T7RecipeProvider extends RecipeProvider {
         AspectMap.of(AspectStack.of(Aspects.TERRA.get(), 6), AspectStack.of(Aspects.PERDITIO.get(), 2)),
         Ingredient.of(Items.DRAGON_EGG)
     );
+
+    WorkbenchRecipeBuilder.shaped(Items.DIAMOND, 2)
+        .requireAspects(AspectMap.of(
+            AspectStack.of(Aspects.IGNIS.get(), 6),
+            AspectStack.of(Aspects.ORDO.get(), 2)
+        ))
+        .define('d', Blocks.COBBLED_DEEPSLATE)
+        .define('g', Items.GOLD_INGOT)
+        .pattern("gd ")
+        .pattern(" g ")
+        .unlockedBy(getHasName(Items.GOLD_INGOT), has(Items.GOLD_INGOT))
+        .save(pRecipeOutput);
   }
 
   protected static void ingot(RecipeOutput pRecipeOutput, ItemLike ingot, ItemLike nugget, ItemLike block) {

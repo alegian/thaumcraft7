@@ -50,7 +50,7 @@ public class CrucibleRecipe implements Recipe<CrucibleRecipeInput> {
 
   @Override
   public ItemStack assemble(CrucibleRecipeInput pInput, HolderLookup.Provider pRegistries) {
-    return this.result.copy();
+    return this.getResultItem(pRegistries).copy();
   }
 
   @Override
