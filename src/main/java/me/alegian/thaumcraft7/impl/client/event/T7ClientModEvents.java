@@ -10,6 +10,7 @@ import me.alegian.thaumcraft7.impl.client.gui.VisGuiOverlay;
 import me.alegian.thaumcraft7.impl.client.gui.tooltip.AspectClientTooltipComponent;
 import me.alegian.thaumcraft7.impl.client.gui.tooltip.AspectTooltipComponent;
 import me.alegian.thaumcraft7.impl.client.model.CubeOverlayModel;
+import me.alegian.thaumcraft7.impl.client.model.WithTransformParentModel;
 import me.alegian.thaumcraft7.impl.client.particle.CrucibleBubbleParticle;
 import me.alegian.thaumcraft7.impl.client.renderer.blockentity.AuraNodeBER;
 import me.alegian.thaumcraft7.impl.client.renderer.blockentity.CrucibleBER;
@@ -50,9 +51,7 @@ public class T7ClientModEvents {
 
   @SubscribeEvent
   public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
-    for (var wand : T7Items.WANDS.values()) {
-      event.registerItem(new WandItemExtensions(), wand);
-    }
+    for (var wand : T7Items.WANDS.values()) event.registerItem(new WandItemExtensions(), wand);
     event.registerItem(new OculusItemExtensions(), T7Items.OCULUS.get());
   }
 
@@ -64,6 +63,7 @@ public class T7ClientModEvents {
   @SubscribeEvent
   public static void registerGeometryLoaders(ModelEvent.RegisterGeometryLoaders event) {
     event.register(CubeOverlayModel.ID, CubeOverlayModel.Loader.INSTANCE);
+    event.register(WithTransformParentModel.ID, WithTransformParentModel.Loader.INSTANCE);
   }
 
   @SubscribeEvent

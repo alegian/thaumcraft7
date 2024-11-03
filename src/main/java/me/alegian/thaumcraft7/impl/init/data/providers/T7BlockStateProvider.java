@@ -2,6 +2,7 @@ package me.alegian.thaumcraft7.impl.init.data.providers;
 
 import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.client.model.CubeOverlayModel;
+import me.alegian.thaumcraft7.impl.client.model.WithTransformParentModel;
 import me.alegian.thaumcraft7.impl.common.block.InfusedStoneBlock;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Blocks;
 import net.minecraft.client.renderer.RenderType;
@@ -23,80 +24,83 @@ public class T7BlockStateProvider extends BlockStateProvider {
 
   @Override
   protected void registerStatesAndModels() {
-    simpleBlockWithItem(T7Blocks.CRUCIBLE.get(), models().getBuilder(T7Blocks.CRUCIBLE.getId().getPath())
+    this.simpleBlockWithItem(T7Blocks.CRUCIBLE.get(), this.models().getBuilder(T7Blocks.CRUCIBLE.getId().getPath())
         .parent(new ModelFile.UncheckedModelFile("block/cauldron"))
         .texture("particle", Thaumcraft.id("block/crucible_side"))
         .texture("top", Thaumcraft.id("block/crucible_top"))
         .texture("bottom", Thaumcraft.id("block/crucible_bottom"))
         .texture("side", Thaumcraft.id("block/crucible_side"))
         .texture("inside", Thaumcraft.id("block/crucible_inner"))
+        .customLoader(WithTransformParentModel.Builder::new)
+        .transformParent(ResourceLocation.withDefaultNamespace("block/block"))
+        .end()
     );
 
-    infusedOreBlockWithItem(T7Blocks.IGNIS_INFUSED_STONE.get());
-    infusedOreBlockWithItem(T7Blocks.AER_INFUSED_STONE.get());
-    infusedOreBlockWithItem(T7Blocks.TERRA_INFUSED_STONE.get());
-    infusedOreBlockWithItem(T7Blocks.AQUA_INFUSED_STONE.get());
-    infusedOreBlockWithItem(T7Blocks.ORDO_INFUSED_STONE.get());
-    infusedOreBlockWithItem(T7Blocks.PERDITIO_INFUSED_STONE.get());
+    this.infusedOreBlockWithItem(T7Blocks.IGNIS_INFUSED_STONE.get());
+    this.infusedOreBlockWithItem(T7Blocks.AER_INFUSED_STONE.get());
+    this.infusedOreBlockWithItem(T7Blocks.TERRA_INFUSED_STONE.get());
+    this.infusedOreBlockWithItem(T7Blocks.AQUA_INFUSED_STONE.get());
+    this.infusedOreBlockWithItem(T7Blocks.ORDO_INFUSED_STONE.get());
+    this.infusedOreBlockWithItem(T7Blocks.PERDITIO_INFUSED_STONE.get());
 
-    logBlockWithItem(T7Blocks.GREATWOOD_LOG.get());
-    simpleBlockWithItem(T7Blocks.GREATWOOD_PLANKS.get());
-    leavesBlockWithItem(T7Blocks.GREATWOOD_LEAVES.get());
-    saplingBlockWithItem(T7Blocks.GREATWOOD_SAPLING.get());
+    this.logBlockWithItem(T7Blocks.GREATWOOD_LOG.get());
+    this.simpleBlockWithItem(T7Blocks.GREATWOOD_PLANKS.get());
+    this.leavesBlockWithItem(T7Blocks.GREATWOOD_LEAVES.get());
+    this.saplingBlockWithItem(T7Blocks.GREATWOOD_SAPLING.get());
 
-    logBlockWithItem(T7Blocks.SILVERWOOD_LOG.get());
-    simpleBlockWithItem(T7Blocks.SILVERWOOD_PLANKS.get());
-    leavesBlockWithItem(T7Blocks.SILVERWOOD_LEAVES.get());
-    saplingBlockWithItem(T7Blocks.SILVERWOOD_SAPLING.get());
+    this.logBlockWithItem(T7Blocks.SILVERWOOD_LOG.get());
+    this.simpleBlockWithItem(T7Blocks.SILVERWOOD_PLANKS.get());
+    this.leavesBlockWithItem(T7Blocks.SILVERWOOD_LEAVES.get());
+    this.saplingBlockWithItem(T7Blocks.SILVERWOOD_SAPLING.get());
 
-    simpleBlockWithItem(T7Blocks.ARCANUM_BLOCK.get());
-    simpleBlockWithItem(T7Blocks.ORICHALCUM_BLOCK.get());
+    this.simpleBlockWithItem(T7Blocks.ARCANUM_BLOCK.get());
+    this.simpleBlockWithItem(T7Blocks.ORICHALCUM_BLOCK.get());
 
-    simpleBlockWithItem(T7Blocks.ELEMENTAL_STONE.get());
+    this.simpleBlockWithItem(T7Blocks.ELEMENTAL_STONE.get());
 
-    simpleBlockWithItem(T7Blocks.ARCANE_WORKBENCH.get(), models().getBuilder(T7Blocks.ARCANE_WORKBENCH.getId().getPath())
+    this.simpleBlockWithItem(T7Blocks.ARCANE_WORKBENCH.get(), this.models().getBuilder(T7Blocks.ARCANE_WORKBENCH.getId().getPath())
         .parent(new ModelFile.UncheckedModelFile("block/crafting_table"))
     );
 
-    simpleBlockWithItem(T7Blocks.ESSENTIA_CONTAINER.get(), models().getExistingFile(modLoc("essentia_container")));
+    this.simpleBlockWithItem(T7Blocks.ESSENTIA_CONTAINER.get(), this.models().getExistingFile(this.modLoc("essentia_container")));
 
-    itemModels().getBuilder(T7Blocks.AURA_NODE.getId().getPath()).parent(new ModelFile.UncheckedModelFile("item/generated")).renderType(RenderType.translucent().name).texture("layer0", Thaumcraft.id("item/aura_node"));
+    this.itemModels().getBuilder(T7Blocks.AURA_NODE.getId().getPath()).parent(new ModelFile.UncheckedModelFile("item/generated")).renderType(RenderType.translucent().name).texture("layer0", Thaumcraft.id("item/aura_node"));
   }
 
   private void simpleBlockWithItem(Block block) {
-    simpleBlockWithItem(block, cubeAll(block));
+    this.simpleBlockWithItem(block, this.cubeAll(block));
   }
 
   private void logBlockWithItem(RotatedPillarBlock block) {
-    ResourceLocation blockRL = blockTexture(block);
-    logBlock(block);
-    itemModels().withExistingParent(name(block), blockRL);
+    ResourceLocation blockRL = this.blockTexture(block);
+    this.logBlock(block);
+    this.itemModels().withExistingParent(this.name(block), blockRL);
   }
 
   private void infusedOreBlockWithItem(InfusedStoneBlock block) {
-    var infusedOreBlockModel = models().withExistingParent(name(block), mcLoc("block/stone"))
+    var infusedOreBlockModel = this.models().withExistingParent(this.name(block), this.mcLoc("block/stone"))
         .customLoader(CubeOverlayModel.Builder::new)
         .spriteLocation(Thaumcraft.id("block/infused_ore"))
         .color((block).getAspect().getColor())
         .end();
-    simpleBlockWithItem(block, infusedOreBlockModel);
+    this.simpleBlockWithItem(block, infusedOreBlockModel);
   }
 
   public void leavesBlockWithItem(LeavesBlock block) {
-    var blockRL = blockTexture(block);
-    var model = models().leaves(name(block), blockRL);
-    simpleBlockWithItem(block, model);
+    var blockRL = this.blockTexture(block);
+    var model = this.models().leaves(this.name(block), blockRL);
+    this.simpleBlockWithItem(block, model);
   }
 
   public void saplingBlockWithItem(SaplingBlock block) {
-    var blockRL = blockTexture(block);
-    var model = models().cross(name(block), blockRL).renderType(RenderType.cutout().name);
-    simpleBlock(block, model);
-    itemModels().withExistingParent(name(block), mcLoc("item/generated")).texture("layer0", blockRL);
+    var blockRL = this.blockTexture(block);
+    var model = this.models().cross(this.name(block), blockRL).renderType(RenderType.cutout().name);
+    this.simpleBlock(block, model);
+    this.itemModels().withExistingParent(this.name(block), this.mcLoc("item/generated")).texture("layer0", blockRL);
   }
 
   private ModelFile existing(ResourceLocation location) {
-    return itemModels().getExistingFile(location);
+    return this.itemModels().getExistingFile(location);
   }
 
   private ResourceLocation key(Block block) {
@@ -104,6 +108,6 @@ public class T7BlockStateProvider extends BlockStateProvider {
   }
 
   private String name(Block block) {
-    return key(block).getPath();
+    return this.key(block).getPath();
   }
 }
