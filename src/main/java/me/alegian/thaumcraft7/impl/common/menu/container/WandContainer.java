@@ -15,7 +15,7 @@ public class WandContainer implements T7Container {
 
   public WandContainer(Menu menu) {
     this.menu = menu;
-    range = new SlotRange.Single(menu);
+    this.range = new SlotRange.Single(menu);
   }
 
   @Override

@@ -1,5 +1,6 @@
 package me.alegian.thaumcraft7.impl.common.menu;
 
+import me.alegian.thaumcraft7.impl.common.aspect.AspectMap;
 import me.alegian.thaumcraft7.impl.common.menu.container.CraftingContainer3x3;
 import me.alegian.thaumcraft7.impl.common.menu.container.T7Container;
 import me.alegian.thaumcraft7.impl.common.menu.container.T7ResultContainer;
@@ -65,7 +66,12 @@ public class ArcaneWorkbenchMenu extends Menu {
           r.value().assemble(craftinginput, level.registryAccess())
       ).orElse(ItemStack.EMPTY);
 
+      var requiredAspects = recipeHolder.map(r ->
+          r.value().assembleAspects()
+      ).orElse(AspectMap.EMPTY);
+
       this.resultContainer.setItem(0, resultItem);
+      this.resultContainer.setSlotEnabled(0, false);
     }
   }
 
