@@ -4,6 +4,7 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
+import com.mojang.blaze3d.vertex.PoseStack;
 import me.alegian.thaumcraft7.impl.Thaumcraft;
 import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
@@ -11,6 +12,7 @@ import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.*;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.client.model.BakedModelWrapper;
@@ -42,13 +44,13 @@ public class WithTransformParentModel implements IUnbakedGeometry<WithTransformP
   @Override
   public @NotNull BakedModel bake(@NotNull IGeometryBakingContext context, @NotNull ModelBaker baker, @NotNull Function<Material, TextureAtlasSprite> spriteGetter, @NotNull ModelState modelState, @NotNull ItemOverrides overrides) {
     BakedModel bakedBase = new ElementsModel(this.base.getElements()).bake(context, baker, spriteGetter, modelState, overrides);
-    return new WithTransformParentModel.Baked(bakedBase, transformParent);
+    return new WithTransformParentModel.Baked(bakedBase, this.transformParent);
   }
 
   @Override
   public void resolveParents(@NotNull Function<ResourceLocation, UnbakedModel> modelGetter, @NotNull IGeometryBakingContext context) {
     this.base.resolveParents(modelGetter);
-    UnbakedModel unbakedmodel = modelGetter.apply(transformParentLocation);
+    UnbakedModel unbakedmodel = modelGetter.apply(this.transformParentLocation);
 
     if (unbakedmodel == null) modelGetter.apply(ModelBakery.MISSING_MODEL_LOCATION);
 
@@ -67,8 +69,8 @@ public class WithTransformParentModel implements IUnbakedGeometry<WithTransformP
     @Override
     public @NotNull WithTransformParentModel read(JsonObject jsonObject, @NotNull JsonDeserializationContext context) throws JsonParseException {
       jsonObject.remove("loader");
-      var transformParentLocation = ResourceLocation.parse(jsonObject.get(TRANSFORM_PARENT_KEY).getAsString());
-      jsonObject.remove(TRANSFORM_PARENT_KEY);
+      var transformParentLocation = ResourceLocation.parse(jsonObject.get(WithTransformParentModel.TRANSFORM_PARENT_KEY).getAsString());
+      jsonObject.remove(WithTransformParentModel.TRANSFORM_PARENT_KEY);
       BlockModel base = context.deserialize(jsonObject, BlockModel.class);
 
       return new WithTransformParentModel(base, transformParentLocation);
@@ -85,7 +87,13 @@ public class WithTransformParentModel implements IUnbakedGeometry<WithTransformP
 
     @Override
     public ItemTransforms getTransforms() {
-      return transformParent.getTransforms();
+      return this.transformParent.getTransforms();
+    }
+
+    @Override
+    public BakedModel applyTransform(ItemDisplayContext itemDisplayContext, PoseStack poseStack, boolean leftHand) {
+      this.getTransforms().getTransform(itemDisplayContext).apply(leftHand, poseStack);
+      return this;
     }
   }
 
@@ -108,9 +116,9 @@ public class WithTransformParentModel implements IUnbakedGeometry<WithTransformP
 
     @Override
     public @NotNull JsonObject toJson(@NotNull JsonObject json) {
-      if (transformParentLocation == null)
+      if (this.transformParentLocation == null)
         throw new IllegalStateException("Transform Parent location is required for WithTransformParentModel");
-      json.add(TRANSFORM_PARENT_KEY, new JsonPrimitive(transformParentLocation.toString()));
+      json.add(WithTransformParentModel.TRANSFORM_PARENT_KEY, new JsonPrimitive(this.transformParentLocation.toString()));
       return super.toJson(json);
     }
   }
