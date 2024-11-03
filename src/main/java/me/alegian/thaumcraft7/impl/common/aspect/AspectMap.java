@@ -44,12 +44,12 @@ public class AspectMap {
       Codec.INT.fieldOf("amount").codec()
   );
 
-  public static final Codec<List<Pair<Aspect, Integer>>> PAIR_LIST_CODEC = PAIR_CODEC.listOf();
+  public static final Codec<List<Pair<Aspect, Integer>>> PAIR_LIST_CODEC = AspectMap.PAIR_CODEC.listOf();
 
   public static final Codec<AspectMap> CODEC = new Codec<>() {
     @Override
     public <T> DataResult<Pair<AspectMap, T>> decode(DynamicOps<T> dynamicOps, T t) {
-      var optionalListOfPairs = PAIR_LIST_CODEC.parse(dynamicOps, t)
+      var optionalListOfPairs = AspectMap.PAIR_LIST_CODEC.parse(dynamicOps, t)
           .resultOrPartial(System.out::println);
 
       return optionalListOfPairs.map(o ->
@@ -64,7 +64,7 @@ public class AspectMap {
     @Override
     public <T> DataResult<T> encode(AspectMap aspectMap, DynamicOps<T> dynamicOps, T t) {
       var listOfPairs = aspectMap.map.entrySet().stream().filter(e -> e.getValue() > 0).map(e -> Pair.of(e.getKey(), e.getValue())).toList();
-      return PAIR_LIST_CODEC.encode(listOfPairs, dynamicOps, t);
+      return AspectMap.PAIR_LIST_CODEC.encode(listOfPairs, dynamicOps, t);
     }
   };
 
@@ -77,31 +77,32 @@ public class AspectMap {
 
   public static final StreamCodec<ByteBuf, AspectMap> STREAM_CODEC =
       StreamCodec.composite(
-          MAP_STREAM_CODEC, AspectMap::getMap,
+          AspectMap.MAP_STREAM_CODEC, AspectMap::getMap,
           AspectMap::new
       );
 
   public AspectMap add(Aspect aspect, int amount) {
-    LinkedHashMap<Aspect, Integer> newMap = new LinkedHashMap<>(map);
-    newMap.put(aspect, amount);
+    int oldAmount = this.get(aspect);
+    LinkedHashMap<Aspect, Integer> newMap = new LinkedHashMap<>(this.map);
+    newMap.put(aspect, oldAmount + amount);
     return new AspectMap(newMap);
   }
 
   public AspectMap scale(int scale) {
     LinkedHashMap<Aspect, Integer> newMap = new LinkedHashMap<>();
-    map.forEach((k, v) -> newMap.put(k, v * scale));
+    this.map.forEach((k, v) -> newMap.put(k, v * scale));
     return new AspectMap(newMap);
   }
 
   public AspectMap merge(AspectMap other) {
-    LinkedHashMap<Aspect, Integer> newMap = new LinkedHashMap<>(map);
+    LinkedHashMap<Aspect, Integer> newMap = new LinkedHashMap<>(this.map);
     other.getMap().forEach((k, v) -> newMap.merge(k, v, Integer::sum));
     return new AspectMap(newMap);
   }
 
   public AspectMap subtract(AspectMap other) {
-    LinkedHashMap<Aspect, Integer> newMap = new LinkedHashMap<>(map);
-    other.getMap().forEach((k, v) -> newMap.merge(k, v, (a, b) -> nullIfZero(a - b)));
+    LinkedHashMap<Aspect, Integer> newMap = new LinkedHashMap<>(this.map);
+    other.getMap().forEach((k, v) -> newMap.merge(k, v, (a, b) -> AspectMap.nullIfZero(a - b)));
     return new AspectMap(newMap);
   }
 
@@ -114,9 +115,7 @@ public class AspectMap {
    * Useful for recipe checks
    */
   public boolean contains(AspectMap other) {
-    for (Aspect a : other.getMap().keySet()) {
-      if (this.getMap().get(a) < other.getMap().get(a)) return false;
-    }
+    for (Aspect a : other.getMap().keySet()) if (this.get(a) < other.get(a)) return false;
     return true;
   }
 
@@ -125,53 +124,55 @@ public class AspectMap {
    * This is read-only access to copy the map into a new one.
    */
   protected LinkedHashMap<Aspect, Integer> getMap() {
-    return map;
+    return this.map;
   }
 
   public static AspectMap of(AspectStack... aspectStacks) {
     LinkedHashMap<Aspect, Integer> map = new LinkedHashMap<>();
-    for (AspectStack stack : aspectStacks) {
-      map.put(stack.aspect(), stack.amount());
-    }
+    for (AspectStack stack : aspectStacks) map.put(stack.aspect(), stack.amount());
+    return new AspectMap(map);
+  }
+
+  public static AspectMap ofPrimals(int amount) {
+    LinkedHashMap<Aspect, Integer> map = new LinkedHashMap<>();
+    for (var a : Aspects.PRIMAL_ASPECTS) map.put(a.get(), amount);
     return new AspectMap(map);
   }
 
   public static AspectMap randomPrimals() {
     LinkedHashMap<Aspect, Integer> map = new LinkedHashMap<>();
-    for (var a : Aspects.PRIMAL_ASPECTS) {
-      map.put(a.get(), (int) (Math.random() * 16 + 1));
-    }
+    for (var a : Aspects.PRIMAL_ASPECTS) map.put(a.get(), (int) (Math.random() * 16 + 1));
     return new AspectMap(map);
   }
 
   public int get(Aspect aspect) {
-    return map.getOrDefault(aspect, 0);
+    return this.map.getOrDefault(aspect, 0);
   }
 
   public ImmutableList<AspectStack> displayedAspects() {
     if (this == AspectMap.EMPTY) return ImmutableList.of();
-    return Aspects.REGISTRAR.getEntries().stream().map(Supplier::get).filter(a -> get(a) > 0).map(a -> AspectStack.of(a, get(a))).collect(ImmutableList.toImmutableList());
+    return Aspects.REGISTRAR.getEntries().stream().map(Supplier::get).filter(a -> this.get(a) > 0).map(a -> AspectStack.of(a, this.get(a))).collect(ImmutableList.toImmutableList());
   }
 
   public int size() {
-    return map.size();
+    return this.map.size();
   }
 
   public boolean isEmpty() {
-    return this == AspectMap.EMPTY || map.values().stream().noneMatch(i -> i > 0);
+    return this == AspectMap.EMPTY || this.map.values().stream().noneMatch(i -> i > 0);
   }
 
   public AspectMap copy() {
-    return new AspectMap(map);
+    return new AspectMap(this.map);
   }
 
   public Tag save(HolderLookup.Provider lookupProvider) {
-    return CODEC.encodeStart(lookupProvider.createSerializationContext(NbtOps.INSTANCE), this)
+    return AspectMap.CODEC.encodeStart(lookupProvider.createSerializationContext(NbtOps.INSTANCE), this)
         .getOrThrow();
   }
 
   public static AspectMap parse(HolderLookup.Provider lookupProvider, Tag tag) {
-    var optionalAspectMap = CODEC.parse(lookupProvider.createSerializationContext(NbtOps.INSTANCE), tag)
+    var optionalAspectMap = AspectMap.CODEC.parse(lookupProvider.createSerializationContext(NbtOps.INSTANCE), tag)
         .resultOrPartial(System.out::println);
 
     return optionalAspectMap.orElse(AspectMap.EMPTY);
@@ -190,7 +191,7 @@ public class AspectMap {
   @Override
   public String toString() {
     StringBuilder str = new StringBuilder();
-    map.forEach((k, v) ->
+    this.map.forEach((k, v) ->
         str.append(k).append(v)
     );
     return str.toString();

@@ -37,6 +37,8 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.function.Consumer;
 
+import static me.alegian.thaumcraft7.impl.common.data.capability.AspectContainerHelper.areAspectsFull;
+
 public class WandItem extends Item implements GeoItem {
   private final RawAnimation CAST_ANIMATION = RawAnimation.begin().thenPlay("casting");
   private final RawAnimation IDLE_ANIMATION = RawAnimation.begin().thenPlay("idle");
@@ -48,7 +50,7 @@ public class WandItem extends Item implements GeoItem {
     super(props.stacksTo(1));
     this.handleMaterial = handleMaterial;
     this.coreMaterial = coreMaterial;
-    GeckoLibUtil.SYNCED_ANIMATABLES.put(syncableId(), this);
+    GeckoLibUtil.SYNCED_ANIMATABLES.put(this.syncableId(), this);
   }
 
   /**
@@ -65,28 +67,24 @@ public class WandItem extends Item implements GeoItem {
 
     if (blockState.is(T7Blocks.AURA_NODE.get())) {
       var player = context.getPlayer();
-      if (player != null) { // and wand is not full and aura node is not empty
-        //try receiving only on server
 
+      if (player != null && !areAspectsFull(context.getItemInHand())) {
         player.startUsingItem(context.getHand());
         if (!level.isClientSide() && level instanceof ServerLevel serverLevel) {
           level.addFreshEntity(new VisEntity(level, player, blockPos));
-          animateCircle(true, player, context.getItemInHand(), serverLevel);
+          this.animateCircle(true, player, context.getItemInHand(), serverLevel);
         }
         return InteractionResult.CONSUME;
       }
     }
     if (blockState.is(Blocks.CAULDRON)) {
-      if (!level.isClientSide()) {
-        level.setBlockAndUpdate(blockPos, T7Blocks.CRUCIBLE.get().defaultBlockState());
-      }
+      if (!level.isClientSide()) level.setBlockAndUpdate(blockPos, T7Blocks.CRUCIBLE.get().defaultBlockState());
       level.playSound(context.getPlayer(), blockPos, SoundEvents.PLAYER_LEVELUP, SoundSource.BLOCKS, 1.0F, 1.0F);
       return InteractionResult.SUCCESS;
     }
     if (blockState.is(Blocks.BOOKSHELF)) {
-      if (!level.isClientSide() && level.removeBlock(blockPos, false)) {
+      if (!level.isClientSide() && level.removeBlock(blockPos, false))
         level.addFreshEntity(new FancyThaumonomiconEntity(level, blockPos));
-      }
       level.playSound(context.getPlayer(), blockPos, SoundEvents.PLAYER_LEVELUP, SoundSource.BLOCKS, 1.0F, 1.0F);
       return InteractionResult.SUCCESS;
     }
@@ -104,16 +102,15 @@ public class WandItem extends Item implements GeoItem {
 
   @Override
   public void releaseUsing(ItemStack itemStack, Level level, LivingEntity entity, int someDuration) {
-    animateCircle(false, entity, itemStack, level);
+    this.animateCircle(false, entity, itemStack, level);
   }
 
   /**
    * Only does things on the server
    */
   protected void animateCircle(boolean isCasting, Entity entity, ItemStack itemStack, Level level) {
-    if (!level.isClientSide() && level instanceof ServerLevel serverLevel) {
-      animateCircle(isCasting, entity, itemStack, serverLevel);
-    }
+    if (!level.isClientSide() && level instanceof ServerLevel serverLevel)
+      this.animateCircle(isCasting, entity, itemStack, serverLevel);
   }
 
   /**
@@ -122,7 +119,7 @@ public class WandItem extends Item implements GeoItem {
    */
   protected void animateCircle(boolean isCasting, Entity entity, ItemStack itemStack, ServerLevel level) {
     var animationName = isCasting ? "casting" : "idle";
-    GeckoLibServices.NETWORK.sendToAllPlayersTrackingEntity(new SingletonAnimTriggerPacket(syncableId(), GeoItem.getOrAssignId(itemStack, level), "Casting", animationName), entity);
+    GeckoLibServices.NETWORK.sendToAllPlayersTrackingEntity(new SingletonAnimTriggerPacket(this.syncableId(), GeoItem.getOrAssignId(itemStack, level), "Casting", animationName), entity);
   }
 
   @Override
@@ -149,11 +146,11 @@ public class WandItem extends Item implements GeoItem {
   public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
     controllers.add(new AnimationController<GeoAnimatable>(this, "Casting", 0, state -> {
           var controller = state.getController();
-          if (controller.getCurrentAnimation() == null) controller.setAnimation(IDLE_ANIMATION);
+          if (controller.getCurrentAnimation() == null) controller.setAnimation(this.IDLE_ANIMATION);
           return PlayState.CONTINUE;
         })
-            .triggerableAnim("casting", CAST_ANIMATION)
-            .triggerableAnim("idle", IDLE_ANIMATION)
+            .triggerableAnim("casting", this.CAST_ANIMATION)
+            .triggerableAnim("idle", this.IDLE_ANIMATION)
     );
   }
 
@@ -170,7 +167,7 @@ public class WandItem extends Item implements GeoItem {
       @Override
       public BlockEntityWithoutLevelRenderer getGeoItemRenderer() {
         if (this.renderer == null)
-          this.renderer = new WandRenderer(handleMaterial, coreMaterial);
+          this.renderer = new WandRenderer(WandItem.this.handleMaterial, WandItem.this.coreMaterial);
 
         return this.renderer;
       }
@@ -178,19 +175,19 @@ public class WandItem extends Item implements GeoItem {
   }
 
   public int capacity() {
-    return coreMaterial.capacity;
+    return this.coreMaterial.capacity;
   }
 
   public String getName() {
-    return name(handleMaterial, coreMaterial);
+    return WandItem.name(this.handleMaterial, this.coreMaterial);
   }
 
   public WandCoreMaterial coreMaterial() {
-    return coreMaterial;
+    return this.coreMaterial;
   }
 
   public WandHandleMaterial handleMaterial() {
-    return handleMaterial;
+    return this.handleMaterial;
   }
 
   public static String name(WandHandleMaterial handleMaterial, WandCoreMaterial coreMaterial) {
@@ -204,7 +201,7 @@ public class WandItem extends Item implements GeoItem {
    * has multiple instances.
    */
   public String syncableId() {
-    var location = Thaumcraft.id(getName());
+    var location = Thaumcraft.id(this.getName());
     return location.toString();
   }
 }
