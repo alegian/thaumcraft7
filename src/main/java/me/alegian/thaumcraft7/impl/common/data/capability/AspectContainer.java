@@ -30,44 +30,50 @@ public class AspectContainer implements IAspectContainer {
 
   @Override
   public AspectMap getAspects() {
-    AspectMap aspectMap = holder.get(T7DataComponents.ASPECTS);
+    AspectMap aspectMap = this.holder.get(T7DataComponents.ASPECTS);
     if (aspectMap == null) return AspectMap.EMPTY;
     return aspectMap;
   }
 
   @Override
   public boolean addAspect(Aspect aspect, int amount) {
-    AspectMap current = getAspects();
-    holder.set(T7DataComponents.ASPECTS, current.add(aspect, amount));
-    return true;
+    AspectMap current = this.getAspects();
+    var maxInsert = this.maxAmount - current.get(aspect);
+    var cappedInsert = Math.min(amount, maxInsert);
+
+    this.holder.set(T7DataComponents.ASPECTS, current.add(aspect, cappedInsert));
+
+    return cappedInsert != 0;
   }
 
   @Override
   public boolean addAspects(@Nullable AspectMap aspects) {
     if (aspects == null) return false;
 
-    AspectMap current = this.getAspects();
-    holder.set(T7DataComponents.ASPECTS, current.merge(aspects));
-    return true;
+    AspectMap currentAspects = this.getAspects();
+    AspectMap newAspects = currentAspects.merge(aspects).cap(this.maxAmount);
+    this.holder.set(T7DataComponents.ASPECTS, newAspects);
+
+    return currentAspects.l1norm() != newAspects.l1norm();
   }
 
   @Override
   public void subtract(AspectMap aspects) {
-    holder.set(T7DataComponents.ASPECTS, this.getAspects().subtract(aspects));
+    this.holder.set(T7DataComponents.ASPECTS, this.getAspects().subtract(aspects));
   }
 
   @Override
   public int getMaxAmount() {
-    return maxAmount;
+    return this.maxAmount;
   }
 
   @Override
   public boolean isVisSource() {
-    return visSource;
+    return this.visSource;
   }
 
   @Override
   public boolean isEssentiaSource() {
-    return essentiaSource;
+    return this.essentiaSource;
   }
 }

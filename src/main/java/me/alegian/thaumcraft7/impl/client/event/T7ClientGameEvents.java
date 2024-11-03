@@ -3,7 +3,6 @@ package me.alegian.thaumcraft7.impl.client.event;
 import com.mojang.datafixers.util.Either;
 import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.client.ClientHelper;
-import me.alegian.thaumcraft7.impl.client.gui.VisGuiOverlay;
 import me.alegian.thaumcraft7.impl.client.gui.tooltip.AspectTooltipComponent;
 import me.alegian.thaumcraft7.impl.client.renderer.AspectRenderer;
 import me.alegian.thaumcraft7.impl.client.renderer.HammerHighlightRenderer;
@@ -22,16 +21,10 @@ import net.neoforged.neoforge.client.event.RenderHighlightEvent;
 import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
 import net.neoforged.neoforge.client.event.RenderPlayerEvent;
 import net.neoforged.neoforge.client.event.RenderTooltipEvent;
-import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
 @EventBusSubscriber(modid = Thaumcraft.MODID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.GAME)
 public class T7ClientGameEvents {
   private static boolean allowHammerOutlineEvents = true;
-
-  @SubscribeEvent
-  public static void playerTick(PlayerTickEvent.Pre event) {
-    VisGuiOverlay.update(event.getEntity());
-  }
 
   @SubscribeEvent
   public static void renderBlockHighlight(RenderHighlightEvent.Block event) {
@@ -45,12 +38,10 @@ public class T7ClientGameEvents {
     var itemStack = player.getMainHandItem();
     var item = itemStack.getItem();
 
-    if (allowHammerOutlineEvents) {
-      if (item instanceof HammerItem hammer) {
-        allowHammerOutlineEvents = false;
-        HammerHighlightRenderer.render(event, hammer, player, level, itemStack, hitResult);
-        allowHammerOutlineEvents = true;
-      }
+    if (T7ClientGameEvents.allowHammerOutlineEvents) if (item instanceof HammerItem hammer) {
+      T7ClientGameEvents.allowHammerOutlineEvents = false;
+      HammerHighlightRenderer.render(event, hammer, player, level, itemStack, hitResult);
+      T7ClientGameEvents.allowHammerOutlineEvents = true;
     }
 
     // aura nodes have no outline

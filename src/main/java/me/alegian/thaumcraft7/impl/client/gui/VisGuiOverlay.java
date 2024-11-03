@@ -3,12 +3,10 @@ package me.alegian.thaumcraft7.impl.client.gui;
 import me.alegian.thaumcraft7.impl.client.T7GuiGraphics;
 import me.alegian.thaumcraft7.impl.client.texture.Texture;
 import me.alegian.thaumcraft7.impl.common.aspect.Aspect;
-import me.alegian.thaumcraft7.impl.common.aspect.AspectMap;
 import me.alegian.thaumcraft7.impl.common.data.capability.AspectContainerHelper;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.Aspects;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.LayeredDraw;
-import net.minecraft.world.entity.player.Player;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
@@ -19,13 +17,14 @@ public class VisGuiOverlay {
   private static final Texture BAR_FRAME = new Texture("gui/overlay/bar_frame", 96, 96);
   private static final Texture BAR_CONTENT = new Texture("gui/overlay/bar_content", 18, 64);
 
-  // updated via event
-  public static boolean visible = false;
-  public static AspectMap vis;
-  public static int maxAmount = 1;
-
   public static final LayeredDraw.Layer LAYER = ((guiGraphics, partialTick) -> {
-    if (!visible || vis == null || Minecraft.getInstance().options.hideGui) return;
+    var aspectContainer = AspectContainerHelper.getAspectContainerInHand(Minecraft.getInstance().player);
+    if (aspectContainer == null || Minecraft.getInstance().options.hideGui) return;
+
+    var vis = aspectContainer.getAspects();
+    var maxAmount = aspectContainer.getMaxAmount();
+
+    if (vis == null) return;
 
     final var graphics = new T7GuiGraphics(guiGraphics);
 
@@ -56,15 +55,4 @@ public class VisGuiOverlay {
 
     graphics.pop();
   });
-
-  public static void update(Player player) {
-    var aspectContainer = AspectContainerHelper.getAspectContainerInHand(player);
-    if (aspectContainer != null) {
-      visible = true;
-      vis = aspectContainer.getAspects();
-      maxAmount = aspectContainer.getMaxAmount();
-    } else {
-      visible = false;
-    }
-  }
 }

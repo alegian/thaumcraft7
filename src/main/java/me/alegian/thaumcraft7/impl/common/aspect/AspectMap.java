@@ -100,6 +100,16 @@ public class AspectMap {
     return new AspectMap(newMap);
   }
 
+  public AspectMap cap(int amount) {
+    LinkedHashMap<Aspect, Integer> newMap = new LinkedHashMap<>(this.map);
+    newMap.forEach((k, v) -> newMap.put(k, Math.min(v, amount)));
+    return new AspectMap(newMap);
+  }
+
+  public int l1norm() {
+    return this.map.values().stream().reduce(0, Integer::sum);
+  }
+
   public AspectMap subtract(AspectMap other) {
     LinkedHashMap<Aspect, Integer> newMap = new LinkedHashMap<>(this.map);
     other.getMap().forEach((k, v) -> newMap.merge(k, v, (a, b) -> AspectMap.nullIfZero(a - b)));
