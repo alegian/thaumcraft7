@@ -17,6 +17,6 @@ public class T7Slot extends Slot implements Sized {
 
   @Override
   public int getSize() {
-    return size;
+    return this.size;
   }
 }

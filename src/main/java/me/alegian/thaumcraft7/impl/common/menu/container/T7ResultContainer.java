@@ -5,7 +5,6 @@ import me.alegian.thaumcraft7.impl.common.menu.slot.SlotRange;
 import me.alegian.thaumcraft7.impl.common.menu.slot.T7ResultSlot;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.inventory.ResultContainer;
-import net.minecraft.world.inventory.Slot;
 
 public class T7ResultContainer extends ResultContainer implements T7Container {
   private final Menu menu;
@@ -21,17 +20,17 @@ public class T7ResultContainer extends ResultContainer implements T7Container {
 
   @Override
   public void addSlots() {
-    menu.addSlot(new T7ResultSlot(menu, craftingContainer, this, 0, 26));
-    range.track();
+    this.menu.addSlot(new T7ResultSlot(this.menu, this.craftingContainer, this, 0, 26));
+    this.range.track();
   }
 
   @Override
   public SlotRange getRange() {
-    return range;
+    return this.range;
   }
 
   public T7ResultSlot getSlot(int index) {
-    if (menu.getSlot(this.range.getStart() + index) instanceof T7ResultSlot slot) return slot;
+    if (this.menu.getSlot(this.range.getStart() + index) instanceof T7ResultSlot slot) return slot;
     throw new IllegalArgumentException("Thaumcraft Exception: T7ResultContainer contains a slot which is not a T7ResultSlot");
   }
 

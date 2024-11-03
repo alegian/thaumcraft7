@@ -12,44 +12,44 @@ public class SlotPose {
   private Stack<Integer> poseY = new Stack<>();
 
   public SlotPose() {
-    push(0, 0);
+    this.push(0, 0);
   }
 
   public void push(int x, int y) {
-    poseX.push(x);
-    poseY.push(y);
+    this.poseX.push(x);
+    this.poseY.push(y);
   }
 
   public void pushX() {
-    poseX.push(poseX.peek());
+    this.poseX.push(this.poseX.peek());
   }
 
   public void translateX(int x) {
-    poseX.push(poseX.pop() + x);
+    this.poseX.push(this.poseX.pop() + x);
   }
 
   public void translateY(int y) {
-    poseY.push(poseY.pop() + y);
+    this.poseY.push(this.poseY.pop() + y);
   }
 
   public void popX() {
-    poseX.pop();
+    this.poseX.pop();
   }
 
   public void popY() {
-    poseY.pop();
+    this.poseY.pop();
   }
 
   public void pop() {
-    poseX.pop();
-    poseY.pop();
+    this.poseX.pop();
+    this.poseY.pop();
   }
 
   public int getX() {
-    return poseX.peek();
+    return this.poseX.peek();
   }
 
   public int getY() {
-    return poseY.peek();
+    return this.poseY.peek();
   }
 }

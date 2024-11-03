@@ -23,76 +23,72 @@ public class T7Inventory implements T7Container {
 
   @Override
   public void addSlots() {
-    range.start();
+    this.range.start();
 
     for (int i = 0; i < 3; i++) {
-      menu.getSlotPose().pushX();
-      for (int j = 0; j < 9; j++) {
-        menu.addSlot(new T7Slot(this, j + i * 9 + 9, menu, 18));
-      }
-      menu.getSlotPose().popX();
-      menu.getSlotPose().translateY(18);
+      this.menu.getSlotPose().pushX();
+      for (int j = 0; j < 9; j++) this.menu.addSlot(new T7Slot(this, j + i * 9 + 9, this.menu, 18));
+      this.menu.getSlotPose().popX();
+      this.menu.getSlotPose().translateY(18);
     }
 
-    menu.getSlotPose().translateY(4);
-    for (int i = 0; i < 9; i++) {
-      menu.addSlot(new T7Slot(this, i, menu, 18));
-    }
+    this.menu.getSlotPose().translateY(4);
+    for (int i = 0; i < 9; i++) this.menu.addSlot(new T7Slot(this, i, this.menu, 18));
 
-    range.end();
+    this.range.end();
   }
 
   @Override
   public SlotRange getRange() {
-    return range;
+    return this.range;
   }
 
   @Override
   public int getContainerSize() {
-    return inventory.getContainerSize();
+    return this.inventory.getContainerSize();
   }
 
   @Override
   public boolean isEmpty() {
-    return inventory.isEmpty();
+    return this.inventory.isEmpty();
   }
 
   @Override
   public ItemStack getItem(int slot) {
-    return inventory.getItem(slot);
+    return this.inventory.getItem(slot);
   }
 
   @Override
   public ItemStack removeItem(int slot, int amount) {
-    return inventory.removeItem(slot, amount);
+    return this.inventory.removeItem(slot, amount);
   }
 
   @Override
   public ItemStack removeItemNoUpdate(int slot) {
-    return inventory.removeItemNoUpdate(slot);
+    return this.inventory.removeItemNoUpdate(slot);
   }
 
   @Override
   public void setItem(int slot, ItemStack stack) {
-    inventory.setItem(slot, stack);
+    this.inventory.setItem(slot, stack);
   }
 
   @Override
   public void setChanged() {
-    inventory.setChanged();
+    this.inventory.setChanged();
   }
 
   @Override
   public boolean stillValid(Player player) {
-    return inventory.stillValid(player);
+    return this.inventory.stillValid(player);
   }
 
   @Override
   public void clearContent() {
-    inventory.clearContent();
+    this.inventory.clearContent();
   }
 
   public Player getPlayer() {
-    return inventory.player;
+    return this.inventory.player;
   }
 }

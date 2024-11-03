@@ -23,7 +23,7 @@ public class ArcaneWorkbenchMenu extends Menu {
   private final ContainerLevelAccess levelAccess;
   private final CraftingContainer3x3 craftingContainer = new CraftingContainer3x3(this);
   private final WandContainer wandContainer = new WandContainer(this);
-  private final T7ResultContainer resultContainer = new T7ResultContainer(this, craftingContainer);
+  private final T7ResultContainer resultContainer = new T7ResultContainer(this, this.craftingContainer);
 
   public ArcaneWorkbenchMenu(int pContainerId, Inventory pPlayerInventory) {
     this(pContainerId, pPlayerInventory, ContainerLevelAccess.NULL);
@@ -36,21 +36,21 @@ public class ArcaneWorkbenchMenu extends Menu {
     super(T7MenuTypes.ARCANE_WORKBENCH.get(), pContainerId, pPlayerInventory);
     this.levelAccess = pAccess;
 
-    slotPose.push(50, 42);
-    craftingContainer.addSlots();
-    slotPose.pop();
+    this.slotPose.push(50, 42);
+    this.craftingContainer.addSlots();
+    this.slotPose.pop();
 
-    slotPose.push(177, 36);
-    wandContainer.addSlots();
-    slotPose.pop();
+    this.slotPose.push(177, 36);
+    this.wandContainer.addSlots();
+    this.slotPose.pop();
 
-    slotPose.push(28, 146);
-    playerInventory.addSlots();
-    slotPose.pop();
+    this.slotPose.push(28, 146);
+    this.playerInventory.addSlots();
+    this.slotPose.pop();
 
-    slotPose.push(177, 62);
-    resultContainer.addSlots();
-    slotPose.pop();
+    this.slotPose.push(177, 62);
+    this.resultContainer.addSlots();
+    this.slotPose.pop();
 
     this.addSlotListener(this);
   }
@@ -60,7 +60,7 @@ public class ArcaneWorkbenchMenu extends Menu {
       Level level = serverplayer.level();
       CraftingInput craftinginput = this.craftingContainer.asCraftInput();
 
-      var recipeHolder = level.getRecipeManager().getRecipeFor(T7RecipeTypes.ARCANE_WORKBENCH.get(), craftingContainer.asCraftInput(), level);
+      var recipeHolder = level.getRecipeManager().getRecipeFor(T7RecipeTypes.ARCANE_WORKBENCH.get(), this.craftingContainer.asCraftInput(), level);
 
       var resultItem = recipeHolder.map(r ->
           r.value().assemble(craftinginput, level.registryAccess())
@@ -77,12 +77,12 @@ public class ArcaneWorkbenchMenu extends Menu {
 
   @Override
   protected List<T7Container> getQuickMovePriorities() {
-    return List.of(wandContainer, craftingContainer);
+    return List.of(this.wandContainer, this.craftingContainer);
   }
 
   @Override
   public boolean stillValid(Player pPlayer) {
-    return stillValid(this.levelAccess, pPlayer, T7Blocks.ARCANE_WORKBENCH.get());
+    return AbstractContainerMenu.stillValid(this.levelAccess, pPlayer, T7Blocks.ARCANE_WORKBENCH.get());
   }
 
   @Override

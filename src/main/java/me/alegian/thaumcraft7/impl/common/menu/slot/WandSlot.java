@@ -10,6 +10,7 @@ public class WandSlot extends T7Slot {
     super(container, id, menu, 18);
   }
 
+  @Override
   public boolean mayPlace(ItemStack pStack) {
     return pStack.getItem() instanceof WandItem;
   }

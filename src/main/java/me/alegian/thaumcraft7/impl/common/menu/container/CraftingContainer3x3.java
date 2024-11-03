@@ -17,20 +17,18 @@ public class CraftingContainer3x3 extends TransientCraftingContainer implements 
 
   @Override
   public void addSlots() {
-    range.start();
+    this.range.start();
     for (int i = 0; i < 3; i++) {
-      menu.getSlotPose().pushX();
-      for (int j = 0; j < 3; j++) {
-        menu.addSlot(new T7Slot(this, j + i * 3, menu, 18));
-      }
-      menu.getSlotPose().popX();
-      menu.getSlotPose().translateY(18);
+      this.menu.getSlotPose().pushX();
+      for (int j = 0; j < 3; j++) this.menu.addSlot(new T7Slot(this, j + i * 3, this.menu, 18));
+      this.menu.getSlotPose().popX();
+      this.menu.getSlotPose().translateY(18);
     }
-    range.end();
+    this.range.end();
   }
 
   @Override
   public SlotRange getRange() {
-    return range;
+    return this.range;
   }
 }

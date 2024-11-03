@@ -26,15 +26,15 @@ public class SlotRange {
   }
 
   public int getStart() {
-    return start;
+    return this.start;
   }
 
   public int getEnd() {
-    return end;
+    return this.end;
   }
 
   public boolean contains(int slotId) {
-    return slotId >= start && slotId <= end;
+    return slotId >= this.start && slotId <= this.end;
   }
 
   /**
@@ -51,7 +51,7 @@ public class SlotRange {
     }
 
     public boolean is(int slotId) {
-      return contains(slotId);
+      return this.contains(slotId);
     }
   }
 }

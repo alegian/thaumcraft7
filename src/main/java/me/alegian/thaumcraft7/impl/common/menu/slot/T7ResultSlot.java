@@ -20,7 +20,7 @@ public class T7ResultSlot extends ResultSlot implements Sized {
 
   @Override
   public int getSize() {
-    return size;
+    return this.size;
   }
 
   public void setMayPickup(boolean mayPickup) {
@@ -29,6 +29,6 @@ public class T7ResultSlot extends ResultSlot implements Sized {
 
   @Override
   public boolean mayPickup(Player player) {
-    return mayPickup;
+    return this.mayPickup;
   }
 }

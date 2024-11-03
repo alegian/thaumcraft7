@@ -25,18 +25,14 @@ public class WandContainer implements T7Container {
 
   @Override
   public boolean isEmpty() {
-    for (ItemStack itemstack : this.itemStacks) {
-      if (!itemstack.isEmpty()) {
-        return false;
-      }
-    }
+    for (ItemStack itemstack : this.itemStacks) if (!itemstack.isEmpty()) return false;
 
     return true;
   }
 
   @Override
   public ItemStack getItem(int pSlot) {
-    return itemStacks.get(0);
+    return this.itemStacks.get(0);
   }
 
   @Override
@@ -71,12 +67,12 @@ public class WandContainer implements T7Container {
 
   @Override
   public void addSlots() {
-    menu.addSlot(new WandSlot(this, 0, menu));
-    range.track();
+    this.menu.addSlot(new WandSlot(this, 0, this.menu));
+    this.range.track();
   }
 
   @Override
   public SlotRange getRange() {
-    return range;
+    return this.range;
   }
 }
