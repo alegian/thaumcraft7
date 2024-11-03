@@ -28,8 +28,8 @@ public class AuraNodeBE extends DataComponentBE {
 
   public AuraNodeBE(BlockPos pos, BlockState blockState) {
     super(T7BlockEntities.AURA_NODE.get(), pos, blockState);
-    generateGlassPositions();
-    generateSlabPositions();
+    this.generateGlassPositions();
+    this.generateSlabPositions();
   }
 
   public static void tick(Level level, BlockPos pos, BlockState state, AuraNodeBE blockEntity) {
@@ -41,10 +41,8 @@ public class AuraNodeBE extends DataComponentBE {
   @Override
   public void onLoad() {
     if (!this.getLevel().isClientSide()) {
-      var aspects = get(T7DataComponents.ASPECTS.get());
-      if (aspects == null) {
-        set(T7DataComponents.ASPECTS.get(), AspectMap.randomPrimals());
-      }
+      var aspects = this.get(T7DataComponents.ASPECTS.get());
+      if (aspects == null) this.set(T7DataComponents.ASPECTS.get(), AspectMap.randomPrimals());
       this.getLevel().sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), Block.UPDATE_CLIENTS);
     }
   }
@@ -55,14 +53,12 @@ public class AuraNodeBE extends DataComponentBE {
    * 3x3x3 except center
    */
   public void generateGlassPositions() {
-    for (int i = -1; i <= 1; i++) {
-      for (int j = -1; j <= 1; j++) {
+    for (int i = -1; i <= 1; i++)
+      for (int j = -1; j <= 1; j++)
         for (int k = -1; k <= 1; k++) {
           if (i == 0 && j == 0 && k == 0) continue;
-          glassPositions.add(getBlockPos().offset(i, j, k));
+          this.glassPositions.add(this.getBlockPos().offset(i, j, k));
         }
-      }
-    }
   }
 
   /**
@@ -71,11 +67,8 @@ public class AuraNodeBE extends DataComponentBE {
    * 3x1x3, above the center
    */
   public void generateSlabPositions() {
-    for (int i = -1; i <= 1; i++) {
-      for (int j = -1; j <= 1; j++) {
-        slabPositions.add(getBlockPos().offset(i, 2, j));
-      }
-    }
+    for (int i = -1; i <= 1; i++)
+      for (int j = -1; j <= 1; j++) this.slabPositions.add(this.getBlockPos().offset(i, 2, j));
   }
 
   /**
@@ -83,39 +76,33 @@ public class AuraNodeBE extends DataComponentBE {
    */
   public boolean jarInteraction() {
     // check if glass exists
-    for (var pos : glassPositions) {
-      if (!level.getBlockState(pos).is(Tags.Blocks.GLASS_BLOCKS)) return false;
-    }
+    for (var pos : this.glassPositions) if (!this.level.getBlockState(pos).is(Tags.Blocks.GLASS_BLOCKS)) return false;
     // check if slabs exist, and are bottom slabs
-    for (var pos : slabPositions) {
-      var blockState = level.getBlockState(pos);
+    for (var pos : this.slabPositions) {
+      var blockState = this.level.getBlockState(pos);
       if (!blockState.is(BlockTags.WOODEN_SLABS) || blockState.getValue(BlockStateProperties.SLAB_TYPE) != SlabType.BOTTOM)
         return false;
     }
 
-    if (!level.isClientSide() && level instanceof ServerLevel) {
-      for (var pos : glassPositions) {
-        level.removeBlock(pos, false);
-      }
-      for (var pos : slabPositions) {
-        level.removeBlock(pos, false);
-      }
+    if (!this.level.isClientSide() && this.level instanceof ServerLevel) {
+      for (var pos : this.glassPositions) this.level.removeBlock(pos, false);
+      for (var pos : this.slabPositions) this.level.removeBlock(pos, false);
     }
 
-    containingCountdown = MAX_COUNTDOWN;
+    this.containingCountdown = AuraNodeBE.MAX_COUNTDOWN;
 
     return true;
   }
 
   public void contain() {
-    containingCountdown = -1;
-    level.removeBlock(this.getBlockPos(), false);
-    level.addFreshEntity(new ItemEntity(
-        level,
+    this.containingCountdown = -1;
+    this.level.removeBlock(this.getBlockPos(), false);
+    this.level.addFreshEntity(new ItemEntity(
+        this.level,
         this.getBlockPos().getX() + 0.5,
         this.getBlockPos().getY() + 0.5,
         this.getBlockPos().getZ() + 0.5,
-        new ItemStack(T7Blocks.AURA_NODE_ITEM.get())));
+        new ItemStack(T7Blocks.AURA_NODE.get())));
   }
 
   /**
@@ -123,11 +110,11 @@ public class AuraNodeBE extends DataComponentBE {
    * itself and drop a contained aura node.
    */
   public int getContainingCountdown() {
-    return containingCountdown;
+    return this.containingCountdown;
   }
 
   public void decrementContainingCountdown() {
-    containingCountdown--;
+    this.containingCountdown--;
   }
 
   @Override

@@ -10,7 +10,7 @@ public class T7CreativeModeTabs {
   public static final DeferredRegister<CreativeModeTab> REGISTRAR = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Thaumcraft.MODID);
 
   static {
-    REGISTRAR.register(
+    T7CreativeModeTabs.REGISTRAR.register(
         Thaumcraft.MODID,
         () -> CreativeModeTab
             .builder()
@@ -18,6 +18,7 @@ public class T7CreativeModeTabs {
             .icon(() -> T7Items.THAUMONOMICON.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
               output.accept(T7Blocks.AURA_NODE.get());
+              output.accept(T7Blocks.CRUCIBLE.get());
 
               output.accept(T7Blocks.ELEMENTAL_STONE.get());
 
