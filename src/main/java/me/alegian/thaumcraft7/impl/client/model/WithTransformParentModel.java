@@ -28,6 +28,12 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Function;
 
+/**
+ * A custom model loader that adds "transform parent" to a block model.
+ * The model renders normally, but inherits the ItemTransforms of the "transform parent".
+ * Used by crucible, in order to inherit the default block-item transforms, since
+ * cauldrons don't normally 3d block-items.
+ */
 @OnlyIn(Dist.CLIENT)
 public class WithTransformParentModel implements IUnbakedGeometry<WithTransformParentModel> {
   public static final ResourceLocation ID = Thaumcraft.id("with_transform_parent");

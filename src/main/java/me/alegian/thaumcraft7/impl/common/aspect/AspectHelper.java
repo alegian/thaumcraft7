@@ -9,15 +9,15 @@ import net.minecraft.world.item.ItemStack;
 
 public class AspectHelper {
   public static boolean hasAspects(ItemEntity itemEntity) {
-    return hasAspects(itemEntity.getItem());
+    return AspectHelper.hasAspects(itemEntity.getItem());
   }
 
   public static boolean hasAspects(ItemStack itemStack) {
-    return getAspects(itemStack) != null;
+    return AspectHelper.getAspects(itemStack) != null;
   }
 
   public static AspectMap getAspects(ItemEntity itemEntity) {
-    return getAspects(itemEntity.getItem());
+    return AspectHelper.getAspects(itemEntity.getItem());
   }
 
   /**
@@ -30,7 +30,7 @@ public class AspectHelper {
   }
 
   public static AspectMap getAspects(ItemStack itemStack) {
-    var itemAspects = getAspects(itemStack.getItem());
+    var itemAspects = AspectHelper.getAspects(itemStack.getItem());
     if (itemAspects == null) return null;
     return itemAspects.scale(itemStack.getCount());
   }

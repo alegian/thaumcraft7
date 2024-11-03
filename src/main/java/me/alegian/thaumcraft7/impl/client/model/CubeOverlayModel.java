@@ -44,6 +44,10 @@ import java.util.function.Function;
 import static me.alegian.thaumcraft7.impl.client.model.BakedModelHelper.quad;
 import static me.alegian.thaumcraft7.impl.client.model.BakedModelHelper.v;
 
+/**
+ * A custom model loader that adds a cuboid cutout overlay to a block model.
+ * Used for infused stone cracks
+ */
 @OnlyIn(Dist.CLIENT)
 public class CubeOverlayModel implements IUnbakedGeometry<CubeOverlayModel> {
   public static final ResourceLocation ID = Thaumcraft.id("cube_overlay");
@@ -61,13 +65,13 @@ public class CubeOverlayModel implements IUnbakedGeometry<CubeOverlayModel> {
 
   @Override
   public @NotNull BakedModel bake(@NotNull IGeometryBakingContext context, @NotNull ModelBaker baker, @NotNull Function<Material, TextureAtlasSprite> spriteGetter, @NotNull ModelState modelState, @NotNull ItemOverrides overrides) {
-    BakedModel bakedBase = new ElementsModel(base.getElements()).bake(context, baker, spriteGetter, modelState, overrides);
-    return new Baked(bakedBase, spriteLocation, color);
+    BakedModel bakedBase = new ElementsModel(this.base.getElements()).bake(context, baker, spriteGetter, modelState, overrides);
+    return new Baked(bakedBase, this.spriteLocation, this.color);
   }
 
   @Override
   public void resolveParents(@NotNull Function<ResourceLocation, UnbakedModel> modelGetter, @NotNull IGeometryBakingContext context) {
-    base.resolveParents(modelGetter);
+    this.base.resolveParents(modelGetter);
   }
 
   public static class Loader implements IGeometryLoader<CubeOverlayModel> {
@@ -79,10 +83,10 @@ public class CubeOverlayModel implements IUnbakedGeometry<CubeOverlayModel> {
     @Override
     public @NotNull CubeOverlayModel read(JsonObject jsonObject, @NotNull JsonDeserializationContext context) throws JsonParseException {
       jsonObject.remove("loader");
-      var spriteLocation = ResourceLocation.parse(jsonObject.get(SPRITE_KEY).getAsString());
-      jsonObject.remove(SPRITE_KEY);
-      var color = jsonObject.get(COLOR_KEY).getAsInt();
-      jsonObject.remove(COLOR_KEY);
+      var spriteLocation = ResourceLocation.parse(jsonObject.get(CubeOverlayModel.SPRITE_KEY).getAsString());
+      jsonObject.remove(CubeOverlayModel.SPRITE_KEY);
+      var color = jsonObject.get(CubeOverlayModel.COLOR_KEY).getAsInt();
+      jsonObject.remove(CubeOverlayModel.COLOR_KEY);
       BlockModel base = context.deserialize(jsonObject, BlockModel.class);
 
       return new CubeOverlayModel(base, spriteLocation, color);
@@ -114,7 +118,7 @@ public class CubeOverlayModel implements IUnbakedGeometry<CubeOverlayModel> {
     // used in item renderer
     @Override
     public @NotNull BakedModel applyTransform(@NotNull ItemDisplayContext cameraTransformType, @NotNull PoseStack poseStack, boolean applyLeftHandTransform) {
-      originalModel.applyTransform(cameraTransformType, poseStack, applyLeftHandTransform);
+      this.originalModel.applyTransform(cameraTransformType, poseStack, applyLeftHandTransform);
       return this;
     }
 
@@ -130,21 +134,21 @@ public class CubeOverlayModel implements IUnbakedGeometry<CubeOverlayModel> {
       List<BakedQuad> quads = new ArrayList<>();
 
       if (renderType == null || renderType == RenderType.solid())
-        quads.addAll(originalModel.getQuads(state, side, rand, extraData, renderType));
+        quads.addAll(this.originalModel.getQuads(state, side, rand, extraData, renderType));
 
       if (renderType == null || renderType == RenderType.cutout() || renderType == Sheets.cutoutBlockSheet()) {
         var sprite = Minecraft.getInstance()
             .getTextureAtlas(InventoryMenu.BLOCK_ATLAS)
-            .apply(spriteLocation);
+            .apply(this.spriteLocation);
         float offset = 0.001f; // avoid z-fighting
         float ONE = 1 + offset;
         float ZERO = 0 - offset;
-        quads.add(quad(v(ZERO, ONE, ONE), v(ONE, ONE, ONE), v(ONE, ONE, ZERO), v(ZERO, ONE, ZERO), sprite, color));
-        quads.add(quad(v(ZERO, ZERO, ZERO), v(ONE, ZERO, ZERO), v(ONE, ZERO, ONE), v(ZERO, ZERO, ONE), sprite, color));
-        quads.add(quad(v(ONE, ZERO, ZERO), v(ONE, ONE, ZERO), v(ONE, ONE, ONE), v(ONE, ZERO, ONE), sprite, color));
-        quads.add(quad(v(ZERO, ZERO, ONE), v(ZERO, ONE, ONE), v(ZERO, ONE, ZERO), v(ZERO, ZERO, ZERO), sprite, color));
-        quads.add(quad(v(ZERO, ONE, ZERO), v(ONE, ONE, ZERO), v(ONE, ZERO, ZERO), v(ZERO, ZERO, ZERO), sprite, color));
-        quads.add(quad(v(ZERO, ZERO, ONE), v(ONE, ZERO, ONE), v(ONE, ONE, ONE), v(ZERO, ONE, ONE), sprite, color));
+        quads.add(quad(v(ZERO, ONE, ONE), v(ONE, ONE, ONE), v(ONE, ONE, ZERO), v(ZERO, ONE, ZERO), sprite, this.color));
+        quads.add(quad(v(ZERO, ZERO, ZERO), v(ONE, ZERO, ZERO), v(ONE, ZERO, ONE), v(ZERO, ZERO, ONE), sprite, this.color));
+        quads.add(quad(v(ONE, ZERO, ZERO), v(ONE, ONE, ZERO), v(ONE, ONE, ONE), v(ONE, ZERO, ONE), sprite, this.color));
+        quads.add(quad(v(ZERO, ZERO, ONE), v(ZERO, ONE, ONE), v(ZERO, ONE, ZERO), v(ZERO, ZERO, ZERO), sprite, this.color));
+        quads.add(quad(v(ZERO, ONE, ZERO), v(ONE, ONE, ZERO), v(ONE, ZERO, ZERO), v(ZERO, ZERO, ZERO), sprite, this.color));
+        quads.add(quad(v(ZERO, ZERO, ONE), v(ONE, ZERO, ONE), v(ONE, ONE, ONE), v(ZERO, ONE, ONE), sprite, this.color));
       }
       return quads;
     }
@@ -152,7 +156,7 @@ public class CubeOverlayModel implements IUnbakedGeometry<CubeOverlayModel> {
     // used in item renderer
     @Override
     public @NotNull List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, RandomSource rand) {
-      return getQuads(state, side, rand, ModelData.EMPTY, null);
+      return this.getQuads(state, side, rand, ModelData.EMPTY, null);
     }
   }
 
@@ -181,10 +185,11 @@ public class CubeOverlayModel implements IUnbakedGeometry<CubeOverlayModel> {
 
     @Override
     public @NotNull JsonObject toJson(@NotNull JsonObject json) {
-      if (spriteLocation == null) throw new IllegalStateException("Sprite location is required for CubeOverlayModel");
-      if (color == null) throw new IllegalStateException("Color is required for CubeOverlayModel");
-      json.add(SPRITE_KEY, new JsonPrimitive(spriteLocation.toString()));
-      json.add(COLOR_KEY, new JsonPrimitive(color));
+      if (this.spriteLocation == null)
+        throw new IllegalStateException("Sprite location is required for CubeOverlayModel");
+      if (this.color == null) throw new IllegalStateException("Color is required for CubeOverlayModel");
+      json.add(CubeOverlayModel.SPRITE_KEY, new JsonPrimitive(this.spriteLocation.toString()));
+      json.add(CubeOverlayModel.COLOR_KEY, new JsonPrimitive(this.color));
       return super.toJson(json);
     }
   }

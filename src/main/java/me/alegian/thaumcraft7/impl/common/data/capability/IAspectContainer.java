@@ -7,8 +7,7 @@ import javax.annotation.Nullable;
 
 /*
  * WARNING: this differs from the old Thaumcraft API
- * represents any Block, Item, Entity that contains Aspects that can be scanned with
- * a Thaumometer.
+ * represents any Block, Item, Entity that contains Aspects
  */
 public interface IAspectContainer {
   AspectMap getAspects();

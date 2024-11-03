@@ -30,25 +30,25 @@ public class VisGuiOverlay {
 
     graphics.push();
 
-    // draw the disk
+    // draw the star
     graphics.scaleXY(0.5f);
     graphics.translateXY(32, 16);
     graphics.resetColor();
-    graphics.blit(STAR.location(), 0, 0, 0, 0, STAR.width(), STAR.height(), STAR.width(), STAR.height());
+    graphics.blit(VisGuiOverlay.STAR.location(), 0, 0, 0, 0, VisGuiOverlay.STAR.width(), VisGuiOverlay.STAR.height(), VisGuiOverlay.STAR.width(), VisGuiOverlay.STAR.height());
 
-    // draw the vials
-    graphics.translateXY(STAR.width() / 2f, STAR.height() / 2f);
+    // draw the bars
+    graphics.translateXY(VisGuiOverlay.STAR.width() / 2f, VisGuiOverlay.STAR.height() / 2f);
     graphics.rotateZ(15);
 
     for (var deferredAspect : Aspects.PRIMAL_ASPECTS) {
       Aspect a = deferredAspect.get();
       var color = a.getColorRGB();
       graphics.push();
-      graphics.translateXY(0, STAR.height() / 2f);
+      graphics.translateXY(0, VisGuiOverlay.STAR.height() / 2f);
       graphics.setColor((float) color[0] / 255, (float) color[1] / 255, (float) color[2] / 255, 1);
-      graphics.blit(BAR_CONTENT.location(), -BAR_CONTENT.width() / 2, (BAR_FRAME.height() - BAR_CONTENT.height()) / 2, 0, 0, BAR_CONTENT.width(), BAR_CONTENT.height() * vis.get(a) / maxAmount, BAR_CONTENT.width(), BAR_CONTENT.height());
+      graphics.blit(VisGuiOverlay.BAR_CONTENT.location(), -VisGuiOverlay.BAR_CONTENT.width() / 2, (VisGuiOverlay.BAR_FRAME.height() - VisGuiOverlay.BAR_CONTENT.height()) / 2, 0, 0, VisGuiOverlay.BAR_CONTENT.width(), VisGuiOverlay.BAR_CONTENT.height() * vis.get(a) / maxAmount, VisGuiOverlay.BAR_CONTENT.width(), VisGuiOverlay.BAR_CONTENT.height());
       graphics.resetColor();
-      graphics.blit(BAR_FRAME.location(), -BAR_FRAME.width() / 2, 0, 0, 0, BAR_FRAME.width(), BAR_FRAME.height(), BAR_FRAME.width(), BAR_FRAME.height());
+      graphics.blit(VisGuiOverlay.BAR_FRAME.location(), -VisGuiOverlay.BAR_FRAME.width() / 2, 0, 0, 0, VisGuiOverlay.BAR_FRAME.width(), VisGuiOverlay.BAR_FRAME.height(), VisGuiOverlay.BAR_FRAME.width(), VisGuiOverlay.BAR_FRAME.height());
       graphics.pop();
       graphics.rotateZ(-24);
     }

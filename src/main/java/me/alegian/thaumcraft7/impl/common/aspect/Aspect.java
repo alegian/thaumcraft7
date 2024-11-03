@@ -24,27 +24,27 @@ public class Aspect {
   }
 
   public boolean isPrimal() {
-    return components == null;
+    return this.components == null;
   }
 
   public String getId() {
-    return id;
+    return this.id;
   }
 
   public int getColor() {
-    return color;
+    return this.color;
   }
 
   public int[] getColorRGB() {
-    int r = (color & 0xFF0000) >> 16;
-    int g = (color & 0xFF00) >> 8;
-    int b = (color & 0xFF);
+    int r = (this.color & 0xFF0000) >> 16;
+    int g = (this.color & 0xFF00) >> 8;
+    int b = (this.color & 0xFF);
 
     return new int[]{r, g, b};
   }
 
   public List<Supplier<Aspect>> getComponents() {
-    return components;
+    return this.components;
   }
 
   public static Aspect getRandomAspect() {

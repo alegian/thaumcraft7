@@ -22,25 +22,25 @@ public class CrucibleFluidHandler extends FluidTank {
 
   @Override
   protected void onContentsChanged() {
-    crucibleBE.setChanged();
+    this.crucibleBE.setChanged();
   }
 
   // returns true if any water was drained
   public boolean catalystDrain() {
-    if (isEmpty()) return false;
+    if (this.isEmpty()) return false;
 
     int maxDrain = FluidType.BUCKET_VOLUME / 4;
-    fluid.shrink(Math.min(maxDrain, fluid.getAmount()));
-    onContentsChanged();
+    this.fluid.shrink(Math.min(maxDrain, this.fluid.getAmount()));
+    this.onContentsChanged();
     return true;
   }
 
   // returns true if any water was filled
   public boolean fillUp() {
-    if (getSpace() == 0) return false;
+    if (this.getSpace() == 0) return false;
 
-    fluid = new FluidStack(Fluids.WATER, FluidType.BUCKET_VOLUME);
-    onContentsChanged();
+    this.fluid = new FluidStack(Fluids.WATER, FluidType.BUCKET_VOLUME);
+    this.onContentsChanged();
     return true;
   }
 }

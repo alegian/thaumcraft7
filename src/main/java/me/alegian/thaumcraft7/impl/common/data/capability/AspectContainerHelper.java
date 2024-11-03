@@ -13,14 +13,14 @@ import java.util.Optional;
 
 public class AspectContainerHelper {
   public static boolean addRandomAspect(Level level, BlockPos pos) {
-    Optional<IAspectContainer> aspectContainer = getAspectContainer(level, pos);
+    Optional<IAspectContainer> aspectContainer = AspectContainerHelper.getAspectContainer(level, pos);
     return aspectContainer.map(
         container -> container.addAspect(Aspect.getRandomAspect(), 1)
     ).orElse(false);
   }
 
   public static Optional<AspectMap> getAspects(Level level, BlockPos pos) {
-    return getAspectContainer(level, pos).map(IAspectContainer::getAspects);
+    return AspectContainerHelper.getAspectContainer(level, pos).map(IAspectContainer::getAspects);
   }
 
   public static Optional<IAspectContainer> getAspectContainer(Level level, BlockPos pos) {
