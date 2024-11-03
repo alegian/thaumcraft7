@@ -157,7 +157,7 @@ public class CrucibleBlock extends Block implements EntityBlock {
             );
 
         if (itemEntity.getOwner() instanceof ServerPlayer player) {
-          ItemEntity itementity = player.drop(recipe.value().getResult(), true, true);
+          ItemEntity itementity = player.drop(recipe.value().assemble(input, level.registryAccess()), true, true);
           if (itementity != null) {
             itementity.setNoPickUpDelay();
             itementity.setTarget(player.getUUID());

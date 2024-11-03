@@ -6,6 +6,7 @@ import me.alegian.thaumcraft7.impl.common.menu.container.T7ResultContainer;
 import me.alegian.thaumcraft7.impl.common.menu.container.WandContainer;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Blocks;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7MenuTypes;
+import me.alegian.thaumcraft7.impl.init.registries.deferred.T7RecipeTypes;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -14,7 +15,6 @@ import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.CrafterBlock;
 
 import java.util.List;
 
@@ -58,10 +58,14 @@ public class ArcaneWorkbenchMenu extends Menu {
     if (this.getPlayer() instanceof ServerPlayer serverplayer) {
       Level level = serverplayer.level();
       CraftingInput craftinginput = this.craftingContainer.asCraftInput();
-      ItemStack itemstack = CrafterBlock.getPotentialResults(level, craftinginput)
-          .map(recipeHolder -> recipeHolder.value().assemble(craftinginput, level.registryAccess()))
-          .orElse(ItemStack.EMPTY);
-      this.resultContainer.setItem(0, itemstack);
+
+      var recipeHolder = level.getRecipeManager().getRecipeFor(T7RecipeTypes.ARCANE_WORKBENCH.get(), craftingContainer.asCraftInput(), level);
+
+      var resultItem = recipeHolder.map(r ->
+          r.value().assemble(craftinginput, level.registryAccess())
+      ).orElse(ItemStack.EMPTY);
+
+      this.resultContainer.setItem(0, resultItem);
     }
   }
 

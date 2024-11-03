@@ -2,6 +2,7 @@ package me.alegian.thaumcraft7.impl.init.registries.deferred;
 
 import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.common.recipe.CrucibleRecipe;
+import me.alegian.thaumcraft7.impl.common.recipe.WorkbenchRecipe;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -17,7 +18,7 @@ public class T7RecipeTypes {
           "crucible",
           () -> RecipeType.simple(Thaumcraft.id("crucible"))
       );
-  public static final Supplier<RecipeType<CrucibleRecipe>> ARCANE_WORKBENCH =
+  public static final Supplier<RecipeType<WorkbenchRecipe>> ARCANE_WORKBENCH =
       REGISTRAR.register(
           "arcane_workbench",
           () -> RecipeType.simple(Thaumcraft.id("arcane_workbench"))
