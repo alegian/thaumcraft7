@@ -108,14 +108,9 @@ public class WandItem extends Item implements GeoItem {
   }
 
   @Override
-  public ItemStack finishUsingItem(ItemStack itemStack, Level level, LivingEntity entity) {
-    this.animateCircle(false, entity, itemStack, level);
-    return super.finishUsingItem(itemStack, level, entity);
-  }
-
-  @Override
-  public void releaseUsing(ItemStack itemStack, Level level, LivingEntity entity, int someDuration) {
-    this.animateCircle(false, entity, itemStack, level);
+  public void onStopUsing(ItemStack itemStack, LivingEntity entity, int count) {
+    this.animateCircle(false, entity, itemStack, entity.level());
+    super.onStopUsing(itemStack, entity, count);
   }
 
   /**
