@@ -36,29 +36,36 @@ public class VisEntity extends RendererEntity {
   }
 
   /**
-   * Only ticks Serverside, every 5 ticks. Kills itself if the player is not using the Wand.
+   * Ticks once every 5 ticks. Kills itself if the player is not using the Wand.
+   * Interrupts item use when the wand is full.
    */
   @Override
   public void tick() {
-    if (this.level().isClientSide()) return;
     if (this.tickCount % 5 != 0) return;
     var player = this.getPlayer();
+    if (player != null && AspectContainerHelper.isFull(player.getUseItem())) player.stopUsingItem();
+    if (this.level().isClientSide()) return;
+    this.serverTick(player);
+  }
 
-    if (player == null || !player.isUsingItem() || !(player.getUseItem().getItem() instanceof WandItem)) this.kill();
-    else {
-      var wandContainer = AspectContainerHelper.getAspectContainerInHand(player);
-      if (wandContainer == null) return;
-      AspectContainerHelper.getAspectContainer(this.level(), this.blockPosition()).ifPresent(nodeContainer -> {
-        var insert = nodeContainer.extractRandom(5);
-        var be = this.level().getBlockEntity(this.blockPosition());
-        if (be != null) {
-          be.setChanged();
-          this.level().sendBlockUpdated(this.blockPosition(), be.getBlockState(), be.getBlockState(), Block.UPDATE_CLIENTS);
-        }
-        if (insert == null) return;
-        wandContainer.insert(insert);
-      });
+  private void serverTick(Player player) {
+    if (player == null || !player.isUsingItem() || !(player.getUseItem().getItem() instanceof WandItem)) {
+      this.kill();
+      return;
     }
+
+    var wandContainer = AspectContainerHelper.getAspectContainerInHand(player);
+    if (wandContainer == null) return;
+    AspectContainerHelper.getAspectContainer(this.level(), this.blockPosition()).ifPresent(nodeContainer -> {
+      var insert = nodeContainer.extractRandom(5);
+      var be = this.level().getBlockEntity(this.blockPosition());
+      if (be != null) {
+        be.setChanged();
+        this.level().sendBlockUpdated(this.blockPosition(), be.getBlockState(), be.getBlockState(), Block.UPDATE_CLIENTS);
+      }
+      if (insert == null) return;
+      wandContainer.insert(insert);
+    });
   }
 
   public @Nullable Player getPlayer() {

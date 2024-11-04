@@ -2,7 +2,6 @@ package me.alegian.thaumcraft7.impl.common.item;
 
 import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.client.renderer.geo.WandRenderer;
-import me.alegian.thaumcraft7.impl.common.data.capability.AspectContainerHelper;
 import me.alegian.thaumcraft7.impl.common.entity.FancyThaumonomiconEntity;
 import me.alegian.thaumcraft7.impl.common.entity.VisEntity;
 import me.alegian.thaumcraft7.impl.common.util.LevelHelper;
@@ -105,12 +104,6 @@ public class WandItem extends Item implements GeoItem {
   public void onStopUsing(ItemStack itemStack, LivingEntity entity, int count) {
     this.animateCircle(false, entity, itemStack, entity.level());
     super.onStopUsing(itemStack, entity, count);
-  }
-
-  @Override
-  public void onUseTick(Level level, LivingEntity livingEntity, ItemStack stack, int remainingUseDuration) {
-    if (AspectContainerHelper.isFull(stack)) livingEntity.stopUsingItem();
-    super.onUseTick(level, livingEntity, stack, remainingUseDuration);
   }
 
   /**
