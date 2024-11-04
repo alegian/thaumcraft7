@@ -11,7 +11,6 @@ import net.minecraft.server.level.ServerEntity;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -55,18 +54,7 @@ public class VisEntity extends RendererEntity {
       return;
     }
 
-    var wandContainer = AspectContainerHelper.getAspectContainerInHand(player);
-    if (wandContainer == null) return;
-    AspectContainerHelper.getAspectContainer(this.level(), this.blockPosition()).ifPresent(nodeContainer -> {
-      var insert = nodeContainer.extractRandom(5);
-      var be = this.level().getBlockEntity(this.blockPosition());
-      if (be != null) {
-        be.setChanged();
-        this.level().sendBlockUpdated(this.blockPosition(), be.getBlockState(), be.getBlockState(), Block.UPDATE_CLIENTS);
-      }
-      if (insert == null) return;
-      wandContainer.insert(insert);
-    });
+    AspectContainerHelper.fromBlockToItem(this.level(), this.blockPosition(), player.getUseItem(), 5);
   }
 
   public @Nullable Player getPlayer() {

@@ -1,6 +1,7 @@
 package me.alegian.thaumcraft7.impl.common.data.capability;
 
 import me.alegian.thaumcraft7.impl.common.aspect.AspectMap;
+import me.alegian.thaumcraft7.impl.common.block.entity.BEHelper;
 import me.alegian.thaumcraft7.impl.init.registries.T7Capabilities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
@@ -33,6 +34,10 @@ public class AspectContainerHelper {
     return aspectContainer;
   }
 
+  public static Optional<IAspectContainer> getAspectContainer(ItemStack itemStack) {
+    return Optional.ofNullable(itemStack.getCapability(T7Capabilities.AspectContainer.ITEM));
+  }
+
   public static boolean isAspectContainer(Level level, BlockPos blockPos) {
     return level.getCapability(T7Capabilities.AspectContainer.BLOCK, blockPos) != null;
   }
@@ -45,6 +50,18 @@ public class AspectContainerHelper {
   }
 
   public static boolean isEmpty(Level level, BlockPos pos) {
-    return getAspects(level, pos).map(AspectMap::isEmpty).orElse(true);
+    return AspectContainerHelper.getAspects(level, pos).map(AspectMap::isEmpty).orElse(true);
+  }
+
+  public static void fromBlockToItem(Level level, BlockPos sourceBlockPos, ItemStack dest, int amount) {
+    AspectContainerHelper.getAspectContainer(dest)
+        .flatMap(wandContainer ->
+            AspectContainerHelper.getAspectContainer(level, sourceBlockPos)
+                .map(nodeContainer -> {
+                  var aspectStack = nodeContainer.extractRandom(amount);
+                  wandContainer.insert(aspectStack);
+                  return !aspectStack.isEmpty();
+                }).filter(e -> e))
+        .ifPresent($ -> BEHelper.updateBlockEntity(level, sourceBlockPos));
   }
 }
