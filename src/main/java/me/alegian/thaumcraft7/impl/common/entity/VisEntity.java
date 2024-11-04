@@ -37,7 +37,8 @@ public class VisEntity extends RendererEntity {
 
   /**
    * Ticks once every 5 ticks. Kills itself if the player is not using the Wand.
-   * Interrupts item use when the wand is full.
+   * Charges the held aspect container (wand).
+   * Interrupts item use when the aspect container is full.
    */
   @Override
   public void tick() {
