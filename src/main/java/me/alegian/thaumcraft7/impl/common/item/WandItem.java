@@ -102,15 +102,15 @@ public class WandItem extends Item implements GeoItem {
   }
 
   @Override
-  public boolean canContinueUsing(ItemStack oldStack, ItemStack newStack) {
-    // todo check equality with old stack
-    return !AspectContainerHelper.isFull(newStack);
-  }
-
-  @Override
   public void onStopUsing(ItemStack itemStack, LivingEntity entity, int count) {
     this.animateCircle(false, entity, itemStack, entity.level());
     super.onStopUsing(itemStack, entity, count);
+  }
+
+  @Override
+  public void onUseTick(Level level, LivingEntity livingEntity, ItemStack stack, int remainingUseDuration) {
+    if (AspectContainerHelper.isFull(stack)) livingEntity.stopUsingItem();
+    super.onUseTick(level, livingEntity, stack, remainingUseDuration);
   }
 
   /**
