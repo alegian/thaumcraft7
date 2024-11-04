@@ -48,14 +48,14 @@ import net.neoforged.neoforge.fluids.FluidUtil;
 import org.jetbrains.annotations.Nullable;
 
 public class CrucibleBlock extends Block implements EntityBlock {
-  public static final VoxelShape CRUCIBLE_INSIDE = box(2.0, 4.0, 2.0, 14.0, 16.0, 14.0);
+  public static final VoxelShape CRUCIBLE_INSIDE = Block.box(2.0, 4.0, 2.0, 14.0, 16.0, 14.0);
   public static final VoxelShape CRUCIBLE_SHAPE = Shapes.join(
       Shapes.block(),
       Shapes.or(
-          box(0.0, 0.0, 4.0, 16.0, 3.0, 12.0),
-          box(4.0, 0.0, 0.0, 12.0, 3.0, 16.0),
-          box(2.0, 0.0, 2.0, 14.0, 3.0, 14.0),
-          CRUCIBLE_INSIDE
+          Block.box(0.0, 0.0, 4.0, 16.0, 3.0, 12.0),
+          Block.box(4.0, 0.0, 0.0, 12.0, 3.0, 16.0),
+          Block.box(2.0, 0.0, 2.0, 14.0, 3.0, 14.0),
+          CrucibleBlock.CRUCIBLE_INSIDE
       ),
       BooleanOp.ONLY_FIRST
   );
@@ -67,7 +67,7 @@ public class CrucibleBlock extends Block implements EntityBlock {
 
   @Override
   protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-    pBuilder.add(BOILING);
+    pBuilder.add(CrucibleBlock.BOILING);
   }
 
   @Override
@@ -75,20 +75,19 @@ public class CrucibleBlock extends Block implements EntityBlock {
   public BlockState getStateForPlacement(BlockPlaceContext pContext) {
     var below = pContext.getClickedPos().below();
 
-    return defaultBlockState()
-        .setValue(BOILING, isHeatSource(pContext.getLevel(), below));
+    return this.defaultBlockState()
+        .setValue(CrucibleBlock.BOILING, CrucibleBlock.isHeatSource(pContext.getLevel(), below));
   }
 
   @Override
   protected BlockState updateShape(BlockState pState, Direction pDirection, BlockState pNeighborState, LevelAccessor pLevel, BlockPos pPos, BlockPos pNeighborPos) {
-    return pState.setValue(BOILING, isHeatSource(pLevel, pPos.below()));
+    return pState.setValue(CrucibleBlock.BOILING, CrucibleBlock.isHeatSource(pLevel, pPos.below()));
   }
 
   @Override
   public void stepOn(Level pLevel, BlockPos pPos, BlockState pState, Entity pEntity) {
-    if (pState.getValue(BOILING) && !pEntity.isSteppingCarefully() && pEntity instanceof LivingEntity) {
+    if (pState.getValue(CrucibleBlock.BOILING) && !pEntity.isSteppingCarefully() && pEntity instanceof LivingEntity)
       pEntity.hurt(pLevel.damageSources().hotFloor(), 1.0F);
-    }
 
     super.stepOn(pLevel, pPos, pState, pEntity);
   }
@@ -96,7 +95,7 @@ public class CrucibleBlock extends Block implements EntityBlock {
   @Override
   protected ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
     // water buckets should be usable to top off, even if 1000 mB is too much
-    if (pPlayer.getItemInHand(pHand).is(Items.WATER_BUCKET) && fillUp(pLevel, pPos)) {
+    if (pPlayer.getItemInHand(pHand).is(Items.WATER_BUCKET) && CrucibleBlock.fillUp(pLevel, pPos)) {
       if (!pPlayer.isCreative()) pPlayer.setItemInHand(pHand, new ItemStack(Items.BUCKET));
       pLevel.playSound(null, pPos, SoundEvents.BUCKET_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
 
@@ -104,9 +103,8 @@ public class CrucibleBlock extends Block implements EntityBlock {
     }
 
     // generic fluid interaction
-    if (FluidUtil.interactWithFluidHandler(pPlayer, pHand, pLevel, pPos, pHitResult.getDirection())) {
+    if (FluidUtil.interactWithFluidHandler(pPlayer, pHand, pLevel, pPos, pHitResult.getDirection()))
       return ItemInteractionResult.SUCCESS;
-    }
 
     return super.useItemOn(pStack, pState, pLevel, pPos, pPlayer, pHand, pHitResult);
   }
@@ -115,19 +113,17 @@ public class CrucibleBlock extends Block implements EntityBlock {
   protected void entityInside(BlockState pState, Level level, BlockPos pPos, Entity pEntity) {
     if (!level.isClientSide
         && level instanceof ServerLevel serverLevel
-        && pState.getValue(BOILING)
+        && pState.getValue(CrucibleBlock.BOILING)
         && pEntity instanceof ItemEntity itemEntity
         && this.isEntityInsideContent(pPos, pEntity)
-    ) {
-      if (pEntity.mayInteract(level, pPos)) {
-        meltItem(serverLevel, pPos, itemEntity);
-        level.sendBlockUpdated(
-            pPos,
-            pState,
-            pState,
-            Block.UPDATE_CLIENTS
-        );
-      }
+    ) if (pEntity.mayInteract(level, pPos)) {
+      CrucibleBlock.meltItem(serverLevel, pPos, itemEntity);
+      level.sendBlockUpdated(
+          pPos,
+          pState,
+          pState,
+          Block.UPDATE_CLIENTS
+      );
     }
   }
 
@@ -147,13 +143,13 @@ public class CrucibleBlock extends Block implements EntityBlock {
           input,
           level
       ).map(recipe -> {
-        if (!tryLowerFillLevel(level, pPos)) return false;
-        waterSplash(level, pPos);
+        if (!CrucibleBlock.tryLowerFillLevel(level, pPos)) return false;
+        CrucibleBlock.waterSplash(level, pPos);
 
         AspectContainerHelper
             .getAspectContainer(level, pPos)
             .ifPresent(container ->
-                container.subtract(recipe.value().getRequiredAspects())
+                container.extract(recipe.value().getRequiredAspects())
             );
 
         if (itemEntity.getOwner() instanceof ServerPlayer player) {
@@ -162,7 +158,7 @@ public class CrucibleBlock extends Block implements EntityBlock {
             itementity.setNoPickUpDelay();
             itementity.setTarget(player.getUUID());
           }
-          shrinkItemEntity(itemEntity);
+          CrucibleBlock.shrinkItemEntity(itemEntity);
         }
 
         return true;
@@ -175,8 +171,8 @@ public class CrucibleBlock extends Block implements EntityBlock {
     AspectMap itemAspects = AspectHelper.getAspects(itemEntity);
     AspectContainerHelper
         .getAspectContainer(level, pPos)
-        .ifPresent(c -> c.addAspects(itemAspects));
-    waterSplash(level, pPos);
+        .ifPresent(c -> c.insert(itemAspects));
+    CrucibleBlock.waterSplash(level, pPos);
     itemEntity.discard();
   }
 
@@ -192,9 +188,7 @@ public class CrucibleBlock extends Block implements EntityBlock {
   // returns true if any water was filled
   public static boolean fillUp(Level pLevel, BlockPos pPos) {
     var be = pLevel.getBlockEntity(pPos);
-    if (be instanceof CrucibleBE crucibleBE) {
-      return crucibleBE.getFluidHandler().fillUp();
-    }
+    if (be instanceof CrucibleBE crucibleBE) return crucibleBE.getFluidHandler().fillUp();
     return false;
   }
 
@@ -244,12 +238,12 @@ public class CrucibleBlock extends Block implements EntityBlock {
 
   @Override
   protected VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-    return CRUCIBLE_SHAPE;
+    return CrucibleBlock.CRUCIBLE_SHAPE;
   }
 
   @Override
   protected VoxelShape getInteractionShape(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
-    return CRUCIBLE_INSIDE;
+    return CrucibleBlock.CRUCIBLE_INSIDE;
   }
 
   @Override

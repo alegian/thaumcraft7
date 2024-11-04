@@ -1,9 +1,7 @@
 package me.alegian.thaumcraft7.impl.common.entity;
 
-import me.alegian.thaumcraft7.impl.common.aspect.AspectStack;
 import me.alegian.thaumcraft7.impl.common.data.capability.AspectContainerHelper;
 import me.alegian.thaumcraft7.impl.common.item.WandItem;
-import me.alegian.thaumcraft7.impl.init.registries.deferred.Aspects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -13,6 +11,7 @@ import net.minecraft.server.level.ServerEntity;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -42,40 +41,44 @@ public class VisEntity extends RendererEntity {
   @Override
   public void tick() {
     if (this.level().isClientSide()) return;
-    if (tickCount % 5 != 0) return;
-    var player = getPlayer();
+    if (this.tickCount % 5 != 0) return;
+    var player = this.getPlayer();
 
-    if (player == null || !player.isUsingItem() || !(player.getUseItem().getItem() instanceof WandItem)) {
-      this.kill();
-    } else {
-      var aspectContainer = AspectContainerHelper.getAspectContainerInHand(player);
-      if (aspectContainer == null) return;
-      AspectContainerHelper.getAspectContainer(level(), blockPosition()).ifPresent(node ->
-          aspectContainer.addAspect(node.subtract(AspectStack.of(Aspects.IGNIS.get(), 5)))
-      );
+    if (player == null || !player.isUsingItem() || !(player.getUseItem().getItem() instanceof WandItem)) this.kill();
+    else {
+      var wandContainer = AspectContainerHelper.getAspectContainerInHand(player);
+      if (wandContainer == null) return;
+      AspectContainerHelper.getAspectContainer(this.level(), this.blockPosition()).ifPresent(nodeContainer -> {
+        var insert = nodeContainer.extractRandom(5);
+        var be = this.level().getBlockEntity(this.blockPosition());
+        if (be != null) {
+          be.setChanged();
+          this.level().sendBlockUpdated(this.blockPosition(), be.getBlockState(), be.getBlockState(), Block.UPDATE_CLIENTS);
+        }
+        if (insert == null) return;
+        wandContainer.insert(insert);
+      });
     }
   }
 
   public @Nullable Player getPlayer() {
-    if (playerUUID == null) return null;
-    return this.level().getPlayerByUUID(playerUUID);
+    if (this.playerUUID == null) return null;
+    return this.level().getPlayerByUUID(this.playerUUID);
   }
 
   public @Nullable UUID getPlayerUUID() {
-    return playerUUID;
+    return this.playerUUID;
   }
 
   @Override
   protected void readAdditionalSaveData(CompoundTag pCompound) {
-    if (pCompound.hasUUID(PLAYER_TAG)) {
-      this.playerUUID = pCompound.getUUID(PLAYER_TAG);
-    }
+    if (pCompound.hasUUID(VisEntity.PLAYER_TAG)) this.playerUUID = pCompound.getUUID(VisEntity.PLAYER_TAG);
   }
 
   @Override
   protected void addAdditionalSaveData(@NotNull CompoundTag pCompound) {
-    if (playerUUID == null) return;
-    pCompound.putUUID(PLAYER_TAG, playerUUID);
+    if (this.playerUUID == null) return;
+    pCompound.putUUID(VisEntity.PLAYER_TAG, this.playerUUID);
   }
 
   @Override
@@ -88,9 +91,7 @@ public class VisEntity extends RendererEntity {
   public void recreateFromPacket(@NotNull ClientboundAddEntityPacket pPacket) {
     super.recreateFromPacket(pPacket);
     Entity entity = this.level().getEntity(pPacket.getData());
-    if (entity instanceof Player player) {
-      this.playerUUID = player.getUUID();
-    }
+    if (entity instanceof Player player) this.playerUUID = player.getUUID();
   }
 
   @Override

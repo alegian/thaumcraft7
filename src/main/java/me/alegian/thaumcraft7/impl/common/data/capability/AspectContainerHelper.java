@@ -1,8 +1,6 @@
 package me.alegian.thaumcraft7.impl.common.data.capability;
 
-import me.alegian.thaumcraft7.impl.common.aspect.Aspect;
 import me.alegian.thaumcraft7.impl.common.aspect.AspectMap;
-import me.alegian.thaumcraft7.impl.common.aspect.AspectStack;
 import me.alegian.thaumcraft7.impl.init.registries.T7Capabilities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
@@ -13,13 +11,6 @@ import net.minecraft.world.level.Level;
 import java.util.Optional;
 
 public class AspectContainerHelper {
-  public static boolean addRandomAspect(Level level, BlockPos pos) {
-    Optional<IAspectContainer> aspectContainer = AspectContainerHelper.getAspectContainer(level, pos);
-    return aspectContainer.map(
-        container -> container.addAspect(AspectStack.of(Aspect.getRandomAspect(), 1))
-    ).orElse(false);
-  }
-
   public static Optional<AspectMap> getAspects(Level level, BlockPos pos) {
     return AspectContainerHelper.getAspectContainer(level, pos).map(IAspectContainer::getAspects);
   }
@@ -46,10 +37,14 @@ public class AspectContainerHelper {
     return level.getCapability(T7Capabilities.AspectContainer.BLOCK, blockPos) != null;
   }
 
-  public static boolean areAspectsFull(ItemStack itemStack) {
+  public static boolean isFull(ItemStack itemStack) {
     var cap = itemStack.getCapability(T7Capabilities.AspectContainer.ITEM);
     if (cap == null) return true;
 
     return cap.getAspects().contains(AspectMap.ofPrimals(cap.getMaxAmount()));
+  }
+
+  public static boolean isEmpty(Level level, BlockPos pos) {
+    return getAspects(level, pos).map(AspectMap::isEmpty).orElse(true);
   }
 }

@@ -1,6 +1,5 @@
 package me.alegian.thaumcraft7.impl.common.data.capability;
 
-import me.alegian.thaumcraft7.impl.common.aspect.Aspect;
 import me.alegian.thaumcraft7.impl.common.aspect.AspectMap;
 import me.alegian.thaumcraft7.impl.common.aspect.AspectStack;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7DataComponents;
@@ -37,18 +36,20 @@ public class AspectContainer implements IAspectContainer {
   }
 
   @Override
-  public boolean addAspect(AspectStack aspectStack) {
+  public AspectStack insert(AspectStack inserted) {
+    if (inserted.isEmpty()) return AspectStack.EMPTY;
+
     AspectMap current = this.getAspects();
-    var maxInsert = this.maxAmount - current.get(aspectStack.aspect());
-    var cappedInsert = Math.min(aspectStack.amount(), maxInsert);
+    var maxInsert = this.maxAmount - current.get(inserted.aspect());
+    var cappedInsert = Math.min(inserted.amount(), maxInsert);
 
-    this.holder.set(T7DataComponents.ASPECTS, current.add(aspectStack.aspect(), cappedInsert));
+    this.holder.set(T7DataComponents.ASPECTS, current.add(inserted.aspect(), cappedInsert));
 
-    return cappedInsert != 0;
+    return AspectStack.of(inserted.aspect(), cappedInsert);
   }
 
   @Override
-  public boolean addAspects(@Nullable AspectMap aspects) {
+  public boolean insert(@Nullable AspectMap aspects) {
     if (aspects == null) return false;
 
     AspectMap currentAspects = this.getAspects();
@@ -59,14 +60,25 @@ public class AspectContainer implements IAspectContainer {
   }
 
   @Override
-  public void subtract(AspectMap aspects) {
+  public void extract(AspectMap aspects) {
     this.holder.set(T7DataComponents.ASPECTS, this.getAspects().subtract(aspects));
   }
 
   @Override
-  public AspectStack subtract(AspectStack aspect) {
-    this.holder.set(T7DataComponents.ASPECTS, this.getAspects().subtract(aspect));
-    return aspect;
+  public AspectStack extract(AspectStack subtracted) {
+    if (subtracted.isEmpty()) return AspectStack.EMPTY;
+    var maxSubtract = this.getAspects().get(subtracted.aspect());
+    var cappedSubtract = Math.min(subtracted.amount(), maxSubtract);
+    this.holder.set(T7DataComponents.ASPECTS, this.getAspects().subtract(subtracted));
+    return AspectStack.of(subtracted.aspect(), cappedSubtract);
+  }
+
+  @Override
+  public AspectStack extractRandom(int amount) {
+    return this.extract(AspectStack.of(
+        this.getAspects().getRandomNonZeroAspect(),
+        amount
+    ));
   }
 
   @Override

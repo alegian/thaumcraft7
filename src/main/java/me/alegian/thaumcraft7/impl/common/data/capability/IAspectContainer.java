@@ -1,25 +1,28 @@
 package me.alegian.thaumcraft7.impl.common.data.capability;
 
-import me.alegian.thaumcraft7.impl.common.aspect.Aspect;
 import me.alegian.thaumcraft7.impl.common.aspect.AspectMap;
 import me.alegian.thaumcraft7.impl.common.aspect.AspectStack;
 
 import javax.annotation.Nullable;
 
-/*
+/**
  * WARNING: this differs from the old Thaumcraft API
- * represents any Block, Item, Entity that contains Aspects
+ * used by any Block, Item, Entity that contains Aspects
+ * (not to be confused with the Aspect DataMap which
+ * holds the scannable aspects)
  */
 public interface IAspectContainer {
   AspectMap getAspects();
 
-  boolean addAspect(AspectStack aspect);
+  AspectStack insert(AspectStack aspect);
 
-  boolean addAspects(@Nullable AspectMap aspects);
+  boolean insert(@Nullable AspectMap aspects);
 
-  void subtract(AspectMap aspects);
+  void extract(AspectMap aspects);
 
-  AspectStack subtract(AspectStack aspect);
+  AspectStack extract(AspectStack aspect);
+
+  AspectStack extractRandom(int amount);
 
   int getMaxAmount();
 

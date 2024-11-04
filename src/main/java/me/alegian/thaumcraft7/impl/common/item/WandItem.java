@@ -2,6 +2,7 @@ package me.alegian.thaumcraft7.impl.common.item;
 
 import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.client.renderer.geo.WandRenderer;
+import me.alegian.thaumcraft7.impl.common.data.capability.AspectContainerHelper;
 import me.alegian.thaumcraft7.impl.common.entity.FancyThaumonomiconEntity;
 import me.alegian.thaumcraft7.impl.common.entity.VisEntity;
 import me.alegian.thaumcraft7.impl.common.util.LevelHelper;
@@ -37,7 +38,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.function.Consumer;
 
-import static me.alegian.thaumcraft7.impl.common.data.capability.AspectContainerHelper.areAspectsFull;
+import static me.alegian.thaumcraft7.impl.common.data.capability.AspectContainerHelper.isFull;
 
 public class WandItem extends Item implements GeoItem {
   private final RawAnimation CAST_ANIMATION = RawAnimation.begin().thenPlay("casting");
@@ -68,7 +69,7 @@ public class WandItem extends Item implements GeoItem {
     if (blockState.is(T7Blocks.AURA_NODE.get())) {
       var player = context.getPlayer();
 
-      if (player != null && !areAspectsFull(context.getItemInHand())) {
+      if (player != null && !isFull(context.getItemInHand())) {
         player.startUsingItem(context.getHand());
         if (!level.isClientSide() && level instanceof ServerLevel serverLevel) {
           level.addFreshEntity(new VisEntity(level, player, blockPos));
@@ -98,6 +99,18 @@ public class WandItem extends Item implements GeoItem {
           }).orElse(InteractionResult.PASS);
     }
     return InteractionResult.PASS;
+  }
+
+  @Override
+  public boolean canContinueUsing(ItemStack oldStack, ItemStack newStack) {
+    // todo check equality with old stack
+    return !AspectContainerHelper.isFull(newStack);
+  }
+
+  @Override
+  public ItemStack finishUsingItem(ItemStack itemStack, Level level, LivingEntity entity) {
+    this.animateCircle(false, entity, itemStack, level);
+    return super.finishUsingItem(itemStack, level, entity);
   }
 
   @Override
