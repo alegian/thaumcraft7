@@ -1,5 +1,6 @@
 package me.alegian.thaumcraft7.impl.common.entity;
 
+import me.alegian.thaumcraft7.impl.common.aspect.AspectStack;
 import me.alegian.thaumcraft7.impl.common.data.capability.AspectContainerHelper;
 import me.alegian.thaumcraft7.impl.common.item.WandItem;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.Aspects;
@@ -18,7 +19,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.UUID;
 
 /**
- * Entity that only Renders as a spiral beam between the Player and an Aura Node.
+ * Entity that renders as a spiral beam between the Player and an Aura Node.
+ * Transfers vis from the target block to the held wand by ticking.
  */
 public class VisEntity extends RendererEntity {
   public static final String PLAYER_TAG = "player";
@@ -47,7 +49,10 @@ public class VisEntity extends RendererEntity {
       this.kill();
     } else {
       var aspectContainer = AspectContainerHelper.getAspectContainerInHand(player);
-      aspectContainer.addAspect(Aspects.IGNIS.get(), 5);
+      if (aspectContainer == null) return;
+      AspectContainerHelper.getAspectContainer(level(), blockPosition()).ifPresent(node ->
+          aspectContainer.addAspect(node.subtract(AspectStack.of(Aspects.IGNIS.get(), 5)))
+      );
     }
   }
 

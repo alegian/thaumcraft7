@@ -116,6 +116,12 @@ public class AspectMap {
     return new AspectMap(newMap);
   }
 
+  public AspectMap subtract(AspectStack subtracted) {
+    LinkedHashMap<Aspect, Integer> newMap = new LinkedHashMap<>(this.map);
+    newMap.computeIfPresent(subtracted.aspect(), (k, v) -> AspectMap.nullIfZero(v - subtracted.amount()));
+    return new AspectMap(newMap);
+  }
+
   private static Integer nullIfZero(Integer amount) {
     return amount == 0 ? null : amount;
   }

@@ -2,6 +2,7 @@ package me.alegian.thaumcraft7.impl.common.data.capability;
 
 import me.alegian.thaumcraft7.impl.common.aspect.Aspect;
 import me.alegian.thaumcraft7.impl.common.aspect.AspectMap;
+import me.alegian.thaumcraft7.impl.common.aspect.AspectStack;
 
 import javax.annotation.Nullable;
 
@@ -12,11 +13,13 @@ import javax.annotation.Nullable;
 public interface IAspectContainer {
   AspectMap getAspects();
 
-  boolean addAspect(Aspect aspect, int amount);
+  boolean addAspect(AspectStack aspect);
 
   boolean addAspects(@Nullable AspectMap aspects);
 
   void subtract(AspectMap aspects);
+
+  AspectStack subtract(AspectStack aspect);
 
   int getMaxAmount();
 

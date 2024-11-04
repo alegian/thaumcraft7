@@ -2,6 +2,7 @@ package me.alegian.thaumcraft7.impl.common.data.capability;
 
 import me.alegian.thaumcraft7.impl.common.aspect.Aspect;
 import me.alegian.thaumcraft7.impl.common.aspect.AspectMap;
+import me.alegian.thaumcraft7.impl.common.aspect.AspectStack;
 import me.alegian.thaumcraft7.impl.init.registries.T7Capabilities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
@@ -15,7 +16,7 @@ public class AspectContainerHelper {
   public static boolean addRandomAspect(Level level, BlockPos pos) {
     Optional<IAspectContainer> aspectContainer = AspectContainerHelper.getAspectContainer(level, pos);
     return aspectContainer.map(
-        container -> container.addAspect(Aspect.getRandomAspect(), 1)
+        container -> container.addAspect(AspectStack.of(Aspect.getRandomAspect(), 1))
     ).orElse(false);
   }
 
