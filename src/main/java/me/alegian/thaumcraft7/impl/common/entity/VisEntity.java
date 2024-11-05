@@ -1,5 +1,6 @@
 package me.alegian.thaumcraft7.impl.common.entity;
 
+import me.alegian.thaumcraft7.impl.common.block.entity.BEHelper;
 import me.alegian.thaumcraft7.impl.common.data.capability.AspectContainerHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -45,7 +46,7 @@ public class VisEntity extends RendererEntity {
     var optionalPair = AspectContainerHelper.blockSourceItemSink(this.level(), this.blockPosition(), player.getUseItem());
     boolean canTransfer = optionalPair.map(AspectContainerHelper.Pair::canTransferPrimals).orElse(false);
     if (!canTransfer) player.stopUsingItem();
-    
+
     this.serverTick(player, optionalPair.orElse(null));
   }
 
@@ -55,7 +56,8 @@ public class VisEntity extends RendererEntity {
       this.kill();
       return;
     }
-    pair.transferPrimal(0, 5);
+    int transferred = pair.transferPrimal(0, 5);
+    if (transferred > 0) BEHelper.updateBlockEntity(this.level(), this.blockPosition());
   }
 
   public @Nullable Player getPlayer() {

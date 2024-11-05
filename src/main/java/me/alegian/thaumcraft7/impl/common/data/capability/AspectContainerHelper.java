@@ -43,20 +43,13 @@ public class AspectContainerHelper {
     return level.getCapability(T7Capabilities.AspectContainer.BLOCK, blockPos) != null;
   }
 
-  public static boolean isFull(ItemStack itemStack) {
-    var cap = itemStack.getCapability(T7Capabilities.AspectContainer.ITEM);
-    if (cap == null) return true;
-
-    return cap.getAspects().contains(AspectMap.ofPrimals(cap.getMaxAmount()));
-  }
-
   public static boolean isEmpty(Level level, BlockPos pos) {
     return AspectContainerHelper.getAspects(level, pos).map(AspectMap::isEmpty).orElse(true);
   }
 
   public static Optional<Pair> blockSourceItemSink(Level level, BlockPos blockPos, ItemStack itemStack) {
-    return getAspectContainer(itemStack).flatMap(sink ->
-        getAspectContainer(level, blockPos).map(source -> new Pair(source, sink))
+    return AspectContainerHelper.getAspectContainer(itemStack).flatMap(sink ->
+        AspectContainerHelper.getAspectContainer(level, blockPos).map(source -> new Pair(source, sink))
     );
   }
 
@@ -70,12 +63,8 @@ public class AspectContainerHelper {
     }
 
     protected int simulateTransfer(Aspect a, int idealAmount) {
-      int maxInsert = this.sink.getMaxAmount() - this.sink.getAspects().get(a);
-      if (maxInsert <= 0) return 0;
-      int maxExtract = this.source.getAspects().get(a);
-      if (maxExtract <= 0) return 0;
-
-      return Math.min(Math.min(idealAmount, maxInsert), maxExtract);
+      int maxInsert = this.sink.insert(a, idealAmount, true);
+      return this.source.extract(a, maxInsert, true);
     }
 
     public boolean canTransferPrimals() {
@@ -84,16 +73,17 @@ public class AspectContainerHelper {
           .anyMatch(e -> e > 0);
     }
 
-    public void transferPrimal(int indexOffset, int idealAmount) {
+    public int transferPrimal(int indexOffset, int idealAmount) {
       var primals = Aspects.PRIMAL_ASPECTS.size();
       for (int i = 0; i < primals; i++) {
         var a = Aspects.PRIMAL_ASPECTS.get((i + indexOffset) % primals).get();
         int amount = this.simulateTransfer(a, idealAmount);
         if (amount == 0) continue;
-        this.sink.insert(a, amount);
-        this.source.extract(a, amount);
-        break;
+        this.sink.insert(a, amount, false);
+        this.source.extract(a, amount, false);
+        return amount;
       }
+      return 0;
     }
   }
 }

@@ -2,7 +2,6 @@ package me.alegian.thaumcraft7.impl.common.data.capability;
 
 import me.alegian.thaumcraft7.impl.common.aspect.Aspect;
 import me.alegian.thaumcraft7.impl.common.aspect.AspectMap;
-import me.alegian.thaumcraft7.impl.common.aspect.AspectStack;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7DataComponents;
 import net.neoforged.neoforge.common.MutableDataComponentHolder;
 
@@ -37,16 +36,16 @@ public class AspectContainer implements IAspectContainer {
   }
 
   @Override
-  public AspectStack insert(Aspect aspect, int amount) {
-    if (amount == 0) return AspectStack.EMPTY;
+  public int insert(Aspect aspect, int amount, boolean simulate) {
+    if (amount == 0) return 0;
 
     AspectMap current = this.getAspects();
     var maxInsert = this.maxAmount - current.get(aspect);
     var cappedInsert = Math.min(amount, maxInsert);
 
-    this.holder.set(T7DataComponents.ASPECTS, current.add(aspect, cappedInsert));
+    if (!simulate) this.holder.set(T7DataComponents.ASPECTS, current.add(aspect, cappedInsert));
 
-    return AspectStack.of(aspect, cappedInsert);
+    return cappedInsert;
   }
 
   @Override
@@ -66,20 +65,14 @@ public class AspectContainer implements IAspectContainer {
   }
 
   @Override
-  public AspectStack extract(Aspect aspect, int amount) {
-    if (amount == 0) return AspectStack.EMPTY;
+  public int extract(Aspect aspect, int amount, boolean simulate) {
+    if (amount == 0) return 0;
     var maxSubtract = this.getAspects().get(aspect);
     var cappedSubtract = Math.min(amount, maxSubtract);
-    this.holder.set(T7DataComponents.ASPECTS, this.getAspects().subtract(aspect, amount));
-    return AspectStack.of(aspect, cappedSubtract);
-  }
+    
+    if (!simulate) this.holder.set(T7DataComponents.ASPECTS, this.getAspects().subtract(aspect, amount));
 
-  @Override
-  public AspectStack extractRandom(int amount) {
-    return this.extract(
-        this.getAspects().getRandomNonZeroAspect(),
-        amount
-    );
+    return cappedSubtract;
   }
 
   @Override
