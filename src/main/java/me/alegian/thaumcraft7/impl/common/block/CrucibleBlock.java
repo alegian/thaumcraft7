@@ -3,7 +3,7 @@ package me.alegian.thaumcraft7.impl.common.block;
 import me.alegian.thaumcraft7.impl.common.aspect.AspectHelper;
 import me.alegian.thaumcraft7.impl.common.aspect.AspectMap;
 import me.alegian.thaumcraft7.impl.common.block.entity.CrucibleBE;
-import me.alegian.thaumcraft7.impl.common.data.capability.AspectContainerHelper;
+import me.alegian.thaumcraft7.impl.common.data.capability.AspectContainer;
 import me.alegian.thaumcraft7.impl.common.data.capability.IAspectContainer;
 import me.alegian.thaumcraft7.impl.common.recipe.CrucibleRecipeInput;
 import me.alegian.thaumcraft7.impl.init.registries.T7Tags;
@@ -132,8 +132,8 @@ public class CrucibleBlock extends Block implements EntityBlock {
 
     // try to use as catalyst
     if (thrownStack.is(T7Tags.CATALYST)) {
-      AspectMap crucibleAspects = AspectContainerHelper
-          .getAspectContainer(level, pPos).map(IAspectContainer::getAspects).orElseThrow();
+      AspectMap crucibleAspects = AspectContainer
+          .at(level, pPos).map(IAspectContainer::getAspects).orElseThrow();
 
       RecipeManager recipes = level.getRecipeManager();
       var input = new CrucibleRecipeInput(crucibleAspects, thrownStack);
@@ -146,8 +146,8 @@ public class CrucibleBlock extends Block implements EntityBlock {
         if (!CrucibleBlock.tryLowerFillLevel(level, pPos)) return false;
         CrucibleBlock.waterSplash(level, pPos);
 
-        AspectContainerHelper
-            .getAspectContainer(level, pPos)
+        AspectContainer
+            .at(level, pPos)
             .ifPresent(container ->
                 container.extract(recipe.value().getRequiredAspects())
             );
@@ -169,8 +169,8 @@ public class CrucibleBlock extends Block implements EntityBlock {
 
     if (!AspectHelper.hasAspects(thrownStack)) return;
     AspectMap itemAspects = AspectHelper.getAspects(itemEntity);
-    AspectContainerHelper
-        .getAspectContainer(level, pPos)
+    AspectContainer
+        .at(level, pPos)
         .ifPresent(c -> c.insert(itemAspects));
     CrucibleBlock.waterSplash(level, pPos);
     itemEntity.discard();

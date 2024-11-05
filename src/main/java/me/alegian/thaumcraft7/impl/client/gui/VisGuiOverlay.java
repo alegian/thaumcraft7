@@ -3,7 +3,7 @@ package me.alegian.thaumcraft7.impl.client.gui;
 import me.alegian.thaumcraft7.impl.client.T7GuiGraphics;
 import me.alegian.thaumcraft7.impl.client.texture.Texture;
 import me.alegian.thaumcraft7.impl.common.aspect.Aspect;
-import me.alegian.thaumcraft7.impl.common.data.capability.AspectContainerHelper;
+import me.alegian.thaumcraft7.impl.common.data.capability.AspectContainer;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.Aspects;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.LayeredDraw;
@@ -18,11 +18,11 @@ public class VisGuiOverlay {
   private static final Texture BAR_CONTENT = new Texture("gui/overlay/bar_content", 18, 64);
 
   public static final LayeredDraw.Layer LAYER = ((guiGraphics, partialTick) -> {
-    var aspectContainer = AspectContainerHelper.getAspectContainerInHand(Minecraft.getInstance().player);
+    var aspectContainer = AspectContainer.getAspectContainerInHand(Minecraft.getInstance().player);
     if (aspectContainer == null || Minecraft.getInstance().options.hideGui) return;
 
     var vis = aspectContainer.getAspects();
-    var maxAmount = aspectContainer.getMaxAmount();
+    var maxAmount = aspectContainer.getCapacity();
 
     if (vis == null) return;
 

@@ -1,7 +1,8 @@
 package me.alegian.thaumcraft7.impl.common.entity;
 
 import me.alegian.thaumcraft7.impl.common.block.entity.BEHelper;
-import me.alegian.thaumcraft7.impl.common.data.capability.AspectContainerHelper;
+import me.alegian.thaumcraft7.impl.common.data.capability.AspectContainer;
+import me.alegian.thaumcraft7.impl.init.registries.deferred.Aspects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -21,6 +22,7 @@ import java.util.UUID;
  * Transfers vis from the target block to the held wand by ticking.
  */
 public class VisEntity extends RendererEntity {
+  private static final int PERIOD_TICKS = 5;
   public static final String PLAYER_TAG = "player";
   @Nullable
   private UUID playerUUID; // save player UUID and not entire Player, because when deserializing, level.players is not yet populated
@@ -41,22 +43,22 @@ public class VisEntity extends RendererEntity {
    */
   @Override
   public void tick() {
-    if (this.tickCount % 5 != 0) return;
+    if (this.tickCount % VisEntity.PERIOD_TICKS != 0) return;
     var player = this.getPlayer();
-    var optionalPair = AspectContainerHelper.blockSourceItemSink(this.level(), this.blockPosition(), player.getUseItem());
-    boolean canTransfer = optionalPair.map(AspectContainerHelper.Pair::canTransferPrimals).orElse(false);
+    var optionalPair = AspectContainer.blockSourceItemSink(this.level(), this.blockPosition(), player.getUseItem());
+    boolean canTransfer = optionalPair.map(AspectContainer.Pair::canTransferPrimals).orElse(false);
     if (!canTransfer) player.stopUsingItem();
 
     this.serverTick(player, optionalPair.orElse(null));
   }
 
-  private void serverTick(Player player, @Nullable AspectContainerHelper.Pair pair) {
+  private void serverTick(Player player, @Nullable AspectContainer.Pair pair) {
     if (this.level().isClientSide()) return;
     if (player == null || !player.isUsingItem() || pair == null) {
       this.kill();
       return;
     }
-    int transferred = pair.transferPrimal(0, 5);
+    int transferred = pair.transferPrimal((this.tickCount / VisEntity.PERIOD_TICKS) % Aspects.PRIMAL_ASPECTS.size(), 5);
     if (transferred > 0) BEHelper.updateBlockEntity(this.level(), this.blockPosition());
   }
 

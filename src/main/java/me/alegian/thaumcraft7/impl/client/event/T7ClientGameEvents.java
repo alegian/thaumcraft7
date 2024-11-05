@@ -7,7 +7,8 @@ import me.alegian.thaumcraft7.impl.client.gui.tooltip.AspectTooltipComponent;
 import me.alegian.thaumcraft7.impl.client.renderer.AspectRenderer;
 import me.alegian.thaumcraft7.impl.client.renderer.HammerHighlightRenderer;
 import me.alegian.thaumcraft7.impl.common.block.AuraNodeBlock;
-import me.alegian.thaumcraft7.impl.common.data.capability.AspectContainerHelper;
+import me.alegian.thaumcraft7.impl.common.data.capability.AspectContainer;
+import me.alegian.thaumcraft7.impl.common.data.capability.IAspectContainer;
 import me.alegian.thaumcraft7.impl.common.item.HammerItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
@@ -63,10 +64,10 @@ public class T7ClientGameEvents {
     if (player == null) return;
 
     // aspect renderer
-    if (!AspectContainerHelper.isAspectContainer(minecraft.level, blockPos)) return;
+    if (!AspectContainer.isAspectContainer(minecraft.level, blockPos)) return;
     if (!ClientHelper.localPlayerHasRevealing()) return;
 
-    AspectContainerHelper.getAspects(minecraft.level, blockPos).ifPresent(
+    AspectContainer.at(minecraft.level, blockPos).map(IAspectContainer::getAspects).ifPresent(
         aspects -> AspectRenderer.renderAfterWeather(aspects, event.getPoseStack(), event.getCamera(), blockPos)
     );
   }

@@ -1,8 +1,8 @@
 package me.alegian.thaumcraft7.impl.common.item;
 
 import me.alegian.thaumcraft7.impl.Thaumcraft;
+import me.alegian.thaumcraft7.impl.common.aspect.AspectHelper;
 import me.alegian.thaumcraft7.impl.common.block.AuraNodeBlock;
-import me.alegian.thaumcraft7.impl.common.data.capability.AspectContainerHelper;
 import me.alegian.thaumcraft7.impl.init.registries.T7AttributeModifiers;
 import me.alegian.thaumcraft7.impl.init.registries.deferred.T7Attributes;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
@@ -56,11 +56,8 @@ public class OculusItem extends Item implements GeoItem {
     var block = level.getBlockState(context.getClickedPos()).getBlock();
     if (block instanceof AuraNodeBlock) {
       var player = context.getPlayer();
-      if (player != null) {
-        if (level.isClientSide) {
-          player.sendSystemMessage(Component.literal(AspectContainerHelper.getAspects(level, context.getClickedPos()).toString()));
-        }
-      }
+      if (player != null)
+        if (level.isClientSide) player.sendSystemMessage(Component.literal(AspectHelper.getAspects(block).toString()));
     }
     return InteractionResult.PASS;
   }

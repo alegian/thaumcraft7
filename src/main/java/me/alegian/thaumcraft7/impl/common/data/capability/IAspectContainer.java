@@ -22,7 +22,7 @@ public interface IAspectContainer {
 
   int extract(Aspect aspect, int amount, boolean simulate);
 
-  int getMaxAmount();
+  int getCapacity();
 
   boolean isVisSource();
 

@@ -2,7 +2,7 @@ package me.alegian.thaumcraft7.impl.common.item;
 
 import me.alegian.thaumcraft7.impl.Thaumcraft;
 import me.alegian.thaumcraft7.impl.client.renderer.geo.WandRenderer;
-import me.alegian.thaumcraft7.impl.common.data.capability.AspectContainerHelper;
+import me.alegian.thaumcraft7.impl.common.data.capability.AspectContainer;
 import me.alegian.thaumcraft7.impl.common.entity.FancyThaumonomiconEntity;
 import me.alegian.thaumcraft7.impl.common.entity.VisEntity;
 import me.alegian.thaumcraft7.impl.common.util.LevelHelper;
@@ -67,8 +67,8 @@ public class WandItem extends Item implements GeoItem {
     if (blockState.is(T7Blocks.AURA_NODE.get())) {
       var player = context.getPlayer();
 
-      var optionalPair = AspectContainerHelper.blockSourceItemSink(level, blockPos, context.getItemInHand());
-      boolean canTransfer = optionalPair.map(AspectContainerHelper.Pair::canTransferPrimals).orElse(false);
+      var optionalPair = AspectContainer.blockSourceItemSink(level, blockPos, context.getItemInHand());
+      boolean canTransfer = optionalPair.map(AspectContainer.Pair::canTransferPrimals).orElse(false);
       if (player != null && canTransfer) {
         player.startUsingItem(context.getHand());
         if (!level.isClientSide() && level instanceof ServerLevel serverLevel) {
