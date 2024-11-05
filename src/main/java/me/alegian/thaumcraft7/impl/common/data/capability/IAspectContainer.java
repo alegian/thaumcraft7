@@ -1,5 +1,6 @@
 package me.alegian.thaumcraft7.impl.common.data.capability;
 
+import me.alegian.thaumcraft7.impl.common.aspect.Aspect;
 import me.alegian.thaumcraft7.impl.common.aspect.AspectMap;
 import me.alegian.thaumcraft7.impl.common.aspect.AspectStack;
 
@@ -14,13 +15,13 @@ import javax.annotation.Nullable;
 public interface IAspectContainer {
   AspectMap getAspects();
 
-  AspectStack insert(AspectStack aspect);
+  AspectStack insert(Aspect aspect, int amount);
 
   boolean insert(@Nullable AspectMap aspects);
 
   void extract(AspectMap aspects);
 
-  AspectStack extract(AspectStack aspect);
+  AspectStack extract(Aspect aspect, int amount);
 
   AspectStack extractRandom(int amount);
 

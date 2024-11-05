@@ -1,7 +1,6 @@
 package me.alegian.thaumcraft7.impl.common.entity;
 
 import me.alegian.thaumcraft7.impl.common.data.capability.AspectContainerHelper;
-import me.alegian.thaumcraft7.impl.common.item.WandItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -43,18 +42,20 @@ public class VisEntity extends RendererEntity {
   public void tick() {
     if (this.tickCount % 5 != 0) return;
     var player = this.getPlayer();
-    if (player != null && AspectContainerHelper.isFull(player.getUseItem())) player.stopUsingItem();
-    if (this.level().isClientSide()) return;
-    this.serverTick(player);
+    var optionalPair = AspectContainerHelper.blockSourceItemSink(this.level(), this.blockPosition(), player.getUseItem());
+    boolean canTransfer = optionalPair.map(AspectContainerHelper.Pair::canTransferPrimals).orElse(false);
+    if (!canTransfer) player.stopUsingItem();
+    
+    this.serverTick(player, optionalPair.orElse(null));
   }
 
-  private void serverTick(Player player) {
-    if (player == null || !player.isUsingItem() || !(player.getUseItem().getItem() instanceof WandItem)) {
+  private void serverTick(Player player, @Nullable AspectContainerHelper.Pair pair) {
+    if (this.level().isClientSide()) return;
+    if (player == null || !player.isUsingItem() || pair == null) {
       this.kill();
       return;
     }
-
-    AspectContainerHelper.fromBlockToItem(this.level(), this.blockPosition(), player.getUseItem(), 5);
+    pair.transferPrimal(0, 5);
   }
 
   public @Nullable Player getPlayer() {

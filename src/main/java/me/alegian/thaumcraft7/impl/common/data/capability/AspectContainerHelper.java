@@ -1,8 +1,9 @@
 package me.alegian.thaumcraft7.impl.common.data.capability;
 
+import me.alegian.thaumcraft7.impl.common.aspect.Aspect;
 import me.alegian.thaumcraft7.impl.common.aspect.AspectMap;
-import me.alegian.thaumcraft7.impl.common.block.entity.BEHelper;
 import me.alegian.thaumcraft7.impl.init.registries.T7Capabilities;
+import me.alegian.thaumcraft7.impl.init.registries.deferred.Aspects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
@@ -53,15 +54,46 @@ public class AspectContainerHelper {
     return AspectContainerHelper.getAspects(level, pos).map(AspectMap::isEmpty).orElse(true);
   }
 
-  public static void fromBlockToItem(Level level, BlockPos sourceBlockPos, ItemStack dest, int amount) {
-    AspectContainerHelper.getAspectContainer(dest)
-        .flatMap(wandContainer ->
-            AspectContainerHelper.getAspectContainer(level, sourceBlockPos)
-                .map(nodeContainer -> {
-                  var aspectStack = nodeContainer.extractRandom(amount);
-                  wandContainer.insert(aspectStack);
-                  return !aspectStack.isEmpty();
-                }).filter(e -> e))
-        .ifPresent($ -> BEHelper.updateBlockEntity(level, sourceBlockPos));
+  public static Optional<Pair> blockSourceItemSink(Level level, BlockPos blockPos, ItemStack itemStack) {
+    return getAspectContainer(itemStack).flatMap(sink ->
+        getAspectContainer(level, blockPos).map(source -> new Pair(source, sink))
+    );
+  }
+
+  public static class Pair {
+    private final IAspectContainer source;
+    private final IAspectContainer sink;
+
+    public Pair(IAspectContainer source, IAspectContainer sink) {
+      this.source = source;
+      this.sink = sink;
+    }
+
+    protected int simulateTransfer(Aspect a, int idealAmount) {
+      int maxInsert = this.sink.getMaxAmount() - this.sink.getAspects().get(a);
+      if (maxInsert <= 0) return 0;
+      int maxExtract = this.source.getAspects().get(a);
+      if (maxExtract <= 0) return 0;
+
+      return Math.min(Math.min(idealAmount, maxInsert), maxExtract);
+    }
+
+    public boolean canTransferPrimals() {
+      return Aspects.PRIMAL_ASPECTS.stream()
+          .map(a -> this.simulateTransfer(a.get(), 1))
+          .anyMatch(e -> e > 0);
+    }
+
+    public void transferPrimal(int indexOffset, int idealAmount) {
+      var primals = Aspects.PRIMAL_ASPECTS.size();
+      for (int i = 0; i < primals; i++) {
+        var a = Aspects.PRIMAL_ASPECTS.get((i + indexOffset) % primals).get();
+        int amount = this.simulateTransfer(a, idealAmount);
+        if (amount == 0) continue;
+        this.sink.insert(a, amount);
+        this.source.extract(a, amount);
+        break;
+      }
+    }
   }
 }
