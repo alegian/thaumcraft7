@@ -1,5 +1,7 @@
 package me.alegian.thaumcraft7.impl.common.menu.container;
 
+import me.alegian.thaumcraft7.impl.common.aspect.AspectMap;
+import me.alegian.thaumcraft7.impl.common.data.capability.AspectContainer;
 import me.alegian.thaumcraft7.impl.common.menu.Menu;
 import me.alegian.thaumcraft7.impl.common.menu.slot.SlotRange;
 import me.alegian.thaumcraft7.impl.common.menu.slot.WandSlot;
@@ -16,6 +18,12 @@ public class WandContainer implements T7Container {
   public WandContainer(Menu menu) {
     this.menu = menu;
     this.range = new SlotRange.Single(menu);
+  }
+
+  public boolean contains(AspectMap required){
+    return AspectContainer.from(this.getItem(0)).map(container->
+        container.getAspects().contains(required)
+    ).orElse(false);
   }
 
   @Override

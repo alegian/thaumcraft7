@@ -71,7 +71,7 @@ public class ArcaneWorkbenchMenu extends Menu {
       ).orElse(AspectMap.EMPTY);
 
       this.resultContainer.setItem(0, resultItem);
-      this.resultContainer.setSlotEnabled(0, false);
+      this.resultContainer.setSlotEnabled(0, this.wandContainer.contains(requiredAspects));
     }
   }
 
