@@ -14,5 +14,5 @@ void main() {
     float radius = distance(centerFragCoord, gl_FragCoord.xy);
 
     if(radius>64) discard;
-    fragColor = vec4(1);
+    fragColor = vec4(1, 1, 1, 0.5);
 }
