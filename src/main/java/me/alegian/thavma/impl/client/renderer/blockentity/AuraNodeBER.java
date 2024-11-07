@@ -74,7 +74,7 @@ public class AuraNodeBER implements BlockEntityRenderer<AuraNodeBE> {
     Quaternionf rotation = Minecraft.getInstance().gameRenderer.getMainCamera().rotation();
     poseStack.mulPose(rotation);
 
-    BERHelper.renderAuraNodeLayer(poseStack, bufferSource, 0.45f, 0, 0, 1, 0.2f);
+    BERHelper.renderAuraNodeLayer(poseStack, bufferSource, 0.5f, 0, 0, 1, 0.2f);
     BERHelper.renderAuraNodeLayer(poseStack, bufferSource, 0.2f, 0, 1, 1, 0.2f);
 
     poseStack.popPose();
