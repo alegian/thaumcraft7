@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cauldron",
+  "loader": "thavma:with_transform_parent",
+  "textures": {
+    "bottom": "thavma:block/crucible_bottom",
+    "inside": "thavma:block/crucible_inner",
+    "particle": "thavma:block/crucible_side",
+    "side": "thavma:block/crucible_side",
+    "top": "thavma:block/crucible_top"
+  },
+  "transform_parent": "minecraft:block/block"
+}

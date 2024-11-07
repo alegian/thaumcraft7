@@ -1,6 +1,0 @@
-{
-  "type": "neoforge:add_features",
-  "biomes": "#minecraft:is_overworld",
-  "features": "thaumcraft7:ore_infused_stone",
-  "step": "underground_ores"
-}

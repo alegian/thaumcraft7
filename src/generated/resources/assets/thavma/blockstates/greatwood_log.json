@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "thavma:block/greatwood_log_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "thavma:block/greatwood_log"
+    },
+    "axis=z": {
+      "model": "thavma:block/greatwood_log_horizontal",
+      "x": 90
+    }
+  }
+}

@@ -1,13 +1,13 @@
 {
   "values": [
-    "thaumcraft7:ignis_ore",
-    "thaumcraft7:terra_ore",
-    "thaumcraft7:aer_ore",
-    "thaumcraft7:aqua_ore",
-    "thaumcraft7:ordo_ore",
-    "thaumcraft7:perditio_ore",
-    "thaumcraft7:crucible",
-    "thaumcraft7:arcanum_block",
-    "thaumcraft7:orichalcum_block"
+    "thavma:ignis_ore",
+    "thavma:terra_ore",
+    "thavma:aer_ore",
+    "thavma:aqua_ore",
+    "thavma:ordo_ore",
+    "thavma:perditio_ore",
+    "thavma:crucible",
+    "thavma:arcanum_block",
+    "thavma:orichalcum_block"
   ]
 }

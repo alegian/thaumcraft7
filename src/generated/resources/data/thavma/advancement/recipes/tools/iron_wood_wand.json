@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_iron_handle": {
+      "conditions": {
+        "items": [
+          {
+            "items": "thavma:iron_handle"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "thavma:iron_wood_wand"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_iron_handle"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "thavma:iron_wood_wand"
+    ]
+  }
+}

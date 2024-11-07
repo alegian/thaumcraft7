@@ -2,19 +2,19 @@
   "entries": [
     {
       "enum": "net/minecraft/client/model/HumanoidModel$ArmPose",
-      "name": "thaumcraft7_WAND",
+      "name": "thavma_WAND",
       "constructor": "(ZLnet/neoforged/neoforge/client/IArmPoseTransformer;)V",
       "parameters": {
-        "class": "me/alegian/thaumcraft7/impl/common/enumextension/WandArmPose",
+        "class": "me/alegian/thavma/impl/common/enumextension/WandArmPose",
         "field": "ENUM_PARAMS"
       }
     },
     {
       "enum": "net/minecraft/client/model/HumanoidModel$ArmPose",
-      "name": "thaumcraft7_OCULUS",
+      "name": "thavma_OCULUS",
       "constructor": "(ZLnet/neoforged/neoforge/client/IArmPoseTransformer;)V",
       "parameters": {
-        "class": "me/alegian/thaumcraft7/impl/common/enumextension/OculusArmPose",
+        "class": "me/alegian/thavma/impl/common/enumextension/OculusArmPose",
         "field": "ENUM_PARAMS"
       }
     }

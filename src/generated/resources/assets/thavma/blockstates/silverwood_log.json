@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "thavma:block/silverwood_log_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "thavma:block/silverwood_log"
+    },
+    "axis=z": {
+      "model": "thavma:block/silverwood_log_horizontal",
+      "x": 90
+    }
+  }
+}

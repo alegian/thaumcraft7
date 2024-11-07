@@ -1,0 +1,29 @@
+{
+  "type": "thavma:arcane_workbench",
+  "key": {
+    "d": {
+      "item": "minecraft:cobbled_deepslate"
+    },
+    "g": {
+      "item": "minecraft:gold_ingot"
+    }
+  },
+  "pattern": [
+    "gd ",
+    " g "
+  ],
+  "resultAspects": [
+    {
+      "amount": 6,
+      "aspect": "thavma:ignis"
+    },
+    {
+      "amount": 2,
+      "aspect": "thavma:ordo"
+    }
+  ],
+  "resultItem": {
+    "count": 2,
+    "id": "minecraft:diamond"
+  }
+}

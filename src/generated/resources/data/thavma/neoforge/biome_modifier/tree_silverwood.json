@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#minecraft:is_overworld",
+  "features": "thavma:tree_silverwood",
+  "step": "vegetal_decoration"
+}

@@ -1,13 +1,13 @@
-# Thaumcraft 7
+# Thaumcraft 7 (Thavma)
 
 ## Preface
 
 A complete rewrite & re-imagination of azanor's Thaumcraft for modern versions of Minecraft.
-I am in no way associated with azanor and will not use any of their assets, 
+I am in no way associated with azanor and will not use any of their assets,
 except perhaps temporarily the mod name (which I will also change upon release).
 
 What version of Thaumcraft am I rewriting? None specifically. I am going to implement what
-I enjoyed most from each version (my favorite being Thaumcraft 4.2). I plan to add 
+I enjoyed most from each version (my favorite being Thaumcraft 4.2). I plan to add
 features that did not exist in the original mod, and change old features to give them
 fresh new mechanics, visuals and names.
 
@@ -18,14 +18,20 @@ Good pick azanor ;-)
 
 - Azanor, for being the original author of my favorite mod
 - The NeoForge Project discord community, for answering my questions countless times
-- Team CoFH, for allowing anyone to learn from their code. Also, modified versions of their license and their package structure are used here
+- Team CoFH, for allowing anyone to learn from their code. Also, modified versions of their license and their package
+  structure are used here
 - McJTy, for their minecraft modding tutorials
 - The JEI team, for being open source. Their codebase taught me how to use custom Texture Atlases
-- The https://game-icons.net/ team, for their free icons, under the [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/) license. All icons were taken as-is
+- The https://game-icons.net/ team, for their free icons, under
+  the [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/) license. All icons were taken as-is
 - Reaves, for their awesome original models & textures
-- Gigaherz, for their [custom core shader tutorial gist](https://gist.github.com/gigaherz/b8756ff463541f07a644ef8f14cb10f5), pretty much the only resource online that describes this process
-- The Artifacts team, for being open source. Their codebase taught me how to use Attribute Modifiers and how to render custom cuboids on HumanoidModels
+- Gigaherz, for
+  their [custom core shader tutorial gist](https://gist.github.com/gigaherz/b8756ff463541f07a644ef8f14cb10f5), pretty
+  much the only resource online that describes this process
+- The Artifacts team, for being open source. Their codebase taught me how to use Attribute Modifiers and how to render
+  custom cuboids on HumanoidModels
 
 ## License
 
-This repository uses a modified version of the CoFH "Don't Be a Jerk" License v2. [Read the file](LICENSE.md) for details.
+This repository uses a modified version of the CoFH "Don't Be a Jerk" License v2. [Read the file](LICENSE.md) for
+details.

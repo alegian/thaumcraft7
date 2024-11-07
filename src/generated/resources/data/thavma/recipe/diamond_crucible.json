@@ -1,0 +1,20 @@
+{
+  "type": "thavma:crucible",
+  "aspects": [
+    {
+      "amount": 6,
+      "aspect": "thavma:terra"
+    },
+    {
+      "amount": 2,
+      "aspect": "thavma:perditio"
+    }
+  ],
+  "catalyst": {
+    "item": "minecraft:dragon_egg"
+  },
+  "result": {
+    "count": 1,
+    "id": "minecraft:diamond"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "wand_handle",
+  "key": {
+    "i": {
+      "item": "minecraft:iron_ingot"
+    },
+    "n": {
+      "item": "minecraft:iron_nugget"
+    }
+  },
+  "pattern": [
+    " n ",
+    " in",
+    "i  "
+  ],
+  "result": {
+    "count": 1,
+    "id": "thavma:iron_handle"
+  }
+}

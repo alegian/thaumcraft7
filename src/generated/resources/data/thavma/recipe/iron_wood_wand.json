@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "wand",
+  "key": {
+    "c": {
+      "tag": "c:rods/wooden"
+    },
+    "h": {
+      "item": "thavma:iron_handle"
+    }
+  },
+  "pattern": [
+    "  c",
+    " c ",
+    "h  "
+  ],
+  "result": {
+    "count": 1,
+    "id": "thavma:iron_wood_wand"
+  }
+}
