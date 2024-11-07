@@ -29,35 +29,36 @@ public class T7BlockLootSubProvider extends BlockLootSubProvider {
 
   @Override
   protected void generate() {
-    dropSelf(T7Blocks.GREATWOOD_LOG.get());
-    dropSelf(T7Blocks.GREATWOOD_PLANKS.get());
-    add(T7Blocks.GREATWOOD_LEAVES.get(), l -> createLeavesDrops(l, T7Blocks.GREATWOOD_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
-    dropSelf(T7Blocks.GREATWOOD_SAPLING.get());
+    this.dropSelf(T7Blocks.GREATWOOD_LOG.get());
+    this.dropSelf(T7Blocks.GREATWOOD_PLANKS.get());
+    this.add(T7Blocks.GREATWOOD_LEAVES.get(), l -> this.createLeavesDrops(l, T7Blocks.GREATWOOD_SAPLING.get(), BlockLootSubProvider.NORMAL_LEAVES_SAPLING_CHANCES));
+    this.dropSelf(T7Blocks.GREATWOOD_SAPLING.get());
 
-    dropSelf(T7Blocks.SILVERWOOD_LOG.get());
-    dropSelf(T7Blocks.SILVERWOOD_PLANKS.get());
-    add(T7Blocks.SILVERWOOD_LEAVES.get(), l -> createLeavesDrops(l, T7Blocks.SILVERWOOD_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
-    dropSelf(T7Blocks.SILVERWOOD_SAPLING.get());
+    this.dropSelf(T7Blocks.SILVERWOOD_LOG.get());
+    this.dropSelf(T7Blocks.SILVERWOOD_PLANKS.get());
+    this.add(T7Blocks.SILVERWOOD_LEAVES.get(), l -> this.createLeavesDrops(l, T7Blocks.SILVERWOOD_SAPLING.get(), BlockLootSubProvider.NORMAL_LEAVES_SAPLING_CHANCES));
+    this.dropSelf(T7Blocks.SILVERWOOD_SAPLING.get());
 
-    dropSelf(T7Blocks.CRUCIBLE.get());
-    dropSelf(T7Blocks.AURA_NODE.get()); // TODO: replace
-    dropSelf(T7Blocks.ARCANE_WORKBENCH.get());
-    dropSelf(T7Blocks.ELEMENTAL_STONE.get());
+    this.dropSelf(T7Blocks.CRUCIBLE.get());
+    this.dropSelf(T7Blocks.AURA_NODE.get()); // TODO: replace
+    this.dropSelf(T7Blocks.ARCANE_WORKBENCH.get());
+    this.dropSelf(T7Blocks.RESEARCH_TABLE.get());
+    this.dropSelf(T7Blocks.ELEMENTAL_STONE.get());
 
-    dropSelf(T7Blocks.ARCANUM_BLOCK.get());
-    dropSelf(T7Blocks.ORICHALCUM_BLOCK.get());
+    this.dropSelf(T7Blocks.ARCANUM_BLOCK.get());
+    this.dropSelf(T7Blocks.ORICHALCUM_BLOCK.get());
 
-    dropSelf(T7Blocks.ESSENTIA_CONTAINER.get());
+    this.dropSelf(T7Blocks.ESSENTIA_CONTAINER.get());
 
-    infusedStone(T7Blocks.IGNIS_INFUSED_STONE, T7Items.IGNIS_TESTA);
-    infusedStone(T7Blocks.TERRA_INFUSED_STONE, T7Items.TERRA_TESTA);
-    infusedStone(T7Blocks.AER_INFUSED_STONE, T7Items.AER_TESTA);
-    infusedStone(T7Blocks.AQUA_INFUSED_STONE, T7Items.AQUA_TESTA);
-    infusedStone(T7Blocks.ORDO_INFUSED_STONE, T7Items.ORDO_TESTA);
-    infusedStone(T7Blocks.PERDITIO_INFUSED_STONE, T7Items.PERDITIO_TESTA);
+    this.infusedStone(T7Blocks.IGNIS_INFUSED_STONE, T7Items.IGNIS_TESTA);
+    this.infusedStone(T7Blocks.TERRA_INFUSED_STONE, T7Items.TERRA_TESTA);
+    this.infusedStone(T7Blocks.AER_INFUSED_STONE, T7Items.AER_TESTA);
+    this.infusedStone(T7Blocks.AQUA_INFUSED_STONE, T7Items.AQUA_TESTA);
+    this.infusedStone(T7Blocks.ORDO_INFUSED_STONE, T7Items.ORDO_TESTA);
+    this.infusedStone(T7Blocks.PERDITIO_INFUSED_STONE, T7Items.PERDITIO_TESTA);
   }
 
   private void infusedStone(DeferredBlock<InfusedStoneBlock> block, DeferredItem<TestaItem> item) {
-    add(block.get(), b -> createOreDrop(b, item.get()));
+    this.add(block.get(), b -> this.createOreDrop(b, item.get()));
   }
 }

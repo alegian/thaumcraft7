@@ -1,10 +1,7 @@
 package me.alegian.thavma.impl.init.registries.deferred;
 
 import me.alegian.thavma.impl.Thavma;
-import me.alegian.thavma.impl.common.block.ArcaneWorkbenchBlock;
-import me.alegian.thavma.impl.common.block.AuraNodeBlock;
-import me.alegian.thavma.impl.common.block.CrucibleBlock;
-import me.alegian.thavma.impl.common.block.InfusedStoneBlock;
+import me.alegian.thavma.impl.common.block.*;
 import me.alegian.thavma.impl.init.data.worldgen.tree.GreatwoodTree;
 import me.alegian.thavma.impl.init.data.worldgen.tree.SilverwoodTree;
 import net.minecraft.core.Direction;
@@ -28,6 +25,7 @@ public class T7Blocks {
 
   public static final DeferredBlock<CrucibleBlock> CRUCIBLE = T7Blocks.register("crucible", CrucibleBlock::new);
   public static final DeferredBlock<ArcaneWorkbenchBlock> ARCANE_WORKBENCH = T7Blocks.register("arcane_workbench", ArcaneWorkbenchBlock::new);
+  public static final DeferredBlock<Block> RESEARCH_TABLE = T7Blocks.register("research_table", ResearchTableBlock::new);
 
   public static final DeferredBlock<Block> ELEMENTAL_STONE = T7Blocks.register("elemental_stone", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)));
 

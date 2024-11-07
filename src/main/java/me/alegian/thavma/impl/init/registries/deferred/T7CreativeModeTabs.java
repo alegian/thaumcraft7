@@ -18,7 +18,11 @@ public class T7CreativeModeTabs {
             .icon(() -> T7Items.THAUMONOMICON.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
               output.accept(T7Blocks.AURA_NODE.get());
+              output.accept(T7Blocks.ESSENTIA_CONTAINER.get());
+
               output.accept(T7Blocks.CRUCIBLE.get());
+              output.accept(T7Blocks.ARCANE_WORKBENCH.get());
+              output.accept(T7Blocks.RESEARCH_TABLE.get());
 
               output.accept(T7Blocks.ELEMENTAL_STONE.get());
 
@@ -41,10 +45,6 @@ public class T7CreativeModeTabs {
               output.accept(T7Blocks.SILVERWOOD_SAPLING.get());
               output.accept(T7Blocks.SILVERWOOD_LOG.get());
               output.accept(T7Blocks.SILVERWOOD_PLANKS.get());
-
-              output.accept(T7Blocks.ARCANE_WORKBENCH.get());
-
-              output.accept(T7Blocks.ESSENTIA_CONTAINER.get());
 
               output.accept(T7Items.IRON_HANDLE.get());
               output.accept(T7Items.GOLD_HANDLE.get());

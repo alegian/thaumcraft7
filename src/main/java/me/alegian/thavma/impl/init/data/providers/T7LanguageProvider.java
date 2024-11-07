@@ -93,6 +93,7 @@ public class T7LanguageProvider extends LanguageProvider {
     this.add(T7Blocks.AURA_NODE.get(), "Aura Node");
     this.add(T7Blocks.CRUCIBLE.get(), "Crucible");
     this.add(T7Blocks.ARCANE_WORKBENCH.get(), "Arcane Workbench");
+    this.add(T7Blocks.RESEARCH_TABLE.get(), "Research Table");
     this.add(T7Blocks.ELEMENTAL_STONE.get(), "Elemental Stone");
 
     this.add(T7Blocks.IGNIS_INFUSED_STONE.get(), "Ignis Infused Stone");
