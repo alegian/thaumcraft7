@@ -9,7 +9,7 @@ uniform mat4 ProjMat;
 uniform vec2 ScreenSize;
 
 out vec4 vertexColor;
-out vec2 centerFragCoord;
+out float distanceFromCenter;
 out float angle;
 
 void main() {
@@ -18,7 +18,5 @@ void main() {
     vertexColor = Color;
     angle = atan(Position.x, Position.z);
 
-    vec4 centerGLPos = ProjMat * ModelViewMat * vec4(Center, 1.0);
-    vec2 ndcPos = centerGLPos.xy / centerGLPos.w;
-    centerFragCoord = ScreenSize * (ndcPos*0.5 + 0.5);
+    distanceFromCenter = distance(Center, Position);
 }

@@ -24,10 +24,10 @@ public class AuraNodeBER implements BlockEntityRenderer<AuraNodeBE> {
     var containingCountdown = be.getContainingCountdown();
 
     poseStack.pushPose();
-    setupPose(poseStack, containingCountdown, partialTick);
+    this.setupPose(poseStack, containingCountdown, partialTick);
 
-    renderContainer(poseStack, bufferSource, combinedLight, combinedOverlay, containingCountdown);
-    renderNode(poseStack, bufferSource);
+    AuraNodeBER.renderContainer(poseStack, bufferSource, combinedLight, combinedOverlay, containingCountdown);
+    this.renderNode(poseStack, bufferSource);
 
     poseStack.popPose();
   }
@@ -59,7 +59,7 @@ public class AuraNodeBER implements BlockEntityRenderer<AuraNodeBE> {
         partialTick,
         (float) containingCountdown / AuraNodeBE.MAX_COUNTDOWN,
         (float) (containingCountdown - 1) / AuraNodeBE.MAX_COUNTDOWN
-    ), MIN_SCALE);
+    ), AuraNodeBER.MIN_SCALE);
 
     poseStack.scale(this.scale, this.scale, this.scale);
   }
@@ -74,8 +74,8 @@ public class AuraNodeBER implements BlockEntityRenderer<AuraNodeBE> {
     Quaternionf rotation = Minecraft.getInstance().gameRenderer.getMainCamera().rotation();
     poseStack.mulPose(rotation);
 
-    BERHelper.renderAuraNodeLayer(poseStack, bufferSource, 0.45f, 16, 0, 0, 1, 0.2f);
-    BERHelper.renderAuraNodeLayer(poseStack, bufferSource, 0.2f, 16, 0, 1, 1, 0.2f);
+    BERHelper.renderAuraNodeLayer(poseStack, bufferSource, 0.45f, 0, 0, 1, 0.2f);
+    BERHelper.renderAuraNodeLayer(poseStack, bufferSource, 0.2f, 0, 1, 1, 0.2f);
 
     poseStack.popPose();
   }
