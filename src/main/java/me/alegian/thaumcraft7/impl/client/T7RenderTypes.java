@@ -12,7 +12,7 @@ import static net.minecraft.client.renderer.RenderStateShard.*;
 @OnlyIn(Dist.CLIENT)
 public class T7RenderTypes {
   public static final RenderType AURA_NODE = RenderType.create(
-      Thaumcraft.MODID + "_aura_node", T7VertexFormats.AURA_NODE, VertexFormat.Mode.QUADS, RenderType.SMALL_BUFFER_SIZE, false, true, auraNodeState()
+      Thaumcraft.MODID + "_aura_node", T7VertexFormats.AURA_NODE, VertexFormat.Mode.TRIANGLES, RenderType.SMALL_BUFFER_SIZE, false, true, T7RenderTypes.auraNodeState()
   );
 
   public static final RenderType TRANSLUCENT_TRIANGLES = RenderType.create(

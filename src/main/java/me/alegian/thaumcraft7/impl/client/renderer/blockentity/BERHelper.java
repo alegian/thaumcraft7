@@ -12,9 +12,24 @@ public class BERHelper {
   public static void renderAuraNodeLayer(PoseStack poseStack, MultiBufferSource bufferSource, float radius, int triangleResolution, float r, float g, float b, float a) {
     T7BufferBuilder buffer = new T7BufferBuilder(bufferSource.getBuffer(T7RenderTypes.AURA_NODE));
 
-    buffer.addVertex(poseStack.last(), -radius, -radius, 0).setColor(r, g, b, a).setCenter();
-    buffer.addVertex(poseStack.last(), radius, -radius, 0).setColor(r, g, b, a).setCenter();
-    buffer.addVertex(poseStack.last(), radius, radius, 0).setColor(r, g, b, a).setCenter();
-    buffer.addVertex(poseStack.last(), -radius, radius, 0).setColor(r, g, b, a).setCenter();
+    BERHelper.nodeVertex(poseStack, 0, 0, r, g, b, a, buffer);
+    BERHelper.nodeVertex(poseStack, -radius, -radius, r, g, b, a, buffer);
+    BERHelper.nodeVertex(poseStack, radius, -radius, r, g, b, a, buffer);
+
+    BERHelper.nodeVertex(poseStack, 0, 0, r, g, b, a, buffer);
+    BERHelper.nodeVertex(poseStack, radius, -radius, r, g, b, a, buffer);
+    BERHelper.nodeVertex(poseStack, radius, radius, r, g, b, a, buffer);
+
+    BERHelper.nodeVertex(poseStack, 0, 0, r, g, b, a, buffer);
+    BERHelper.nodeVertex(poseStack, radius, radius, r, g, b, a, buffer);
+    BERHelper.nodeVertex(poseStack, -radius, radius, r, g, b, a, buffer);
+
+    BERHelper.nodeVertex(poseStack, 0, 0, r, g, b, a, buffer);
+    BERHelper.nodeVertex(poseStack, -radius, radius, r, g, b, a, buffer);
+    BERHelper.nodeVertex(poseStack, -radius, -radius, r, g, b, a, buffer);
+  }
+
+  private static void nodeVertex(PoseStack poseStack, float x, float y, float r, float g, float b, float a, T7BufferBuilder buffer) {
+    buffer.addVertex(poseStack.last(), x, y, 0).setColor(r, g, b, a).setCenter();
   }
 }
