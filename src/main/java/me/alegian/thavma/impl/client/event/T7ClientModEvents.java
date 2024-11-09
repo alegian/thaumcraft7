@@ -1,9 +1,9 @@
 package me.alegian.thavma.impl.client.event;
 
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import me.alegian.thavma.impl.Thavma;
 import me.alegian.thavma.impl.client.T7Colors;
 import me.alegian.thavma.impl.client.T7RenderStateShards;
+import me.alegian.thavma.impl.client.T7VertexFormats;
 import me.alegian.thavma.impl.client.extension.OculusItemExtensions;
 import me.alegian.thavma.impl.client.extension.WandItemExtensions;
 import me.alegian.thavma.impl.client.gui.VisGuiOverlay;
@@ -111,9 +111,7 @@ public class T7ClientModEvents {
 
   @SubscribeEvent
   public static void registerShaders(RegisterShadersEvent event) throws IOException {
-    event.registerShader(new ShaderInstance(event.getResourceProvider(), Thavma.id("aura_node"), DefaultVertexFormat.NEW_ENTITY), shaderInstance -> {
-      T7RenderStateShards.auraNodeShader = shaderInstance;
-    });
+    event.registerShader(new ShaderInstance(event.getResourceProvider(), Thavma.id("aura_node"), T7VertexFormats.AURA_NODE), shaderInstance -> T7RenderStateShards.auraNodeShader = shaderInstance);
   }
 
   @SubscribeEvent
