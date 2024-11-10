@@ -10,7 +10,7 @@ import net.neoforged.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class BERHelper {
   public static void renderAuraNodeLayer(PoseStack poseStack, MultiBufferSource bufferSource, float radius, float r, float g, float b, float a) {
-    int triangleResolution = 256;
+    int triangleResolution = 4;
     T7BufferBuilder buffer = new T7BufferBuilder(bufferSource.getBuffer(T7RenderTypes.AURA_NODE));
 
     double baseAngle = Math.PI * 2 / triangleResolution;

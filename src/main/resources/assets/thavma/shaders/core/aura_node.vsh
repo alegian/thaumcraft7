@@ -10,7 +10,8 @@ uniform mat4 ProjMat;
 uniform vec2 ScreenSize;
 
 out vec4 vertexColor;
-out float distanceFromCenter;
+out vec3 fragPosition;
+flat out vec3 fragCenter;
 flat out float radius;
 out float angle;
 
@@ -21,6 +22,7 @@ void main() {
 
     angle = Angle;
 
-    distanceFromCenter = distance(Center, Position);
-    radius = distanceFromCenter;
+    fragPosition = Position;
+    fragCenter = Center;
+    radius = distance(Center, Position)/sqrt(2);
 }
