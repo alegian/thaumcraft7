@@ -19,12 +19,12 @@ public class BERHelper {
   }
 
   private static void nodeTriangle(PoseStack poseStack, float radius, double baseAngle, int index, float r, float g, float b, float a, T7BufferBuilder buffer) {
-    BERHelper.nodeVertex(poseStack, 0, 0, r, g, b, a, buffer, (float) baseAngle * index);
-    BERHelper.nodeVertex(poseStack, (float) (Math.cos(baseAngle * index) * radius), (float) (Math.sin(baseAngle * index) * radius), r, g, b, a, buffer, (float) baseAngle * index);
-    BERHelper.nodeVertex(poseStack, (float) (Math.cos(baseAngle * (index + 1)) * radius), (float) (Math.sin(baseAngle * (index + 1)) * radius), r, g, b, a, buffer, (float) baseAngle * (index + 1));
+    BERHelper.nodeVertex(poseStack, 0, 0, r, g, b, a, buffer);
+    BERHelper.nodeVertex(poseStack, (float) (Math.cos(baseAngle * index) * radius), (float) (Math.sin(baseAngle * index) * radius), r, g, b, a, buffer);
+    BERHelper.nodeVertex(poseStack, (float) (Math.cos(baseAngle * (index + 1)) * radius), (float) (Math.sin(baseAngle * (index + 1)) * radius), r, g, b, a, buffer);
   }
 
-  private static void nodeVertex(PoseStack poseStack, float x, float y, float r, float g, float b, float a, T7BufferBuilder buffer, float angle) {
-    buffer.addVertex(poseStack.last(), x, y, 0).setColor(r, g, b, a).setCenter().setAngle(angle);
+  private static void nodeVertex(PoseStack poseStack, float x, float y, float r, float g, float b, float a, T7BufferBuilder buffer) {
+    buffer.addVertex(poseStack.last(), x, y, 0).setColor(r, g, b, a).setCenter();
   }
 }

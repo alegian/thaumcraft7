@@ -4,17 +4,18 @@ in vec4 vertexColor;
 in vec3 fragPosition;
 flat in vec3 fragCenter;
 flat in float radius;
-in float angle;
 
 uniform vec4 ColorModulator;
+uniform mat4 ModelViewMat;
+uniform mat4 ProjMat;
 
 out vec4 fragColor;
 
 void main() {
-    vec4 color = vertexColor;
+    vec3 diff = fragCenter - fragPosition;
+    vec4 cameraDiff = ModelViewMat * vec4(diff, 1.0);
+    float angle = atan(cameraDiff.y, cameraDiff.x);
 
-    float dist = distance(fragPosition, fragCenter);
-
-    if(dist>0.3) discard;
+    if (length(diff) > radius * (1 - 0.1 * (sin(angle * 8) + 1))) discard;
     fragColor = vertexColor;
 }

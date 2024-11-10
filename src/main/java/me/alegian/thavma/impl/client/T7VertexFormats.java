@@ -30,6 +30,5 @@ public class T7VertexFormats {
       .add("Position", VertexFormatElement.POSITION)
       .add("Color", VertexFormatElement.COLOR)
       .add("Center", T7VertexFormats.CENTER)
-      .add("Angle", T7VertexFormats.ANGLE)
       .build();
 }

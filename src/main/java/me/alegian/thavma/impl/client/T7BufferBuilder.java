@@ -42,11 +42,4 @@ public class T7BufferBuilder {
 
     return this;
   }
-
-  public T7BufferBuilder setAngle(float angle) {
-    long i = this.parent.beginElement(T7VertexFormats.ANGLE);
-    if (i != -1L) MemoryUtil.memPutFloat(i, angle);
-
-    return this;
-  }
 }
