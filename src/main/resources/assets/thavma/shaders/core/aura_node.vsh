@@ -6,7 +6,6 @@ in vec3 Center;
 
 uniform mat4 ModelViewMat;
 uniform mat4 ProjMat;
-uniform vec2 ScreenSize;
 
 out vec4 vertexColor;
 out vec3 fragPosition;
@@ -19,5 +18,5 @@ void main() {
     vertexColor = Color;
     fragPosition = Position;
     fragCenter = Center;
-    radius = distance(Center, Position) / sqrt(2);
+    radius = distance(Center, Position) / 2;
 }

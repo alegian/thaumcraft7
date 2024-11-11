@@ -5,9 +5,7 @@ in vec3 fragPosition;
 flat in vec3 fragCenter;
 flat in float radius;
 
-uniform vec4 ColorModulator;
 uniform mat4 ModelViewMat;
-uniform mat4 ProjMat;
 
 out vec4 fragColor;
 

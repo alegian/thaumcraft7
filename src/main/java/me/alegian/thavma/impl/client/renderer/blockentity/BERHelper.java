@@ -10,18 +10,16 @@ import net.neoforged.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class BERHelper {
   public static void renderAuraNodeLayer(PoseStack poseStack, MultiBufferSource bufferSource, float radius, float r, float g, float b, float a) {
-    int triangleResolution = 4;
     T7BufferBuilder buffer = new T7BufferBuilder(bufferSource.getBuffer(T7RenderTypes.AURA_NODE));
 
-    double baseAngle = Math.PI * 2 / triangleResolution;
-    for (int i = 0; i < triangleResolution; i++)
-      BERHelper.nodeTriangle(poseStack, radius, baseAngle, i, r, g, b, a, buffer);
-  }
-
-  private static void nodeTriangle(PoseStack poseStack, float radius, double baseAngle, int index, float r, float g, float b, float a, T7BufferBuilder buffer) {
-    BERHelper.nodeVertex(poseStack, 0, 0, r, g, b, a, buffer);
-    BERHelper.nodeVertex(poseStack, (float) (Math.cos(baseAngle * index) * radius), (float) (Math.sin(baseAngle * index) * radius), r, g, b, a, buffer);
-    BERHelper.nodeVertex(poseStack, (float) (Math.cos(baseAngle * (index + 1)) * radius), (float) (Math.sin(baseAngle * (index + 1)) * radius), r, g, b, a, buffer);
+    // circles inscribed in triangles are only half as small
+    radius = radius * 2;
+    
+    // render a single triangle. everything else is core shaders
+    double baseAngle = 2 * Math.PI / 3;
+    BERHelper.nodeVertex(poseStack, radius, 0, r, g, b, a, buffer);
+    BERHelper.nodeVertex(poseStack, (float) (Math.cos(baseAngle * 2) * radius), (float) (Math.sin(baseAngle * 2) * radius), r, g, b, a, buffer);
+    BERHelper.nodeVertex(poseStack, (float) (Math.cos(baseAngle) * radius), (float) (Math.sin(baseAngle) * radius), r, g, b, a, buffer);
   }
 
   private static void nodeVertex(PoseStack poseStack, float x, float y, float r, float g, float b, float a, T7BufferBuilder buffer) {
