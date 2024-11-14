@@ -14,6 +14,10 @@ import javax.annotation.Nullable;
 public interface IAspectContainer {
   AspectMap getAspects();
 
+  boolean areAspectsNull();
+
+  void setAspects(AspectMap aspects);
+
   int insert(Aspect aspect, int amount, boolean simulate);
 
   boolean insert(@Nullable AspectMap aspects);

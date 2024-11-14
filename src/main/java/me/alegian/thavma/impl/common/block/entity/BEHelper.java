@@ -5,7 +5,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
 public class BEHelper {
-  public static void updateBlockEntity(Level level, BlockPos blockPos) {
+  public static void updateServerBlockEntity(Level level, BlockPos blockPos) {
     var be = level.getBlockEntity(blockPos);
     if (be != null) {
       be.setChanged();

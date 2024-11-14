@@ -76,6 +76,16 @@ public class AspectContainer implements IAspectContainer {
   }
 
   @Override
+  public boolean areAspectsNull() {
+    return this.holder.get(T7DataComponents.ASPECTS) == null;
+  }
+
+  @Override
+  public void setAspects(AspectMap aspects) {
+    this.holder.set(T7DataComponents.ASPECTS, aspects);
+  }
+
+  @Override
   public int insert(Aspect aspect, int amount, boolean simulate) {
     if (amount == 0) return 0;
 

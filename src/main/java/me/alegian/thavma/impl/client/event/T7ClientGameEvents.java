@@ -67,9 +67,11 @@ public class T7ClientGameEvents {
     if (!AspectContainer.isAspectContainer(minecraft.level, blockPos)) return;
     if (!ClientHelper.localPlayerHasRevealing()) return;
 
-    AspectContainer.at(minecraft.level, blockPos).map(IAspectContainer::getAspects).ifPresent(
-        aspects -> AspectRenderer.renderAfterWeather(aspects, event.getPoseStack(), event.getCamera(), blockPos)
-    );
+    AspectContainer.at(minecraft.level, blockPos)
+        .map(IAspectContainer::getAspects)
+        .ifPresent(
+            aspects -> AspectRenderer.renderAfterWeather(aspects, event.getPoseStack(), event.getCamera(), blockPos)
+        );
   }
 
   @SubscribeEvent

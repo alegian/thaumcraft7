@@ -1,6 +1,8 @@
 package me.alegian.thavma.impl.common.block.entity;
 
 import me.alegian.thavma.impl.common.aspect.AspectMap;
+import me.alegian.thavma.impl.common.data.capability.AspectContainer;
+import me.alegian.thavma.impl.common.data.capability.IAspectContainer;
 import me.alegian.thavma.impl.init.registries.deferred.T7BlockEntities;
 import me.alegian.thavma.impl.init.registries.deferred.T7Blocks;
 import me.alegian.thavma.impl.init.registries.deferred.T7DataComponents;
@@ -11,7 +13,6 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.SlabType;
@@ -41,10 +42,10 @@ public class AuraNodeBE extends DataComponentBE {
   @Override
   public void onLoad() {
     if (!this.getLevel().isClientSide()) {
-      var aspects = this.get(T7DataComponents.ASPECTS.get());
-      if (aspects == null) this.set(T7DataComponents.ASPECTS.get(), AspectMap.randomPrimals());
-      this.getLevel().sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), Block.UPDATE_CLIENTS);
-      this.setChanged();
+      AspectContainer.at(this.getLevel(), this.getBlockPos())
+          .filter(IAspectContainer::areAspectsNull)
+          .ifPresent(c -> c.setAspects(AspectMap.randomPrimals()));
+      BEHelper.updateServerBlockEntity(this.getLevel(), this.getBlockPos());
     }
   }
 

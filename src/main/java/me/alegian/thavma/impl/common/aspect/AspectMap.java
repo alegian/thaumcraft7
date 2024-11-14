@@ -13,10 +13,7 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -94,8 +91,13 @@ public class AspectMap {
   }
 
   public static AspectMap randomPrimals() {
+    Random random = new Random();
     LinkedHashMap<Aspect, Integer> map = new LinkedHashMap<>();
-    for (var a : Aspects.PRIMAL_ASPECTS) map.put(a.get(), (int) (Math.random() * 16 + 1));
+    var primals = new ArrayList<>(Aspects.PRIMAL_ASPECTS);
+    Collections.shuffle(primals);
+    var randomPrimals = primals.subList(0, random.nextInt(primals.size()) + 1);
+    for (var a : randomPrimals)
+      map.put(a.get(), random.nextInt(16) + 1);
     return new AspectMap(map);
   }
 
