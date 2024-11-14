@@ -11,6 +11,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.MutableDataComponentHolder;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
@@ -69,7 +70,7 @@ public class AspectContainer implements IAspectContainer {
   }
 
   @Override
-  public AspectMap getAspects() {
+  public @NotNull AspectMap getAspects() {
     AspectMap aspectMap = this.holder.get(T7DataComponents.ASPECTS);
     if (aspectMap == null) return AspectMap.EMPTY;
     return aspectMap;

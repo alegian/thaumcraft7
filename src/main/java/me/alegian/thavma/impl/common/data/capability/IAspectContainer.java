@@ -3,6 +3,7 @@ package me.alegian.thavma.impl.common.data.capability;
 import me.alegian.thavma.impl.common.aspect.Aspect;
 import me.alegian.thavma.impl.common.aspect.AspectMap;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
@@ -12,8 +13,12 @@ import javax.annotation.Nullable;
  * holds the scannable aspects)
  */
 public interface IAspectContainer {
+  @Nonnull
   AspectMap getAspects();
 
+  /**
+   * Useful when spawning Aura Nodes. Null means "not yet generated"
+   */
   boolean areAspectsNull();
 
   void setAspects(AspectMap aspects);
