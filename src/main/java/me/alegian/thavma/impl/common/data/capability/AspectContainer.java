@@ -10,6 +10,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.common.MutableDataComponentHolder;
 import org.jetbrains.annotations.NotNull;
 
@@ -57,6 +58,10 @@ public class AspectContainer implements IAspectContainer {
 
   public static Optional<IAspectContainer> from(ItemStack itemStack) {
     return Optional.ofNullable(itemStack.getCapability(T7Capabilities.AspectContainer.ITEM));
+  }
+
+  public static Optional<IAspectContainer> from(BlockEntity be) {
+    return Optional.ofNullable(be.getLevel().getCapability(T7Capabilities.AspectContainer.BLOCK, be.getBlockPos()));
   }
 
   public static boolean isAspectContainer(Level level, BlockPos blockPos) {

@@ -25,6 +25,11 @@ public class T7BufferBuilder {
     return this;
   }
 
+  public @NotNull T7BufferBuilder setColor(int packedColor) {
+    this.parent.setColor(packedColor);
+    return this;
+  }
+
   public @NotNull T7BufferBuilder addVertex(PoseStack.Pose pPose, float pX, float pY, float pZ) {
     this.pose = pPose;
     this.parent.addVertex(pPose, pX, pY, pZ);

@@ -74,6 +74,14 @@
         1.0,
         1.0
       ]
+    },
+    {
+      "name": "Time",
+      "type": "float",
+      "count": 1,
+      "values": [
+        1.0
+      ]
     }
   ]
 }

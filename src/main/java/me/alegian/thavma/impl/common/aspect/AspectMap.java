@@ -12,6 +12,7 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 import java.util.function.Supplier;
@@ -25,7 +26,7 @@ import java.util.stream.Collectors;
  * Internally uses a LinkedHashMap (i.e. a SequencedMap) for deterministic iteration order.
  * Using a non-sequenced map might cause undefined behavior.
  */
-public class AspectMap {
+public class AspectMap implements Iterable<AspectStack> {
   public static final AspectMap EMPTY = new AspectMap(new LinkedHashMap<>());
   public static final Codec<Pair<Aspect, Integer>> PAIR_CODEC = Codec.pair(
       Aspect.CODEC.fieldOf("aspect").codec(),
@@ -220,5 +221,10 @@ public class AspectMap {
         str.append(k).append(v)
     );
     return str.toString();
+  }
+
+  @Override
+  public @NotNull Iterator<AspectStack> iterator() {
+    return this.map.entrySet().stream().filter(e -> e.getValue() > 0).map(e -> AspectStack.of(e.getKey(), e.getValue())).iterator();
   }
 }
