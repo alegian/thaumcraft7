@@ -76,11 +76,11 @@
       ]
     },
     {
-      "name": "Time",
+      "name": "GameTime",
       "type": "float",
       "count": 1,
       "values": [
-        1.0
+        0.0
       ]
     }
   ]
