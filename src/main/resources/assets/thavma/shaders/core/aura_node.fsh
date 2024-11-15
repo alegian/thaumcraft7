@@ -10,6 +10,10 @@ uniform float GameTime;
 
 out vec4 fragColor;
 
+float random(float seed) {
+    return fract(sin(seed) * 43758.5453123);
+}
+
 vec2 random2(vec2 st) {
     st = vec2(dot(st, vec2(127.1, 311.7)),
     dot(st, vec2(269.5, 183.3)));
@@ -34,10 +38,9 @@ void main() {
     vec3 diff = fragCenter - fragPosition;
     vec4 cameraDiff = ModelViewMat * vec4(diff, 1.0);
     float angle = atan(cameraDiff.y, cameraDiff.x);
-    // TODO scale time (its mod 24k)
-    float phase = noise(vec2(radius, GameTime)) * 2 * 3.14159;
+    float phase = random(radius) * 2 * 3.14159;
     // wavy patterns only for nodes with a decent radius
-    if (length(diff) > radius * (1 - 0.2 * (sin(angle * 16 + phase) + 1)) && radius > 0.2) discard;
+    if (length(diff) > radius * (1 - 0.2 * (sin(angle * 32 + phase) + 1)) && radius > 0.2) discard;
     // smaller ones are circular
     if (length(diff) > radius) discard;
     fragColor = vertexColor;

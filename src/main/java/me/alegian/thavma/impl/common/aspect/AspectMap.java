@@ -168,6 +168,14 @@ public class AspectMap implements Iterable<AspectStack> {
     return this.map;
   }
 
+  public List<AspectStack> toSortedList() {
+    return this.map.entrySet().stream()
+        .map(e -> AspectStack.of(e.getKey(), e.getValue()))
+        .filter(a -> a.amount() > 0)
+        .sorted((a, b) -> b.amount() - a.amount())
+        .toList();
+  }
+
   public int get(Aspect aspect) {
     return this.map.getOrDefault(aspect, 0);
   }
@@ -175,16 +183,6 @@ public class AspectMap implements Iterable<AspectStack> {
   public ImmutableList<AspectStack> displayedAspects() {
     if (this == AspectMap.EMPTY) return ImmutableList.of();
     return Aspects.REGISTRAR.getEntries().stream().map(Supplier::get).filter(a -> this.get(a) > 0).map(a -> AspectStack.of(a, this.get(a))).collect(ImmutableList.toImmutableList());
-  }
-
-  public Aspect getRandomNonZeroAspect() {
-    var nonZeroList = this.getMap().entrySet().stream()
-        .filter(e -> e.getValue() > 0)
-        .map(Map.Entry::getKey)
-        .toList();
-
-    if (nonZeroList.isEmpty()) return null;
-    return nonZeroList.get(new Random().nextInt(nonZeroList.size()));
   }
 
   public int size() {

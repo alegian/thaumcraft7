@@ -1,5 +1,6 @@
 package me.alegian.thavma.impl.client.renderer;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import me.alegian.thavma.impl.Thavma;
@@ -31,15 +32,15 @@ public class AspectRenderer {
 
     poseStack.pushPose();
     var cameraPos = camera.getPosition();
-    poseStack.translate(blockPos.getX() - cameraPos.x() + 0.5d, blockPos.getY() - cameraPos.y() + 1.25d + QUAD_SIZE / 2, blockPos.getZ() - cameraPos.z() + 0.5d);
+    poseStack.translate(blockPos.getX() - cameraPos.x() + 0.5d, blockPos.getY() - cameraPos.y() + 1.25d + AspectRenderer.QUAD_SIZE / 2, blockPos.getZ() - cameraPos.z() + 0.5d);
     var angle = RenderHelper.calculatePlayerAngle(blockPos.getCenter());
     poseStack.mulPose(Axis.YP.rotation(angle));
-    poseStack.scale(QUAD_SIZE, QUAD_SIZE, 1); // this puts us in "aspect space" where 1 means 1 aspect width
+    poseStack.scale(AspectRenderer.QUAD_SIZE, AspectRenderer.QUAD_SIZE, 1); // this puts us in "aspect space" where 1 means 1 aspect width
 
     T7GuiGraphics guiGraphics = new T7GuiGraphics(Minecraft.getInstance(), poseStack, Minecraft.getInstance().renderBuffers().bufferSource());
 
     // these offsets account for wrapping to new lines, and centering the aspects
-    Vector2f[] offsets = calculateOffsets(aspects.size());
+    Vector2f[] offsets = AspectRenderer.calculateOffsets(aspects.size());
 
     int i = 0;
     for (AspectStack aspectStack : aspects.displayedAspects()) {
@@ -47,8 +48,8 @@ public class AspectRenderer {
       poseStack.translate(offsets[i].x, offsets[i].y, 0);
 
       // gui rendering is done in pixel space
-      poseStack.scale(1f / PIXEL_RESOLUTION, -1f / PIXEL_RESOLUTION, 1f);
-      renderAspect(guiGraphics, aspectStack, -PIXEL_RESOLUTION / 2, -PIXEL_RESOLUTION / 2);
+      poseStack.scale(1f / AspectRenderer.PIXEL_RESOLUTION, -1f / AspectRenderer.PIXEL_RESOLUTION, 1f);
+      AspectRenderer.renderAspect(guiGraphics, aspectStack, -AspectRenderer.PIXEL_RESOLUTION / 2, -AspectRenderer.PIXEL_RESOLUTION / 2);
 
       poseStack.popPose();
       i++;
@@ -59,34 +60,36 @@ public class AspectRenderer {
   }
 
   public static void renderAspect(T7GuiGraphics guiGraphics, AspectStack aspectStack, int pX, int pY) {
-    drawAspectIcon(guiGraphics, aspectStack.aspect(), pX, pY);
-    drawCount(guiGraphics, String.valueOf(aspectStack.amount()), pX, pY);
+    AspectRenderer.drawAspectIcon(guiGraphics, aspectStack.aspect(), pX, pY);
+    AspectRenderer.drawCount(guiGraphics, String.valueOf(aspectStack.amount()), pX, pY);
   }
 
   public static void drawAspectIcon(T7GuiGraphics guiGraphics, Aspect aspect, int pX, int pY) {
     var sprite = AspectAtlas.sprite(Thavma.id(aspect.getId()));
 
     var color = aspect.getColor();
+    RenderSystem.disableDepthTest();
     guiGraphics.blit(
         pX,
         pY,
         0,
-        PIXEL_RESOLUTION,
-        PIXEL_RESOLUTION,
+        AspectRenderer.PIXEL_RESOLUTION,
+        AspectRenderer.PIXEL_RESOLUTION,
         sprite,
         color
     );
+    RenderSystem.enableDepthTest();
   }
 
   public static Vector2f[] calculateOffsets(int numAspects) {
     Vector2f[] offsets = new Vector2f[numAspects];
 
-    int rows = (int) Math.ceil(1f * numAspects / ROW_SIZE);
+    int rows = (int) Math.ceil(1f * numAspects / AspectRenderer.ROW_SIZE);
     for (int i = 0; i < rows; i++) {
-      int cols = Math.min(numAspects - (i * ROW_SIZE), ROW_SIZE);
+      int cols = Math.min(numAspects - (i * AspectRenderer.ROW_SIZE), AspectRenderer.ROW_SIZE);
       for (int j = 0; j < cols; j++) {
         float xOffset = (cols - 1) / -2f + j;
-        offsets[i * ROW_SIZE + j] = new Vector2f(xOffset, i);
+        offsets[i * AspectRenderer.ROW_SIZE + j] = new Vector2f(xOffset, i);
       }
     }
 
@@ -96,7 +99,7 @@ public class AspectRenderer {
   public static void drawCount(T7GuiGraphics guiGraphics, String text, int pX, int pY) {
     var poseStack = guiGraphics.pose();
     poseStack.pushPose();
-    poseStack.translate(pX + PIXEL_RESOLUTION, pY + PIXEL_RESOLUTION, 0.0001f); // start bottom right, like item count. slightly increase Z to avoid z fighting
+    poseStack.translate(pX + AspectRenderer.PIXEL_RESOLUTION, pY + AspectRenderer.PIXEL_RESOLUTION, 0.0001f); // start bottom right, like item count. slightly increase Z to avoid z fighting
     poseStack.scale(0.5F, 0.5F, 0.5F);
     Font font = Minecraft.getInstance().font;
 
@@ -105,6 +108,6 @@ public class AspectRenderer {
   }
 
   public static int getPixelResolution() {
-    return PIXEL_RESOLUTION;
+    return AspectRenderer.PIXEL_RESOLUTION;
   }
 }

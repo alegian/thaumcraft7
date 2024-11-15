@@ -1,6 +1,7 @@
 package me.alegian.thavma.impl.client.renderer.blockentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import me.alegian.thavma.impl.common.aspect.AspectMap;
 import me.alegian.thavma.impl.common.block.entity.AuraNodeBE;
 import me.alegian.thavma.impl.common.data.capability.AspectContainer;
 import me.alegian.thavma.impl.common.data.capability.IAspectContainer;
@@ -76,15 +77,20 @@ public class AuraNodeBER implements BlockEntityRenderer<AuraNodeBE> {
     Quaternionf rotation = Minecraft.getInstance().gameRenderer.getMainCamera().rotation();
     poseStack.mulPose(rotation);
 
+    var index = 0;
     AspectContainer.from(be)
         .map(IAspectContainer::getAspects)
-        .ifPresent(aspects ->
-            aspects.forEach(stack ->
-                BERHelper.renderAuraNodeLayer(poseStack, bufferSource, stack.amount() / 32f, stack.aspect().getColor(), 1)
-            )
-        );
-    // empty nodes look like small black circles
-    BERHelper.renderAuraNodeLayer(poseStack, bufferSource, 0.5f / 32f, 0, 1);
+        .map(AspectMap::toSortedList)
+        .ifPresentOrElse(aspectList -> {
+          int i;
+          for (i = 0; i < aspectList.size(); i++) {
+            var stack = aspectList.get(i);
+            BERHelper.renderAuraNodeLayer(poseStack, bufferSource, stack.amount() / 32f, stack.aspect().getColor(), 0.6f, i * 0.0001f);
+          }
+        }, () -> {
+          // empty nodes look like small black circles
+          BERHelper.renderAuraNodeLayer(poseStack, bufferSource, 0.5f / 32f, 0, 1, 0);
+        });
 
     poseStack.popPose();
   }
