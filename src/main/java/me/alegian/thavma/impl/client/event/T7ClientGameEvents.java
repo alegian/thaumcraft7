@@ -4,6 +4,7 @@ import com.mojang.datafixers.util.Either;
 import me.alegian.thavma.impl.Thavma;
 import me.alegian.thavma.impl.client.ClientHelper;
 import me.alegian.thavma.impl.client.gui.tooltip.AspectTooltipComponent;
+import me.alegian.thavma.impl.client.gui.tooltip.TooltipHelper;
 import me.alegian.thavma.impl.client.renderer.AspectRenderer;
 import me.alegian.thavma.impl.client.renderer.HammerHighlightRenderer;
 import me.alegian.thavma.impl.common.block.AuraNodeBlock;
@@ -76,10 +77,16 @@ public class T7ClientGameEvents {
 
   @SubscribeEvent
   public static void gatherTooltipComponents(RenderTooltipEvent.GatherComponents event) {
-    if (!Screen.hasShiftDown()) return;
     if (!ClientHelper.localPlayerHasRevealing()) return;
 
-    event.getTooltipElements().add(Either.right(new AspectTooltipComponent(event.getItemStack())));
+    AspectContainer.from(event.getItemStack()).map(IAspectContainer::getAspects)
+        .ifPresent(aspectMap ->
+            event.getTooltipElements().add(Either.left(TooltipHelper.containedPrimals(aspectMap)))
+        );
+
+    if (!Screen.hasShiftDown()) return;
+
+    event.getTooltipElements().addLast(Either.right(new AspectTooltipComponent(event.getItemStack())));
   }
 
   @SubscribeEvent

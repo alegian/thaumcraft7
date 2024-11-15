@@ -19,6 +19,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
@@ -46,7 +47,7 @@ public class WandItem extends Item implements GeoItem {
   private final WandCoreMaterial coreMaterial;
 
   public WandItem(Properties props, WandHandleMaterial handleMaterial, WandCoreMaterial coreMaterial) {
-    super(props.stacksTo(1));
+    super(props.stacksTo(1).rarity(Rarity.UNCOMMON));
     this.handleMaterial = handleMaterial;
     this.coreMaterial = coreMaterial;
     GeckoLibUtil.SYNCED_ANIMATABLES.put(this.syncableId(), this);
@@ -182,14 +183,6 @@ public class WandItem extends Item implements GeoItem {
 
   public String getName() {
     return WandItem.name(this.handleMaterial, this.coreMaterial);
-  }
-
-  public WandCoreMaterial coreMaterial() {
-    return this.coreMaterial;
-  }
-
-  public WandHandleMaterial handleMaterial() {
-    return this.handleMaterial;
   }
 
   public static String name(WandHandleMaterial handleMaterial, WandCoreMaterial coreMaterial) {
