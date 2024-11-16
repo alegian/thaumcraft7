@@ -1,7 +1,7 @@
 package me.alegian.thavma.impl.common.block;
 
 import me.alegian.thavma.impl.Thavma;
-import me.alegian.thavma.impl.common.menu.ArcaneWorkbenchMenu;
+import me.alegian.thavma.impl.common.menu.WorkbenchMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
@@ -36,8 +36,8 @@ public class ArcaneWorkbenchBlock extends Block {
   @Override
   protected MenuProvider getMenuProvider(BlockState pState, Level pLevel, BlockPos pPos) {
     return new SimpleMenuProvider(
-        (pContainerId, pPlayerInventory, player) -> new ArcaneWorkbenchMenu(pContainerId, pPlayerInventory, ContainerLevelAccess.create(pLevel, pPos)),
-        CONTAINER_TITLE
+        (pContainerId, pPlayerInventory, player) -> new WorkbenchMenu(pContainerId, pPlayerInventory, ContainerLevelAccess.create(pLevel, pPos)),
+        ArcaneWorkbenchBlock.CONTAINER_TITLE
     );
   }
 

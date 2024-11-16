@@ -3,7 +3,8 @@ package me.alegian.thavma.impl.client.screen;
 import me.alegian.thavma.impl.client.T7GuiGraphics;
 import me.alegian.thavma.impl.client.renderer.AspectRenderer;
 import me.alegian.thavma.impl.client.texture.Texture;
-import me.alegian.thavma.impl.common.menu.ArcaneWorkbenchMenu;
+import me.alegian.thavma.impl.common.aspect.AspectStack;
+import me.alegian.thavma.impl.common.menu.WorkbenchMenu;
 import me.alegian.thavma.impl.init.registries.deferred.Aspects;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -18,7 +19,7 @@ import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
 
 @OnlyIn(Dist.CLIENT)
-public class ArcaneWorkbenchScreen extends AbstractContainerScreen<ArcaneWorkbenchMenu> {
+public class WorkbenchScreen extends AbstractContainerScreen<WorkbenchMenu> {
   protected static final int PADDING = 2;
   protected static final int SLOT_SIZE = 16;
   private static final Texture WORKBENCH_BG = new Texture("gui/container/arcane_workbench", 216, 127, 255, 255);
@@ -27,13 +28,13 @@ public class ArcaneWorkbenchScreen extends AbstractContainerScreen<ArcaneWorkben
   private static final Texture RESULT_SLOT_TEXTURE = new Texture("gui/container/arcane_workbench_result_slot", 26, 26);
   private static final Texture ASPECT_SLOT_TEXTURE = new Texture("gui/container/arcane_workbench_aspect_slot", 20, 20);
 
-  public ArcaneWorkbenchScreen(ArcaneWorkbenchMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
+  public WorkbenchScreen(WorkbenchMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
     super(pMenu, pPlayerInventory, pTitle);
     this.inventoryLabelX += 20;
     this.inventoryLabelY += 62;
     this.titleLabelY -= 1;
-    this.imageWidth = Math.max(ArcaneWorkbenchScreen.WORKBENCH_BG.width(), ArcaneWorkbenchScreen.INVENTORY_BG.width());
-    this.imageHeight = ArcaneWorkbenchScreen.WORKBENCH_BG.height() + ArcaneWorkbenchScreen.PADDING + ArcaneWorkbenchScreen.INVENTORY_BG.height();
+    this.imageWidth = Math.max(WorkbenchScreen.WORKBENCH_BG.width(), WorkbenchScreen.INVENTORY_BG.width());
+    this.imageHeight = WorkbenchScreen.WORKBENCH_BG.height() + WorkbenchScreen.PADDING + WorkbenchScreen.INVENTORY_BG.height();
   }
 
   @Override
@@ -49,10 +50,10 @@ public class ArcaneWorkbenchScreen extends AbstractContainerScreen<ArcaneWorkben
     t7graphics.push();
     t7graphics.translateXY(this.leftPos, this.topPos);
 
-    t7graphics.blit(ArcaneWorkbenchScreen.WORKBENCH_BG);
-    t7graphics.translateXY((ArcaneWorkbenchScreen.WORKBENCH_BG.width() - ArcaneWorkbenchScreen.INVENTORY_BG.width()) / 2f, ArcaneWorkbenchScreen.WORKBENCH_BG.height());
-    t7graphics.translateXY(0, ArcaneWorkbenchScreen.PADDING);
-    t7graphics.blit(ArcaneWorkbenchScreen.INVENTORY_BG);
+    t7graphics.blit(WorkbenchScreen.WORKBENCH_BG);
+    t7graphics.translateXY((WorkbenchScreen.WORKBENCH_BG.width() - WorkbenchScreen.INVENTORY_BG.width()) / 2f, WorkbenchScreen.WORKBENCH_BG.height());
+    t7graphics.translateXY(0, WorkbenchScreen.PADDING);
+    t7graphics.blit(WorkbenchScreen.INVENTORY_BG);
 
     t7graphics.pop();
 
@@ -60,12 +61,12 @@ public class ArcaneWorkbenchScreen extends AbstractContainerScreen<ArcaneWorkben
   }
 
   protected void renderSlotBg(T7GuiGraphics t7graphics, Slot slot) {
-    Texture texture = ArcaneWorkbenchScreen.SLOT_TEXTURE;
-    if (slot instanceof ResultSlot) texture = ArcaneWorkbenchScreen.RESULT_SLOT_TEXTURE;
+    Texture texture = WorkbenchScreen.SLOT_TEXTURE;
+    if (slot instanceof ResultSlot) texture = WorkbenchScreen.RESULT_SLOT_TEXTURE;
 
     t7graphics.push();
     // go to the center of the slot and draw the texture centered there
-    t7graphics.translateXY(this.leftPos + slot.x + ArcaneWorkbenchScreen.SLOT_SIZE / 2f, this.topPos + slot.y + ArcaneWorkbenchScreen.SLOT_SIZE / 2f);
+    t7graphics.translateXY(this.leftPos + slot.x + WorkbenchScreen.SLOT_SIZE / 2f, this.topPos + slot.y + WorkbenchScreen.SLOT_SIZE / 2f);
     t7graphics.translateXY(-texture.width() / 2f, -texture.height() / 2f);
     t7graphics.blit(texture);
     t7graphics.pop();
@@ -73,6 +74,7 @@ public class ArcaneWorkbenchScreen extends AbstractContainerScreen<ArcaneWorkben
 
   protected void renderAspects(GuiGraphics guiGraphics) {
     final int RADIUS = 48;
+    final float ANGLE = 360f / Aspects.PRIMAL_ASPECTS.size();
     var middleSlot = this.menu.slots.get(4);
     var t7graphics = new T7GuiGraphics(guiGraphics);
 
@@ -80,16 +82,19 @@ public class ArcaneWorkbenchScreen extends AbstractContainerScreen<ArcaneWorkben
     t7graphics.translateXY(this.leftPos, this.topPos);
     t7graphics.translateXY(middleSlot.x, middleSlot.y);
 
-    // draw aspects at hexagon points
+    // draw aspects at hexagon points (or N-gon if more primals are added by addons)
     int i = 0;
     for (var a : Aspects.PRIMAL_ASPECTS) {
+      var requiredAmount = this.menu.getRequiredAspects().get(a.get());
+      var requiredStack = new AspectStack(a.get(), requiredAmount);
       t7graphics.push();
-      t7graphics.rotateZ(60 * i);
+      t7graphics.rotateZ(ANGLE * i);
       t7graphics.translateXY(RADIUS, 0);
-      t7graphics.rotateZ(-60 * i);
-      Texture texture = ArcaneWorkbenchScreen.ASPECT_SLOT_TEXTURE;
+      t7graphics.rotateZ(-ANGLE * i);
+      Texture texture = WorkbenchScreen.ASPECT_SLOT_TEXTURE;
       t7graphics.blit(texture.location(), -2, -2, 0, 0, texture.width(), texture.height(), texture.width(), texture.height());
-      AspectRenderer.drawAspectIcon(t7graphics, a.get(), 0, 0);
+      if (requiredAmount != 0)
+        AspectRenderer.renderAspect(t7graphics, requiredStack, 0, 0);
       t7graphics.pop();
       i++;
     }
@@ -101,6 +106,6 @@ public class ArcaneWorkbenchScreen extends AbstractContainerScreen<ArcaneWorkben
   protected void renderSlotContents(GuiGraphics guiGraphics, ItemStack itemstack, Slot slot, @Nullable String countString) {
     super.renderSlotContents(guiGraphics, itemstack, slot, countString);
     if (slot instanceof ResultSlot resultSlot && !resultSlot.mayPickup(this.menu.getPlayer()))
-      guiGraphics.fill(RenderType.guiGhostRecipeOverlay(), slot.x, slot.y, slot.x + 16, slot.y + 16, 0x30FFFFFF);
+      guiGraphics.fill(RenderType.guiGhostRecipeOverlay(), slot.x, slot.y, slot.x + 16, slot.y + 16, 0x50FFFFFF);
   }
 }

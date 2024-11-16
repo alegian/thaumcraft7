@@ -16,7 +16,7 @@ import me.alegian.thavma.impl.client.renderer.blockentity.AuraNodeBER;
 import me.alegian.thavma.impl.client.renderer.blockentity.CrucibleBER;
 import me.alegian.thavma.impl.client.renderer.entity.FancyItemER;
 import me.alegian.thavma.impl.client.renderer.entity.VisER;
-import me.alegian.thavma.impl.client.screen.ArcaneWorkbenchScreen;
+import me.alegian.thavma.impl.client.screen.WorkbenchScreen;
 import me.alegian.thavma.impl.client.texture.atlas.AspectAtlas;
 import me.alegian.thavma.impl.common.item.TestaItem;
 import me.alegian.thavma.impl.init.registries.deferred.*;
@@ -121,6 +121,6 @@ public class T7ClientModEvents {
 
   @SubscribeEvent
   public static void registerScreens(RegisterMenuScreensEvent event) {
-    event.register(T7MenuTypes.ARCANE_WORKBENCH.get(), ArcaneWorkbenchScreen::new);
+    event.register(T7MenuTypes.ARCANE_WORKBENCH.get(), WorkbenchScreen::new);
   }
 }

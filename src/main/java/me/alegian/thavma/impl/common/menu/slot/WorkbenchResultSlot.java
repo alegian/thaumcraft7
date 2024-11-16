@@ -1,12 +1,13 @@
 package me.alegian.thavma.impl.common.menu.slot;
 
 import me.alegian.thavma.impl.common.data.capability.AspectContainer;
-import me.alegian.thavma.impl.common.menu.ArcaneWorkbenchMenu;
+import me.alegian.thavma.impl.common.menu.WorkbenchMenu;
+import me.alegian.thavma.impl.init.registries.deferred.T7RecipeTypes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-public class WorkbenchResultSlot extends T7ResultSlot<ArcaneWorkbenchMenu> {
-  public WorkbenchResultSlot(ArcaneWorkbenchMenu menu, int id, int size) {
+public class WorkbenchResultSlot extends T7ResultSlot<WorkbenchMenu> {
+  public WorkbenchResultSlot(WorkbenchMenu menu, int id, int size) {
     super(menu, menu.getCraftingContainer(), menu.getResultContainer(), id, size);
   }
 
@@ -21,6 +22,7 @@ public class WorkbenchResultSlot extends T7ResultSlot<ArcaneWorkbenchMenu> {
     var craftinginput = positionedInput.input();
     int i = positionedInput.left();
     int j = positionedInput.top();
+    var optionalRecipe = player.level().getRecipeManager().getRecipeFor(T7RecipeTypes.ARCANE_WORKBENCH.get(), craftinginput, player.level());
 
     for (int k = 0; k < craftinginput.height(); k++)
       for (int l = 0; l < craftinginput.width(); l++) {
@@ -29,13 +31,10 @@ public class WorkbenchResultSlot extends T7ResultSlot<ArcaneWorkbenchMenu> {
         if (!currItem.isEmpty()) craftingContainer.removeItem(currSlotIndex, 1);
       }
 
-    AspectContainer.from(this.getMenu().getWandContainer().getItem(0)).ifPresent(c -> {
-      var recipeHolder = this.getMenu().getResultContainer().getRecipeUsed();
-
-      if (recipeHolder != null) {
-        var aspectsRequired = recipeHolder.value().getResultAspects();
-        c.extract(aspectsRequired);
-      }
-    });
+    AspectContainer.from(this.getMenu().getWandContainer().getItem(0)).ifPresent(c ->
+        optionalRecipe.ifPresent(recipe ->
+            c.extract(recipe.value().getResultAspects())
+        )
+    );
   }
 }
