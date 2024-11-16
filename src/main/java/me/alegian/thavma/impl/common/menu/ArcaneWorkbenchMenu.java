@@ -3,8 +3,8 @@ package me.alegian.thavma.impl.common.menu;
 import me.alegian.thavma.impl.common.aspect.AspectMap;
 import me.alegian.thavma.impl.common.menu.container.CraftingContainer3x3;
 import me.alegian.thavma.impl.common.menu.container.T7Container;
-import me.alegian.thavma.impl.common.menu.container.T7ResultContainer;
 import me.alegian.thavma.impl.common.menu.container.WandContainer;
+import me.alegian.thavma.impl.common.menu.container.WorkbenchResultContainer;
 import me.alegian.thavma.impl.init.registries.deferred.T7Blocks;
 import me.alegian.thavma.impl.init.registries.deferred.T7MenuTypes;
 import me.alegian.thavma.impl.init.registries.deferred.T7RecipeTypes;
@@ -23,7 +23,7 @@ public class ArcaneWorkbenchMenu extends Menu {
   private final ContainerLevelAccess levelAccess;
   private final CraftingContainer3x3 craftingContainer = new CraftingContainer3x3(this);
   private final WandContainer wandContainer = new WandContainer(this);
-  private final T7ResultContainer resultContainer = new T7ResultContainer(this, this.craftingContainer);
+  private final WorkbenchResultContainer resultContainer = new WorkbenchResultContainer(this);
 
   public ArcaneWorkbenchMenu(int pContainerId, Inventory pPlayerInventory) {
     this(pContainerId, pPlayerInventory, ContainerLevelAccess.NULL);
@@ -56,23 +56,25 @@ public class ArcaneWorkbenchMenu extends Menu {
   }
 
   private void refreshRecipeResult() {
-    if (this.getPlayer() instanceof ServerPlayer serverplayer) {
-      Level level = serverplayer.level();
-      CraftingInput craftinginput = this.craftingContainer.asCraftInput();
+    Level level = this.getPlayer().level();
+    CraftingInput craftinginput = this.craftingContainer.asCraftInput();
+    var optionalRecipeHolder = level.getRecipeManager().getRecipeFor(T7RecipeTypes.ARCANE_WORKBENCH.get(), this.craftingContainer.asCraftInput(), level);
 
-      var recipeHolder = level.getRecipeManager().getRecipeFor(T7RecipeTypes.ARCANE_WORKBENCH.get(), this.craftingContainer.asCraftInput(), level);
+    var requiredAspects = optionalRecipeHolder.map(r ->
+        r.value().assembleAspects()
+    ).orElse(AspectMap.EMPTY);
 
-      var resultItem = recipeHolder.map(r ->
+    if (this.getPlayer() instanceof ServerPlayer serverPlayer) {
+      var resultItem = optionalRecipeHolder.map(r ->
           r.value().assemble(craftinginput, level.registryAccess())
       ).orElse(ItemStack.EMPTY);
-
-      var requiredAspects = recipeHolder.map(r ->
-          r.value().assembleAspects()
-      ).orElse(AspectMap.EMPTY);
+      var recipeHolder = optionalRecipeHolder.orElse(null);
 
       this.resultContainer.setItem(0, resultItem);
-      this.resultContainer.setSlotEnabled(0, this.wandContainer.contains(requiredAspects));
+      this.resultContainer.setRecipeUsed(recipeHolder);
     }
+
+    this.resultContainer.setSlotEnabled(0, this.wandContainer.contains(requiredAspects));
   }
 
   @Override
@@ -83,6 +85,18 @@ public class ArcaneWorkbenchMenu extends Menu {
   @Override
   public boolean stillValid(Player pPlayer) {
     return AbstractContainerMenu.stillValid(this.levelAccess, pPlayer, T7Blocks.ARCANE_WORKBENCH.get());
+  }
+
+  public WorkbenchResultContainer getResultContainer() {
+    return this.resultContainer;
+  }
+
+  public WandContainer getWandContainer() {
+    return this.wandContainer;
+  }
+
+  public CraftingContainer3x3 getCraftingContainer() {
+    return this.craftingContainer;
   }
 
   @Override

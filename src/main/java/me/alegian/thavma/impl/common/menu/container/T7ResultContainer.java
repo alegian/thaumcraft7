@@ -6,22 +6,16 @@ import me.alegian.thavma.impl.common.menu.slot.T7ResultSlot;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.inventory.ResultContainer;
 
-public class T7ResultContainer extends ResultContainer implements T7Container {
-  private final Menu menu;
-  private final CraftingContainer craftingContainer;
-  private final SlotRange.Single range;
+public abstract class T7ResultContainer extends ResultContainer implements T7Container {
+  protected final Menu menu;
+  protected final CraftingContainer craftingContainer;
+  protected final SlotRange.Single range;
 
   public T7ResultContainer(Menu menu, CraftingContainer craftingContainer) {
     super();
     this.menu = menu;
     this.craftingContainer = craftingContainer;
     this.range = new SlotRange.Single(menu);
-  }
-
-  @Override
-  public void addSlots() {
-    this.menu.addSlot(new T7ResultSlot(this.menu, this.craftingContainer, this, 0, 26));
-    this.range.track();
   }
 
   @Override
