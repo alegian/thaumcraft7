@@ -5,8 +5,8 @@ import me.alegian.thavma.impl.common.menu.Menu;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 
-public class WandSlot extends T7Slot {
-  public WandSlot(Container container, int id, Menu menu) {
+public class WandSlot<T extends Menu> extends T7Slot<T> {
+  public WandSlot(Container container, int id, T menu) {
     super(container, id, menu, 18);
   }
 

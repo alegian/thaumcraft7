@@ -6,12 +6,13 @@ import me.alegian.thavma.impl.common.menu.slot.T7Slot;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Wrapper around Inventory, that makes it a T7Container
  */
 public class T7Inventory implements T7Container {
-  private Inventory inventory;
+  private final Inventory inventory;
   private final SlotRange range;
   private final Menu menu;
 
@@ -27,13 +28,13 @@ public class T7Inventory implements T7Container {
 
     for (int i = 0; i < 3; i++) {
       this.menu.getSlotPose().pushX();
-      for (int j = 0; j < 9; j++) this.menu.addSlot(new T7Slot(this, j + i * 9 + 9, this.menu, 18));
+      for (int j = 0; j < 9; j++) this.menu.addSlot(new T7Slot<>(this, j + i * 9 + 9, this.menu, 18));
       this.menu.getSlotPose().popX();
       this.menu.getSlotPose().translateY(18);
     }
 
     this.menu.getSlotPose().translateY(4);
-    for (int i = 0; i < 9; i++) this.menu.addSlot(new T7Slot(this, i, this.menu, 18));
+    for (int i = 0; i < 9; i++) this.menu.addSlot(new T7Slot<>(this, i, this.menu, 18));
 
     this.range.end();
   }
@@ -54,22 +55,22 @@ public class T7Inventory implements T7Container {
   }
 
   @Override
-  public ItemStack getItem(int slot) {
+  public @NotNull ItemStack getItem(int slot) {
     return this.inventory.getItem(slot);
   }
 
   @Override
-  public ItemStack removeItem(int slot, int amount) {
+  public @NotNull ItemStack removeItem(int slot, int amount) {
     return this.inventory.removeItem(slot, amount);
   }
 
   @Override
-  public ItemStack removeItemNoUpdate(int slot) {
+  public @NotNull ItemStack removeItemNoUpdate(int slot) {
     return this.inventory.removeItemNoUpdate(slot);
   }
 
   @Override
-  public void setItem(int slot, ItemStack stack) {
+  public void setItem(int slot, @NotNull ItemStack stack) {
     this.inventory.setItem(slot, stack);
   }
 
@@ -79,7 +80,7 @@ public class T7Inventory implements T7Container {
   }
 
   @Override
-  public boolean stillValid(Player player) {
+  public boolean stillValid(@NotNull Player player) {
     return this.inventory.stillValid(player);
   }
 

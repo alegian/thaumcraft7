@@ -4,9 +4,8 @@ import me.alegian.thavma.impl.common.menu.slot.SlotRange;
 import net.minecraft.world.Container;
 
 /**
- * A Container that self-adds slots to the corresponding AbstractContainerMenu,
+ * A Container that self-adds slots to the corresponding Menu,
  * and keeps track of its indexes, to help with quick-moves.
- * Mainly used together with Menu.
  */
 public interface T7Container extends Container {
   void addSlots();

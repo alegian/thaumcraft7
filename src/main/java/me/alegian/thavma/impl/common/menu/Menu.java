@@ -12,6 +12,7 @@ import net.minecraft.world.inventory.ContainerListener;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -31,7 +32,7 @@ public abstract class Menu extends AbstractContainerMenu implements ContainerLis
   }
 
   @Override
-  public Slot addSlot(Slot slot) {
+  public @NotNull Slot addSlot(@NotNull Slot slot) {
     if (slot instanceof Sized sizedSlot) this.slotPose.translateX(sizedSlot.getSize());
     else this.slotPose.translateX(18);
     return super.addSlot(slot);
@@ -53,7 +54,7 @@ public abstract class Menu extends AbstractContainerMenu implements ContainerLis
    * slotIndex is relative to this.slots and NOT slot id
    */
   @Override
-  public ItemStack quickMoveStack(Player player, int slotIndex) {
+  public @NotNull ItemStack quickMoveStack(@NotNull Player player, int slotIndex) {
     ItemStack originalItem = ItemStack.EMPTY;
     Slot slot = this.slots.get(slotIndex);
     if (slot.hasItem()) {
@@ -87,6 +88,6 @@ public abstract class Menu extends AbstractContainerMenu implements ContainerLis
   }
 
   @Override
-  public void dataChanged(AbstractContainerMenu pContainerMenu, int pDataSlotIndex, int pValue) {
+  public void dataChanged(@NotNull AbstractContainerMenu menu, int pDataSlotIndex, int pValue) {
   }
 }

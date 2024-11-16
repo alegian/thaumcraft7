@@ -16,7 +16,7 @@ public class WorkbenchResultContainer extends T7ResultContainer {
 
   @Override
   public void addSlots() {
-    this.menu.addSlot(new WorkbenchResultSlot(this.menu, this.craftingContainer, this.menu.getWandContainer(), this, 0, 26));
+    this.menu.addSlot(new WorkbenchResultSlot(this.menu, 0, 26));
     this.range.track();
   }
 

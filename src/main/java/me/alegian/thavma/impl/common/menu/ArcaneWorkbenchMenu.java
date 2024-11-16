@@ -16,13 +16,14 @@ import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 public class ArcaneWorkbenchMenu extends Menu {
   private final ContainerLevelAccess levelAccess;
   private final CraftingContainer3x3 craftingContainer = new CraftingContainer3x3(this);
-  private final WandContainer wandContainer = new WandContainer(this);
+  private final WandContainer<ArcaneWorkbenchMenu> wandContainer = new WandContainer<>(this);
   private final WorkbenchResultContainer resultContainer = new WorkbenchResultContainer(this);
 
   public ArcaneWorkbenchMenu(int pContainerId, Inventory pPlayerInventory) {
@@ -83,7 +84,7 @@ public class ArcaneWorkbenchMenu extends Menu {
   }
 
   @Override
-  public boolean stillValid(Player pPlayer) {
+  public boolean stillValid(@NotNull Player pPlayer) {
     return AbstractContainerMenu.stillValid(this.levelAccess, pPlayer, T7Blocks.ARCANE_WORKBENCH.get());
   }
 
@@ -91,7 +92,7 @@ public class ArcaneWorkbenchMenu extends Menu {
     return this.resultContainer;
   }
 
-  public WandContainer getWandContainer() {
+  public WandContainer<ArcaneWorkbenchMenu> getWandContainer() {
     return this.wandContainer;
   }
 
@@ -100,14 +101,14 @@ public class ArcaneWorkbenchMenu extends Menu {
   }
 
   @Override
-  public void removed(Player pPlayer) {
+  public void removed(@NotNull Player pPlayer) {
     super.removed(pPlayer);
     this.levelAccess.execute((level, blockPos) -> this.clearContainer(pPlayer, this.craftingContainer));
     this.levelAccess.execute((level, blockPos) -> this.clearContainer(pPlayer, this.wandContainer));
   }
 
   @Override
-  public void slotChanged(AbstractContainerMenu pContainerToSend, int pDataSlotIndex, ItemStack pStack) {
+  public void slotChanged(@NotNull AbstractContainerMenu pContainerToSend, int pDataSlotIndex, @NotNull ItemStack pStack) {
     this.refreshRecipeResult();
   }
 }

@@ -8,12 +8,12 @@ import net.minecraft.world.inventory.ResultSlot;
 import net.minecraft.world.item.ItemStack;
 
 /**
- * A Sized ResultSlot
+ * A Sized ResultSlot, with a back-reference to a Menu
  */
 public class T7ResultSlot<T extends Menu> extends ResultSlot implements Sized {
   private final int size;
   private boolean mayPickup = true;
-  private T menu;
+  private final T menu;
 
   public T7ResultSlot(T menu, CraftingContainer craftingContainer, ResultContainer container, int id, int size) {
     super(menu.getPlayer(), craftingContainer, container, id, menu.getSlotPose().getX(), menu.getSlotPose().getY());

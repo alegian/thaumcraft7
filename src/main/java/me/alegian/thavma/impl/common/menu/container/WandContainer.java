@@ -9,19 +9,20 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
-public class WandContainer implements T7Container {
-  private final Menu menu;
+public class WandContainer<T extends Menu> implements T7Container {
+  private final T menu;
   private final NonNullList<ItemStack> itemStacks = NonNullList.withSize(1, ItemStack.EMPTY);
   private final SlotRange.Single range;
 
-  public WandContainer(Menu menu) {
+  public WandContainer(T menu) {
     this.menu = menu;
     this.range = new SlotRange.Single(menu);
   }
 
-  public boolean contains(AspectMap required){
-    return AspectContainer.from(this.getItem(0)).map(container->
+  public boolean contains(AspectMap required) {
+    return AspectContainer.from(this.getItem(0)).map(container ->
         container.getAspects().contains(required)
     ).orElse(false);
   }
@@ -39,17 +40,17 @@ public class WandContainer implements T7Container {
   }
 
   @Override
-  public ItemStack getItem(int pSlot) {
+  public @NotNull ItemStack getItem(int pSlot) {
     return this.itemStacks.get(0);
   }
 
   @Override
-  public ItemStack removeItem(int pSlot, int pAmount) {
+  public @NotNull ItemStack removeItem(int pSlot, int pAmount) {
     return ContainerHelper.takeItem(this.itemStacks, 0);
   }
 
   @Override
-  public ItemStack removeItemNoUpdate(int pSlot) {
+  public @NotNull ItemStack removeItemNoUpdate(int pSlot) {
     return ContainerHelper.takeItem(this.itemStacks, 0);
   }
 
@@ -64,7 +65,7 @@ public class WandContainer implements T7Container {
   }
 
   @Override
-  public boolean stillValid(Player pPlayer) {
+  public boolean stillValid(@NotNull Player pPlayer) {
     return true;
   }
 
@@ -75,7 +76,7 @@ public class WandContainer implements T7Container {
 
   @Override
   public void addSlots() {
-    this.menu.addSlot(new WandSlot(this, 0, this.menu));
+    this.menu.addSlot(new WandSlot<>(this, 0, this.menu));
     this.range.track();
   }
 
