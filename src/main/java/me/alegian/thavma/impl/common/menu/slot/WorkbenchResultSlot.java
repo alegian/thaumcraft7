@@ -14,11 +14,24 @@ public class WorkbenchResultSlot extends T7ResultSlot<ArcaneWorkbenchMenu> {
   }
 
   /**
-   * On taking result, also remove vis from wand
+   * On taking result, also remove vis from wand.
+   * TODO: support craft remainders
    */
   @Override
   public void onTake(Player player, ItemStack stack) {
-    super.onTake(player, stack);
+    var craftingContainer = this.getMenu().getCraftingContainer();
+    var positionedInput = craftingContainer.asPositionedCraftInput();
+    var craftinginput = positionedInput.input();
+    int i = positionedInput.left();
+    int j = positionedInput.top();
+
+    for (int k = 0; k < craftinginput.height(); k++)
+      for (int l = 0; l < craftinginput.width(); l++) {
+        int currSlotIndex = l + i + (k + j) * craftingContainer.getWidth();
+        var currItem = craftingContainer.getItem(currSlotIndex);
+        if (!currItem.isEmpty()) craftingContainer.removeItem(currSlotIndex, 1);
+      }
+
     AspectContainer.from(this.getMenu().getWandContainer().getItem(0)).ifPresent(c -> {
       var recipeHolder = this.getMenu().getResultContainer().getRecipeUsed();
 

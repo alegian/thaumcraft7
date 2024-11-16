@@ -1,11 +1,11 @@
 package me.alegian.thavma.impl.common.menu.slot;
 
 import me.alegian.thavma.impl.common.menu.Menu;
-import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.inventory.ResultContainer;
 import net.minecraft.world.inventory.ResultSlot;
+import net.minecraft.world.item.ItemStack;
 
 /**
  * A Sized ResultSlot
@@ -28,6 +28,10 @@ public class T7ResultSlot<T extends Menu> extends ResultSlot implements Sized {
   @Override
   public int getSize() {
     return this.size;
+  }
+
+  @Override
+  public void onTake(Player player, ItemStack stack) {
   }
 
   public void setMayPickup(boolean mayPickup) {
