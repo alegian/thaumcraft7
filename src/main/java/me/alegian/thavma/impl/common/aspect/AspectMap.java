@@ -7,9 +7,6 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.DynamicOps;
 import io.netty.buffer.ByteBuf;
 import me.alegian.thavma.impl.init.registries.deferred.Aspects;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.NbtOps;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import org.jetbrains.annotations.NotNull;
@@ -42,6 +39,7 @@ public class AspectMap implements Iterable<AspectStack> {
       return optionalListOfPairs.map(o ->
               o.stream().collect(Collectors.toMap(Pair::getFirst, Pair::getSecond))
           )
+          .map(LinkedHashMap::new)
           .map(AspectMap::new)
           .map(m -> new Pair<>(m, t))
           .map(DataResult::success)
@@ -67,28 +65,12 @@ public class AspectMap implements Iterable<AspectStack> {
       );
   private final LinkedHashMap<Aspect, Integer> map;
 
-  /**
-   * This argument should ideally be a LinkedHashMap, but is a Map instead,
-   * to make codecs easier
-   */
-  private AspectMap(Map<Aspect, Integer> map) {
+  private AspectMap(LinkedHashMap<Aspect, Integer> map) {
     this.map = new LinkedHashMap<>(map);
   }
 
   private static Integer nullIfZero(Integer amount) {
     return amount == 0 ? null : amount;
-  }
-
-  public static AspectMap of(AspectStack... aspectStacks) {
-    LinkedHashMap<Aspect, Integer> map = new LinkedHashMap<>();
-    for (AspectStack stack : aspectStacks) map.put(stack.aspect(), stack.amount());
-    return new AspectMap(map);
-  }
-
-  public static AspectMap ofPrimals(int amount) {
-    LinkedHashMap<Aspect, Integer> map = new LinkedHashMap<>();
-    for (var a : Aspects.PRIMAL_ASPECTS) map.put(a.get(), amount);
-    return new AspectMap(map);
   }
 
   public static AspectMap randomPrimals() {
@@ -100,13 +82,6 @@ public class AspectMap implements Iterable<AspectStack> {
     for (var a : randomPrimals)
       map.put(a.get(), random.nextInt(16) + 1);
     return new AspectMap(map);
-  }
-
-  public static AspectMap parse(HolderLookup.Provider lookupProvider, Tag tag) {
-    var optionalAspectMap = AspectMap.CODEC.parse(lookupProvider.createSerializationContext(NbtOps.INSTANCE), tag)
-        .resultOrPartial(System.out::println);
-
-    return optionalAspectMap.orElse(AspectMap.EMPTY);
   }
 
   public AspectMap add(Aspect aspect, int amount) {
@@ -197,11 +172,6 @@ public class AspectMap implements Iterable<AspectStack> {
     return new AspectMap(this.map);
   }
 
-  public Tag save(HolderLookup.Provider lookupProvider) {
-    return AspectMap.CODEC.encodeStart(lookupProvider.createSerializationContext(NbtOps.INSTANCE), this)
-        .getOrThrow();
-  }
-
   @Override
   public boolean equals(Object obj) {
     return super.equals(obj);
@@ -224,5 +194,23 @@ public class AspectMap implements Iterable<AspectStack> {
   @Override
   public @NotNull Iterator<AspectStack> iterator() {
     return this.map.entrySet().stream().filter(e -> e.getValue() > 0).map(e -> AspectStack.of(e.getKey(), e.getValue())).iterator();
+  }
+
+  public static Builder builder() {
+    return new Builder();
+  }
+
+  public static class Builder {
+    private final LinkedHashMap<Aspect, Integer> map = new LinkedHashMap<>();
+
+    public Builder add(Aspect aspect, int amount) {
+      var oldAmount = this.map.getOrDefault(aspect, 0);
+      this.map.put(aspect, oldAmount + amount);
+      return this;
+    }
+
+    public AspectMap build() {
+      return new AspectMap(this.map);
+    }
   }
 }

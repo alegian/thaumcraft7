@@ -1,7 +1,6 @@
 package me.alegian.thavma.impl.init.data.providers;
 
 import me.alegian.thavma.impl.common.aspect.AspectMap;
-import me.alegian.thavma.impl.common.aspect.AspectStack;
 import me.alegian.thavma.impl.init.data.providers.builders.CrucibleRecipeBuilder;
 import me.alegian.thavma.impl.init.data.providers.builders.WorkbenchRecipeBuilder;
 import me.alegian.thavma.impl.init.registries.deferred.*;
@@ -27,12 +26,12 @@ public class T7RecipeProvider extends RecipeProvider {
 
   @Override
   protected void buildRecipes(RecipeOutput pRecipeOutput) {
-    planksFromLog(pRecipeOutput, T7Blocks.GREATWOOD_PLANKS, T7Blocks.GREATWOOD_LOG);
-    planksFromLog(pRecipeOutput, T7Blocks.SILVERWOOD_PLANKS, T7Blocks.SILVERWOOD_LOG);
-    wandHandle(pRecipeOutput, T7Items.IRON_HANDLE.get(), Items.IRON_INGOT, Items.IRON_NUGGET);
-    wand(pRecipeOutput, T7Items.wandOrThrow(WandHandleMaterials.IRON.get(), WandCoreMaterials.WOOD.get()), T7Items.IRON_HANDLE.get(), Tags.Items.RODS_WOODEN);
-    ingot(pRecipeOutput, T7Items.ARCANUM_INGOT.get(), T7Items.ARCANUM_NUGGET.get(), T7Blocks.ARCANUM_BLOCK.get());
-    ingot(pRecipeOutput, T7Items.ORICHALCUM_INGOT.get(), T7Items.ORICHALCUM_NUGGET.get(), T7Blocks.ORICHALCUM_BLOCK.get());
+    T7RecipeProvider.planksFromLog(pRecipeOutput, T7Blocks.GREATWOOD_PLANKS, T7Blocks.GREATWOOD_LOG);
+    T7RecipeProvider.planksFromLog(pRecipeOutput, T7Blocks.SILVERWOOD_PLANKS, T7Blocks.SILVERWOOD_LOG);
+    T7RecipeProvider.wandHandle(pRecipeOutput, T7Items.IRON_HANDLE.get(), Items.IRON_INGOT, Items.IRON_NUGGET);
+    T7RecipeProvider.wand(pRecipeOutput, T7Items.wandOrThrow(WandHandleMaterials.IRON.get(), WandCoreMaterials.WOOD.get()), T7Items.IRON_HANDLE.get(), Tags.Items.RODS_WOODEN);
+    T7RecipeProvider.ingot(pRecipeOutput, T7Items.ARCANUM_INGOT.get(), T7Items.ARCANUM_NUGGET.get(), T7Blocks.ARCANUM_BLOCK.get());
+    T7RecipeProvider.ingot(pRecipeOutput, T7Items.ORICHALCUM_INGOT.get(), T7Items.ORICHALCUM_NUGGET.get(), T7Blocks.ORICHALCUM_BLOCK.get());
 
     ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, T7Items.ARCANUM_SWORD.get())
         .define('a', T7Items.ARCANUM_INGOT.get())
@@ -40,7 +39,7 @@ public class T7RecipeProvider extends RecipeProvider {
         .pattern(" a ")
         .pattern(" a ")
         .pattern(" s ")
-        .unlockedBy(getHasName(T7Items.ARCANUM_INGOT.get()), has(T7Items.ARCANUM_INGOT.get()))
+        .unlockedBy(RecipeProvider.getHasName(T7Items.ARCANUM_INGOT.get()), RecipeProvider.has(T7Items.ARCANUM_INGOT.get()))
         .save(pRecipeOutput);
     ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, T7Items.ARCANUM_PICKAXE.get())
         .define('a', T7Items.ARCANUM_INGOT.get())
@@ -48,7 +47,7 @@ public class T7RecipeProvider extends RecipeProvider {
         .pattern("aaa")
         .pattern(" s ")
         .pattern(" s ")
-        .unlockedBy(getHasName(T7Items.ARCANUM_INGOT.get()), has(T7Items.ARCANUM_INGOT.get()))
+        .unlockedBy(RecipeProvider.getHasName(T7Items.ARCANUM_INGOT.get()), RecipeProvider.has(T7Items.ARCANUM_INGOT.get()))
         .save(pRecipeOutput);
     ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, T7Items.ARCANUM_HAMMER.get())
         .define('a', T7Items.ARCANUM_INGOT.get())
@@ -56,7 +55,7 @@ public class T7RecipeProvider extends RecipeProvider {
         .pattern("aaa")
         .pattern("aaa")
         .pattern(" s ")
-        .unlockedBy(getHasName(T7Items.ARCANUM_INGOT.get()), has(T7Items.ARCANUM_INGOT.get()))
+        .unlockedBy(RecipeProvider.getHasName(T7Items.ARCANUM_INGOT.get()), RecipeProvider.has(T7Items.ARCANUM_INGOT.get()))
         .save(pRecipeOutput);
     ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, T7Items.ARCANUM_AXE.get())
         .define('a', T7Items.ARCANUM_INGOT.get())
@@ -64,7 +63,7 @@ public class T7RecipeProvider extends RecipeProvider {
         .pattern("aa ")
         .pattern("as ")
         .pattern(" s ")
-        .unlockedBy(getHasName(T7Items.ARCANUM_INGOT.get()), has(T7Items.ARCANUM_INGOT.get()))
+        .unlockedBy(RecipeProvider.getHasName(T7Items.ARCANUM_INGOT.get()), RecipeProvider.has(T7Items.ARCANUM_INGOT.get()))
         .save(pRecipeOutput);
     ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, T7Items.ARCANUM_SHOVEL.get())
         .define('a', T7Items.ARCANUM_INGOT.get())
@@ -72,7 +71,7 @@ public class T7RecipeProvider extends RecipeProvider {
         .pattern(" a ")
         .pattern(" s ")
         .pattern(" s ")
-        .unlockedBy(getHasName(T7Items.ARCANUM_INGOT.get()), has(T7Items.ARCANUM_INGOT.get()))
+        .unlockedBy(RecipeProvider.getHasName(T7Items.ARCANUM_INGOT.get()), RecipeProvider.has(T7Items.ARCANUM_INGOT.get()))
         .save(pRecipeOutput);
     ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, T7Items.ARCANUM_HOE.get())
         .define('a', T7Items.ARCANUM_INGOT.get())
@@ -80,7 +79,7 @@ public class T7RecipeProvider extends RecipeProvider {
         .pattern("aa ")
         .pattern(" s ")
         .pattern(" s ")
-        .unlockedBy(getHasName(T7Items.ARCANUM_INGOT.get()), has(T7Items.ARCANUM_INGOT.get()))
+        .unlockedBy(RecipeProvider.getHasName(T7Items.ARCANUM_INGOT.get()), RecipeProvider.has(T7Items.ARCANUM_INGOT.get()))
         .save(pRecipeOutput);
     ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, T7Items.GOGGLES.get())
         .define('o', T7Items.OCULUS)
@@ -89,60 +88,63 @@ public class T7RecipeProvider extends RecipeProvider {
         .pattern("lgl")
         .pattern("l l")
         .pattern("ogo")
-        .unlockedBy(getHasName(T7Items.OCULUS.get()), has(T7Items.OCULUS.get()))
+        .unlockedBy(RecipeProvider.getHasName(T7Items.OCULUS.get()), RecipeProvider.has(T7Items.OCULUS.get()))
         .save(pRecipeOutput);
     ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, T7Items.ARCANUM_HELMET)
         .define('a', T7Items.ARCANUM_INGOT)
         .pattern("aaa")
         .pattern("a a")
-        .unlockedBy(getHasName(T7Items.ARCANUM_INGOT.get()), has(T7Items.ARCANUM_INGOT.get()))
+        .unlockedBy(RecipeProvider.getHasName(T7Items.ARCANUM_INGOT.get()), RecipeProvider.has(T7Items.ARCANUM_INGOT.get()))
         .save(pRecipeOutput);
     ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, T7Items.ARCANUM_CHESTPLATE)
         .define('a', T7Items.ARCANUM_INGOT)
         .pattern("a a")
         .pattern("aaa")
         .pattern("aaa")
-        .unlockedBy(getHasName(T7Items.ARCANUM_INGOT.get()), has(T7Items.ARCANUM_INGOT.get()))
+        .unlockedBy(RecipeProvider.getHasName(T7Items.ARCANUM_INGOT.get()), RecipeProvider.has(T7Items.ARCANUM_INGOT.get()))
         .save(pRecipeOutput);
     ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, T7Items.ARCANUM_LEGGINGS)
         .define('a', T7Items.ARCANUM_INGOT)
         .pattern("aaa")
         .pattern("a a")
         .pattern("a a")
-        .unlockedBy(getHasName(T7Items.ARCANUM_INGOT.get()), has(T7Items.ARCANUM_INGOT.get()))
+        .unlockedBy(RecipeProvider.getHasName(T7Items.ARCANUM_INGOT.get()), RecipeProvider.has(T7Items.ARCANUM_INGOT.get()))
         .save(pRecipeOutput);
     ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, T7Items.ARCANUM_BOOTS)
         .define('a', T7Items.ARCANUM_INGOT)
         .pattern("a a")
         .pattern("a a")
-        .unlockedBy(getHasName(T7Items.ARCANUM_INGOT.get()), has(T7Items.ARCANUM_INGOT.get()))
+        .unlockedBy(RecipeProvider.getHasName(T7Items.ARCANUM_INGOT.get()), RecipeProvider.has(T7Items.ARCANUM_INGOT.get()))
         .save(pRecipeOutput);
 
-    inCrucible(pRecipeOutput,
+    T7RecipeProvider.inCrucible(pRecipeOutput,
         new ItemStack(Items.DIAMOND),
-        AspectMap.of(AspectStack.of(Aspects.TERRA.get(), 6), AspectStack.of(Aspects.PERDITIO.get(), 2)),
+        AspectMap.builder()
+            .add(Aspects.TERRA.get(), 6)
+            .add(Aspects.PERDITIO.get(), 2)
+            .build(),
         Ingredient.of(Items.DRAGON_EGG)
     );
 
     WorkbenchRecipeBuilder.shaped(Items.DIAMOND, 2)
-        .requireAspects(AspectMap.of(
-            AspectStack.of(Aspects.IGNIS.get(), 6),
-            AspectStack.of(Aspects.ORDO.get(), 2)
-        ))
+        .requireAspects(AspectMap.builder()
+            .add(Aspects.IGNIS.get(), 6)
+            .add(Aspects.ORDO.get(), 2)
+            .build())
         .define('d', Blocks.COBBLED_DEEPSLATE)
         .define('g', Items.GOLD_INGOT)
         .pattern("gd ")
         .pattern(" g ")
-        .unlockedBy(getHasName(Items.GOLD_INGOT), has(Items.GOLD_INGOT))
+        .unlockedBy(RecipeProvider.getHasName(Items.GOLD_INGOT), RecipeProvider.has(Items.GOLD_INGOT))
         .save(pRecipeOutput);
   }
 
   protected static void ingot(RecipeOutput pRecipeOutput, ItemLike ingot, ItemLike nugget, ItemLike block) {
-    nineBlockStorageRecipes(
-        pRecipeOutput, RecipeCategory.MISC, ingot, RecipeCategory.BUILDING_BLOCKS, block, itemLoc(block), null, itemLoc(ingot) + "_from_block", null
+    RecipeProvider.nineBlockStorageRecipes(
+        pRecipeOutput, RecipeCategory.MISC, ingot, RecipeCategory.BUILDING_BLOCKS, block, T7RecipeProvider.itemLoc(block), null, T7RecipeProvider.itemLoc(ingot) + "_from_block", null
     );
-    nineBlockStorageRecipes(
-        pRecipeOutput, RecipeCategory.MISC, nugget, RecipeCategory.MISC, ingot, itemLoc(ingot) + "_from_nuggets", null, itemLoc(nugget), null
+    RecipeProvider.nineBlockStorageRecipes(
+        pRecipeOutput, RecipeCategory.MISC, nugget, RecipeCategory.MISC, ingot, T7RecipeProvider.itemLoc(ingot) + "_from_nuggets", null, T7RecipeProvider.itemLoc(nugget), null
     );
   }
 
@@ -154,7 +156,7 @@ public class T7RecipeProvider extends RecipeProvider {
         .pattern(" c ")
         .pattern("h  ")
         .group("wand")
-        .unlockedBy(getHasName(handle), has(handle))
+        .unlockedBy(RecipeProvider.getHasName(handle), RecipeProvider.has(handle))
         .save(pRecipeOutput);
   }
 
@@ -167,7 +169,7 @@ public class T7RecipeProvider extends RecipeProvider {
         .pattern(" c ")
         .pattern("h  ")
         .group("wand")
-        .unlockedBy(getHasName(handle), has(handle))
+        .unlockedBy(RecipeProvider.getHasName(handle), RecipeProvider.has(handle))
         .save(pRecipeOutput);
   }
 
@@ -179,7 +181,7 @@ public class T7RecipeProvider extends RecipeProvider {
         .pattern(" in")
         .pattern("i  ")
         .group("wand_handle")
-        .unlockedBy(getHasName(ingot), has(ingot))
+        .unlockedBy(RecipeProvider.getHasName(ingot), RecipeProvider.has(ingot))
         .save(pRecipeOutput);
   }
 
@@ -187,14 +189,14 @@ public class T7RecipeProvider extends RecipeProvider {
     ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, pPlanks, 4)
         .requires(pLog)
         .group("planks")
-        .unlockedBy("has_logs", has(pLog))
+        .unlockedBy("has_logs", RecipeProvider.has(pLog))
         .save(pRecipeOutput);
   }
 
   protected static void inCrucible(RecipeOutput output, ItemStack result, AspectMap aspects, Ingredient catalyst) {
     var catalystItem = catalyst.getItems()[0].getItem();
     new CrucibleRecipeBuilder(result, aspects, catalyst)
-        .unlockedBy(getHasName(catalystItem), has(catalystItem))
+        .unlockedBy(RecipeProvider.getHasName(catalystItem), RecipeProvider.has(catalystItem))
         .save(output);
   }
 
