@@ -32,12 +32,11 @@ import java.util.Optional;
 
 public class GreatwoodTree {
   public static final String NAME = "greatwood";
-  public static final ResourceLocation LOCATION = Thavma.id("tree_" + NAME);
-  public static final ResourceKey<ConfiguredFeature<?, ?>> CONFIGURED_FEATURE = ResourceKey.create(Registries.CONFIGURED_FEATURE, LOCATION);
-  public static final ResourceKey<PlacedFeature> PLACED_FEATURE = ResourceKey.create(Registries.PLACED_FEATURE, LOCATION);
-  public static final ResourceKey<BiomeModifier> BIOME_MODIFIER = ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, LOCATION);
-
-  public static final TreeGrower GROWER = new TreeGrower(NAME, Optional.of(CONFIGURED_FEATURE), Optional.empty(), Optional.empty());
+  public static final ResourceLocation LOCATION = Thavma.rl("tree_" + GreatwoodTree.NAME);
+  public static final ResourceKey<ConfiguredFeature<?, ?>> CONFIGURED_FEATURE = ResourceKey.create(Registries.CONFIGURED_FEATURE, GreatwoodTree.LOCATION);
+  public static final TreeGrower GROWER = new TreeGrower(GreatwoodTree.NAME, Optional.of(GreatwoodTree.CONFIGURED_FEATURE), Optional.empty(), Optional.empty());
+  public static final ResourceKey<PlacedFeature> PLACED_FEATURE = ResourceKey.create(Registries.PLACED_FEATURE, GreatwoodTree.LOCATION);
+  public static final ResourceKey<BiomeModifier> BIOME_MODIFIER = ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, GreatwoodTree.LOCATION);
 
   public static TreeConfiguration.TreeConfigurationBuilder createGreatwood() {
     return new TreeConfiguration.TreeConfigurationBuilder(
@@ -51,16 +50,16 @@ public class GreatwoodTree {
 
   public static void registerConfigured(BootstrapContext<ConfiguredFeature<?, ?>> context) {
     context.register(
-        CONFIGURED_FEATURE,
-        new ConfiguredFeature<>(Feature.TREE, createGreatwood().ignoreVines().build())
+        GreatwoodTree.CONFIGURED_FEATURE,
+        new ConfiguredFeature<>(Feature.TREE, GreatwoodTree.createGreatwood().ignoreVines().build())
     );
   }
 
   public static void registerPlaced(BootstrapContext<PlacedFeature> context) {
     HolderGetter<ConfiguredFeature<?, ?>> otherRegistry = context.lookup(Registries.CONFIGURED_FEATURE);
 
-    context.register(PLACED_FEATURE, new PlacedFeature(
-        otherRegistry.getOrThrow(CONFIGURED_FEATURE),
+    context.register(GreatwoodTree.PLACED_FEATURE, new PlacedFeature(
+        otherRegistry.getOrThrow(GreatwoodTree.CONFIGURED_FEATURE),
         List.of(
             RarityFilter.onAverageOnceEvery(9),
             InSquarePlacement.spread(),
@@ -76,10 +75,10 @@ public class GreatwoodTree {
     HolderGetter<PlacedFeature> placedFeatureRegistry = context.lookup(Registries.PLACED_FEATURE);
     HolderGetter<Biome> biomeRegistry = context.lookup(Registries.BIOME);
 
-    context.register(BIOME_MODIFIER,
+    context.register(GreatwoodTree.BIOME_MODIFIER,
         new BiomeModifiers.AddFeaturesBiomeModifier(
             biomeRegistry.getOrThrow(BiomeTags.IS_OVERWORLD),
-            HolderSet.direct(placedFeatureRegistry.getOrThrow(PLACED_FEATURE)),
+            HolderSet.direct(placedFeatureRegistry.getOrThrow(GreatwoodTree.PLACED_FEATURE)),
             GenerationStep.Decoration.VEGETAL_DECORATION
         )
     );

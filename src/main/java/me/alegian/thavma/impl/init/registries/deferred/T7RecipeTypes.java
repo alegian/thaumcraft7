@@ -14,13 +14,13 @@ public class T7RecipeTypes {
       DeferredRegister.create(Registries.RECIPE_TYPE, Thavma.MODID);
 
   public static final Supplier<RecipeType<CrucibleRecipe>> CRUCIBLE =
-      REGISTRAR.register(
+      T7RecipeTypes.REGISTRAR.register(
           "crucible",
-          () -> RecipeType.simple(Thavma.id("crucible"))
+          () -> RecipeType.simple(Thavma.rl("crucible"))
       );
   public static final Supplier<RecipeType<WorkbenchRecipe>> ARCANE_WORKBENCH =
-      REGISTRAR.register(
+      T7RecipeTypes.REGISTRAR.register(
           "arcane_workbench",
-          () -> RecipeType.simple(Thavma.id("arcane_workbench"))
+          () -> RecipeType.simple(Thavma.rl("arcane_workbench"))
       );
 }

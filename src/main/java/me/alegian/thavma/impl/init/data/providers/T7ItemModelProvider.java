@@ -16,75 +16,73 @@ public class T7ItemModelProvider extends ItemModelProvider {
 
   @Override
   protected void registerModels() {
-    basicItem(T7Items.IRON_HANDLE.get());
-    basicItem(T7Items.GOLD_HANDLE.get());
-    basicItem(T7Items.ORICHALCUM_HANDLE.get());
-    basicItem(T7Items.ARCANUM_HANDLE.get());
+    this.basicItem(T7Items.IRON_HANDLE.get());
+    this.basicItem(T7Items.GOLD_HANDLE.get());
+    this.basicItem(T7Items.ORICHALCUM_HANDLE.get());
+    this.basicItem(T7Items.ARCANUM_HANDLE.get());
 
-    basicItem(T7Items.GREATWOOD_CORE.get());
-    basicItem(T7Items.SILVERWOOD_CORE.get());
+    this.basicItem(T7Items.GREATWOOD_CORE.get());
+    this.basicItem(T7Items.SILVERWOOD_CORE.get());
 
-    basicItem(T7Items.RUNE.get());
-    basicItem(T7Items.ARCANUM_INGOT.get());
-    basicItem(T7Items.ARCANUM_NUGGET.get());
-    basicItem(T7Items.ORICHALCUM_INGOT.get());
-    basicItem(T7Items.ORICHALCUM_NUGGET.get());
-    basicItem(T7Items.RESEARCH_SCROLL.get());
-    basicItem(T7Items.COMPLETED_RESEARCH.get());
+    this.basicItem(T7Items.RUNE.get());
+    this.basicItem(T7Items.ARCANUM_INGOT.get());
+    this.basicItem(T7Items.ARCANUM_NUGGET.get());
+    this.basicItem(T7Items.ORICHALCUM_INGOT.get());
+    this.basicItem(T7Items.ORICHALCUM_NUGGET.get());
+    this.basicItem(T7Items.RESEARCH_SCROLL.get());
+    this.basicItem(T7Items.COMPLETED_RESEARCH.get());
 
-    basicItem(T7Items.GOGGLES.get());
-    basicItem(T7Items.RESEARCHER_CHESTPLATE.get());
-    basicItem(T7Items.RESEARCHER_LEGGINGS.get());
-    basicItem(T7Items.RESEARCHER_BOOTS.get());
+    this.basicItem(T7Items.GOGGLES.get());
+    this.basicItem(T7Items.RESEARCHER_CHESTPLATE.get());
+    this.basicItem(T7Items.RESEARCHER_LEGGINGS.get());
+    this.basicItem(T7Items.RESEARCHER_BOOTS.get());
 
-    basicItem(T7Items.ARCANUM_HELMET.get());
-    basicItem(T7Items.ARCANUM_CHESTPLATE.get());
-    basicItem(T7Items.ARCANUM_LEGGINGS.get());
-    basicItem(T7Items.ARCANUM_BOOTS.get());
+    this.basicItem(T7Items.ARCANUM_HELMET.get());
+    this.basicItem(T7Items.ARCANUM_CHESTPLATE.get());
+    this.basicItem(T7Items.ARCANUM_LEGGINGS.get());
+    this.basicItem(T7Items.ARCANUM_BOOTS.get());
 
-    basicItem(T7Items.CUSTOS_ARCANUM_HELMET.get());
-    basicItem(T7Items.CUSTOS_ARCANUM_CHESTPLATE.get());
-    basicItem(T7Items.CUSTOS_ARCANUM_LEGGINGS.get());
-    basicItem(T7Items.CUSTOS_ARCANUM_BOOTS.get());
+    this.basicItem(T7Items.CUSTOS_ARCANUM_HELMET.get());
+    this.basicItem(T7Items.CUSTOS_ARCANUM_CHESTPLATE.get());
+    this.basicItem(T7Items.CUSTOS_ARCANUM_LEGGINGS.get());
+    this.basicItem(T7Items.CUSTOS_ARCANUM_BOOTS.get());
 
-    handheldItem(T7Items.ARCANUM_SWORD);
-    handheldItem(T7Items.ARCANUM_AXE);
-    handheldItem(T7Items.ARCANUM_PICKAXE);
-    handheldItem(T7Items.ARCANUM_HAMMER);
-    handheldItem(T7Items.ARCANUM_SHOVEL);
-    handheldItem(T7Items.ARCANUM_HOE);
+    this.handheldItem(T7Items.ARCANUM_SWORD);
+    this.handheldItem(T7Items.ARCANUM_AXE);
+    this.handheldItem(T7Items.ARCANUM_PICKAXE);
+    this.handheldItem(T7Items.ARCANUM_HAMMER);
+    this.handheldItem(T7Items.ARCANUM_SHOVEL);
+    this.handheldItem(T7Items.ARCANUM_HOE);
 
-    testaItem(T7Items.IGNIS_TESTA);
-    testaItem(T7Items.AER_TESTA);
-    testaItem(T7Items.TERRA_TESTA);
-    testaItem(T7Items.AQUA_TESTA);
-    testaItem(T7Items.ORDO_TESTA);
-    testaItem(T7Items.PERDITIO_TESTA);
+    this.testaItem(T7Items.IGNIS_TESTA);
+    this.testaItem(T7Items.AER_TESTA);
+    this.testaItem(T7Items.TERRA_TESTA);
+    this.testaItem(T7Items.AQUA_TESTA);
+    this.testaItem(T7Items.ORDO_TESTA);
+    this.testaItem(T7Items.PERDITIO_TESTA);
 
-    for (var wand : T7Items.WANDS.values()) {
-      withExistingParent(wand.getName(), Thavma.id("wand"));
-    }
+    for (var wand : T7Items.WANDS.values()) this.withExistingParent(wand.getName(), Thavma.rl("wand"));
   }
 
   public void testaItem(DeferredItem<TestaItem> deferredItem) {
-    withVanillaParent(deferredItem.getId().getPath(), "testa", "generated");
+    this.withVanillaParent(deferredItem.getId().getPath(), "testa", "generated");
   }
 
   public void handheldItem(DeferredItem<? extends Item> deferredItem) {
-    withVanillaParent(deferredItem, "handheld");
+    this.withVanillaParent(deferredItem, "handheld");
   }
 
   public void withVanillaParent(DeferredItem<? extends Item> deferredItem, String parent) {
     var path = deferredItem.getId().getPath();
-    withVanillaParent(path, parent);
+    this.withVanillaParent(path, parent);
   }
 
   public void withVanillaParent(String itemPath, String parent) {
-    withVanillaParent(itemPath, itemPath, parent);
+    this.withVanillaParent(itemPath, itemPath, parent);
   }
 
   public void withVanillaParent(String itemPath, String texturePath, String parent) {
-    withExistingParent(itemPath, parent)
-        .texture("layer0", Thavma.id(texturePath).withPrefix("item/"));
+    this.withExistingParent(itemPath, parent)
+        .texture("layer0", Thavma.rl(texturePath).withPrefix("item/"));
   }
 }

@@ -6,7 +6,6 @@ import me.alegian.thavma.impl.init.registries.T7DataMaps;
 import me.alegian.thavma.impl.init.registries.T7Registries;
 import me.alegian.thavma.impl.init.registries.deferred.T7Attributes;
 import me.alegian.thavma.impl.init.registries.deferred.T7BlockEntities;
-import me.alegian.thavma.impl.init.registries.deferred.T7Blocks;
 import me.alegian.thavma.impl.init.registries.deferred.T7Items;
 import me.alegian.thavma.impl.init.registries.deferred.callback.WandCoreCombinations;
 import me.alegian.thavma.impl.init.registries.deferred.callback.WandHandleCombinations;
@@ -50,7 +49,6 @@ public class T7CommonModEvents {
   @SubscribeEvent
   public static void registerCapabilities(RegisterCapabilitiesEvent event) {
     T7Items.registerCapabilities(event);
-    T7Blocks.registerCapabilities(event);
     T7BlockEntities.registerCapabilities(event);
   }
 
@@ -92,8 +90,8 @@ public class T7CommonModEvents {
   }
 
   @SubscribeEvent
-  public static void entityAttributeModification(EntityAttributeModificationEvent event){
-    if(!event.has(EntityType.PLAYER, T7Attributes.REVEALING))
+  public static void entityAttributeModification(EntityAttributeModificationEvent event) {
+    if (!event.has(EntityType.PLAYER, T7Attributes.REVEALING))
       event.add(EntityType.PLAYER, T7Attributes.REVEALING);
   }
 }

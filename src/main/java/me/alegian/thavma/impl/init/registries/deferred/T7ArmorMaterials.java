@@ -16,7 +16,7 @@ import java.util.List;
 public class T7ArmorMaterials {
   public static final DeferredRegister<ArmorMaterial> REGISTRAR = DeferredRegister.create(BuiltInRegistries.ARMOR_MATERIAL, Thavma.MODID);
 
-  public static final DeferredHolder<ArmorMaterial, ArmorMaterial> GOGGLES = REGISTRAR.register("goggles", () -> new ArmorMaterial(
+  public static final DeferredHolder<ArmorMaterial, ArmorMaterial> GOGGLES = T7ArmorMaterials.REGISTRAR.register("goggles", () -> new ArmorMaterial(
       Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
         map.put(ArmorItem.Type.HELMET, 1);
       }),
@@ -28,7 +28,7 @@ public class T7ArmorMaterials {
       0
   ));
 
-  public static final DeferredHolder<ArmorMaterial, ArmorMaterial> RESEARCHER = REGISTRAR.register("researcher", () -> new ArmorMaterial(
+  public static final DeferredHolder<ArmorMaterial, ArmorMaterial> RESEARCHER = T7ArmorMaterials.REGISTRAR.register("researcher", () -> new ArmorMaterial(
       Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
         map.put(ArmorItem.Type.CHESTPLATE, 1);
         map.put(ArmorItem.Type.LEGGINGS, 1);
@@ -42,7 +42,7 @@ public class T7ArmorMaterials {
       0
   ));
 
-  public static final DeferredHolder<ArmorMaterial, ArmorMaterial> ARCANUM = REGISTRAR.register("arcanum", () -> new ArmorMaterial(
+  public static final DeferredHolder<ArmorMaterial, ArmorMaterial> ARCANUM = T7ArmorMaterials.REGISTRAR.register("arcanum", () -> new ArmorMaterial(
       Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
         map.put(ArmorItem.Type.BOOTS, 2);
         map.put(ArmorItem.Type.LEGGINGS, 5);
@@ -53,13 +53,13 @@ public class T7ArmorMaterials {
       SoundEvents.ARMOR_EQUIP_IRON,
       () -> Ingredient.of(T7Items.ARCANUM_INGOT),
       List.of(
-          new ArmorMaterial.Layer(Thavma.id("arcanum"))
+          new ArmorMaterial.Layer(Thavma.rl("arcanum"))
       ),
       1.0F,
       0
   ));
 
-  public static final DeferredHolder<ArmorMaterial, ArmorMaterial> CUSTOS_ARCANUM = REGISTRAR.register("custos_arcanum", () -> new ArmorMaterial(
+  public static final DeferredHolder<ArmorMaterial, ArmorMaterial> CUSTOS_ARCANUM = T7ArmorMaterials.REGISTRAR.register("custos_arcanum", () -> new ArmorMaterial(
       Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
         map.put(ArmorItem.Type.BOOTS, 3);
         map.put(ArmorItem.Type.LEGGINGS, 6);
@@ -70,7 +70,7 @@ public class T7ArmorMaterials {
       SoundEvents.ARMOR_EQUIP_NETHERITE,
       () -> Ingredient.of(T7Items.ARCANUM_INGOT),
       List.of(
-          new ArmorMaterial.Layer(Thavma.id("arcanum"))
+          new ArmorMaterial.Layer(Thavma.rl("arcanum"))
       ),
       3.0F,
       0.1F

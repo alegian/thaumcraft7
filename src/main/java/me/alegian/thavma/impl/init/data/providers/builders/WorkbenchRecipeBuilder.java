@@ -28,13 +28,13 @@ public class WorkbenchRecipeBuilder extends ShapedRecipeBuilder {
     this.result = new ItemStack(resultItem, itemCount);
   }
 
+  public static WorkbenchRecipeBuilder shaped(ItemLike result, int count) {
+    return new WorkbenchRecipeBuilder(result, count);
+  }
+
   public WorkbenchRecipeBuilder requireAspects(AspectMap requiredAspects) {
     this.requiredAspects = requiredAspects;
     return this;
-  }
-
-  public static WorkbenchRecipeBuilder shaped(ItemLike result, int count) {
-    return new WorkbenchRecipeBuilder(result, count);
   }
 
   @Override
@@ -51,7 +51,7 @@ public class WorkbenchRecipeBuilder extends ShapedRecipeBuilder {
         this.requiredAspects
     );
 
-    id = Thavma.id(id.getPath()).withSuffix("_arcane_workbench");
+    id = Thavma.rl(id.getPath()).withSuffix("_arcane_workbench");
     recipeOutput.accept(id, recipe, advancement$builder.build(id.withPrefix("recipes/")));
   }
 }

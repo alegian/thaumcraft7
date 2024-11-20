@@ -17,18 +17,18 @@ public class OrdoOre {
   public static final String PATH = "ore_ordo";
   public static final ResourceKey<ConfiguredFeature<?, ?>> CONFIGURED_FEATURE = ResourceKey.create(
       Registries.CONFIGURED_FEATURE,
-      Thavma.id(PATH)
+      Thavma.rl(OrdoOre.PATH)
   );
   public static final ResourceKey<PlacedFeature> PLACED_FEATURE = ResourceKey.create(
       Registries.PLACED_FEATURE,
-      Thavma.id(PATH)
+      Thavma.rl(OrdoOre.PATH)
   );
 
   public static Holder<ConfiguredFeature<?, ?>> registerConfigured(BootstrapContext<ConfiguredFeature<?, ?>> context) {
-    return OreFeatureHelper.registerConfiguredInfusedStone(context, CONFIGURED_FEATURE, T7Blocks.ORDO_INFUSED_STONE.get().defaultBlockState());
+    return OreFeatureHelper.registerConfiguredInfusedStone(context, OrdoOre.CONFIGURED_FEATURE, T7Blocks.ORDO_INFUSED_STONE.get().defaultBlockState());
   }
 
   public static Holder<PlacedFeature> registerPlaced(BootstrapContext<PlacedFeature> context) {
-    return OreFeatureHelper.registerPlacedInfusedStone(context, CONFIGURED_FEATURE, PLACED_FEATURE);
+    return OreFeatureHelper.registerPlacedInfusedStone(context, OrdoOre.CONFIGURED_FEATURE, OrdoOre.PLACED_FEATURE);
   }
 }

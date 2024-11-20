@@ -42,7 +42,7 @@ public class ResearcherArmorItem extends ArmorItem implements GeoItem {
       @Override
       public <T extends LivingEntity> HumanoidModel<?> getGeoArmorRenderer(@Nullable T livingEntity, ItemStack itemStack, @Nullable EquipmentSlot equipmentSlot, @Nullable HumanoidModel<T> original) {
         if (this.renderer == null)
-          this.renderer = new GeoArmorRenderer<>(new DefaultedItemGeoModel<ResearcherArmorItem>(Thavma.id("researcher_armor")));
+          this.renderer = new GeoArmorRenderer<>(new DefaultedItemGeoModel<ResearcherArmorItem>(Thavma.rl("researcher_armor")));
 
         return this.renderer;
       }

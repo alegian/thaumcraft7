@@ -29,15 +29,15 @@ public class InfusedStoneOre {
   public static final String PATH = "ore_infused_stone";
   public static final ResourceKey<ConfiguredFeature<?, ?>> CONFIGURED_FEATURE = ResourceKey.create(
       Registries.CONFIGURED_FEATURE,
-      Thavma.id(PATH)
+      Thavma.rl(InfusedStoneOre.PATH)
   );
   public static final ResourceKey<PlacedFeature> PLACED_FEATURE = ResourceKey.create(
       Registries.PLACED_FEATURE,
-      Thavma.id(PATH)
+      Thavma.rl(InfusedStoneOre.PATH)
   );
   public static final ResourceKey<BiomeModifier> BIOME_MODIFIER = ResourceKey.create(
       NeoForgeRegistries.Keys.BIOME_MODIFIERS,
-      Thavma.id(PATH)
+      Thavma.rl(InfusedStoneOre.PATH)
   );
 
   public static void registerConfigured(BootstrapContext<ConfiguredFeature<?, ?>> context) {
@@ -51,7 +51,7 @@ public class InfusedStoneOre {
 
     // 6 ores, equally likely
     context.register(
-        CONFIGURED_FEATURE,
+        InfusedStoneOre.CONFIGURED_FEATURE,
         new ConfiguredFeature<>(Feature.SIMPLE_RANDOM_SELECTOR, new SimpleRandomFeatureConfiguration((HolderSet.direct(terraOre, ignisOre, aerOre, aquaOre, ordoOre, perditioOre)))
         )
     );
@@ -60,8 +60,8 @@ public class InfusedStoneOre {
   public static void registerPlaced(BootstrapContext<PlacedFeature> context) {
     HolderGetter<ConfiguredFeature<?, ?>> otherRegistry = context.lookup(Registries.CONFIGURED_FEATURE);
 
-    context.register(PLACED_FEATURE, new PlacedFeature(
-        otherRegistry.getOrThrow(CONFIGURED_FEATURE),
+    context.register(InfusedStoneOre.PLACED_FEATURE, new PlacedFeature(
+        otherRegistry.getOrThrow(InfusedStoneOre.CONFIGURED_FEATURE),
         List.of(
             CountPlacement.of(30),
             InSquarePlacement.spread(),
@@ -75,10 +75,10 @@ public class InfusedStoneOre {
     HolderGetter<PlacedFeature> placedFeatureRegistry = context.lookup(Registries.PLACED_FEATURE);
     HolderGetter<Biome> biomeRegistry = context.lookup(Registries.BIOME);
 
-    context.register(BIOME_MODIFIER,
+    context.register(InfusedStoneOre.BIOME_MODIFIER,
         new BiomeModifiers.AddFeaturesBiomeModifier(
             biomeRegistry.getOrThrow(BiomeTags.IS_OVERWORLD),
-            HolderSet.direct(placedFeatureRegistry.getOrThrow(PLACED_FEATURE)),
+            HolderSet.direct(placedFeatureRegistry.getOrThrow(InfusedStoneOre.PLACED_FEATURE)),
             GenerationStep.Decoration.UNDERGROUND_ORES
         )
     );

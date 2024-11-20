@@ -53,6 +53,10 @@ public class WandItem extends Item implements GeoItem {
     GeckoLibUtil.SYNCED_ANIMATABLES.put(this.syncableId(), this);
   }
 
+  public static String name(WandHandleMaterial handleMaterial, WandCoreMaterial coreMaterial) {
+    return handleMaterial.getRegisteredName() + "_" + coreMaterial.getRegisteredName() + "_wand";
+  }
+
   /**
    * Use Wand on a Block. Has 3 main uses:<p>
    * 1. Receiving Vis from an Aura Node, by spawning a VisEntity<br>
@@ -103,9 +107,29 @@ public class WandItem extends Item implements GeoItem {
   }
 
   @Override
+  public UseAnim getUseAnimation(ItemStack itemStack) {
+    return UseAnim.CUSTOM;
+  }
+
+  @Override
+  public int getUseDuration(ItemStack pStack, LivingEntity pEntity) {
+    return 72000;
+  }
+
+  @Override
   public void onStopUsing(ItemStack itemStack, LivingEntity entity, int count) {
     this.animateCircle(false, entity, itemStack, entity.level());
     super.onStopUsing(itemStack, entity, count);
+  }
+
+  /**
+   * The normal implementation causes flickering in the wand animation
+   * when aspects are synced from server. Therefore, we have to use a
+   * less strict variant.
+   */
+  @Override
+  public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+    return !oldStack.getItem().equals(newStack.getItem());
   }
 
   /**
@@ -123,26 +147,6 @@ public class WandItem extends Item implements GeoItem {
   protected void animateCircle(boolean isCasting, Entity entity, ItemStack itemStack, ServerLevel level) {
     var animationName = isCasting ? "casting" : "idle";
     GeckoLibServices.NETWORK.sendToAllPlayersTrackingEntity(new SingletonAnimTriggerPacket(this.syncableId(), GeoItem.getOrAssignId(itemStack, level), "Casting", animationName), entity);
-  }
-
-  @Override
-  public int getUseDuration(ItemStack pStack, LivingEntity pEntity) {
-    return 72000;
-  }
-
-  @Override
-  public UseAnim getUseAnimation(ItemStack itemStack) {
-    return UseAnim.CUSTOM;
-  }
-
-  /**
-   * The normal implementation causes flickering in the wand animation
-   * when aspects are synced from server. Therefore, we have to use a
-   * less strict variant.
-   */
-  @Override
-  public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-    return !oldStack.getItem().equals(newStack.getItem());
   }
 
   @Override
@@ -185,10 +189,6 @@ public class WandItem extends Item implements GeoItem {
     return WandItem.name(this.handleMaterial, this.coreMaterial);
   }
 
-  public static String name(WandHandleMaterial handleMaterial, WandCoreMaterial coreMaterial) {
-    return handleMaterial.getRegisteredName() + "_" + coreMaterial.getRegisteredName() + "_wand";
-  }
-
   /**
    * Custom Animatable Syncable ID, for Gecko. By default, Item classes
    * in gecko are considered singletons, and therefore use classnames
@@ -196,7 +196,7 @@ public class WandItem extends Item implements GeoItem {
    * has multiple instances.
    */
   public String syncableId() {
-    var location = Thavma.id(this.getName());
+    var location = Thavma.rl(this.getName());
     return location.toString();
   }
 }

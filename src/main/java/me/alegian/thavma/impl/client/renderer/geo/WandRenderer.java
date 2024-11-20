@@ -16,30 +16,30 @@ public class WandRenderer extends DynamicGeoItemRenderer<WandItem> {
   private final ResourceLocation coreLocation;
 
   public WandRenderer(WandHandleMaterial handleMaterial, WandCoreMaterial coreMaterial) {
-    super(new DefaultedItemGeoModel<>(Thavma.id("wand")));
-    this.handleLocation = handleTexture(handleMaterial.getRegisteredLocation());
-    this.coreLocation = coreTexture(coreMaterial.getRegisteredLocation());
+    super(new DefaultedItemGeoModel<>(Thavma.rl("wand")));
+    this.handleLocation = WandRenderer.handleTexture(handleMaterial.getRegisteredLocation());
+    this.coreLocation = WandRenderer.coreTexture(coreMaterial.getRegisteredLocation());
+  }
+
+  private static ResourceLocation handleTexture(ResourceLocation registeredLocation) {
+    return WandRenderer.texture(registeredLocation, "wand_handle_");
+  }
+
+  private static ResourceLocation coreTexture(ResourceLocation registeredLocation) {
+    return WandRenderer.texture(registeredLocation, "wand_core_");
+  }
+
+  private static ResourceLocation texture(ResourceLocation registeredLocation, String prefix) {
+    return registeredLocation.withPrefix("textures/item/" + prefix).withSuffix(".png");
   }
 
   @Nullable
   @Override
   protected ResourceLocation getTextureOverrideForBone(GeoBone bone, WandItem animatable, float partialTick) {
     return switch (bone.getName()) {
-      case "handle" -> handleLocation;
-      case "stick" -> coreLocation;
+      case "handle" -> this.handleLocation;
+      case "stick" -> this.coreLocation;
       default -> null;
     };
-  }
-
-  private static ResourceLocation handleTexture(ResourceLocation registeredLocation) {
-    return texture(registeredLocation, "wand_handle_");
-  }
-
-  private static ResourceLocation coreTexture(ResourceLocation registeredLocation) {
-    return texture(registeredLocation, "wand_core_");
-  }
-
-  private static ResourceLocation texture(ResourceLocation registeredLocation, String prefix) {
-    return registeredLocation.withPrefix("textures/item/" + prefix).withSuffix(".png");
   }
 }

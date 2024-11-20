@@ -35,7 +35,7 @@ public class ZephyrItem extends SwordItem implements GeoItem {
 
   @Override
   public AnimatableInstanceCache getAnimatableInstanceCache() {
-    return cache;
+    return this.cache;
   }
 
   @Override
@@ -46,7 +46,7 @@ public class ZephyrItem extends SwordItem implements GeoItem {
       @Override
       public BlockEntityWithoutLevelRenderer getGeoItemRenderer() {
         if (this.renderer == null)
-          this.renderer = new GeoItemRenderer<>(new DefaultedItemGeoModel<ZephyrItem>(Thavma.id("zephyr")));
+          this.renderer = new GeoItemRenderer<>(new DefaultedItemGeoModel<ZephyrItem>(Thavma.rl("zephyr")));
 
         return this.renderer;
       }

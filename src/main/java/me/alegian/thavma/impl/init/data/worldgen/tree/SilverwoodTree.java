@@ -33,12 +33,11 @@ import java.util.Optional;
 
 public class SilverwoodTree {
   public static final String NAME = "silverwood";
-  public static final ResourceLocation LOCATION = Thavma.id("tree_" + NAME);
-  public static final ResourceKey<ConfiguredFeature<?, ?>> CONFIGURED_FEATURE = ResourceKey.create(Registries.CONFIGURED_FEATURE, LOCATION);
-  public static final ResourceKey<PlacedFeature> PLACED_FEATURE = ResourceKey.create(Registries.PLACED_FEATURE, LOCATION);
-  public static final ResourceKey<BiomeModifier> BIOME_MODIFIER = ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, LOCATION);
-
-  public static final TreeGrower GROWER = new TreeGrower(NAME, Optional.empty(), Optional.of(CONFIGURED_FEATURE), Optional.empty());
+  public static final ResourceLocation LOCATION = Thavma.rl("tree_" + SilverwoodTree.NAME);
+  public static final ResourceKey<ConfiguredFeature<?, ?>> CONFIGURED_FEATURE = ResourceKey.create(Registries.CONFIGURED_FEATURE, SilverwoodTree.LOCATION);
+  public static final TreeGrower GROWER = new TreeGrower(SilverwoodTree.NAME, Optional.empty(), Optional.of(SilverwoodTree.CONFIGURED_FEATURE), Optional.empty());
+  public static final ResourceKey<PlacedFeature> PLACED_FEATURE = ResourceKey.create(Registries.PLACED_FEATURE, SilverwoodTree.LOCATION);
+  public static final ResourceKey<BiomeModifier> BIOME_MODIFIER = ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, SilverwoodTree.LOCATION);
 
   public static TreeConfiguration.TreeConfigurationBuilder createSilverwood() {
     return new TreeConfiguration.TreeConfigurationBuilder(
@@ -52,16 +51,16 @@ public class SilverwoodTree {
 
   public static void registerConfigured(BootstrapContext<ConfiguredFeature<?, ?>> context) {
     context.register(
-        CONFIGURED_FEATURE,
-        new ConfiguredFeature<>(Feature.TREE, createSilverwood().ignoreVines().build())
+        SilverwoodTree.CONFIGURED_FEATURE,
+        new ConfiguredFeature<>(Feature.TREE, SilverwoodTree.createSilverwood().ignoreVines().build())
     );
   }
 
   public static void registerPlaced(BootstrapContext<PlacedFeature> context) {
     HolderGetter<ConfiguredFeature<?, ?>> otherRegistry = context.lookup(Registries.CONFIGURED_FEATURE);
 
-    context.register(PLACED_FEATURE, new PlacedFeature(
-        otherRegistry.getOrThrow(CONFIGURED_FEATURE),
+    context.register(SilverwoodTree.PLACED_FEATURE, new PlacedFeature(
+        otherRegistry.getOrThrow(SilverwoodTree.CONFIGURED_FEATURE),
         List.of(
             RarityFilter.onAverageOnceEvery(9),
             InSquarePlacement.spread(),
@@ -77,10 +76,10 @@ public class SilverwoodTree {
     HolderGetter<PlacedFeature> placedFeatureRegistry = context.lookup(Registries.PLACED_FEATURE);
     HolderGetter<Biome> biomeRegistry = context.lookup(Registries.BIOME);
 
-    context.register(BIOME_MODIFIER,
+    context.register(SilverwoodTree.BIOME_MODIFIER,
         new BiomeModifiers.AddFeaturesBiomeModifier(
             biomeRegistry.getOrThrow(BiomeTags.IS_OVERWORLD),
-            HolderSet.direct(placedFeatureRegistry.getOrThrow(PLACED_FEATURE)),
+            HolderSet.direct(placedFeatureRegistry.getOrThrow(SilverwoodTree.PLACED_FEATURE)),
             GenerationStep.Decoration.VEGETAL_DECORATION
         )
     );

@@ -13,19 +13,19 @@ import org.jetbrains.annotations.NotNull;
 @OnlyIn(Dist.CLIENT)
 public class AspectAtlas extends TextureAtlasHolder {
   public static final String KEY = "aspects";
-  public static final ResourceLocation LOCATION = Thavma.id("atlas/" + KEY);
+  public static final ResourceLocation LOCATION = Thavma.rl("atlas/" + AspectAtlas.KEY);
   public static final AspectAtlas INSTANCE = new AspectAtlas(Minecraft.getInstance().getTextureManager());
 
   public AspectAtlas(TextureManager pTextureManager) {
-    super(pTextureManager, LOCATION, Thavma.id(KEY));
+    super(pTextureManager, AspectAtlas.LOCATION, Thavma.rl(AspectAtlas.KEY));
+  }
+
+  public static TextureAtlasSprite sprite(ResourceLocation pLocation) {
+    return AspectAtlas.INSTANCE.getSprite(pLocation);
   }
 
   @Override
   public @NotNull TextureAtlasSprite getSprite(@NotNull ResourceLocation pLocation) {
     return super.getSprite(pLocation);
-  }
-
-  public static TextureAtlasSprite sprite(ResourceLocation pLocation) {
-    return INSTANCE.getSprite(pLocation);
   }
 }

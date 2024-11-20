@@ -17,18 +17,18 @@ public class IgnisOre {
   public static final String PATH = "ore_ignis";
   public static final ResourceKey<ConfiguredFeature<?, ?>> CONFIGURED_FEATURE = ResourceKey.create(
       Registries.CONFIGURED_FEATURE,
-      Thavma.id(PATH)
+      Thavma.rl(IgnisOre.PATH)
   );
   public static final ResourceKey<PlacedFeature> PLACED_FEATURE = ResourceKey.create(
       Registries.PLACED_FEATURE,
-      Thavma.id(PATH)
+      Thavma.rl(IgnisOre.PATH)
   );
 
   public static Holder<ConfiguredFeature<?, ?>> registerConfigured(BootstrapContext<ConfiguredFeature<?, ?>> context) {
-    return OreFeatureHelper.registerConfiguredInfusedStone(context, CONFIGURED_FEATURE, T7Blocks.IGNIS_INFUSED_STONE.get().defaultBlockState());
+    return OreFeatureHelper.registerConfiguredInfusedStone(context, IgnisOre.CONFIGURED_FEATURE, T7Blocks.IGNIS_INFUSED_STONE.get().defaultBlockState());
   }
 
   public static Holder<PlacedFeature> registerPlaced(BootstrapContext<PlacedFeature> context) {
-    return OreFeatureHelper.registerPlacedInfusedStone(context, CONFIGURED_FEATURE, PLACED_FEATURE);
+    return OreFeatureHelper.registerPlacedInfusedStone(context, IgnisOre.CONFIGURED_FEATURE, IgnisOre.PLACED_FEATURE);
   }
 }

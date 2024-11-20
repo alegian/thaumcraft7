@@ -45,12 +45,6 @@ public class OculusItem extends Item implements GeoItem {
   }
 
   @Override
-  public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
-    player.startUsingItem(hand);
-    return InteractionResultHolder.success(player.getItemInHand(hand));
-  }
-
-  @Override
   public InteractionResult useOn(UseOnContext context) {
     var level = context.getLevel();
     var block = level.getBlockState(context.getClickedPos()).getBlock();
@@ -63,8 +57,14 @@ public class OculusItem extends Item implements GeoItem {
   }
 
   @Override
-  public void releaseUsing(ItemStack itemStack, Level level, LivingEntity entity, int someDuration) {
-    if (level.isClientSide() && entity instanceof Player) entity.sendSystemMessage(Component.literal("release using"));
+  public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+    player.startUsingItem(hand);
+    return InteractionResultHolder.success(player.getItemInHand(hand));
+  }
+
+  @Override
+  public UseAnim getUseAnimation(ItemStack itemStack) {
+    return UseAnim.CUSTOM;
   }
 
   @Override
@@ -73,8 +73,8 @@ public class OculusItem extends Item implements GeoItem {
   }
 
   @Override
-  public UseAnim getUseAnimation(ItemStack itemStack) {
-    return UseAnim.CUSTOM;
+  public void releaseUsing(ItemStack itemStack, Level level, LivingEntity entity, int someDuration) {
+    if (level.isClientSide() && entity instanceof Player) entity.sendSystemMessage(Component.literal("release using"));
   }
 
   @Override
@@ -95,7 +95,7 @@ public class OculusItem extends Item implements GeoItem {
       @Override
       public BlockEntityWithoutLevelRenderer getGeoItemRenderer() {
         if (this.renderer == null)
-          this.renderer = new GeoItemRenderer<>(new DefaultedItemGeoModel<OculusItem>(Thavma.id("oculus")) {
+          this.renderer = new GeoItemRenderer<>(new DefaultedItemGeoModel<OculusItem>(Thavma.rl("oculus")) {
             @Override
             public RenderType getRenderType(OculusItem animatable, ResourceLocation texture) {
               return RenderType.entityTranslucent(texture);

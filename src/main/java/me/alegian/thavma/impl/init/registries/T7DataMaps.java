@@ -10,7 +10,7 @@ import net.neoforged.neoforge.registries.datamaps.DataMapType;
 public class T7DataMaps {
   public static class AspectContent {
     public static final DataMapType<Item, AspectMap> ITEM = DataMapType.builder(
-        Thavma.id("aspect_content"),
+        Thavma.rl("aspect_content"),
         Registries.ITEM,
         AspectMap.CODEC
     ).synced(
@@ -19,7 +19,7 @@ public class T7DataMaps {
     ).build();
 
     public static final DataMapType<Block, AspectMap> BLOCK = DataMapType.builder(
-        Thavma.id("aspect_content"),
+        Thavma.rl("aspect_content"),
         Registries.BLOCK,
         AspectMap.CODEC
     ).synced(

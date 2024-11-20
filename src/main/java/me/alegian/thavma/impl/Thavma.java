@@ -35,7 +35,7 @@ public class Thavma {
     T7Attributes.REGISTRAR.register(modEventBus);
   }
 
-  public static ResourceLocation id(String path) {
-    return ResourceLocation.fromNamespaceAndPath(MODID, path);
+  public static ResourceLocation rl(String path) {
+    return ResourceLocation.fromNamespaceAndPath(Thavma.MODID, path);
   }
 }

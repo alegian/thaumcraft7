@@ -11,7 +11,6 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
-import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -25,7 +24,7 @@ public class T7Blocks {
 
   public static final DeferredBlock<CrucibleBlock> CRUCIBLE = T7Blocks.register("crucible", CrucibleBlock::new);
   public static final DeferredBlock<ArcaneWorkbenchBlock> ARCANE_WORKBENCH = T7Blocks.register("arcane_workbench", ArcaneWorkbenchBlock::new);
-  public static final DeferredBlock<Block> RESEARCH_TABLE = T7Blocks.register("research_table", ResearchTableBlock::new);
+  public static final DeferredBlock<ResearchTableBlock> RESEARCH_TABLE = T7Blocks.register("research_table", ResearchTableBlock::new);
 
   public static final DeferredBlock<Block> ELEMENTAL_STONE = T7Blocks.register("elemental_stone", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)));
 
@@ -53,9 +52,6 @@ public class T7Blocks {
     DeferredBlock<T> block = T7Blocks.REGISTRAR.register(name, sup);
     T7Items.REGISTRAR.registerSimpleBlockItem(name, block);
     return block;
-  }
-
-  public static void registerCapabilities(RegisterCapabilitiesEvent event) {
   }
 
   private static LeavesBlock leaves() {

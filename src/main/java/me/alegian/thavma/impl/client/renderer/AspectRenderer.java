@@ -65,7 +65,7 @@ public class AspectRenderer {
   }
 
   public static void drawAspectIcon(T7GuiGraphics guiGraphics, Aspect aspect, int pX, int pY) {
-    var sprite = AspectAtlas.sprite(Thavma.id(aspect.getId()));
+    var sprite = AspectAtlas.sprite(Thavma.rl(aspect.getId()));
 
     var color = aspect.getColor();
     RenderSystem.disableDepthTest();

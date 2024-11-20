@@ -26,11 +26,11 @@ public class T7BlockStateProvider extends BlockStateProvider {
   protected void registerStatesAndModels() {
     this.simpleBlockWithItem(T7Blocks.CRUCIBLE.get(), this.models().getBuilder(T7Blocks.CRUCIBLE.getId().getPath())
         .parent(new ModelFile.UncheckedModelFile("block/cauldron"))
-        .texture("particle", Thavma.id("block/crucible_side"))
-        .texture("top", Thavma.id("block/crucible_top"))
-        .texture("bottom", Thavma.id("block/crucible_bottom"))
-        .texture("side", Thavma.id("block/crucible_side"))
-        .texture("inside", Thavma.id("block/crucible_inner"))
+        .texture("particle", Thavma.rl("block/crucible_side"))
+        .texture("top", Thavma.rl("block/crucible_top"))
+        .texture("bottom", Thavma.rl("block/crucible_bottom"))
+        .texture("side", Thavma.rl("block/crucible_side"))
+        .texture("inside", Thavma.rl("block/crucible_inner"))
         .customLoader(WithTransformParentModel.Builder::new)
         .transformParent(ResourceLocation.withDefaultNamespace("block/block"))
         .end()
@@ -65,7 +65,7 @@ public class T7BlockStateProvider extends BlockStateProvider {
     this.simpleBlockWithItem(T7Blocks.ESSENTIA_CONTAINER.get(), this.models().getExistingFile(this.modLoc("essentia_container")));
     this.simpleBlockWithItem(T7Blocks.RESEARCH_TABLE.get(), this.models().getExistingFile(this.modLoc("research_table")));
 
-    this.itemModels().getBuilder(T7Blocks.AURA_NODE.getId().getPath()).parent(new ModelFile.UncheckedModelFile("item/generated")).renderType(RenderType.translucent().name).texture("layer0", Thavma.id("item/aura_node"));
+    this.itemModels().getBuilder(T7Blocks.AURA_NODE.getId().getPath()).parent(new ModelFile.UncheckedModelFile("item/generated")).renderType(RenderType.translucent().name).texture("layer0", Thavma.rl("item/aura_node"));
   }
 
   private void simpleBlockWithItem(Block block) {
@@ -81,7 +81,7 @@ public class T7BlockStateProvider extends BlockStateProvider {
   private void infusedOreBlockWithItem(InfusedStoneBlock block) {
     var infusedOreBlockModel = this.models().withExistingParent(this.name(block), this.mcLoc("block/stone"))
         .customLoader(CubeOverlayModel.Builder::new)
-        .spriteLocation(Thavma.id("block/infused_ore"))
+        .spriteLocation(Thavma.rl("block/infused_ore"))
         .color((block).getAspect().getColor())
         .end();
     this.simpleBlockWithItem(block, infusedOreBlockModel);

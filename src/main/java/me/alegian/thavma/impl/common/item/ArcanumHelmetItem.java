@@ -31,7 +31,7 @@ public class ArcanumHelmetItem extends ArmorItem implements GeoItem {
 
   @Override
   public AnimatableInstanceCache getAnimatableInstanceCache() {
-    return cache;
+    return this.cache;
   }
 
   @Override
@@ -42,7 +42,7 @@ public class ArcanumHelmetItem extends ArmorItem implements GeoItem {
       @Override
       public <T extends LivingEntity> HumanoidModel<?> getGeoArmorRenderer(@Nullable T livingEntity, ItemStack itemStack, @Nullable EquipmentSlot equipmentSlot, @Nullable HumanoidModel<T> original) {
         if (this.renderer == null)
-          this.renderer = new GeoArmorRenderer<>(new DefaultedItemGeoModel<ArcanumHelmetItem>(Thavma.id("arcanum_armor")));
+          this.renderer = new GeoArmorRenderer<>(new DefaultedItemGeoModel<ArcanumHelmetItem>(Thavma.rl("arcanum_armor")));
 
         return this.renderer;
       }

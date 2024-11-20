@@ -33,7 +33,7 @@ import java.io.IOException;
 public class T7ClientModEvents {
   @SubscribeEvent
   public static void registerGuiLayers(RegisterGuiLayersEvent event) {
-    event.registerAboveAll(Thavma.id("vis"), VisGuiOverlay.LAYER);
+    event.registerAboveAll(Thavma.rl("vis"), VisGuiOverlay.LAYER);
   }
 
   @SubscribeEvent
@@ -111,7 +111,7 @@ public class T7ClientModEvents {
 
   @SubscribeEvent
   public static void registerShaders(RegisterShadersEvent event) throws IOException {
-    event.registerShader(new ShaderInstance(event.getResourceProvider(), Thavma.id("aura_node"), T7VertexFormats.AURA_NODE), shaderInstance -> T7RenderStateShards.auraNodeShader = shaderInstance);
+    event.registerShader(new ShaderInstance(event.getResourceProvider(), Thavma.rl("aura_node"), T7VertexFormats.AURA_NODE), shaderInstance -> T7RenderStateShards.auraNodeShader = shaderInstance);
   }
 
   @SubscribeEvent

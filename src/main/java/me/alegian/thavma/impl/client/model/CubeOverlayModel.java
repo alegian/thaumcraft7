@@ -50,7 +50,7 @@ import static me.alegian.thavma.impl.client.model.BakedModelHelper.v;
  */
 @OnlyIn(Dist.CLIENT)
 public class CubeOverlayModel implements IUnbakedGeometry<CubeOverlayModel> {
-  public static final ResourceLocation ID = Thavma.id("cube_overlay");
+  public static final ResourceLocation ID = Thavma.rl("cube_overlay");
   public static final String SPRITE_KEY = "sprite_location";
   public static final String COLOR_KEY = "color";
   private final BlockModel base;
@@ -103,16 +103,10 @@ public class CubeOverlayModel implements IUnbakedGeometry<CubeOverlayModel> {
       this.color = color;
     }
 
-    // used in block renderer
-    @Override
-    public @NotNull ChunkRenderTypeSet getRenderTypes(@NotNull BlockState state, @NotNull RandomSource rand, @NotNull ModelData data) {
-      return ChunkRenderTypeSet.of(RenderType.cutout(), RenderType.solid());
-    }
-
     // used in item renderer
     @Override
-    public @NotNull List<RenderType> getRenderTypes(@NotNull ItemStack itemStack, boolean fabulous) {
-      return List.of(Sheets.cutoutBlockSheet());
+    public @NotNull List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, RandomSource rand) {
+      return this.getQuads(state, side, rand, ModelData.EMPTY, null);
     }
 
     // used in item renderer
@@ -120,12 +114,6 @@ public class CubeOverlayModel implements IUnbakedGeometry<CubeOverlayModel> {
     public @NotNull BakedModel applyTransform(@NotNull ItemDisplayContext cameraTransformType, @NotNull PoseStack poseStack, boolean applyLeftHandTransform) {
       this.originalModel.applyTransform(cameraTransformType, poseStack, applyLeftHandTransform);
       return this;
-    }
-
-    // used in item renderer
-    @Override
-    public @NotNull List<BakedModel> getRenderPasses(@NotNull ItemStack itemStack, boolean fabulous) {
-      return List.of(this);
     }
 
     // used in block renderer
@@ -153,10 +141,22 @@ public class CubeOverlayModel implements IUnbakedGeometry<CubeOverlayModel> {
       return quads;
     }
 
+    // used in block renderer
+    @Override
+    public @NotNull ChunkRenderTypeSet getRenderTypes(@NotNull BlockState state, @NotNull RandomSource rand, @NotNull ModelData data) {
+      return ChunkRenderTypeSet.of(RenderType.cutout(), RenderType.solid());
+    }
+
     // used in item renderer
     @Override
-    public @NotNull List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, RandomSource rand) {
-      return this.getQuads(state, side, rand, ModelData.EMPTY, null);
+    public @NotNull List<RenderType> getRenderTypes(@NotNull ItemStack itemStack, boolean fabulous) {
+      return List.of(Sheets.cutoutBlockSheet());
+    }
+
+    // used in item renderer
+    @Override
+    public @NotNull List<BakedModel> getRenderPasses(@NotNull ItemStack itemStack, boolean fabulous) {
+      return List.of(this);
     }
   }
 

@@ -17,18 +17,18 @@ public class PerditioOre {
   public static final String PATH = "ore_perditio";
   public static final ResourceKey<ConfiguredFeature<?, ?>> CONFIGURED_FEATURE = ResourceKey.create(
       Registries.CONFIGURED_FEATURE,
-      Thavma.id(PATH)
+      Thavma.rl(PerditioOre.PATH)
   );
   public static final ResourceKey<PlacedFeature> PLACED_FEATURE = ResourceKey.create(
       Registries.PLACED_FEATURE,
-      Thavma.id(PATH)
+      Thavma.rl(PerditioOre.PATH)
   );
 
   public static Holder<ConfiguredFeature<?, ?>> registerConfigured(BootstrapContext<ConfiguredFeature<?, ?>> context) {
-    return OreFeatureHelper.registerConfiguredInfusedStone(context, CONFIGURED_FEATURE, T7Blocks.PERDITIO_INFUSED_STONE.get().defaultBlockState());
+    return OreFeatureHelper.registerConfiguredInfusedStone(context, PerditioOre.CONFIGURED_FEATURE, T7Blocks.PERDITIO_INFUSED_STONE.get().defaultBlockState());
   }
 
   public static Holder<PlacedFeature> registerPlaced(BootstrapContext<PlacedFeature> context) {
-    return OreFeatureHelper.registerPlacedInfusedStone(context, CONFIGURED_FEATURE, PLACED_FEATURE);
+    return OreFeatureHelper.registerPlacedInfusedStone(context, PerditioOre.CONFIGURED_FEATURE, PerditioOre.PLACED_FEATURE);
   }
 }

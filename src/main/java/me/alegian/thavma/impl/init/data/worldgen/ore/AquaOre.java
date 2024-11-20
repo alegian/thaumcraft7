@@ -17,18 +17,18 @@ public class AquaOre {
   public static final String PATH = "ore_aqua";
   public static final ResourceKey<ConfiguredFeature<?, ?>> CONFIGURED_FEATURE = ResourceKey.create(
       Registries.CONFIGURED_FEATURE,
-      Thavma.id(PATH)
+      Thavma.rl(AquaOre.PATH)
   );
   public static final ResourceKey<PlacedFeature> PLACED_FEATURE = ResourceKey.create(
       Registries.PLACED_FEATURE,
-      Thavma.id(PATH)
+      Thavma.rl(AquaOre.PATH)
   );
 
   public static Holder<ConfiguredFeature<?, ?>> registerConfigured(BootstrapContext<ConfiguredFeature<?, ?>> context) {
-    return OreFeatureHelper.registerConfiguredInfusedStone(context, CONFIGURED_FEATURE, T7Blocks.AQUA_INFUSED_STONE.get().defaultBlockState());
+    return OreFeatureHelper.registerConfiguredInfusedStone(context, AquaOre.CONFIGURED_FEATURE, T7Blocks.AQUA_INFUSED_STONE.get().defaultBlockState());
   }
 
   public static Holder<PlacedFeature> registerPlaced(BootstrapContext<PlacedFeature> context) {
-    return OreFeatureHelper.registerPlacedInfusedStone(context, CONFIGURED_FEATURE, PLACED_FEATURE);
+    return OreFeatureHelper.registerPlacedInfusedStone(context, AquaOre.CONFIGURED_FEATURE, AquaOre.PLACED_FEATURE);
   }
 }
