@@ -1,5 +1,6 @@
 package me.alegian.thavma.impl.init.data.providers;
 
+import io.wispforest.accessories.api.data.AccessoriesTags;
 import me.alegian.thavma.impl.Thavma;
 import me.alegian.thavma.impl.init.registries.T7Tags;
 import me.alegian.thavma.impl.init.registries.deferred.T7Items;
@@ -90,5 +91,7 @@ public class T7ItemTagProvider extends ItemTagsProvider {
     );
 
     tag(T7Tags.CATALYST).add(Items.DRAGON_EGG);
+
+    tag(AccessoriesTags.FACE_TAG).add(T7Items.GOGGLES.get());
   }
 }

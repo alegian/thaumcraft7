@@ -9,7 +9,7 @@ public class T7AttributeModifiers {
     public static final ResourceLocation LOCATION = Thavma.id("step_height");
     public static final AttributeModifier MODIFIER =
         new AttributeModifier(
-            LOCATION,
+            StepHeight.LOCATION,
             0.5,
             AttributeModifier.Operation.ADD_VALUE
         );
@@ -24,13 +24,19 @@ public class T7AttributeModifiers {
 
     public static final AttributeModifier GOGGLES =
         new AttributeModifier(
-            LOCATION.withSuffix("goggles"),
+            Revealing.LOCATION.withSuffix("goggles"),
+            1.0,
+            AttributeModifier.Operation.ADD_VALUE
+        );
+    public static final AttributeModifier GOGGLES_ACCESSORY =
+        new AttributeModifier(
+            Revealing.LOCATION.withSuffix("goggles_accessory"),
             1.0,
             AttributeModifier.Operation.ADD_VALUE
         );
     public static final AttributeModifier OCULUS =
         new AttributeModifier(
-            LOCATION.withSuffix("oculus"),
+            Revealing.LOCATION.withSuffix("oculus"),
             1.0,
             AttributeModifier.Operation.ADD_VALUE
         );
