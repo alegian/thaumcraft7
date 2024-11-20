@@ -14,14 +14,13 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.common.MutableDataComponentHolder;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nullable;
 import java.util.Optional;
 
 public class AspectContainer implements IAspectContainer {
   private final MutableDataComponentHolder holder;
-  private int capacity; // per aspect
-  private boolean visSource;
-  private boolean essentiaSource;
+  private final int capacity;
+  private final boolean visSource;
+  private final boolean essentiaSource;
 
   public AspectContainer(MutableDataComponentHolder holder, int capacity, boolean visSource, boolean essentiaSource) {
     this.holder = holder;
@@ -61,7 +60,7 @@ public class AspectContainer implements IAspectContainer {
   }
 
   public static Optional<IAspectContainer> from(BlockEntity be) {
-    return Optional.ofNullable(be.getLevel().getCapability(T7Capabilities.AspectContainer.BLOCK, be.getBlockPos()));
+    return Optional.ofNullable(be.getLevel()).map(l -> l.getCapability(T7Capabilities.AspectContainer.BLOCK, be.getBlockPos()));
   }
 
   public static boolean isAspectContainer(Level level, BlockPos blockPos) {
@@ -82,13 +81,13 @@ public class AspectContainer implements IAspectContainer {
   }
 
   @Override
-  public boolean areAspectsNull() {
-    return this.holder.get(T7DataComponents.ASPECTS) == null;
+  public void setAspects(AspectMap aspects) {
+    this.holder.set(T7DataComponents.ASPECTS, aspects);
   }
 
   @Override
-  public void setAspects(AspectMap aspects) {
-    this.holder.set(T7DataComponents.ASPECTS, aspects);
+  public boolean areAspectsNull() {
+    return this.holder.get(T7DataComponents.ASPECTS) == null;
   }
 
   @Override
@@ -99,25 +98,9 @@ public class AspectContainer implements IAspectContainer {
     var maxInsert = this.getCapacity() - current.get(aspect);
     var cappedInsert = Math.min(amount, maxInsert);
 
-    if (!simulate) this.holder.set(T7DataComponents.ASPECTS, current.add(aspect, cappedInsert));
+    if (!simulate) this.setAspects(current.add(aspect, cappedInsert));
 
     return cappedInsert;
-  }
-
-  @Override
-  public boolean insert(@Nullable AspectMap aspects) {
-    if (aspects == null) return false;
-
-    AspectMap currentAspects = this.getAspects();
-    AspectMap newAspects = currentAspects.merge(aspects).cap(this.getCapacity());
-    this.holder.set(T7DataComponents.ASPECTS, newAspects);
-
-    return currentAspects.l1norm() != newAspects.l1norm();
-  }
-
-  @Override
-  public void extract(AspectMap aspects) {
-    this.holder.set(T7DataComponents.ASPECTS, this.getAspects().subtract(aspects));
   }
 
   @Override
@@ -126,7 +109,7 @@ public class AspectContainer implements IAspectContainer {
     var maxSubtract = this.getAspects().get(aspect);
     var cappedSubtract = Math.min(amount, maxSubtract);
 
-    if (!simulate) this.holder.set(T7DataComponents.ASPECTS, this.getAspects().subtract(aspect, amount));
+    if (!simulate) this.setAspects(this.getAspects().subtract(aspect, amount));
 
     return cappedSubtract;
   }

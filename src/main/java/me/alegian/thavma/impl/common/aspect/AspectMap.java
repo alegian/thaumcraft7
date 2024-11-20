@@ -69,10 +69,6 @@ public class AspectMap implements Iterable<AspectStack> {
     this.map = new LinkedHashMap<>(map);
   }
 
-  private static Integer nullIfZero(Integer amount) {
-    return amount == 0 ? null : amount;
-  }
-
   public static AspectMap randomPrimals() {
     Random random = new Random();
     LinkedHashMap<Aspect, Integer> map = new LinkedHashMap<>();
@@ -84,45 +80,32 @@ public class AspectMap implements Iterable<AspectStack> {
     return new AspectMap(map);
   }
 
+  public static Builder builder() {
+    return new Builder();
+  }
+
   public AspectMap add(Aspect aspect, int amount) {
-    int oldAmount = this.get(aspect);
-    LinkedHashMap<Aspect, Integer> newMap = new LinkedHashMap<>(this.map);
-    newMap.put(aspect, oldAmount + amount);
-    return new AspectMap(newMap);
+    return AspectMap.builder().copyOf(this).add(aspect, amount).build();
   }
 
-  public AspectMap scale(int scale) {
-    LinkedHashMap<Aspect, Integer> newMap = new LinkedHashMap<>();
-    this.map.forEach((k, v) -> newMap.put(k, v * scale));
-    return new AspectMap(newMap);
-  }
-
-  public AspectMap merge(AspectMap other) {
-    LinkedHashMap<Aspect, Integer> newMap = new LinkedHashMap<>(this.map);
-    other.getMap().forEach((k, v) -> newMap.merge(k, v, Integer::sum));
-    return new AspectMap(newMap);
-  }
-
-  public AspectMap cap(int amount) {
-    LinkedHashMap<Aspect, Integer> newMap = new LinkedHashMap<>(this.map);
-    newMap.forEach((k, v) -> newMap.put(k, Math.min(v, amount)));
-    return new AspectMap(newMap);
-  }
-
-  public int l1norm() {
-    return this.map.values().stream().reduce(0, Integer::sum);
-  }
-
-  public AspectMap subtract(AspectMap other) {
-    LinkedHashMap<Aspect, Integer> newMap = new LinkedHashMap<>(this.map);
-    other.getMap().forEach((k, v) -> newMap.merge(k, v, (a, b) -> AspectMap.nullIfZero(a - b)));
-    return new AspectMap(newMap);
+  public AspectMap add(AspectMap other) {
+    var builder = AspectMap.builder().copyOf(this);
+    other.forEach(builder::add);
+    return builder.build();
   }
 
   public AspectMap subtract(Aspect aspect, int amount) {
-    LinkedHashMap<Aspect, Integer> newMap = new LinkedHashMap<>(this.map);
-    newMap.computeIfPresent(aspect, (k, v) -> AspectMap.nullIfZero(v - amount));
-    return new AspectMap(newMap);
+    return AspectMap.builder().copyOf(this).subtract(aspect, amount).build();
+  }
+
+  public AspectMap subtract(AspectMap other) {
+    var builder = AspectMap.builder().copyOf(this);
+    other.forEach(builder::subtract);
+    return builder.build();
+  }
+
+  public AspectMap scale(int multiplier) {
+    return AspectMap.builder().copyOf(this).scale(multiplier).build();
   }
 
   /**
@@ -173,13 +156,13 @@ public class AspectMap implements Iterable<AspectStack> {
   }
 
   @Override
-  public boolean equals(Object obj) {
-    return super.equals(obj);
+  public int hashCode() {
+    return super.hashCode();
   }
 
   @Override
-  public int hashCode() {
-    return super.hashCode();
+  public boolean equals(Object obj) {
+    return super.equals(obj);
   }
 
   @Override
@@ -196,12 +179,13 @@ public class AspectMap implements Iterable<AspectStack> {
     return this.map.entrySet().stream().filter(e -> e.getValue() > 0).map(e -> AspectStack.of(e.getKey(), e.getValue())).iterator();
   }
 
-  public static Builder builder() {
-    return new Builder();
-  }
-
   public static class Builder {
-    private final LinkedHashMap<Aspect, Integer> map = new LinkedHashMap<>();
+    private LinkedHashMap<Aspect, Integer> map = new LinkedHashMap<>();
+
+    public Builder copyOf(AspectMap base) {
+      this.map = new LinkedHashMap<>(base.getMap());
+      return this;
+    }
 
     public Builder add(Aspect aspect, int amount) {
       var oldAmount = this.map.getOrDefault(aspect, 0);
@@ -209,7 +193,27 @@ public class AspectMap implements Iterable<AspectStack> {
       return this;
     }
 
+    public Builder add(AspectStack aspectStack) {
+      return this.add(aspectStack.aspect(), aspectStack.amount());
+    }
+
+    public Builder subtract(Aspect aspect, int amount) {
+      var oldAmount = this.map.getOrDefault(aspect, 0);
+      this.map.put(aspect, oldAmount - amount);
+      return this;
+    }
+
+    public Builder subtract(AspectStack aspectStack) {
+      return this.subtract(aspectStack.aspect(), aspectStack.amount());
+    }
+
+    public Builder scale(int multiplier) {
+      this.map.forEach((k, v) -> this.map.put(k, v * multiplier));
+      return this;
+    }
+
     public AspectMap build() {
+      if (this.map.isEmpty()) return AspectMap.EMPTY;
       return new AspectMap(this.map);
     }
   }
