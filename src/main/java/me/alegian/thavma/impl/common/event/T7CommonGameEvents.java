@@ -72,8 +72,8 @@ public class T7CommonGameEvents {
   @SubscribeEvent
   public static void mobEffectApplicable(MobEffectEvent.Applicable event) {
     if (event.getEffectInstance() == null) return;
-    if (event.getEffectInstance().getEffect() != MobEffects.POISON) return;
-    if (!EntityHelper.isEntityWearingAccessory(event.getEntity(), T7Items.GOGGLES.get())) return;
+    if (event.getEffectInstance().getEffect() != MobEffects.DARKNESS) return;
+    if (!EntityHelper.isEntityWearingAccessory(event.getEntity(), T7Items.DAWN_CHARM.get())) return;
     event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
   }
 }

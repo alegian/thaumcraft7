@@ -69,6 +69,7 @@ public class T7CreativeModeTabs {
               output.accept(T7Items.wandOrThrow(WandHandleMaterials.ARCANUM.get(), WandCoreMaterials.SILVERWOOD.get()));
 
               output.accept(T7Items.GOGGLES.get());
+              output.accept(T7Items.DAWN_CHARM.get());
               output.accept(T7Items.RESEARCHER_CHESTPLATE.get());
               output.accept(T7Items.RESEARCHER_LEGGINGS.get());
               output.accept(T7Items.RESEARCHER_BOOTS.get());

@@ -2,15 +2,11 @@ package me.alegian.thavma.impl.common.item;
 
 import io.wispforest.accessories.api.components.AccessoriesDataComponents;
 import io.wispforest.accessories.api.components.AccessoryItemAttributeModifiers;
-import io.wispforest.accessories.api.events.AccessoryChangeCallback;
-import io.wispforest.accessories.api.events.SlotStateChange;
 import me.alegian.thavma.impl.Thavma;
 import me.alegian.thavma.impl.init.registries.T7AttributeModifiers;
 import me.alegian.thavma.impl.init.registries.deferred.T7ArmorMaterials;
 import me.alegian.thavma.impl.init.registries.deferred.T7Attributes;
-import me.alegian.thavma.impl.init.registries.deferred.T7Items;
 import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
@@ -48,12 +44,6 @@ public class GogglesItem extends ArmorItem implements GeoItem {
                 EquipmentSlotGroup.HEAD
             ).build()
         ));
-
-    AccessoryChangeCallback.EVENT.register((prevStack, currentStack, reference, stateChange) -> {
-      if (stateChange != SlotStateChange.REPLACEMENT) return;
-      if (!currentStack.getItem().equals(T7Items.GOGGLES.get())) return;
-      reference.entity().removeEffect(MobEffects.POISON);
-    });
   }
 
   @Override
