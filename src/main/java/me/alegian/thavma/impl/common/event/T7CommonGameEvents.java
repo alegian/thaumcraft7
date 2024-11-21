@@ -8,12 +8,14 @@ import me.alegian.thavma.impl.init.registries.deferred.T7Items;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
+import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 
@@ -58,12 +60,20 @@ public class T7CommonGameEvents {
 
     if (player instanceof ServerPlayer serverPlayer && item instanceof HammerItem hammer) {
       // disallow nested hammer break events, to avoid infinite recursion
-      if (!allowHammerBreakEvents) return;
-      allowHammerBreakEvents = false;
+      if (!T7CommonGameEvents.allowHammerBreakEvents) return;
+      T7CommonGameEvents.allowHammerBreakEvents = false;
 
       hammer.tryBreak3x3exceptOrigin(serverPlayer, level, itemStack);
 
-      allowHammerBreakEvents = true;
+      T7CommonGameEvents.allowHammerBreakEvents = true;
     }
+  }
+
+  @SubscribeEvent
+  public static void mobEffectApplicable(MobEffectEvent.Applicable event) {
+    if (event.getEffectInstance() == null) return;
+    if (event.getEffectInstance().getEffect() != MobEffects.POISON) return;
+    if (!EntityHelper.isEntityWearingAccessory(event.getEntity(), T7Items.GOGGLES.get())) return;
+    event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
   }
 }
