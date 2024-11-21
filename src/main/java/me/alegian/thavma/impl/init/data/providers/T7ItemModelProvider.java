@@ -21,6 +21,8 @@ public class T7ItemModelProvider extends ItemModelProvider {
     this.basicItem(T7Items.ORICHALCUM_HANDLE.get());
     this.basicItem(T7Items.ARCANUM_HANDLE.get());
 
+    this.basicItem(T7Items.EYE_OF_WARDEN.get());
+
     this.basicItem(T7Items.GREATWOOD_CORE.get());
     this.basicItem(T7Items.SILVERWOOD_CORE.get());
 

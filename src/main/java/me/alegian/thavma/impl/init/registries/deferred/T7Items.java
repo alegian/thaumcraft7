@@ -22,6 +22,8 @@ public class T7Items {
   public static final DeferredItem<Item> ORICHALCUM_HANDLE = T7Items.REGISTRAR.registerSimpleItem("orichalcum_handle", new Item.Properties());
   public static final DeferredItem<Item> ARCANUM_HANDLE = T7Items.REGISTRAR.registerSimpleItem("arcanum_handle", new Item.Properties());
 
+  public static final DeferredItem<Item> EYE_OF_WARDEN = T7Items.REGISTRAR.registerSimpleItem("eye_of_warden", new Item.Properties().rarity(Rarity.EPIC));
+
   public static final DeferredItem<Item> GREATWOOD_CORE = T7Items.REGISTRAR.registerSimpleItem("greatwood_core", new Item.Properties());
   public static final DeferredItem<Item> SILVERWOOD_CORE = T7Items.REGISTRAR.registerSimpleItem("silverwood_core", new Item.Properties());
 
@@ -94,8 +96,8 @@ public class T7Items {
   public static final DeferredItem<ThaumonomiconItem> THAUMONOMICON = T7Items.REGISTRAR.registerItem("thaumonomicon", ThaumonomiconItem::new);
 
   public static final DeferredItem<GogglesItem> GOGGLES = T7Items.REGISTRAR.registerItem("goggles", GogglesItem::new);
-  public static final DeferredItem<DawnCharmItem> DAWN_CHARM = T7Items.REGISTRAR.registerItem("charm_of_the_dawn", DawnCharmItem::new);
   public static final DeferredItem<ResearcherArmorItem> RESEARCHER_CHESTPLATE = T7Items.REGISTRAR.registerItem("researcher_chestplate", props -> new ResearcherArmorItem(ArmorItem.Type.CHESTPLATE, props), new Item.Properties().durability(ArmorItem.Type.CHESTPLATE.getDurability(21)));
+  public static final DeferredItem<DawnCharmItem> DAWN_CHARM = T7Items.REGISTRAR.registerItem("charm_of_the_dawn", DawnCharmItem::new);
   public static final DeferredItem<ResearcherArmorItem> RESEARCHER_LEGGINGS = T7Items.REGISTRAR.registerItem("researcher_leggings", props -> new ResearcherArmorItem(ArmorItem.Type.LEGGINGS, props), new Item.Properties().durability(ArmorItem.Type.LEGGINGS.getDurability(21)));
   public static final DeferredItem<ResearcherArmorItem> RESEARCHER_BOOTS = T7Items.REGISTRAR.registerItem("researcher_boots", props -> new ResearcherArmorItem(ArmorItem.Type.BOOTS, props), new Item.Properties().durability(ArmorItem.Type.BOOTS.getDurability(21)));
   public static final DeferredItem<ArmorItem> ARCANUM_HELMET = T7Items.REGISTRAR.registerItem("arcanum_helmet", ArcanumHelmetItem::new, new Item.Properties().durability(ArmorItem.Type.HELMET.getDurability(21)));
@@ -106,14 +108,12 @@ public class T7Items {
   public static final DeferredItem<CustosArcanumArmorItem> CUSTOS_ARCANUM_CHESTPLATE = T7Items.REGISTRAR.registerItem("custos_arcanum_chestplate", props -> new CustosArcanumArmorItem(ArmorItem.Type.CHESTPLATE, props), new Item.Properties().fireResistant().durability(ArmorItem.Type.CHESTPLATE.getDurability(21)));
   public static final DeferredItem<CustosArcanumArmorItem> CUSTOS_ARCANUM_LEGGINGS = T7Items.REGISTRAR.registerItem("custos_arcanum_leggings", props -> new CustosArcanumArmorItem(ArmorItem.Type.LEGGINGS, props), new Item.Properties().fireResistant().durability(ArmorItem.Type.LEGGINGS.getDurability(21)));
   public static final DeferredItem<CustosArcanumArmorItem> CUSTOS_ARCANUM_BOOTS = T7Items.REGISTRAR.registerItem("custos_arcanum_boots", props -> new CustosArcanumArmorItem(ArmorItem.Type.BOOTS, props), new Item.Properties().fireResistant().durability(ArmorItem.Type.BOOTS.getDurability(21)));
-
   public static final DeferredItem<TestaItem> IGNIS_TESTA = T7Items.REGISTRAR.registerItem("ignis_testa", $ -> new TestaItem(Aspects.IGNIS));
   public static final DeferredItem<TestaItem> AER_TESTA = T7Items.REGISTRAR.registerItem("aer_testa", $ -> new TestaItem(Aspects.AER));
   public static final DeferredItem<TestaItem> TERRA_TESTA = T7Items.REGISTRAR.registerItem("terra_testa", $ -> new TestaItem(Aspects.TERRA));
   public static final DeferredItem<TestaItem> AQUA_TESTA = T7Items.REGISTRAR.registerItem("aqua_testa", $ -> new TestaItem(Aspects.AQUA));
   public static final DeferredItem<TestaItem> ORDO_TESTA = T7Items.REGISTRAR.registerItem("ordo_testa", $ -> new TestaItem(Aspects.ORDO));
   public static final DeferredItem<TestaItem> PERDITIO_TESTA = T7Items.REGISTRAR.registerItem("perditio_testa", $ -> new TestaItem(Aspects.PERDITIO));
-
   // (handleName, coreName)->wand. populated on Item Registry bake
   public static final DoubleMap<String, String, WandItem> WANDS = new DoubleMap<>();
 
@@ -155,4 +155,6 @@ public class T7Items {
     String coreName = coreMaterial.getRegisteredName();
     return T7Items.WANDS.get(handleName, coreName) != null;
   }
+
+
 }

@@ -29,6 +29,8 @@ public class T7LanguageProvider extends LanguageProvider {
     this.add(T7Items.ORICHALCUM_HANDLE.get(), "Orichalcum Wand Handle");
     this.add(T7Items.ARCANUM_HANDLE.get(), "Arcanum Wand Handle");
 
+    this.add(T7Items.EYE_OF_WARDEN.get(), "Eye of Warden");
+
     this.add(T7Items.GREATWOOD_CORE.get(), "Greatwood Wand Core");
     this.add(T7Items.SILVERWOOD_CORE.get(), "Silverwood Wand Core");
 

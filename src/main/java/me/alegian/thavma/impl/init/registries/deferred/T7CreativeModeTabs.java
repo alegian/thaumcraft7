@@ -51,6 +51,8 @@ public class T7CreativeModeTabs {
               output.accept(T7Items.ORICHALCUM_HANDLE.get());
               output.accept(T7Items.ARCANUM_HANDLE.get());
 
+              output.accept(T7Items.EYE_OF_WARDEN.get());
+
               output.accept(T7Items.GREATWOOD_CORE.get());
               output.accept(T7Items.SILVERWOOD_CORE.get());
 
