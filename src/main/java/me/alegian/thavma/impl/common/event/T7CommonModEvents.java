@@ -71,6 +71,7 @@ public class T7CommonModEvents {
     var blockTagProvider = generator.addProvider(true, new T7BlockTagProvider(packOutput, lookupProvider, existingFileHelper));
     generator.addProvider(event.includeServer(), new T7ItemTagProvider(packOutput, lookupProvider, blockTagProvider.contentsGetter(), existingFileHelper));
     generator.addProvider(event.includeServer(), new T7FluidTagProvider(packOutput, lookupProvider, existingFileHelper));
+    generator.addProvider(event.includeServer(), new T7GlobalLootModifierProvider(packOutput, lookupProvider));
     generator.addProvider(event.includeServer(), new T7LootTableProvider(packOutput, List.of(
         new LootTableProvider.SubProviderEntry(
             T7BlockLootSubProvider::new,

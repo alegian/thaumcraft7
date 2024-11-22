@@ -33,6 +33,7 @@ public class Thavma {
     Aspects.REGISTRAR.register(modEventBus);
     Researches.REGISTRAR.register(modEventBus);
     T7Attributes.REGISTRAR.register(modEventBus);
+    T7GlobalLootModifierSerializers.REGISTRAR.register(modEventBus);
   }
 
   public static ResourceLocation rl(String path) {
