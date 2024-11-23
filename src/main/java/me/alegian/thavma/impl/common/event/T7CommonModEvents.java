@@ -68,8 +68,9 @@ public class T7CommonModEvents {
     generator.addProvider(event.includeServer(), new T7DatapackBuiltinEntriesProvider(packOutput, lookupProvider));
     generator.addProvider(event.includeServer(), new T7DataMapProvider(packOutput, lookupProvider));
     generator.addProvider(event.includeServer(), new T7RecipeProvider(packOutput, lookupProvider));
-    var blockTagProvider = generator.addProvider(true, new T7BlockTagProvider(packOutput, lookupProvider, existingFileHelper));
+    var blockTagProvider = generator.addProvider(event.includeServer(), new T7BlockTagProvider(packOutput, lookupProvider, existingFileHelper));
     generator.addProvider(event.includeServer(), new T7ItemTagProvider(packOutput, lookupProvider, blockTagProvider.contentsGetter(), existingFileHelper));
+    generator.addProvider(event.includeServer(), new T7DamageTypeTagsProvider(packOutput, lookupProvider, existingFileHelper));
     generator.addProvider(event.includeServer(), new T7FluidTagProvider(packOutput, lookupProvider, existingFileHelper));
     generator.addProvider(event.includeServer(), new T7GlobalLootModifierProvider(packOutput, lookupProvider));
     generator.addProvider(event.includeServer(), new T7LootTableProvider(packOutput, List.of(

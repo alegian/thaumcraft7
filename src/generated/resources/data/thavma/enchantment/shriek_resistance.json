@@ -1,0 +1,43 @@
+{
+  "anvil_cost": 2,
+  "description": "Shriek Resistance",
+  "effects": {
+    "minecraft:damage_protection": [
+      {
+        "effect": {
+          "type": "minecraft:add",
+          "value": {
+            "type": "minecraft:linear",
+            "base": 2.0,
+            "per_level_above_first": 2.0
+          }
+        },
+        "requirements": {
+          "condition": "minecraft:damage_source_properties",
+          "predicate": {
+            "tags": [
+              {
+                "expected": true,
+                "id": "thavma:sonic"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "max_cost": {
+    "base": 18,
+    "per_level_above_first": 8
+  },
+  "max_level": 4,
+  "min_cost": {
+    "base": 10,
+    "per_level_above_first": 8
+  },
+  "slots": [
+    "armor"
+  ],
+  "supported_items": "#minecraft:enchantable/armor",
+  "weight": 5
+}

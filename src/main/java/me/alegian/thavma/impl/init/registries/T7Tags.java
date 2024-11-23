@@ -3,6 +3,7 @@ package me.alegian.thavma.impl.init.registries;
 import me.alegian.thavma.impl.Thavma;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
@@ -24,6 +25,11 @@ public class T7Tags {
   public static final TagKey<Item> CATALYST = TagKey.create(
       Registries.ITEM,
       Thavma.rl("catalyst")
+  );
+
+  public static final TagKey<DamageType> SONIC = TagKey.create(
+      Registries.DAMAGE_TYPE,
+      Thavma.rl("sonic")
   );
 
   public static class CrucibleHeatSourceTag {

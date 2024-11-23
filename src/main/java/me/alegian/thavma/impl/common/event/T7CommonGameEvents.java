@@ -1,13 +1,17 @@
 package me.alegian.thavma.impl.common.event;
 
 import me.alegian.thavma.impl.Thavma;
+import me.alegian.thavma.impl.common.enchantment.ShriekResistance;
 import me.alegian.thavma.impl.common.entity.EntityHelper;
 import me.alegian.thavma.impl.common.item.HammerItem;
 import me.alegian.thavma.impl.init.registries.T7AttributeModifiers;
 import me.alegian.thavma.impl.init.registries.deferred.T7Items;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
@@ -75,5 +79,20 @@ public class T7CommonGameEvents {
     if (event.getEffectInstance().getEffect() != MobEffects.DARKNESS) return;
     if (!EntityHelper.isEntityWearingAccessory(event.getEntity(), T7Items.DAWN_CHARM.get())) return;
     event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
+  }
+
+  @SubscribeEvent
+  public static void preLivingDamage(LivingDamageEvent.Pre event) {
+    if (event.getEntity().level() instanceof ServerLevel serverLevel) {
+      var sonicType = serverLevel.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).get(DamageTypes.SONIC_BOOM);
+      if (!event.getSource().type().equals(sonicType)) return;
+
+      float damageBlocked = ShriekResistance.getDamageProtection(serverLevel, event.getEntity(), event.getSource());
+      if (damageBlocked <= 0.0F) return;
+
+      // ideally would want to apply a reduction here,
+      // but warden bypasses all reductions...
+      event.getContainer().setNewDamage(Math.max(0, event.getNewDamage() - damageBlocked));
+    }
   }
 }
