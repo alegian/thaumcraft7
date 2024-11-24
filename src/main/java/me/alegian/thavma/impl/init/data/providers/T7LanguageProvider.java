@@ -45,6 +45,7 @@ public class T7LanguageProvider extends LanguageProvider {
     this.add(T7Items.THAUMONOMICON.get(), "Thaumonomicon");
 
     this.add(T7Items.GOGGLES.get(), "Goggles Of Revealing");
+    this.add(T7Items.GOGGLES_ACCESSORY.get(), "Goggles Of Revealing (Accessory)");
     this.add(T7Items.DAWN_CHARM.get(), "Charm of the Dawn");
     this.add(T7Items.RESEARCHER_BOOTS.get(), "Researcher Boots");
     this.add(T7Items.RESEARCHER_CHESTPLATE.get(), "Researcher Chestplate");

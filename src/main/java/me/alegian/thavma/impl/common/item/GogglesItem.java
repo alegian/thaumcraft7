@@ -1,7 +1,5 @@
 package me.alegian.thavma.impl.common.item;
 
-import io.wispforest.accessories.api.components.AccessoriesDataComponents;
-import io.wispforest.accessories.api.components.AccessoryItemAttributeModifiers;
 import me.alegian.thavma.impl.Thavma;
 import me.alegian.thavma.impl.init.registries.T7AttributeModifiers;
 import me.alegian.thavma.impl.init.registries.deferred.T7ArmorMaterials;
@@ -30,13 +28,6 @@ public class GogglesItem extends ArmorItem implements GeoItem {
   public GogglesItem(Properties props) {
     super(T7ArmorMaterials.GOGGLES, ArmorItem.Type.HELMET, props
         .durability(Type.HELMET.getDurability(15))
-        .component(
-            AccessoriesDataComponents.ATTRIBUTES,
-            AccessoryItemAttributeModifiers.builder().addForAny(
-                T7Attributes.REVEALING,
-                T7AttributeModifiers.Revealing.GOGGLES_ACCESSORY,
-                false
-            ).build())
         .attributes(
             ItemAttributeModifiers.builder().add(
                 T7Attributes.REVEALING,

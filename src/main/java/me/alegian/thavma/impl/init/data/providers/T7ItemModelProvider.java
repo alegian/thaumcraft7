@@ -35,6 +35,7 @@ public class T7ItemModelProvider extends ItemModelProvider {
     this.basicItem(T7Items.COMPLETED_RESEARCH.get());
 
     this.basicItem(T7Items.GOGGLES.get());
+    this.basicItem(T7Items.GOGGLES_ACCESSORY.get());
     this.basicItem(T7Items.DAWN_CHARM.get());
     this.basicItem(T7Items.RESEARCHER_CHESTPLATE.get());
     this.basicItem(T7Items.RESEARCHER_LEGGINGS.get());

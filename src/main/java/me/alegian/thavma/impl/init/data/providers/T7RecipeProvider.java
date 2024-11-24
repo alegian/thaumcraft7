@@ -24,6 +24,71 @@ public class T7RecipeProvider extends RecipeProvider {
     super(pOutput, pRegistries);
   }
 
+  protected static void ingot(RecipeOutput pRecipeOutput, ItemLike ingot, ItemLike nugget, ItemLike block) {
+    RecipeProvider.nineBlockStorageRecipes(
+        pRecipeOutput, RecipeCategory.MISC, ingot, RecipeCategory.BUILDING_BLOCKS, block, T7RecipeProvider.itemLoc(block), null, T7RecipeProvider.itemLoc(ingot) + "_from_block", null
+    );
+    RecipeProvider.nineBlockStorageRecipes(
+        pRecipeOutput, RecipeCategory.MISC, nugget, RecipeCategory.MISC, ingot, T7RecipeProvider.itemLoc(ingot) + "_from_nuggets", null, T7RecipeProvider.itemLoc(nugget), null
+    );
+  }
+
+  protected static void wand(RecipeOutput pRecipeOutput, ItemLike wand, ItemLike handle, ItemLike core) {
+    ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, wand)
+        .define('h', handle)
+        .define('c', core)
+        .pattern("  c")
+        .pattern(" c ")
+        .pattern("h  ")
+        .group("wand")
+        .unlockedBy(RecipeProvider.getHasName(handle), RecipeProvider.has(handle))
+        .save(pRecipeOutput);
+  }
+
+  // for wooden cores
+  protected static void wand(RecipeOutput pRecipeOutput, ItemLike wand, ItemLike handle, TagKey<Item> core) {
+    ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, wand)
+        .define('h', handle)
+        .define('c', core)
+        .pattern("  c")
+        .pattern(" c ")
+        .pattern("h  ")
+        .group("wand")
+        .unlockedBy(RecipeProvider.getHasName(handle), RecipeProvider.has(handle))
+        .save(pRecipeOutput);
+  }
+
+  protected static void wandHandle(RecipeOutput pRecipeOutput, ItemLike cap, ItemLike ingot, ItemLike nugget) {
+    ShapedRecipeBuilder.shaped(RecipeCategory.MISC, cap)
+        .define('i', ingot)
+        .define('n', nugget)
+        .pattern(" n ")
+        .pattern(" in")
+        .pattern("i  ")
+        .group("wand_handle")
+        .unlockedBy(RecipeProvider.getHasName(ingot), RecipeProvider.has(ingot))
+        .save(pRecipeOutput);
+  }
+
+  protected static void planksFromLog(RecipeOutput pRecipeOutput, ItemLike pPlanks, ItemLike pLog) {
+    ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, pPlanks, 4)
+        .requires(pLog)
+        .group("planks")
+        .unlockedBy("has_logs", RecipeProvider.has(pLog))
+        .save(pRecipeOutput);
+  }
+
+  protected static void inCrucible(RecipeOutput output, ItemStack result, AspectMap aspects, Ingredient catalyst) {
+    var catalystItem = catalyst.getItems()[0].getItem();
+    new CrucibleRecipeBuilder(result, aspects, catalyst)
+        .unlockedBy(RecipeProvider.getHasName(catalystItem), RecipeProvider.has(catalystItem))
+        .save(output);
+  }
+
+  protected static String itemLoc(ItemLike itemLike) {
+    return BuiltInRegistries.ITEM.getKey(itemLike.asItem()).toString();
+  }
+
   @Override
   protected void buildRecipes(RecipeOutput pRecipeOutput) {
     T7RecipeProvider.planksFromLog(pRecipeOutput, T7Blocks.GREATWOOD_PLANKS, T7Blocks.GREATWOOD_LOG);
@@ -90,6 +155,10 @@ public class T7RecipeProvider extends RecipeProvider {
         .pattern("ogo")
         .unlockedBy(RecipeProvider.getHasName(T7Items.OCULUS.get()), RecipeProvider.has(T7Items.OCULUS.get()))
         .save(pRecipeOutput);
+    ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, T7Items.GOGGLES_ACCESSORY)
+        .requires(T7Items.GOGGLES)
+        .unlockedBy(RecipeProvider.getHasName(T7Items.GOGGLES), RecipeProvider.has(T7Items.GOGGLES))
+        .save(pRecipeOutput);
     ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, T7Items.ARCANUM_HELMET)
         .define('a', T7Items.ARCANUM_INGOT)
         .pattern("aaa")
@@ -137,70 +206,5 @@ public class T7RecipeProvider extends RecipeProvider {
         .pattern(" g ")
         .unlockedBy(RecipeProvider.getHasName(Items.GOLD_INGOT), RecipeProvider.has(Items.GOLD_INGOT))
         .save(pRecipeOutput);
-  }
-
-  protected static void ingot(RecipeOutput pRecipeOutput, ItemLike ingot, ItemLike nugget, ItemLike block) {
-    RecipeProvider.nineBlockStorageRecipes(
-        pRecipeOutput, RecipeCategory.MISC, ingot, RecipeCategory.BUILDING_BLOCKS, block, T7RecipeProvider.itemLoc(block), null, T7RecipeProvider.itemLoc(ingot) + "_from_block", null
-    );
-    RecipeProvider.nineBlockStorageRecipes(
-        pRecipeOutput, RecipeCategory.MISC, nugget, RecipeCategory.MISC, ingot, T7RecipeProvider.itemLoc(ingot) + "_from_nuggets", null, T7RecipeProvider.itemLoc(nugget), null
-    );
-  }
-
-  protected static void wand(RecipeOutput pRecipeOutput, ItemLike wand, ItemLike handle, ItemLike core) {
-    ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, wand)
-        .define('h', handle)
-        .define('c', core)
-        .pattern("  c")
-        .pattern(" c ")
-        .pattern("h  ")
-        .group("wand")
-        .unlockedBy(RecipeProvider.getHasName(handle), RecipeProvider.has(handle))
-        .save(pRecipeOutput);
-  }
-
-  // for wooden cores
-  protected static void wand(RecipeOutput pRecipeOutput, ItemLike wand, ItemLike handle, TagKey<Item> core) {
-    ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, wand)
-        .define('h', handle)
-        .define('c', core)
-        .pattern("  c")
-        .pattern(" c ")
-        .pattern("h  ")
-        .group("wand")
-        .unlockedBy(RecipeProvider.getHasName(handle), RecipeProvider.has(handle))
-        .save(pRecipeOutput);
-  }
-
-  protected static void wandHandle(RecipeOutput pRecipeOutput, ItemLike cap, ItemLike ingot, ItemLike nugget) {
-    ShapedRecipeBuilder.shaped(RecipeCategory.MISC, cap)
-        .define('i', ingot)
-        .define('n', nugget)
-        .pattern(" n ")
-        .pattern(" in")
-        .pattern("i  ")
-        .group("wand_handle")
-        .unlockedBy(RecipeProvider.getHasName(ingot), RecipeProvider.has(ingot))
-        .save(pRecipeOutput);
-  }
-
-  protected static void planksFromLog(RecipeOutput pRecipeOutput, ItemLike pPlanks, ItemLike pLog) {
-    ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, pPlanks, 4)
-        .requires(pLog)
-        .group("planks")
-        .unlockedBy("has_logs", RecipeProvider.has(pLog))
-        .save(pRecipeOutput);
-  }
-
-  protected static void inCrucible(RecipeOutput output, ItemStack result, AspectMap aspects, Ingredient catalyst) {
-    var catalystItem = catalyst.getItems()[0].getItem();
-    new CrucibleRecipeBuilder(result, aspects, catalyst)
-        .unlockedBy(RecipeProvider.getHasName(catalystItem), RecipeProvider.has(catalystItem))
-        .save(output);
-  }
-
-  protected static String itemLoc(ItemLike itemLike) {
-    return BuiltInRegistries.ITEM.getKey(itemLike.asItem()).toString();
   }
 }

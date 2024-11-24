@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_goggles": {
+      "conditions": {
+        "items": [
+          {
+            "items": "thavma:goggles"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "thavma:goggles_accessory"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_goggles"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "thavma:goggles_accessory"
+    ]
+  }
+}

@@ -92,7 +92,7 @@ public class T7ItemTagProvider extends ItemTagsProvider {
 
     this.tag(T7Tags.CATALYST).add(Items.DRAGON_EGG);
 
-    this.tag(AccessoriesTags.FACE_TAG).add(T7Items.GOGGLES.get());
+    this.tag(AccessoriesTags.FACE_TAG).add(T7Items.GOGGLES_ACCESSORY.get());
     this.tag(AccessoriesTags.CHARM_TAG).add(T7Items.DAWN_CHARM.get());
   }
 }
