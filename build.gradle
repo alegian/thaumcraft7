@@ -1,9 +1,12 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     id 'java-library'
     id 'eclipse'
     id 'idea'
     id 'maven-publish'
     id 'net.neoforged.gradle.userdev' version '7.0.165'
+    id 'org.jetbrains.kotlin.jvm' version '2.0.21'
 }
 
 version = mod_version
@@ -24,6 +27,7 @@ repositories {
     maven { url 'https://maven.su5ed.dev/releases' }
     maven { url 'https://maven.fabricmc.net' }
     maven { url 'https://maven.shedaniel.me/' }
+    maven { url 'https://thedarkcolour.github.io/KotlinForForge/' }
 }
 
 base {
@@ -32,6 +36,7 @@ base {
 
 // Mojang ships Java 21 to end users in 1.20.6, so your mod should target Java 21.
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+compileKotlin.compilerOptions.jvmTarget = JvmTarget.JVM_21
 
 minecraft {
     accessTransformers {
@@ -103,6 +108,8 @@ dependencies {
     // For all intends and purposes: You can treat this dependency as if it is a normal library you would use.
     implementation "net.neoforged:neoforge:${neo_version}"
 
+    implementation 'thedarkcolour:kotlinforforge-neoforge:5.6.0'
+
     compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
     compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
     runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
@@ -125,11 +132,11 @@ dependencies {
 // See https://docs.gradle.org/current/dsl/org.gradle.language.jvm.tasks.ProcessResources.html
 tasks.withType(ProcessResources).configureEach {
     var replaceProperties = [
-            minecraft_version   : minecraft_version, minecraft_version_range: minecraft_version_range,
-            neo_version         : neo_version, neo_version_range: neo_version_range,
-            loader_version_range: loader_version_range,
-            mod_id              : mod_id, mod_name: mod_name, mod_license: mod_license, mod_version: mod_version,
-            mod_authors         : mod_authors, mod_description: mod_description,
+            minecraft_version: minecraft_version, minecraft_version_range: minecraft_version_range,
+            neo_version      : neo_version, neo_version_range: neo_version_range,
+            loader           : loader, loader_version_range: loader_version_range,
+            mod_id           : mod_id, mod_name: mod_name, mod_license: mod_license, mod_version: mod_version,
+            mod_authors      : mod_authors, mod_description: mod_description,
     ]
     inputs.properties replaceProperties
 
