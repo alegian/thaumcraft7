@@ -3,6 +3,7 @@ package me.alegian.thavma.impl.init.registries.deferred;
 import me.alegian.thavma.impl.Thavma;
 import me.alegian.thavma.impl.common.block.entity.AuraNodeBE;
 import me.alegian.thavma.impl.common.block.entity.CrucibleBE;
+import me.alegian.thavma.impl.common.block.entity.WorkbenchBE;
 import me.alegian.thavma.impl.common.data.capability.AspectContainer;
 import me.alegian.thavma.impl.init.registries.T7Capabilities;
 import net.minecraft.core.registries.Registries;
@@ -15,8 +16,14 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 public class T7BlockEntities {
   public static final DeferredRegister<BlockEntityType<?>> REGISTRAR = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, Thavma.MODID);
 
+  public static void registerCapabilities(RegisterCapabilitiesEvent event) {
+    event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, T7BlockEntities.CRUCIBLE.get(), (be, context) -> be.getFluidHandler());
+    event.registerBlockEntity(T7Capabilities.AspectContainer.BLOCK, T7BlockEntities.CRUCIBLE.get(), (be, context) -> new AspectContainer(be));
+    event.registerBlockEntity(T7Capabilities.AspectContainer.BLOCK, T7BlockEntities.AURA_NODE.get(), (be, context) -> new AspectContainer(be));
+  }
+
   public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<AuraNodeBE>> AURA_NODE =
-      REGISTRAR.register(
+      T7BlockEntities.REGISTRAR.register(
           "aura_node",
           () -> BlockEntityType.Builder.of(
               AuraNodeBE::new,
@@ -25,7 +32,7 @@ public class T7BlockEntities {
       );
 
   public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<CrucibleBE>> CRUCIBLE =
-      REGISTRAR.register(
+      T7BlockEntities.REGISTRAR.register(
           "crucible",
           () -> BlockEntityType.Builder.of(
               CrucibleBE::new,
@@ -33,9 +40,12 @@ public class T7BlockEntities {
           ).build(null)
       );
 
-  public static void registerCapabilities(RegisterCapabilitiesEvent event) {
-    event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, CRUCIBLE.get(), (be, context) -> be.getFluidHandler());
-    event.registerBlockEntity(T7Capabilities.AspectContainer.BLOCK, CRUCIBLE.get(), (be, context) -> new AspectContainer(be));
-    event.registerBlockEntity(T7Capabilities.AspectContainer.BLOCK, AURA_NODE.get(), (be, context) -> new AspectContainer(be));
-  }
+  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<WorkbenchBE>> WORKBENCH =
+      T7BlockEntities.REGISTRAR.register(
+          "arcane_workbench",
+          () -> BlockEntityType.Builder.of(
+              WorkbenchBE::new,
+              T7Blocks.ARCANE_WORKBENCH.get()
+          ).build(null)
+      );
 }

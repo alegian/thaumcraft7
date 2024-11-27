@@ -23,7 +23,7 @@ public class T7Blocks {
   public static final DeferredBlock<Block> ESSENTIA_CONTAINER = T7Blocks.register("essentia_container", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS)));
 
   public static final DeferredBlock<CrucibleBlock> CRUCIBLE = T7Blocks.register("crucible", CrucibleBlock::new);
-  public static final DeferredBlock<ArcaneWorkbenchBlock> ARCANE_WORKBENCH = T7Blocks.register("arcane_workbench", ArcaneWorkbenchBlock::new);
+  public static final DeferredBlock<WorkbenchBlock> ARCANE_WORKBENCH = T7Blocks.register("arcane_workbench", WorkbenchBlock::new);
   public static final DeferredBlock<ResearchTableBlock> RESEARCH_TABLE = T7Blocks.register("research_table", ResearchTableBlock::new);
 
   public static final DeferredBlock<Block> ELEMENTAL_STONE = T7Blocks.register("elemental_stone", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)));

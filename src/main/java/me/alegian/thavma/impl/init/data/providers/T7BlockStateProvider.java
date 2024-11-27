@@ -58,9 +58,7 @@ public class T7BlockStateProvider extends BlockStateProvider {
 
     this.simpleBlockWithItem(T7Blocks.ELEMENTAL_STONE.get());
 
-    this.simpleBlockWithItem(T7Blocks.ARCANE_WORKBENCH.get(), this.models().getBuilder(T7Blocks.ARCANE_WORKBENCH.getId().getPath())
-        .parent(new ModelFile.UncheckedModelFile("block/crafting_table"))
-    );
+    this.particleOnly(T7Blocks.ARCANE_WORKBENCH.get());
 
     this.simpleBlockWithItem(T7Blocks.ESSENTIA_CONTAINER.get(), this.models().getExistingFile(this.modLoc("essentia_container")));
     this.simpleBlockWithItem(T7Blocks.RESEARCH_TABLE.get(), this.models().getExistingFile(this.modLoc("research_table")));
@@ -100,8 +98,8 @@ public class T7BlockStateProvider extends BlockStateProvider {
     this.itemModels().withExistingParent(this.name(block), this.mcLoc("item/generated")).texture("layer0", blockRL);
   }
 
-  private ModelFile existing(ResourceLocation location) {
-    return this.itemModels().getExistingFile(location);
+  public void particleOnly(Block block) {
+    this.simpleBlockWithItem(block, this.models().getBuilder(this.name(block)).texture("particle", this.blockTexture(block)));
   }
 
   private ResourceLocation key(Block block) {

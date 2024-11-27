@@ -14,6 +14,7 @@ import me.alegian.thavma.impl.client.model.WithTransformParentModel;
 import me.alegian.thavma.impl.client.particle.CrucibleBubbleParticle;
 import me.alegian.thavma.impl.client.renderer.blockentity.AuraNodeBER;
 import me.alegian.thavma.impl.client.renderer.blockentity.CrucibleBER;
+import me.alegian.thavma.impl.client.renderer.blockentity.WorkbenchBER;
 import me.alegian.thavma.impl.client.renderer.entity.FancyItemER;
 import me.alegian.thavma.impl.client.renderer.entity.VisER;
 import me.alegian.thavma.impl.client.screen.WorkbenchScreen;
@@ -40,6 +41,7 @@ public class T7ClientModEvents {
   public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
     event.registerBlockEntityRenderer(T7BlockEntities.AURA_NODE.get(), ctx -> new AuraNodeBER());
     event.registerBlockEntityRenderer(T7BlockEntities.CRUCIBLE.get(), ctx -> new CrucibleBER());
+    event.registerBlockEntityRenderer(T7BlockEntities.WORKBENCH.get(), ctx -> new WorkbenchBER());
     event.registerEntityRenderer(T7EntityTypes.FANCY_ITEM.get(), FancyItemER::new);
     event.registerEntityRenderer(T7EntityTypes.VIS.get(), VisER::new);
   }

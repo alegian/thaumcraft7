@@ -1,6 +1,7 @@
 package me.alegian.thavma.impl.common.block;
 
 import me.alegian.thavma.impl.Thavma;
+import me.alegian.thavma.impl.common.block.entity.WorkbenchBE;
 import me.alegian.thavma.impl.common.menu.WorkbenchMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -12,15 +13,20 @@ import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-public class ArcaneWorkbenchBlock extends Block {
+public class WorkbenchBlock extends Block implements EntityBlock {
   private static final Component CONTAINER_TITLE = Component.translatable("container." + Thavma.MODID + ".arcane_workbench");
 
-  public ArcaneWorkbenchBlock() {
-    super(BlockBehaviour.Properties.ofFullCopy(Blocks.CRAFTING_TABLE));
+  public WorkbenchBlock() {
+    super(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).noOcclusion());
   }
 
   @Override
@@ -33,12 +39,23 @@ public class ArcaneWorkbenchBlock extends Block {
     }
   }
 
+  @NotNull
+  @Override
+  public RenderShape getRenderShape(@NotNull BlockState state) {
+    return RenderShape.ENTITYBLOCK_ANIMATED;
+  }
+
   @Override
   protected MenuProvider getMenuProvider(BlockState pState, Level pLevel, BlockPos pPos) {
     return new SimpleMenuProvider(
         (pContainerId, pPlayerInventory, player) -> new WorkbenchMenu(pContainerId, pPlayerInventory, ContainerLevelAccess.create(pLevel, pPos)),
-        ArcaneWorkbenchBlock.CONTAINER_TITLE
+        WorkbenchBlock.CONTAINER_TITLE
     );
   }
 
+  @Nullable
+  @Override
+  public BlockEntity newBlockEntity(BlockPos pos, BlockState blockState) {
+    return new WorkbenchBE(pos, blockState);
+  }
 }

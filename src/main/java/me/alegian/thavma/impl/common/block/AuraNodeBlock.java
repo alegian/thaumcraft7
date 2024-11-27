@@ -10,6 +10,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class AuraNodeBlock extends TransparentBlock implements EntityBlock {
@@ -24,8 +25,8 @@ public class AuraNodeBlock extends TransparentBlock implements EntityBlock {
   }
 
   @Override
-  @SuppressWarnings("deprecation")
-  public RenderShape getRenderShape(BlockState blockState) {
+  @NotNull
+  public RenderShape getRenderShape(@NotNull BlockState blockState) {
     return RenderShape.ENTITYBLOCK_ANIMATED;
   }
 

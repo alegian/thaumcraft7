@@ -1,3 +1,5 @@
 {
-  "parent": "minecraft:block/crafting_table"
+  "textures": {
+    "particle": "thavma:block/arcane_workbench"
+  }
 }
