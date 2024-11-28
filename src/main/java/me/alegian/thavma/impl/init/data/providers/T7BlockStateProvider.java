@@ -95,12 +95,12 @@ public class T7BlockStateProvider extends BlockStateProvider {
     var blockRL = this.blockTexture(block);
     var model = this.models().cross(this.name(block), blockRL).renderType(RenderType.cutout().name);
     this.simpleBlock(block, model);
-    this.itemModels().withExistingParent(this.name(block), this.mcLoc("item/generated")).texture("layer0", blockRL);
+    this.itemModels().withExistingParent(this.name(block), "item/generated").texture("layer0", blockRL);
   }
 
   public void blockEntity(Block block) {
     this.simpleBlockWithItem(block, this.models().getBuilder(this.name(block)).texture("particle", this.blockTexture(block)));
-    this.itemModels().getBuilder(this.name(block)).parent(new ModelFile.UncheckedModelFile("builtin/entity"));
+    this.itemModels().withExistingParent(this.name(block), "item/chest").texture("particle", this.blockTexture(block));
   }
 
   private ResourceLocation key(Block block) {

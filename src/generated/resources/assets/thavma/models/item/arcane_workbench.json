@@ -1,3 +1,6 @@
 {
-  "parent": "minecraft:builtin/entity"
+  "parent": "minecraft:item/chest",
+  "textures": {
+    "particle": "thavma:block/arcane_workbench"
+  }
 }
