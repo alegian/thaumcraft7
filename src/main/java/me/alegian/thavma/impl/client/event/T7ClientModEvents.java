@@ -4,6 +4,7 @@ import me.alegian.thavma.impl.Thavma;
 import me.alegian.thavma.impl.client.T7Colors;
 import me.alegian.thavma.impl.client.T7RenderStateShards;
 import me.alegian.thavma.impl.client.T7VertexFormats;
+import me.alegian.thavma.impl.client.extension.BEWLRItemExtensionFactory;
 import me.alegian.thavma.impl.client.extension.OculusItemExtensions;
 import me.alegian.thavma.impl.client.extension.WandItemExtensions;
 import me.alegian.thavma.impl.client.gui.VisGuiOverlay;
@@ -15,10 +16,12 @@ import me.alegian.thavma.impl.client.particle.CrucibleBubbleParticle;
 import me.alegian.thavma.impl.client.renderer.blockentity.AuraNodeBER;
 import me.alegian.thavma.impl.client.renderer.blockentity.CrucibleBER;
 import me.alegian.thavma.impl.client.renderer.blockentity.WorkbenchBER;
+import me.alegian.thavma.impl.client.renderer.blockentity.withoutlevel.BlockItemBEWLR;
 import me.alegian.thavma.impl.client.renderer.entity.FancyItemER;
 import me.alegian.thavma.impl.client.renderer.entity.VisER;
 import me.alegian.thavma.impl.client.screen.WorkbenchScreen;
 import me.alegian.thavma.impl.client.texture.atlas.AspectAtlas;
+import me.alegian.thavma.impl.common.block.entity.WorkbenchBE;
 import me.alegian.thavma.impl.common.item.TestaItem;
 import me.alegian.thavma.impl.init.registries.deferred.*;
 import net.minecraft.client.renderer.ShaderInstance;
@@ -55,6 +58,7 @@ public class T7ClientModEvents {
   public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
     for (var wand : T7Items.WANDS.values()) event.registerItem(new WandItemExtensions(), wand);
     event.registerItem(new OculusItemExtensions(), T7Items.OCULUS.get());
+    event.registerItem(BEWLRItemExtensionFactory.create(new BlockItemBEWLR(new WorkbenchBE())), T7Blocks.ARCANE_WORKBENCH.get().asItem());
   }
 
   @SubscribeEvent

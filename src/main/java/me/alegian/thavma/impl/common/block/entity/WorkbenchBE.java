@@ -1,6 +1,7 @@
 package me.alegian.thavma.impl.common.block.entity;
 
 import me.alegian.thavma.impl.init.registries.deferred.T7BlockEntities;
+import me.alegian.thavma.impl.init.registries.deferred.T7Blocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -13,6 +14,10 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 public class WorkbenchBE extends BlockEntity implements GeoBlockEntity {
   protected static final RawAnimation TEST = RawAnimation.begin().thenLoop("rotating");
   private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+
+  public WorkbenchBE() {
+    this(new BlockPos(0, 0, 0), T7Blocks.ARCANE_WORKBENCH.get().defaultBlockState());
+  }
 
   public WorkbenchBE(BlockPos pos, BlockState blockState) {
     super(T7BlockEntities.WORKBENCH.get(), pos, blockState);
