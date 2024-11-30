@@ -1,10 +1,7 @@
 package me.alegian.thavma.impl.init.registries.deferred;
 
 import me.alegian.thavma.impl.Thavma;
-import me.alegian.thavma.impl.common.block.entity.AuraNodeBE;
-import me.alegian.thavma.impl.common.block.entity.CrucibleBE;
-import me.alegian.thavma.impl.common.block.entity.MatrixBE;
-import me.alegian.thavma.impl.common.block.entity.WorkbenchBE;
+import me.alegian.thavma.impl.common.block.entity.*;
 import me.alegian.thavma.impl.common.data.capability.AspectContainer;
 import me.alegian.thavma.impl.init.registries.T7Capabilities;
 import net.minecraft.core.registries.Registries;
@@ -56,6 +53,15 @@ public class T7BlockEntities {
           () -> BlockEntityType.Builder.of(
               MatrixBE::new,
               T7Blocks.MATRIX.get()
+          ).build(null)
+      );
+
+  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<PillarBE>> PILLAR =
+      T7BlockEntities.REGISTRAR.register(
+          "infusion_pillar",
+          () -> BlockEntityType.Builder.of(
+              PillarBE::new,
+              T7Blocks.PILLAR.get()
           ).build(null)
       );
 }

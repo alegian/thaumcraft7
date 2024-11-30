@@ -58,8 +58,9 @@ public class T7BlockStateProvider extends BlockStateProvider {
 
     this.simpleBlockWithItem(T7Blocks.ELEMENTAL_STONE.get());
 
-    this.blockEntity(T7Blocks.ARCANE_WORKBENCH.get());
-    this.blockEntity(T7Blocks.MATRIX.get());
+    this.blockEntity1x1x1(T7Blocks.ARCANE_WORKBENCH.get());
+    this.blockEntity1x1x1(T7Blocks.MATRIX.get());
+    this.blockEntity1x2x1(T7Blocks.PILLAR.get());
 
     this.simpleBlockWithItem(T7Blocks.ESSENTIA_CONTAINER.get(), this.models().getExistingFile(this.modLoc("essentia_container")));
     this.simpleBlockWithItem(T7Blocks.RESEARCH_TABLE.get(), this.models().getExistingFile(this.modLoc("research_table")));
@@ -99,9 +100,14 @@ public class T7BlockStateProvider extends BlockStateProvider {
     this.itemModels().withExistingParent(this.name(block), "item/generated").texture("layer0", blockRL);
   }
 
-  public void blockEntity(Block block) {
+  public void blockEntity1x1x1(Block block) {
     this.simpleBlockWithItem(block, this.models().getBuilder(this.name(block)).texture("particle", this.blockTexture(block)));
     this.itemModels().withExistingParent(this.name(block), "item/chest").texture("particle", this.blockTexture(block));
+  }
+
+  public void blockEntity1x2x1(Block block) {
+    this.simpleBlockWithItem(block, this.models().getBuilder(this.name(block)).texture("particle", this.blockTexture(block)));
+    this.itemModels().withExistingParent(this.name(block), "item/template_bed").texture("particle", this.blockTexture(block));
   }
 
   private ResourceLocation key(Block block) {

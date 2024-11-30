@@ -13,15 +13,13 @@ import me.alegian.thavma.impl.client.gui.tooltip.AspectTooltipComponent;
 import me.alegian.thavma.impl.client.model.CubeOverlayModel;
 import me.alegian.thavma.impl.client.model.WithTransformParentModel;
 import me.alegian.thavma.impl.client.particle.CrucibleBubbleParticle;
-import me.alegian.thavma.impl.client.renderer.blockentity.AuraNodeBER;
-import me.alegian.thavma.impl.client.renderer.blockentity.CrucibleBER;
-import me.alegian.thavma.impl.client.renderer.blockentity.MatrixBER;
-import me.alegian.thavma.impl.client.renderer.blockentity.WorkbenchBER;
+import me.alegian.thavma.impl.client.renderer.blockentity.*;
 import me.alegian.thavma.impl.client.renderer.entity.FancyItemER;
 import me.alegian.thavma.impl.client.renderer.entity.VisER;
 import me.alegian.thavma.impl.client.screen.WorkbenchScreen;
 import me.alegian.thavma.impl.client.texture.atlas.AspectAtlas;
 import me.alegian.thavma.impl.common.block.entity.MatrixBE;
+import me.alegian.thavma.impl.common.block.entity.PillarBE;
 import me.alegian.thavma.impl.common.block.entity.WorkbenchBE;
 import me.alegian.thavma.impl.common.item.TestaItem;
 import me.alegian.thavma.impl.init.registries.deferred.*;
@@ -47,6 +45,7 @@ public class T7ClientModEvents {
     event.registerBlockEntityRenderer(T7BlockEntities.CRUCIBLE.get(), ctx -> new CrucibleBER());
     event.registerBlockEntityRenderer(T7BlockEntities.WORKBENCH.get(), ctx -> new WorkbenchBER());
     event.registerBlockEntityRenderer(T7BlockEntities.MATRIX.get(), ctx -> new MatrixBER());
+    event.registerBlockEntityRenderer(T7BlockEntities.PILLAR.get(), ctx -> new PillarBER());
     event.registerEntityRenderer(T7EntityTypes.FANCY_ITEM.get(), FancyItemER::new);
     event.registerEntityRenderer(T7EntityTypes.VIS.get(), VisER::new);
   }
@@ -62,6 +61,7 @@ public class T7ClientModEvents {
     event.registerItem(new OculusItemExtensions(), T7Items.OCULUS.get());
     event.registerItem(BEWLRItemExtensionFactory.create(new WorkbenchBE()), T7Blocks.ARCANE_WORKBENCH.get().asItem());
     event.registerItem(BEWLRItemExtensionFactory.create(new MatrixBE()), T7Blocks.MATRIX.get().asItem());
+    event.registerItem(BEWLRItemExtensionFactory.create(new PillarBE()), T7Blocks.PILLAR.get().asItem());
   }
 
   @SubscribeEvent
