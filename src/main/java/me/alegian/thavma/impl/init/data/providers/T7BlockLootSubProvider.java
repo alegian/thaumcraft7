@@ -20,14 +20,6 @@ public class T7BlockLootSubProvider extends BlockLootSubProvider {
   }
 
   @Override
-  protected @NotNull Iterable<Block> getKnownBlocks() {
-    return T7Blocks.REGISTRAR.getEntries()
-        .stream()
-        .map(e -> (Block) e.value())
-        .toList();
-  }
-
-  @Override
   protected void generate() {
     this.dropSelf(T7Blocks.GREATWOOD_LOG.get());
     this.dropSelf(T7Blocks.GREATWOOD_PLANKS.get());
@@ -42,6 +34,7 @@ public class T7BlockLootSubProvider extends BlockLootSubProvider {
     this.dropSelf(T7Blocks.CRUCIBLE.get());
     this.dropSelf(T7Blocks.AURA_NODE.get()); // TODO: replace
     this.dropSelf(T7Blocks.ARCANE_WORKBENCH.get());
+    this.dropSelf(T7Blocks.MATRIX.get());
     this.dropSelf(T7Blocks.RESEARCH_TABLE.get());
     this.dropSelf(T7Blocks.ELEMENTAL_STONE.get());
 
@@ -56,6 +49,14 @@ public class T7BlockLootSubProvider extends BlockLootSubProvider {
     this.infusedStone(T7Blocks.AQUA_INFUSED_STONE, T7Items.AQUA_TESTA);
     this.infusedStone(T7Blocks.ORDO_INFUSED_STONE, T7Items.ORDO_TESTA);
     this.infusedStone(T7Blocks.PERDITIO_INFUSED_STONE, T7Items.PERDITIO_TESTA);
+  }
+
+  @Override
+  protected @NotNull Iterable<Block> getKnownBlocks() {
+    return T7Blocks.REGISTRAR.getEntries()
+        .stream()
+        .map(e -> (Block) e.value())
+        .toList();
   }
 
   private void infusedStone(DeferredBlock<InfusedStoneBlock> block, DeferredItem<TestaItem> item) {

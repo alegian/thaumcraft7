@@ -22,6 +22,7 @@ public class T7CreativeModeTabs {
 
               output.accept(T7Blocks.CRUCIBLE.get());
               output.accept(T7Blocks.ARCANE_WORKBENCH.get());
+              output.accept(T7Blocks.MATRIX.get());
               output.accept(T7Blocks.RESEARCH_TABLE.get());
 
               output.accept(T7Blocks.ELEMENTAL_STONE.get());

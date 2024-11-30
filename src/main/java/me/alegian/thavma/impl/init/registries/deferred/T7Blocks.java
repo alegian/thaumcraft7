@@ -24,6 +24,7 @@ public class T7Blocks {
 
   public static final DeferredBlock<CrucibleBlock> CRUCIBLE = T7Blocks.register("crucible", CrucibleBlock::new);
   public static final DeferredBlock<WorkbenchBlock> ARCANE_WORKBENCH = T7Blocks.register("arcane_workbench", WorkbenchBlock::new);
+  public static final DeferredBlock<MatrixBlock> MATRIX = T7Blocks.register("infusion_matrix", MatrixBlock::new);
   public static final DeferredBlock<ResearchTableBlock> RESEARCH_TABLE = T7Blocks.register("research_table", ResearchTableBlock::new);
 
   public static final DeferredBlock<Block> ELEMENTAL_STONE = T7Blocks.register("elemental_stone", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)));

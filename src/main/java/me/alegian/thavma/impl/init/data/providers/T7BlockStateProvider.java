@@ -59,6 +59,7 @@ public class T7BlockStateProvider extends BlockStateProvider {
     this.simpleBlockWithItem(T7Blocks.ELEMENTAL_STONE.get());
 
     this.blockEntity(T7Blocks.ARCANE_WORKBENCH.get());
+    this.blockEntity(T7Blocks.MATRIX.get());
 
     this.simpleBlockWithItem(T7Blocks.ESSENTIA_CONTAINER.get(), this.models().getExistingFile(this.modLoc("essentia_container")));
     this.simpleBlockWithItem(T7Blocks.RESEARCH_TABLE.get(), this.models().getExistingFile(this.modLoc("research_table")));

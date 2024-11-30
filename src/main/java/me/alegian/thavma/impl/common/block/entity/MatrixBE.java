@@ -11,19 +11,19 @@ import software.bernie.geckolib.animation.AnimatableManager;
 import software.bernie.geckolib.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class WorkbenchBE extends BlockEntity implements GeoBlockEntity {
+public class MatrixBE extends BlockEntity implements GeoBlockEntity {
   protected static final RawAnimation TEST = RawAnimation.begin().thenLoop("rotating");
   private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
   /**
    * Dummy constructor used for rendering Item form
    */
-  public WorkbenchBE() {
-    this(new BlockPos(0, 0, 0), T7Blocks.ARCANE_WORKBENCH.get().defaultBlockState());
+  public MatrixBE() {
+    this(new BlockPos(0, 0, 0), T7Blocks.MATRIX.get().defaultBlockState());
   }
 
-  public WorkbenchBE(BlockPos pos, BlockState blockState) {
-    super(T7BlockEntities.WORKBENCH.get(), pos, blockState);
+  public MatrixBE(BlockPos pos, BlockState blockState) {
+    super(T7BlockEntities.MATRIX.get(), pos, blockState);
   }
 
   @Override

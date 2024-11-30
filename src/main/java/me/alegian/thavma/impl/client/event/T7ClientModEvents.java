@@ -15,12 +15,13 @@ import me.alegian.thavma.impl.client.model.WithTransformParentModel;
 import me.alegian.thavma.impl.client.particle.CrucibleBubbleParticle;
 import me.alegian.thavma.impl.client.renderer.blockentity.AuraNodeBER;
 import me.alegian.thavma.impl.client.renderer.blockentity.CrucibleBER;
+import me.alegian.thavma.impl.client.renderer.blockentity.MatrixBER;
 import me.alegian.thavma.impl.client.renderer.blockentity.WorkbenchBER;
-import me.alegian.thavma.impl.client.renderer.blockentity.withoutlevel.BlockItemBEWLR;
 import me.alegian.thavma.impl.client.renderer.entity.FancyItemER;
 import me.alegian.thavma.impl.client.renderer.entity.VisER;
 import me.alegian.thavma.impl.client.screen.WorkbenchScreen;
 import me.alegian.thavma.impl.client.texture.atlas.AspectAtlas;
+import me.alegian.thavma.impl.common.block.entity.MatrixBE;
 import me.alegian.thavma.impl.common.block.entity.WorkbenchBE;
 import me.alegian.thavma.impl.common.item.TestaItem;
 import me.alegian.thavma.impl.init.registries.deferred.*;
@@ -45,6 +46,7 @@ public class T7ClientModEvents {
     event.registerBlockEntityRenderer(T7BlockEntities.AURA_NODE.get(), ctx -> new AuraNodeBER());
     event.registerBlockEntityRenderer(T7BlockEntities.CRUCIBLE.get(), ctx -> new CrucibleBER());
     event.registerBlockEntityRenderer(T7BlockEntities.WORKBENCH.get(), ctx -> new WorkbenchBER());
+    event.registerBlockEntityRenderer(T7BlockEntities.MATRIX.get(), ctx -> new MatrixBER());
     event.registerEntityRenderer(T7EntityTypes.FANCY_ITEM.get(), FancyItemER::new);
     event.registerEntityRenderer(T7EntityTypes.VIS.get(), VisER::new);
   }
@@ -58,7 +60,8 @@ public class T7ClientModEvents {
   public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
     for (var wand : T7Items.WANDS.values()) event.registerItem(new WandItemExtensions(), wand);
     event.registerItem(new OculusItemExtensions(), T7Items.OCULUS.get());
-    event.registerItem(BEWLRItemExtensionFactory.create(new BlockItemBEWLR(new WorkbenchBE())), T7Blocks.ARCANE_WORKBENCH.get().asItem());
+    event.registerItem(BEWLRItemExtensionFactory.create(new WorkbenchBE()), T7Blocks.ARCANE_WORKBENCH.get().asItem());
+    event.registerItem(BEWLRItemExtensionFactory.create(new MatrixBE()), T7Blocks.MATRIX.get().asItem());
   }
 
   @SubscribeEvent
