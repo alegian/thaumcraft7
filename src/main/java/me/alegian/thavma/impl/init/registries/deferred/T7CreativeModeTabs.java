@@ -14,7 +14,7 @@ public class T7CreativeModeTabs {
         Thavma.MODID,
         () -> CreativeModeTab
             .builder()
-            .title(Component.translatable("thavma"))
+            .title(Component.translatable(Thavma.MODID))
             .icon(() -> T7Items.THAUMONOMICON.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
               output.accept(T7Blocks.AURA_NODE.get());

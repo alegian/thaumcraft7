@@ -22,7 +22,7 @@ public class T7LanguageProvider extends LanguageProvider {
 
   @Override
   protected void addTranslations() {
-    this.add("thavma", "Thavma");
+    this.add(Thavma.MODID, "Thavma");
 
     this.add(T7Items.IRON_HANDLE.get(), "Iron Wand Handle");
     this.add(T7Items.GOLD_HANDLE.get(), "Gold Wand Handle");
