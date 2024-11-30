@@ -6,14 +6,22 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
+import software.bernie.geckolib.animatable.SingletonGeoAnimatable;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.animation.AnimationController;
+import software.bernie.geckolib.animation.PlayState;
 import software.bernie.geckolib.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class MatrixBE extends BlockEntity implements GeoBlockEntity {
-  protected static final RawAnimation TEST = RawAnimation.begin().thenLoop("rotating");
   private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+  private final AnimationController<MatrixBE> ANIM_CONTROLLER = new AnimationController<>(this, "cycle", 1000, state -> PlayState.CONTINUE)
+      .triggerableAnim("closed", RawAnimation.begin().thenLoop("closed"))
+      .triggerableAnim("open", RawAnimation.begin().thenLoop("open"))
+      .triggerableAnim("spin_closed", RawAnimation.begin().thenLoop("spin_closed"))
+      .triggerableAnim("spin_closed_fast", RawAnimation.begin().thenLoop("spin_closed_fast"))
+      .triggerableAnim("spin_open", RawAnimation.begin().thenLoop("spin_open"));
 
   /**
    * Dummy constructor used for rendering Item form
@@ -24,11 +32,12 @@ public class MatrixBE extends BlockEntity implements GeoBlockEntity {
 
   public MatrixBE(BlockPos pos, BlockState blockState) {
     super(T7BlockEntities.MATRIX.get(), pos, blockState);
+    SingletonGeoAnimatable.registerSyncedAnimatable(this);
   }
 
   @Override
   public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-
+    controllers.add(this.ANIM_CONTROLLER);
   }
 
   @Override
