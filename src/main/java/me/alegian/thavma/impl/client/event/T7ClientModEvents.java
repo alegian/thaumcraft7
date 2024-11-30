@@ -19,6 +19,7 @@ import me.alegian.thavma.impl.client.renderer.entity.VisER;
 import me.alegian.thavma.impl.client.screen.WorkbenchScreen;
 import me.alegian.thavma.impl.client.texture.atlas.AspectAtlas;
 import me.alegian.thavma.impl.common.block.entity.MatrixBE;
+import me.alegian.thavma.impl.common.block.entity.PedestalBE;
 import me.alegian.thavma.impl.common.block.entity.PillarBE;
 import me.alegian.thavma.impl.common.block.entity.WorkbenchBE;
 import me.alegian.thavma.impl.common.item.TestaItem;
@@ -46,6 +47,7 @@ public class T7ClientModEvents {
     event.registerBlockEntityRenderer(T7BlockEntities.WORKBENCH.get(), ctx -> new WorkbenchBER());
     event.registerBlockEntityRenderer(T7BlockEntities.MATRIX.get(), ctx -> new MatrixBER());
     event.registerBlockEntityRenderer(T7BlockEntities.PILLAR.get(), ctx -> new PillarBER());
+    event.registerBlockEntityRenderer(T7BlockEntities.PEDESTAL.get(), ctx -> new PedestalBER());
     event.registerEntityRenderer(T7EntityTypes.FANCY_ITEM.get(), FancyItemER::new);
     event.registerEntityRenderer(T7EntityTypes.VIS.get(), VisER::new);
   }
@@ -62,6 +64,7 @@ public class T7ClientModEvents {
     event.registerItem(BEWLRItemExtensionFactory.create(new WorkbenchBE()), T7Blocks.ARCANE_WORKBENCH.get().asItem());
     event.registerItem(BEWLRItemExtensionFactory.create(new MatrixBE()), T7Blocks.MATRIX.get().asItem());
     event.registerItem(BEWLRItemExtensionFactory.create(new PillarBE()), T7Blocks.PILLAR.get().asItem());
+    event.registerItem(BEWLRItemExtensionFactory.create(new PedestalBE()), T7Blocks.PEDESTAL.get().asItem());
   }
 
   @SubscribeEvent

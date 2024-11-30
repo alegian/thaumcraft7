@@ -20,6 +20,15 @@ public class T7BlockEntities {
     event.registerBlockEntity(T7Capabilities.AspectContainer.BLOCK, T7BlockEntities.AURA_NODE.get(), (be, context) -> new AspectContainer(be));
   }
 
+  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<PedestalBE>> PEDESTAL =
+      T7BlockEntities.REGISTRAR.register(
+          "infusion_pedestal",
+          () -> BlockEntityType.Builder.of(
+              PedestalBE::new,
+              T7Blocks.PEDESTAL.get()
+          ).build(null)
+      );
+
   public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<AuraNodeBE>> AURA_NODE =
       T7BlockEntities.REGISTRAR.register(
           "aura_node",
@@ -64,4 +73,6 @@ public class T7BlockEntities {
               T7Blocks.PILLAR.get()
           ).build(null)
       );
+
+
 }
