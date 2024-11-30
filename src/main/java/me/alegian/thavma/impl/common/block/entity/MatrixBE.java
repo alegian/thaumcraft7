@@ -16,7 +16,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class MatrixBE extends BlockEntity implements GeoBlockEntity {
   private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-  private final AnimationController<MatrixBE> ANIM_CONTROLLER = new AnimationController<>(this, "cycle", 1000, state -> PlayState.CONTINUE)
+  private final AnimationController<MatrixBE> ANIM_CONTROLLER = new AnimationController<>(this, "cycle", 20, state -> PlayState.CONTINUE)
       .triggerableAnim("closed", RawAnimation.begin().thenLoop("closed"))
       .triggerableAnim("open", RawAnimation.begin().thenLoop("open"))
       .triggerableAnim("spin_closed", RawAnimation.begin().thenLoop("spin_closed"))

@@ -16,7 +16,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class WorkbenchBE extends BlockEntity implements GeoBlockEntity {
   private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-  private final AnimationController<WorkbenchBE> ANIM_CONTROLLER = new AnimationController<>(this, "cycle", 1000, state -> PlayState.CONTINUE)
+  private final AnimationController<WorkbenchBE> ANIM_CONTROLLER = new AnimationController<>(this, "cycle", 20, state -> PlayState.CONTINUE)
       .triggerableAnim("closed", RawAnimation.begin().thenLoop("closed"))
       .triggerableAnim("open", RawAnimation.begin().thenLoop("open"))
       .triggerableAnim("rotating", RawAnimation.begin().thenLoop("rotating"));
