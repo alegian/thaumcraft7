@@ -17,6 +17,7 @@ public class MatrixBER extends GeoBlockRenderer<MatrixBE> {
   public MatrixBER() {
     super(new DefaultedBlockGeoModel<>(Thavma.rl("infusion_matrix")));
     this.addRenderLayer(new AutoGlowingGeoLayer<>(this) {
+      // TODO, see how to fix cloud bug by comparing EYES to rendertype_entity_translucent_emissive
       @Override
       protected RenderType getRenderType(MatrixBE animatable, @Nullable MultiBufferSource bufferSource) {
         return RenderType.eyes(AutoGlowingTexture.getEmissiveResource(this.getTextureResource(animatable)));
