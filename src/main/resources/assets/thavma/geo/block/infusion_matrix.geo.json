@@ -6,15 +6,14 @@
 				"identifier": "geometry.unknown",
 				"texture_width": 64,
 				"texture_height": 64,
-				"visible_bounds_width": 3,
-				"visible_bounds_height": 2.5,
-				"visible_bounds_offset": [0, 0.75, 0]
+				"visible_bounds_width": 5,
+				"visible_bounds_height": 5,
+				"visible_bounds_offset": [0, 1.5, 0]
 			},
 			"bones": [
 				{
 					"name": "bone",
-					"pivot": [0, 8, 0],
-					"rotation": [180, 0, 0]
+					"pivot": [0, 8, 0]
 				},
 				{
 					"name": "bone11",

@@ -1,6 +1,7 @@
 package me.alegian.thavma.impl.client.renderer.blockentity;
 
 import me.alegian.thavma.impl.Thavma;
+import me.alegian.thavma.impl.client.T7RenderTypes;
 import me.alegian.thavma.impl.common.block.entity.MatrixBE;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -14,13 +15,13 @@ import software.bernie.geckolib.renderer.layer.AutoGlowingGeoLayer;
 
 @OnlyIn(Dist.CLIENT)
 public class MatrixBER extends GeoBlockRenderer<MatrixBE> {
+
   public MatrixBER() {
     super(new DefaultedBlockGeoModel<>(Thavma.rl("infusion_matrix")));
     this.addRenderLayer(new AutoGlowingGeoLayer<>(this) {
-      // TODO, see how to fix cloud bug by comparing EYES to rendertype_entity_translucent_emissive
       @Override
       protected RenderType getRenderType(MatrixBE animatable, @Nullable MultiBufferSource bufferSource) {
-        return RenderType.eyes(AutoGlowingTexture.getEmissiveResource(this.getTextureResource(animatable)));
+        return T7RenderTypes.EYES_WITH_DEPTH.apply(AutoGlowingTexture.getEmissiveResource(this.getTextureResource(animatable)));
       }
     });
   }
