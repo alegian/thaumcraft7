@@ -34,8 +34,11 @@ public class T7RenderTypes {
           .createCompositeState(false)
   );
 
-  // named after the similar EYES vanilla RenderType, used for emissive entity eyes
-  // used in Thavma for infusion green effects
+  /**
+   * named after the similar EYES vanilla RenderType, used for emissive entity eyes
+   * used in Thavma for infusion green effects, because Gecko deletes the original pixels
+   * so we have to write depth to avoid bugs
+   */
   public static final Function<ResourceLocation, RenderType> EYES_WITH_DEPTH = Util.memoize(
       (p_311464_) -> {
         RenderStateShard.TextureStateShard renderstateshard$texturestateshard = new RenderStateShard.TextureStateShard(p_311464_, false, false);
