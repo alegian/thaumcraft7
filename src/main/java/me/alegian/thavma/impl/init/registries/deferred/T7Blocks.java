@@ -14,6 +14,7 @@ import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 public class T7Blocks {
@@ -37,6 +38,8 @@ public class T7Blocks {
   public static final DeferredBlock<InfusedStoneBlock> AQUA_INFUSED_STONE = T7Blocks.register("aqua_ore", () -> new InfusedStoneBlock(Aspects.AQUA));
   public static final DeferredBlock<InfusedStoneBlock> ORDO_INFUSED_STONE = T7Blocks.register("ordo_ore", () -> new InfusedStoneBlock(Aspects.ORDO));
   public static final DeferredBlock<InfusedStoneBlock> PERDITIO_INFUSED_STONE = T7Blocks.register("perditio_ore", () -> new InfusedStoneBlock(Aspects.PERDITIO));
+
+  public static final List<DeferredBlock<InfusedStoneBlock>> INFUSED_STONES = List.of(IGNIS_INFUSED_STONE, AER_INFUSED_STONE, TERRA_INFUSED_STONE, AQUA_INFUSED_STONE, ORDO_INFUSED_STONE, PERDITIO_INFUSED_STONE);
 
   public static final DeferredBlock<LeavesBlock> GREATWOOD_LEAVES = T7Blocks.register("greatwood_leaves", T7Blocks::leaves);
   public static final DeferredBlock<RotatedPillarBlock> GREATWOOD_LOG = T7Blocks.register("greatwood_log", () -> T7Blocks.log(MapColor.WOOD, MapColor.PODZOL));

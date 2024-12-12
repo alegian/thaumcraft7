@@ -1,13 +1,10 @@
 {
   "values": [
     "thavma:ignis_ore",
-    "thavma:terra_ore",
     "thavma:aer_ore",
+    "thavma:terra_ore",
     "thavma:aqua_ore",
     "thavma:ordo_ore",
-    "thavma:perditio_ore",
-    "thavma:crucible",
-    "thavma:arcanum_block",
-    "thavma:orichalcum_block"
+    "thavma:perditio_ore"
   ]
 }

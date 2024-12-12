@@ -1,0 +1,96 @@
+{
+  "parent": "block/block",
+  "render_type": "cutout",
+  "textures": {
+    "particle": "#layer0"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "down": {
+          "texture": "#layer0",
+          "cullface": "down"
+        },
+        "up": {
+          "texture": "#layer0",
+          "cullface": "up"
+        },
+        "north": {
+          "texture": "#layer0",
+          "cullface": "north"
+        },
+        "south": {
+          "texture": "#layer0",
+          "cullface": "south"
+        },
+        "west": {
+          "texture": "#layer0",
+          "cullface": "west"
+        },
+        "east": {
+          "texture": "#layer0",
+          "cullface": "east"
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "down": {
+          "texture": "#layer1",
+          "cullface": "down",
+          "tintindex": 0
+        },
+        "up": {
+          "texture": "#layer1",
+          "cullface": "up",
+          "tintindex": 0
+        },
+        "north": {
+          "texture": "#layer1",
+          "cullface": "north",
+          "tintindex": 0
+        },
+        "south": {
+          "texture": "#layer1",
+          "cullface": "south",
+          "tintindex": 0
+        },
+        "west": {
+          "texture": "#layer1",
+          "cullface": "west",
+          "tintindex": 0
+        },
+        "east": {
+          "texture": "#layer1",
+          "cullface": "east",
+          "tintindex": 0
+        }
+      },
+      "shade": false,
+      "neoforge_data": {
+        "block_light": 15,
+        "sky_light": 15
+      }
+    }
+  ]
+}

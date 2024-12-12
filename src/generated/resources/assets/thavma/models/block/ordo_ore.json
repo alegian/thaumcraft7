@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/stone",
-  "color": -2763540,
-  "loader": "thavma:cube_overlay",
-  "sprite_location": "thavma:block/infused_ore"
+  "parent": "thavma:block/infused_stone",
+  "textures": {
+    "layer0": "minecraft:block/stone",
+    "layer1": "thavma:block/infused_stone"
+  }
 }

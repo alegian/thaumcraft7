@@ -29,12 +29,8 @@ public class T7CreativeModeTabs {
 
               output.accept(T7Blocks.ELEMENTAL_STONE.get());
 
-              output.accept(T7Blocks.IGNIS_INFUSED_STONE.get());
-              output.accept(T7Blocks.AER_INFUSED_STONE.get());
-              output.accept(T7Blocks.TERRA_INFUSED_STONE.get());
-              output.accept(T7Blocks.AQUA_INFUSED_STONE.get());
-              output.accept(T7Blocks.ORDO_INFUSED_STONE.get());
-              output.accept(T7Blocks.PERDITIO_INFUSED_STONE.get());
+              for (var infusedStone : T7Blocks.INFUSED_STONES)
+                output.accept(infusedStone.get());
 
               output.accept(T7Blocks.ARCANUM_BLOCK.get());
               output.accept(T7Blocks.ORICHALCUM_BLOCK.get());

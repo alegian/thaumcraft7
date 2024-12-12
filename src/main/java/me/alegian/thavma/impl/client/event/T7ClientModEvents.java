@@ -10,7 +10,6 @@ import me.alegian.thavma.impl.client.extension.WandItemExtensions;
 import me.alegian.thavma.impl.client.gui.VisGuiOverlay;
 import me.alegian.thavma.impl.client.gui.tooltip.AspectClientTooltipComponent;
 import me.alegian.thavma.impl.client.gui.tooltip.AspectTooltipComponent;
-import me.alegian.thavma.impl.client.model.CubeOverlayModel;
 import me.alegian.thavma.impl.client.model.WithTransformParentModel;
 import me.alegian.thavma.impl.client.particle.CrucibleBubbleParticle;
 import me.alegian.thavma.impl.client.renderer.blockentity.*;
@@ -74,7 +73,6 @@ public class T7ClientModEvents {
 
   @SubscribeEvent
   public static void registerGeometryLoaders(ModelEvent.RegisterGeometryLoaders event) {
-    event.register(CubeOverlayModel.ID, CubeOverlayModel.Loader.INSTANCE);
     event.register(WithTransformParentModel.ID, WithTransformParentModel.Loader.INSTANCE);
   }
 
@@ -103,6 +101,11 @@ public class T7ClientModEvents {
         },
         T7Blocks.SILVERWOOD_LEAVES.get()
     );
+    for (var infusedStone : T7Blocks.INFUSED_STONES)
+      event.register((stack, tintIndex) -> {
+        if (tintIndex == 0) return infusedStone.get().getAspect().getColor();
+        return 0xFFFFFFFF;
+      }, infusedStone.get());
   }
 
   @SubscribeEvent
@@ -119,6 +122,11 @@ public class T7ClientModEvents {
         },
         T7Blocks.SILVERWOOD_LEAVES.get()
     );
+    for (var infusedStone : T7Blocks.INFUSED_STONES)
+      event.register((blockState, blockAndTintGetter, blockPos, tintIndex) -> {
+        if (tintIndex == 0) return infusedStone.get().getAspect().getColor();
+        return 0xFFFFFFFF;
+      }, infusedStone.get());
   }
 
   @SubscribeEvent

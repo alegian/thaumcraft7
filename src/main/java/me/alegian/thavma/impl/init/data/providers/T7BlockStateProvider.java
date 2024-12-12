@@ -1,7 +1,6 @@
 package me.alegian.thavma.impl.init.data.providers;
 
 import me.alegian.thavma.impl.Thavma;
-import me.alegian.thavma.impl.client.model.CubeOverlayModel;
 import me.alegian.thavma.impl.client.model.WithTransformParentModel;
 import me.alegian.thavma.impl.common.block.InfusedStoneBlock;
 import me.alegian.thavma.impl.init.registries.deferred.T7Blocks;
@@ -9,10 +8,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.LeavesBlock;
-import net.minecraft.world.level.block.RotatedPillarBlock;
-import net.minecraft.world.level.block.SaplingBlock;
+import net.minecraft.world.level.block.*;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
@@ -36,12 +32,8 @@ public class T7BlockStateProvider extends BlockStateProvider {
         .end()
     );
 
-    this.infusedOreBlockWithItem(T7Blocks.IGNIS_INFUSED_STONE.get());
-    this.infusedOreBlockWithItem(T7Blocks.AER_INFUSED_STONE.get());
-    this.infusedOreBlockWithItem(T7Blocks.TERRA_INFUSED_STONE.get());
-    this.infusedOreBlockWithItem(T7Blocks.AQUA_INFUSED_STONE.get());
-    this.infusedOreBlockWithItem(T7Blocks.ORDO_INFUSED_STONE.get());
-    this.infusedOreBlockWithItem(T7Blocks.PERDITIO_INFUSED_STONE.get());
+    for (var infusedStone : T7Blocks.INFUSED_STONES)
+      this.infusedBlockWithItem(infusedStone.get(), Blocks.STONE);
 
     this.logBlockWithItem(T7Blocks.GREATWOOD_LOG.get());
     this.simpleBlockWithItem(T7Blocks.GREATWOOD_PLANKS.get());
@@ -63,8 +55,8 @@ public class T7BlockStateProvider extends BlockStateProvider {
     this.blockEntity1x1x1(T7Blocks.PEDESTAL.get());
     this.blockEntity1x2x1(T7Blocks.PILLAR.get());
 
-    this.simpleBlockWithItem(T7Blocks.ESSENTIA_CONTAINER.get(), this.models().getExistingFile(this.modLoc("essentia_container")));
-    this.simpleBlockWithItem(T7Blocks.RESEARCH_TABLE.get(), this.models().getExistingFile(this.modLoc("research_table")));
+    this.simpleBlockWithItem(T7Blocks.ESSENTIA_CONTAINER.get(), this.models().getExistingFile(Thavma.rl("essentia_container")));
+    this.simpleBlockWithItem(T7Blocks.RESEARCH_TABLE.get(), this.models().getExistingFile(Thavma.rl("research_table")));
 
     this.itemModels().getBuilder(T7Blocks.AURA_NODE.getId().getPath()).parent(new ModelFile.UncheckedModelFile("item/generated")).renderType(RenderType.translucent().name).texture("layer0", Thavma.rl("item/aura_node"));
   }
@@ -79,12 +71,10 @@ public class T7BlockStateProvider extends BlockStateProvider {
     this.itemModels().withExistingParent(this.name(block), blockRL);
   }
 
-  private void infusedOreBlockWithItem(InfusedStoneBlock block) {
-    var infusedOreBlockModel = this.models().withExistingParent(this.name(block), this.mcLoc("block/stone"))
-        .customLoader(CubeOverlayModel.Builder::new)
-        .spriteLocation(Thavma.rl("block/infused_ore"))
-        .color((block).getAspect().getColor())
-        .end();
+  private void infusedBlockWithItem(InfusedStoneBlock block, Block baseBlock) {
+    var infusedOreBlockModel = this.models().withExistingParent(this.name(block), Thavma.rl("block/infused_stone"))
+        .texture("layer0", this.blockTexture(baseBlock))
+        .texture("layer1", Thavma.rl("block/infused_stone"));
     this.simpleBlockWithItem(block, infusedOreBlockModel);
   }
 
