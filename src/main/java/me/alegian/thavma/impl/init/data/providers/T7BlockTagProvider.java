@@ -1,7 +1,7 @@
 package me.alegian.thavma.impl.init.data.providers;
 
 import me.alegian.thavma.impl.Thavma;
-import me.alegian.thavma.impl.common.block.InfusedStoneBlock;
+import me.alegian.thavma.impl.common.block.InfusedBlock;
 import me.alegian.thavma.impl.init.registries.T7Tags;
 import me.alegian.thavma.impl.init.registries.deferred.T7Blocks;
 import net.minecraft.core.HolderLookup;
@@ -22,13 +22,13 @@ public class T7BlockTagProvider extends BlockTagsProvider {
 
   @Override
   protected void addTags(HolderLookup.Provider pProvider) {
-    var boundInfusedStonesArray = T7Blocks.INFUSED_STONES.stream().map(DeferredHolder::get).toArray(InfusedStoneBlock[]::new);
+    var boundInfusedBlocksArray = T7Blocks.INFUSED_BLOCKS.stream().map(DeferredHolder::get).toArray(InfusedBlock[]::new);
     // TODO: add nitor
     this.tag(T7Tags.CrucibleHeatSourceTag.BLOCK).addTag(BlockTags.FIRE).addTag(BlockTags.CAMPFIRES);
-    this.tag(Tags.Blocks.ORES).add(boundInfusedStonesArray);
-    this.tag(Tags.Blocks.ORE_RATES_SINGULAR).add(boundInfusedStonesArray);
-    this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(boundInfusedStonesArray);
-    this.tag(BlockTags.NEEDS_STONE_TOOL).add(boundInfusedStonesArray);
+    this.tag(Tags.Blocks.ORES).add(boundInfusedBlocksArray);
+    this.tag(Tags.Blocks.ORE_RATES_SINGULAR).add(boundInfusedBlocksArray);
+    this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(boundInfusedBlocksArray);
+    this.tag(BlockTags.NEEDS_STONE_TOOL).add(boundInfusedBlocksArray);
     this.tag(BlockTags.NEEDS_IRON_TOOL).add(
         T7Blocks.ARCANUM_BLOCK.get(),
         T7Blocks.ORICHALCUM_BLOCK.get()

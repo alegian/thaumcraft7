@@ -109,6 +109,12 @@ public class T7LanguageProvider extends LanguageProvider {
     this.add(T7Blocks.AQUA_INFUSED_STONE.get(), "Aqua Infused Stone");
     this.add(T7Blocks.ORDO_INFUSED_STONE.get(), "Ordo Infused Stone");
     this.add(T7Blocks.PERDITIO_INFUSED_STONE.get(), "Perditio Infused Stone");
+    this.add(T7Blocks.IGNIS_INFUSED_DEEPSLATE.get(), "Ignis Infused Deepslate");
+    this.add(T7Blocks.AER_INFUSED_DEEPSLATE.get(), "Aer Infused Deepslate");
+    this.add(T7Blocks.TERRA_INFUSED_DEEPSLATE.get(), "Terra Infused Deepslate");
+    this.add(T7Blocks.AQUA_INFUSED_DEEPSLATE.get(), "Aqua Infused Deepslate");
+    this.add(T7Blocks.ORDO_INFUSED_DEEPSLATE.get(), "Ordo Infused Deepslate");
+    this.add(T7Blocks.PERDITIO_INFUSED_DEEPSLATE.get(), "Perditio Infused Deepslate");
 
     this.add(T7Blocks.ARCANUM_BLOCK.get(), "Arcanum Block");
     this.add(T7Blocks.ORICHALCUM_BLOCK.get(), "Orichalcum Block");

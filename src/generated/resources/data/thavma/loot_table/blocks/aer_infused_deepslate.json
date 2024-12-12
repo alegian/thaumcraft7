@@ -26,7 +26,7 @@
                   }
                 }
               ],
-              "name": "thavma:aer_ore"
+              "name": "thavma:aer_infused_deepslate"
             },
             {
               "type": "minecraft:item",
@@ -48,5 +48,5 @@
       "rolls": 1.0
     }
   ],
-  "random_sequence": "thavma:blocks/aer_ore"
+  "random_sequence": "thavma:blocks/aer_infused_deepslate"
 }

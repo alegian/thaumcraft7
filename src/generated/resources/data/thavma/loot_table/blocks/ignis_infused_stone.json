@@ -26,7 +26,7 @@
                   }
                 }
               ],
-              "name": "thavma:ignis_ore"
+              "name": "thavma:ignis_infused_stone"
             },
             {
               "type": "minecraft:item",
@@ -48,5 +48,5 @@
       "rolls": 1.0
     }
   ],
-  "random_sequence": "thavma:blocks/ignis_ore"
+  "random_sequence": "thavma:blocks/ignis_infused_stone"
 }

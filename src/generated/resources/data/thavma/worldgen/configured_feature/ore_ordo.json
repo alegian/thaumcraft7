@@ -6,7 +6,7 @@
     "targets": [
       {
         "state": {
-          "Name": "thavma:ordo_ore"
+          "Name": "thavma:ordo_infused_stone"
         },
         "target": {
           "predicate_type": "minecraft:tag_match",

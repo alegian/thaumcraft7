@@ -1,6 +1,6 @@
 package me.alegian.thavma.impl.init.data.providers;
 
-import me.alegian.thavma.impl.common.block.InfusedStoneBlock;
+import me.alegian.thavma.impl.common.block.InfusedBlock;
 import me.alegian.thavma.impl.common.item.TestaItem;
 import me.alegian.thavma.impl.init.registries.deferred.T7Blocks;
 import me.alegian.thavma.impl.init.registries.deferred.T7Items;
@@ -51,6 +51,12 @@ public class T7BlockLootSubProvider extends BlockLootSubProvider {
     this.infusedStone(T7Blocks.AQUA_INFUSED_STONE, T7Items.AQUA_TESTA);
     this.infusedStone(T7Blocks.ORDO_INFUSED_STONE, T7Items.ORDO_TESTA);
     this.infusedStone(T7Blocks.PERDITIO_INFUSED_STONE, T7Items.PERDITIO_TESTA);
+    this.infusedStone(T7Blocks.IGNIS_INFUSED_DEEPSLATE, T7Items.IGNIS_TESTA);
+    this.infusedStone(T7Blocks.TERRA_INFUSED_DEEPSLATE, T7Items.TERRA_TESTA);
+    this.infusedStone(T7Blocks.AER_INFUSED_DEEPSLATE, T7Items.AER_TESTA);
+    this.infusedStone(T7Blocks.AQUA_INFUSED_DEEPSLATE, T7Items.AQUA_TESTA);
+    this.infusedStone(T7Blocks.ORDO_INFUSED_DEEPSLATE, T7Items.ORDO_TESTA);
+    this.infusedStone(T7Blocks.PERDITIO_INFUSED_DEEPSLATE, T7Items.PERDITIO_TESTA);
   }
 
   @Override
@@ -61,7 +67,7 @@ public class T7BlockLootSubProvider extends BlockLootSubProvider {
         .toList();
   }
 
-  private void infusedStone(DeferredBlock<InfusedStoneBlock> block, DeferredItem<TestaItem> item) {
+  private void infusedStone(DeferredBlock<InfusedBlock> block, DeferredItem<TestaItem> item) {
     this.add(block.get(), b -> this.createOreDrop(b, item.get()));
   }
 }

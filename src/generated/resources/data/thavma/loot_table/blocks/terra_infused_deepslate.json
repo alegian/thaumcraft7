@@ -26,7 +26,7 @@
                   }
                 }
               ],
-              "name": "thavma:aqua_ore"
+              "name": "thavma:terra_infused_deepslate"
             },
             {
               "type": "minecraft:item",
@@ -40,7 +40,7 @@
                   "function": "minecraft:explosion_decay"
                 }
               ],
-              "name": "thavma:aqua_testa"
+              "name": "thavma:terra_testa"
             }
           ]
         }
@@ -48,5 +48,5 @@
       "rolls": 1.0
     }
   ],
-  "random_sequence": "thavma:blocks/aqua_ore"
+  "random_sequence": "thavma:blocks/terra_infused_deepslate"
 }

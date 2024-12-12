@@ -6,7 +6,7 @@
     "targets": [
       {
         "state": {
-          "Name": "thavma:perditio_ore"
+          "Name": "thavma:perditio_infused_stone"
         },
         "target": {
           "predicate_type": "minecraft:tag_match",

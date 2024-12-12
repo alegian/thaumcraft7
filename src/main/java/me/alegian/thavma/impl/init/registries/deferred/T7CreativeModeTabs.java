@@ -29,8 +29,8 @@ public class T7CreativeModeTabs {
 
               output.accept(T7Blocks.ELEMENTAL_STONE.get());
 
-              for (var infusedStone : T7Blocks.INFUSED_STONES)
-                output.accept(infusedStone.get());
+              for (var infusedBlock : T7Blocks.INFUSED_BLOCKS)
+                output.accept(infusedBlock.get());
 
               output.accept(T7Blocks.ARCANUM_BLOCK.get());
               output.accept(T7Blocks.ORICHALCUM_BLOCK.get());

@@ -101,11 +101,11 @@ public class T7ClientModEvents {
         },
         T7Blocks.SILVERWOOD_LEAVES.get()
     );
-    for (var infusedStone : T7Blocks.INFUSED_STONES)
+    for (var infusedBlock : T7Blocks.INFUSED_BLOCKS)
       event.register((stack, tintIndex) -> {
-        if (tintIndex == 0) return infusedStone.get().getAspect().getColor();
+        if (tintIndex == 0) return infusedBlock.get().getAspect().getColor();
         return 0xFFFFFFFF;
-      }, infusedStone.get());
+      }, infusedBlock.get());
   }
 
   @SubscribeEvent
@@ -122,11 +122,11 @@ public class T7ClientModEvents {
         },
         T7Blocks.SILVERWOOD_LEAVES.get()
     );
-    for (var infusedStone : T7Blocks.INFUSED_STONES)
+    for (var infusedBlock : T7Blocks.INFUSED_BLOCKS)
       event.register((blockState, blockAndTintGetter, blockPos, tintIndex) -> {
-        if (tintIndex == 0) return infusedStone.get().getAspect().getColor();
+        if (tintIndex == 0) return infusedBlock.get().getAspect().getColor();
         return 0xFFFFFFFF;
-      }, infusedStone.get());
+      }, infusedBlock.get());
   }
 
   @SubscribeEvent
