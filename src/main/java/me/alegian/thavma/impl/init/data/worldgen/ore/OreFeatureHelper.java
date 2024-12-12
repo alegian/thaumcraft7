@@ -19,13 +19,13 @@ import java.util.List;
  * A helper class for registering the 6 different aspects of InfusedStoneOre.
  */
 public class OreFeatureHelper {
-  public static Holder<ConfiguredFeature<?, ?>> registerConfiguredInfusedStone(BootstrapContext<ConfiguredFeature<?, ?>> context, ResourceKey<ConfiguredFeature<?, ?>> key, BlockState stoneOre) {
+  public static Holder<ConfiguredFeature<?, ?>> registerConfiguredInfusedStone(BootstrapContext<ConfiguredFeature<?, ?>> context, ResourceKey<ConfiguredFeature<?, ?>> key, BlockState stoneOre, BlockState deepSlateOre) {
     var stoneReplaceables = new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES);
-    //var deepslateReplaceables = new TagMatchTest(BlockTags.DEEPSLATE_REPLACEABLES);
+    var deepslateReplaceables = new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES);
 
     List<OreConfiguration.TargetBlockState> list = List.of(
-        OreConfiguration.target(stoneReplaceables, stoneOre)
-        //OreConfiguration.target(ruletest2, Blocks.DEEPSLATE_IRON_ORE.defaultBlockState())
+        OreConfiguration.target(stoneReplaceables, stoneOre),
+        OreConfiguration.target(deepslateReplaceables, deepSlateOre)
     );
 
     return context.register(
