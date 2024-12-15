@@ -22,19 +22,6 @@ public class AuraNodeBER implements BlockEntityRenderer<AuraNodeBE> {
   public static final float MIN_SCALE = 1f / 3; // containment animation minimum allowed scale
   private float scale = 1f;
 
-  @Override
-  public void render(@NotNull AuraNodeBE be, float partialTick, PoseStack poseStack, @NotNull MultiBufferSource bufferSource, int combinedLight, int combinedOverlay) {
-    var containingCountdown = be.getContainingCountdown();
-
-    poseStack.pushPose();
-    this.setupPose(poseStack, containingCountdown, partialTick);
-
-    AuraNodeBER.renderContainer(poseStack, bufferSource, combinedLight, combinedOverlay, containingCountdown);
-    this.renderNode(be, poseStack, bufferSource);
-
-    poseStack.popPose();
-  }
-
   /**
    * Renders a 3x3x3 container jar around the node.
    */
@@ -45,6 +32,19 @@ public class AuraNodeBER implements BlockEntityRenderer<AuraNodeBE> {
     poseStack.scale(3f, 3f, 3f);
     poseStack.translate(-0.5d, -0.5d, -0.5d);
     Minecraft.getInstance().getBlockRenderer().renderSingleBlock(T7Blocks.ESSENTIA_CONTAINER.get().defaultBlockState(), poseStack, bufferSource, combinedLight, combinedOverlay, ModelData.EMPTY, RenderType.translucent());
+    poseStack.popPose();
+  }
+
+  @Override
+  public void render(@NotNull AuraNodeBE be, float partialTick, PoseStack poseStack, @NotNull MultiBufferSource bufferSource, int combinedLight, int combinedOverlay) {
+    var containingCountdown = be.getContainingCountdown();
+
+    poseStack.pushPose();
+    this.setupPose(poseStack, containingCountdown, partialTick);
+
+    AuraNodeBER.renderContainer(poseStack, bufferSource, combinedLight, combinedOverlay, containingCountdown);
+    this.renderNode(be, poseStack, bufferSource);
+
     poseStack.popPose();
   }
 
@@ -77,7 +77,8 @@ public class AuraNodeBER implements BlockEntityRenderer<AuraNodeBE> {
     Quaternionf rotation = Minecraft.getInstance().gameRenderer.getMainCamera().rotation();
     poseStack.mulPose(rotation);
 
-    var index = 0;
+    float MIN_SCALE = 0.5f / 32f;
+
     AspectContainer.from(be)
         .map(IAspectContainer::getAspects)
         .map(AspectMap::toSortedList)
@@ -85,11 +86,12 @@ public class AuraNodeBER implements BlockEntityRenderer<AuraNodeBE> {
           int i;
           for (i = 0; i < aspectList.size(); i++) {
             var stack = aspectList.get(i);
-            BERHelper.renderAuraNodeLayer(poseStack, bufferSource, stack.amount() / 32f, stack.aspect().getColor(), 0.6f, i * 0.0001f);
+            float nextScale = i + 1 < aspectList.size() ? aspectList.get(i + 1).amount() / 32f : MIN_SCALE;
+            BERHelper.renderAuraNodeLayer(poseStack, bufferSource, stack.aspect().getColor(), 0.6f, stack.amount() / 32f, nextScale);
           }
         }, () -> {
           // empty nodes look like small black circles
-          BERHelper.renderAuraNodeLayer(poseStack, bufferSource, 0.5f / 32f, 0, 1, 0);
+          BERHelper.renderAuraNodeLayer(poseStack, bufferSource, 0, 1, MIN_SCALE, 0);
         });
 
     poseStack.popPose();

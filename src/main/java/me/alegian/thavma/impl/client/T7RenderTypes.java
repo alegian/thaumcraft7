@@ -62,8 +62,7 @@ public class T7RenderTypes {
   private static RenderType.CompositeState auraNodeState() {
     return RenderType.CompositeState.builder()
         .setShaderState(T7RenderStateShards.AURA_NODE_SHADER)
-        .setTransparencyState(T7RenderStateShards.SIMPLE_TRANSPARENCY)
-        .setDepthTestState(LEQUAL_DEPTH_TEST)
+        .setTransparencyState(RenderStateShard.TRANSLUCENT_TRANSPARENCY)
         .setTextureState(NO_TEXTURE)
         .setOutputState(TRANSLUCENT_TARGET)
         .setCullState(NO_CULL)

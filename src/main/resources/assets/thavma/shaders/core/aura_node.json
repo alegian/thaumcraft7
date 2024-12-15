@@ -6,7 +6,9 @@
   "attributes": [
     "Position",
     "Color",
-    "Center"
+    "Center",
+    "Scale",
+    "NextScale"
   ],
   "uniforms": [
     {

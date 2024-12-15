@@ -8,11 +8,21 @@ import net.neoforged.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class T7VertexFormats {
   public static VertexFormatElement CENTER;
-  public static VertexFormatElement ANGLE;
+  public static VertexFormatElement SCALE;
+  public static VertexFormatElement NEXT_SCALE;
+  public static VertexFormat AURA_NODE;
 
   static {
     T7VertexFormats.CENTER = T7VertexFormats.registerFormatElement(VertexFormatElement.Type.FLOAT, 3);
-    T7VertexFormats.ANGLE = T7VertexFormats.registerFormatElement(VertexFormatElement.Type.FLOAT, 1);
+    T7VertexFormats.SCALE = T7VertexFormats.registerFormatElement(VertexFormatElement.Type.FLOAT, 1);
+    T7VertexFormats.NEXT_SCALE = T7VertexFormats.registerFormatElement(VertexFormatElement.Type.FLOAT, 1);
+    T7VertexFormats.AURA_NODE = VertexFormat.builder()
+        .add("Position", VertexFormatElement.POSITION)
+        .add("Color", VertexFormatElement.COLOR)
+        .add("Center", T7VertexFormats.CENTER)
+        .add("Scale", T7VertexFormats.SCALE)
+        .add("NextScale", T7VertexFormats.NEXT_SCALE)
+        .build();
   }
 
   private static VertexFormatElement registerFormatElement(VertexFormatElement.Type type, int count) {
@@ -25,10 +35,4 @@ public class T7VertexFormats {
 
     throw new RuntimeException("Thavma Exception: Failed to register vertex format element");
   }
-
-  public static final VertexFormat AURA_NODE = VertexFormat.builder()
-      .add("Position", VertexFormatElement.POSITION)
-      .add("Color", VertexFormatElement.COLOR)
-      .add("Center", T7VertexFormats.CENTER)
-      .build();
 }
