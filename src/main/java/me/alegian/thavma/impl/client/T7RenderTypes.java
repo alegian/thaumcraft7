@@ -50,10 +50,10 @@ public class T7RenderTypes {
             false,
             true,
             RenderType.CompositeState.builder()
-                .setShaderState(RenderStateShard.RENDERTYPE_EYES_SHADER)
+                .setShaderState(RENDERTYPE_EYES_SHADER)
                 .setTextureState(renderstateshard$texturestateshard)
-                .setTransparencyState(RenderStateShard.TRANSLUCENT_TRANSPARENCY)
-                .setWriteMaskState(RenderStateShard.COLOR_DEPTH_WRITE)
+                .setTransparencyState(TRANSLUCENT_TRANSPARENCY)
+                .setWriteMaskState(COLOR_DEPTH_WRITE)
                 .createCompositeState(false)
         );
       }
@@ -62,7 +62,7 @@ public class T7RenderTypes {
   private static RenderType.CompositeState auraNodeState() {
     return RenderType.CompositeState.builder()
         .setShaderState(T7RenderStateShards.AURA_NODE_SHADER)
-        .setTransparencyState(RenderStateShard.TRANSLUCENT_TRANSPARENCY)
+        .setTransparencyState(TRANSLUCENT_TRANSPARENCY)
         .setTextureState(NO_TEXTURE)
         .setOutputState(TRANSLUCENT_TARGET)
         .setCullState(NO_CULL)

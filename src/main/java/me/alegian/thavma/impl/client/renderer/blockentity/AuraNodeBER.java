@@ -87,7 +87,7 @@ public class AuraNodeBER implements BlockEntityRenderer<AuraNodeBE> {
           for (i = 0; i < aspectList.size(); i++) {
             var stack = aspectList.get(i);
             float nextScale = i + 1 < aspectList.size() ? aspectList.get(i + 1).amount() / 32f : MIN_SCALE;
-            BERHelper.renderAuraNodeLayer(poseStack, bufferSource, stack.aspect().getColor(), 0.6f, stack.amount() / 32f, nextScale);
+            BERHelper.renderAuraNodeLayer(poseStack, bufferSource, stack.aspect().getColor(), 0.4f, stack.amount() / 32f, nextScale);
           }
         }, () -> {
           // empty nodes look like small black circles
