@@ -77,21 +77,15 @@ public class AuraNodeBER implements BlockEntityRenderer<AuraNodeBE> {
     Quaternionf rotation = Minecraft.getInstance().gameRenderer.getMainCamera().rotation();
     poseStack.mulPose(rotation);
 
-    float MIN_SCALE = 0.5f / 32f;
-
     AspectContainer.from(be)
         .map(IAspectContainer::getAspects)
         .map(AspectMap::toSortedList)
         .ifPresentOrElse(aspectList -> {
-          int i;
-          for (i = 0; i < aspectList.size(); i++) {
-            var stack = aspectList.get(i);
-            float nextScale = i + 1 < aspectList.size() ? aspectList.get(i + 1).amount() / 32f : MIN_SCALE;
-            BERHelper.renderAuraNodeLayer(poseStack, bufferSource, stack.aspect().getColor(), 0.4f, stack.amount() / 32f, nextScale);
-          }
+          for (var stack : aspectList)
+            BERHelper.renderAuraNodeLayer(poseStack, bufferSource, stack.aspect().getColor(), 0.4f, stack.amount() / 32f);
         }, () -> {
           // empty nodes look like small black circles
-          BERHelper.renderAuraNodeLayer(poseStack, bufferSource, 0, 1, MIN_SCALE, 0);
+          BERHelper.renderAuraNodeLayer(poseStack, bufferSource, 0, 1, 0.5f / 32f);
         });
 
     poseStack.popPose();

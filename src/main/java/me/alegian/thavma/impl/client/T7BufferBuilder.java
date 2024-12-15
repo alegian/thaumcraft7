@@ -48,11 +48,9 @@ public class T7BufferBuilder {
     return this;
   }
 
-  public T7BufferBuilder setScales(float scale, float nextScale) {
+  public T7BufferBuilder setScales(float scale) {
     long i = this.parent.beginElement(T7VertexFormats.SCALE);
     if (i != -1L) MemoryUtil.memPutFloat(i, scale);
-    i = this.parent.beginElement(T7VertexFormats.NEXT_SCALE);
-    if (i != -1L) MemoryUtil.memPutFloat(i, nextScale);
 
     return this;
   }

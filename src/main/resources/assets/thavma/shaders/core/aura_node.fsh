@@ -3,9 +3,7 @@
 in vec4 vertexColor;
 in vec3 fragPosition;
 flat in vec3 fragCenter;
-flat in float radius;
 flat in float scale;
-flat in float nextScale;
 
 uniform mat4 ModelViewMat;
 uniform float GameTime;

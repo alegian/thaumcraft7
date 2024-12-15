@@ -9,19 +9,16 @@ import net.neoforged.api.distmarker.OnlyIn;
 public class T7VertexFormats {
   public static VertexFormatElement CENTER;
   public static VertexFormatElement SCALE;
-  public static VertexFormatElement NEXT_SCALE;
   public static VertexFormat AURA_NODE;
 
   static {
     T7VertexFormats.CENTER = T7VertexFormats.registerFormatElement(VertexFormatElement.Type.FLOAT, 3);
     T7VertexFormats.SCALE = T7VertexFormats.registerFormatElement(VertexFormatElement.Type.FLOAT, 1);
-    T7VertexFormats.NEXT_SCALE = T7VertexFormats.registerFormatElement(VertexFormatElement.Type.FLOAT, 1);
     T7VertexFormats.AURA_NODE = VertexFormat.builder()
         .add("Position", VertexFormatElement.POSITION)
         .add("Color", VertexFormatElement.COLOR)
         .add("Center", T7VertexFormats.CENTER)
         .add("Scale", T7VertexFormats.SCALE)
-        .add("NextScale", T7VertexFormats.NEXT_SCALE)
         .build();
   }
 

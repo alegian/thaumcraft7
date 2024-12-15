@@ -7,8 +7,7 @@
     "Position",
     "Color",
     "Center",
-    "Scale",
-    "NextScale"
+    "Scale"
   ],
   "uniforms": [
     {
