@@ -126,11 +126,14 @@ public class AspectMap implements Iterable<AspectStack> {
     return this.map;
   }
 
+  /**
+   * Used for rendering Aura Node layers
+   */
   public List<AspectStack> toSortedList() {
     return this.map.entrySet().stream()
         .map(e -> AspectStack.of(e.getKey(), e.getValue()))
         .filter(a -> a.amount() > 0)
-        .sorted((a, b) -> b.amount() - a.amount())
+        .sorted(Comparator.comparingInt(AspectStack::amount))
         .toList();
   }
 
