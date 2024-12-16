@@ -22,7 +22,7 @@ public class ArcanumHelmetItem extends ArmorItem implements GeoItem {
   private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
   public ArcanumHelmetItem(Properties props) {
-    super(T7ArmorMaterials.ARCANUM, ArmorItem.Type.HELMET, props);
+    super(T7ArmorMaterials.INSTANCE.getARCANUM(), ArmorItem.Type.HELMET, props);
   }
 
   @Override

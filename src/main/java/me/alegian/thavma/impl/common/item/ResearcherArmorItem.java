@@ -22,7 +22,7 @@ public class ResearcherArmorItem extends ArmorItem implements GeoItem {
   private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
   public ResearcherArmorItem(Type type, Properties properties) {
-    super(T7ArmorMaterials.RESEARCHER, type, properties);
+    super(T7ArmorMaterials.INSTANCE.getRESEARCHER(), type, properties);
   }
 
   @Override

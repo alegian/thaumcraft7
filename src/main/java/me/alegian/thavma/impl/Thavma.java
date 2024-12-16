@@ -19,7 +19,7 @@ public class Thavma {
 
   // FML will recognize some parameter types like IEventBus or ModContainer and pass them in automatically.
   public Thavma(IEventBus modEventBus) {
-    T7ArmorMaterials.REGISTRAR.register(modEventBus);
+    T7ArmorMaterials.INSTANCE.getREGISTRAR().register(modEventBus);
     T7Blocks.REGISTRAR.register(modEventBus);
     T7Items.REGISTRAR.register(modEventBus);
     T7BlockEntities.REGISTRAR.register(modEventBus);
@@ -35,7 +35,7 @@ public class Thavma {
     WandCoreMaterials.REGISTRAR.register(modEventBus);
     WandHandleMaterials.REGISTRAR.register(modEventBus);
     Aspects.REGISTRAR.register(modEventBus);
-    Researches.REGISTRAR.register(modEventBus);
+    Researches.INSTANCE.getREGISTRAR().register(modEventBus);
     T7Attributes.INSTANCE.getREGISTRAR().register(modEventBus);
     T7GlobalLootModifierSerializers.INSTANCE.getREGISTRAR().register(modEventBus);
 

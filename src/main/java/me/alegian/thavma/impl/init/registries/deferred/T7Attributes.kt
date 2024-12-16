@@ -9,9 +9,9 @@ import net.neoforged.neoforge.registries.DeferredHolder
 import net.neoforged.neoforge.registries.DeferredRegister
 
 object T7Attributes {
-    val REGISTRAR: DeferredRegister<Attribute> = DeferredRegister.create(Registries.ATTRIBUTE, Thavma.MODID)
-    
-    val REVEALING: DeferredHolder<Attribute, Attribute> = REGISTRAR.register(
+    val REGISTRAR = DeferredRegister.create(Registries.ATTRIBUTE, Thavma.MODID)
+
+    val REVEALING = REGISTRAR.register(
         "revealing"
     ) { rl ->
         BooleanAttribute(

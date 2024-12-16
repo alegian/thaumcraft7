@@ -22,7 +22,7 @@ public class CustosArcanumArmorItem extends ArmorItem implements GeoItem {
   private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
   public CustosArcanumArmorItem(ArmorItem.Type type, Properties properties) {
-    super(T7ArmorMaterials.CUSTOS_ARCANUM, type, properties);
+    super(T7ArmorMaterials.INSTANCE.getCUSTOS_ARCANUM(), type, properties);
   }
 
   @Override

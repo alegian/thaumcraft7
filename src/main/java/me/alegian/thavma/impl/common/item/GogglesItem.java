@@ -26,7 +26,7 @@ public class GogglesItem extends ArmorItem implements GeoItem {
   private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
   public GogglesItem(Properties props) {
-    super(T7ArmorMaterials.GOGGLES, ArmorItem.Type.HELMET, props
+    super(T7ArmorMaterials.INSTANCE.getGOGGLES(), ArmorItem.Type.HELMET, props
         .durability(Type.HELMET.getDurability(15))
         .attributes(
             ItemAttributeModifiers.builder().add(
