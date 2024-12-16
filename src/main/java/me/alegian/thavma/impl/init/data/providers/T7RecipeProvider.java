@@ -94,7 +94,7 @@ public class T7RecipeProvider extends RecipeProvider {
     T7RecipeProvider.planksFromLog(pRecipeOutput, T7Blocks.GREATWOOD_PLANKS, T7Blocks.GREATWOOD_LOG);
     T7RecipeProvider.planksFromLog(pRecipeOutput, T7Blocks.SILVERWOOD_PLANKS, T7Blocks.SILVERWOOD_LOG);
     T7RecipeProvider.wandHandle(pRecipeOutput, T7Items.IRON_HANDLE.get(), Items.IRON_INGOT, Items.IRON_NUGGET);
-    T7RecipeProvider.wand(pRecipeOutput, T7Items.wandOrThrow(WandHandleMaterials.IRON.get(), WandCoreMaterials.WOOD.get()), T7Items.IRON_HANDLE.get(), Tags.Items.RODS_WOODEN);
+    T7RecipeProvider.wand(pRecipeOutput, T7Items.wandOrThrow(WandHandleMaterials.INSTANCE.getIRON().get(), WandCoreMaterials.INSTANCE.getWOOD().get()), T7Items.IRON_HANDLE.get(), Tags.Items.RODS_WOODEN);
     T7RecipeProvider.ingot(pRecipeOutput, T7Items.ARCANUM_INGOT.get(), T7Items.ARCANUM_NUGGET.get(), T7Blocks.ARCANUM_BLOCK.get());
     T7RecipeProvider.ingot(pRecipeOutput, T7Items.ORICHALCUM_INGOT.get(), T7Items.ORICHALCUM_NUGGET.get(), T7Blocks.ORICHALCUM_BLOCK.get());
 

@@ -78,15 +78,15 @@ public class T7LanguageProvider extends LanguageProvider {
     this.add(T7Items.ZEPHYR.get(), "Zephyr");
 
     Map<WandHandleMaterial, String> handleNames = new HashMap<>();
-    handleNames.put(WandHandleMaterials.IRON.get(), "Iron Handle");
-    handleNames.put(WandHandleMaterials.GOLD.get(), "Gold Handle");
-    handleNames.put(WandHandleMaterials.ORICHALCUM.get(), "Orichalcum Handle");
-    handleNames.put(WandHandleMaterials.ARCANUM.get(), "Arcanum Handle");
+    handleNames.put(WandHandleMaterials.INSTANCE.getIRON().get(), "Iron Handle");
+    handleNames.put(WandHandleMaterials.INSTANCE.getGOLD().get(), "Gold Handle");
+    handleNames.put(WandHandleMaterials.INSTANCE.getORICHALCUM().get(), "Orichalcum Handle");
+    handleNames.put(WandHandleMaterials.INSTANCE.getARCANUM().get(), "Arcanum Handle");
 
     Map<WandCoreMaterial, String> coreNames = new HashMap<>();
-    coreNames.put(WandCoreMaterials.WOOD.get(), "Wooden");
-    coreNames.put(WandCoreMaterials.GREATWOOD.get(), "Greatwood");
-    coreNames.put(WandCoreMaterials.SILVERWOOD.get(), "Silverwood");
+    coreNames.put(WandCoreMaterials.INSTANCE.getWOOD().get(), "Wooden");
+    coreNames.put(WandCoreMaterials.INSTANCE.getGREATWOOD().get(), "Greatwood");
+    coreNames.put(WandCoreMaterials.INSTANCE.getSILVERWOOD().get(), "Silverwood");
 
     for (var handleEntry : handleNames.entrySet())
       for (var coreEntry : coreNames.entrySet()) {
