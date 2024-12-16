@@ -36,8 +36,8 @@ public class Thavma {
     WandHandleMaterials.REGISTRAR.register(modEventBus);
     Aspects.REGISTRAR.register(modEventBus);
     Researches.REGISTRAR.register(modEventBus);
-    T7Attributes.REGISTRAR.register(modEventBus);
-    T7GlobalLootModifierSerializers.REGISTRAR.register(modEventBus);
+    T7Attributes.INSTANCE.getREGISTRAR().register(modEventBus);
+    T7GlobalLootModifierSerializers.INSTANCE.getREGISTRAR().register(modEventBus);
 
     T7CommonModEventsKt.registerCommonModEvents();
     T7ClientModEventsKt.registerClientModEvents();

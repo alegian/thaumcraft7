@@ -30,7 +30,7 @@ public class GogglesItem extends ArmorItem implements GeoItem {
         .durability(Type.HELMET.getDurability(15))
         .attributes(
             ItemAttributeModifiers.builder().add(
-                T7Attributes.REVEALING,
+                T7Attributes.INSTANCE.getREVEALING(),
                 T7AttributeModifiers.Revealing.GOGGLES,
                 EquipmentSlotGroup.HEAD
             ).build()

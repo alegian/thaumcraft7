@@ -13,7 +13,7 @@ public class GogglesAccessoryItem extends Item {
         .component(
             AccessoriesDataComponents.ATTRIBUTES,
             AccessoryItemAttributeModifiers.builder().addForAny(
-                T7Attributes.REVEALING,
+                T7Attributes.INSTANCE.getREVEALING(),
                 T7AttributeModifiers.Revealing.GOGGLES_ACCESSORY,
                 false
             ).build())

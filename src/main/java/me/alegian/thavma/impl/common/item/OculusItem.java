@@ -37,7 +37,7 @@ public class OculusItem extends Item implements GeoItem {
   public OculusItem(Properties props) {
     super(props.attributes(
         ItemAttributeModifiers.builder().add(
-            T7Attributes.REVEALING,
+            T7Attributes.INSTANCE.getREVEALING(),
             T7AttributeModifiers.Revealing.OCULUS,
             EquipmentSlotGroup.MAINHAND
         ).build()

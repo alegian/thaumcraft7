@@ -15,7 +15,7 @@ import java.util.Optional;
 public class ClientHelper {
   public static boolean localPlayerHasRevealing() {
     return Optional.ofNullable(Minecraft.getInstance().player)
-        .map(p -> p.getAttribute(T7Attributes.REVEALING))
+        .map(p -> p.getAttribute(T7Attributes.INSTANCE.getREVEALING()))
         .map(a -> a.getValue() == 1)
         .orElse(false);
   }
@@ -26,6 +26,6 @@ public class ClientHelper {
   }
 
   public static Optional<Item> getLocalPlayerEquipmentItem(EquipmentSlot slot) {
-    return getLocalPlayerEquipment(slot).map(ItemStack::getItem);
+    return ClientHelper.getLocalPlayerEquipment(slot).map(ItemStack::getItem);
   }
 }

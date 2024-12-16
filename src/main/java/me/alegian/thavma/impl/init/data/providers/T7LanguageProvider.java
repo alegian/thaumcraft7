@@ -132,7 +132,7 @@ public class T7LanguageProvider extends LanguageProvider {
 
     this.add("container." + Thavma.MODID + ".arcane_workbench", "Arcane Workbench");
 
-    this.add(T7Attributes.REVEALING, "Revealing");
+    this.add(T7Attributes.INSTANCE.getREVEALING(), "Revealing");
   }
 
   private void add(DeferredHolder<Attribute, Attribute> attributeHolder, String name) {
