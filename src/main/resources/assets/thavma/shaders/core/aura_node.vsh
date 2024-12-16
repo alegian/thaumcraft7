@@ -3,6 +3,7 @@
 in vec3 Position;
 in vec4 Color;
 in vec3 Center;
+in float Scale;
 
 uniform mat4 ModelViewMat;
 uniform mat4 ProjMat;
@@ -10,7 +11,7 @@ uniform mat4 ProjMat;
 out vec4 vertexColor;
 out vec3 fragPosition;
 flat out vec3 fragCenter;
-flat out float radius;
+flat out float scale;
 
 void main() {
     gl_Position = ProjMat * ModelViewMat * vec4(Position, 1.0);
@@ -18,5 +19,5 @@ void main() {
     vertexColor = Color;
     fragPosition = Position;
     fragCenter = Center;
-    radius = distance(Center, Position) / 2;
+    scale = Scale;
 }

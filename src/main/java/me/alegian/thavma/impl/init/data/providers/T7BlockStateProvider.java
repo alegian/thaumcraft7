@@ -1,9 +1,8 @@
 package me.alegian.thavma.impl.init.data.providers;
 
 import me.alegian.thavma.impl.Thavma;
-import me.alegian.thavma.impl.client.model.CubeOverlayModel;
 import me.alegian.thavma.impl.client.model.WithTransformParentModel;
-import me.alegian.thavma.impl.common.block.InfusedStoneBlock;
+import me.alegian.thavma.impl.common.block.InfusedBlock;
 import me.alegian.thavma.impl.init.registries.deferred.T7Blocks;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -36,12 +35,8 @@ public class T7BlockStateProvider extends BlockStateProvider {
         .end()
     );
 
-    this.infusedOreBlockWithItem(T7Blocks.IGNIS_INFUSED_STONE.get());
-    this.infusedOreBlockWithItem(T7Blocks.AER_INFUSED_STONE.get());
-    this.infusedOreBlockWithItem(T7Blocks.TERRA_INFUSED_STONE.get());
-    this.infusedOreBlockWithItem(T7Blocks.AQUA_INFUSED_STONE.get());
-    this.infusedOreBlockWithItem(T7Blocks.ORDO_INFUSED_STONE.get());
-    this.infusedOreBlockWithItem(T7Blocks.PERDITIO_INFUSED_STONE.get());
+    for (var infusedBlock : T7Blocks.INFUSED_BLOCKS)
+      this.infusedBlockWithItem(infusedBlock.get());
 
     this.logBlockWithItem(T7Blocks.GREATWOOD_LOG.get());
     this.simpleBlockWithItem(T7Blocks.GREATWOOD_PLANKS.get());
@@ -58,10 +53,13 @@ public class T7BlockStateProvider extends BlockStateProvider {
 
     this.simpleBlockWithItem(T7Blocks.ELEMENTAL_STONE.get());
 
-    this.particleOnly(T7Blocks.ARCANE_WORKBENCH.get());
+    this.blockEntity1x1x1(T7Blocks.ARCANE_WORKBENCH.get());
+    this.blockEntity1x1x1(T7Blocks.MATRIX.get());
+    this.blockEntity1x1x1(T7Blocks.PEDESTAL.get());
+    this.blockEntity1x2x1(T7Blocks.PILLAR.get());
 
-    this.simpleBlockWithItem(T7Blocks.ESSENTIA_CONTAINER.get(), this.models().getExistingFile(this.modLoc("essentia_container")));
-    this.simpleBlockWithItem(T7Blocks.RESEARCH_TABLE.get(), this.models().getExistingFile(this.modLoc("research_table")));
+    this.simpleBlockWithItem(T7Blocks.ESSENTIA_CONTAINER.get(), this.models().getExistingFile(Thavma.rl("essentia_container")));
+    this.simpleBlockWithItem(T7Blocks.RESEARCH_TABLE.get(), this.models().getExistingFile(Thavma.rl("research_table")));
 
     this.itemModels().getBuilder(T7Blocks.AURA_NODE.getId().getPath()).parent(new ModelFile.UncheckedModelFile("item/generated")).renderType(RenderType.translucent().name).texture("layer0", Thavma.rl("item/aura_node"));
   }
@@ -76,13 +74,11 @@ public class T7BlockStateProvider extends BlockStateProvider {
     this.itemModels().withExistingParent(this.name(block), blockRL);
   }
 
-  private void infusedOreBlockWithItem(InfusedStoneBlock block) {
-    var infusedOreBlockModel = this.models().withExistingParent(this.name(block), this.mcLoc("block/stone"))
-        .customLoader(CubeOverlayModel.Builder::new)
-        .spriteLocation(Thavma.rl("block/infused_ore"))
-        .color((block).getAspect().getColor())
-        .end();
-    this.simpleBlockWithItem(block, infusedOreBlockModel);
+  private void infusedBlockWithItem(InfusedBlock infusedBlock) {
+    var infusedOreBlockModel = this.models().withExistingParent(this.name(infusedBlock), Thavma.rl("block/infused_stone"))
+        .texture("layer0", this.blockTexture(infusedBlock.getBaseBlock()))
+        .texture("layer1", Thavma.rl("block/infused_stone"));
+    this.simpleBlockWithItem(infusedBlock, infusedOreBlockModel);
   }
 
   public void leavesBlockWithItem(LeavesBlock block) {
@@ -95,11 +91,17 @@ public class T7BlockStateProvider extends BlockStateProvider {
     var blockRL = this.blockTexture(block);
     var model = this.models().cross(this.name(block), blockRL).renderType(RenderType.cutout().name);
     this.simpleBlock(block, model);
-    this.itemModels().withExistingParent(this.name(block), this.mcLoc("item/generated")).texture("layer0", blockRL);
+    this.itemModels().withExistingParent(this.name(block), "item/generated").texture("layer0", blockRL);
   }
 
-  public void particleOnly(Block block) {
+  public void blockEntity1x1x1(Block block) {
     this.simpleBlockWithItem(block, this.models().getBuilder(this.name(block)).texture("particle", this.blockTexture(block)));
+    this.itemModels().withExistingParent(this.name(block), "item/chest").texture("particle", this.blockTexture(block));
+  }
+
+  public void blockEntity1x2x1(Block block) {
+    this.simpleBlockWithItem(block, this.models().getBuilder(this.name(block)).texture("particle", this.blockTexture(block)));
+    this.itemModels().withExistingParent(this.name(block), "item/template_bed").texture("particle", this.blockTexture(block));
   }
 
   private ResourceLocation key(Block block) {

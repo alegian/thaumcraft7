@@ -4,21 +4,23 @@ import me.alegian.thavma.impl.Thavma;
 import me.alegian.thavma.impl.client.T7Colors;
 import me.alegian.thavma.impl.client.T7RenderStateShards;
 import me.alegian.thavma.impl.client.T7VertexFormats;
+import me.alegian.thavma.impl.client.extension.BEWLRItemExtensionFactory;
 import me.alegian.thavma.impl.client.extension.OculusItemExtensions;
 import me.alegian.thavma.impl.client.extension.WandItemExtensions;
 import me.alegian.thavma.impl.client.gui.VisGuiOverlay;
 import me.alegian.thavma.impl.client.gui.tooltip.AspectClientTooltipComponent;
 import me.alegian.thavma.impl.client.gui.tooltip.AspectTooltipComponent;
-import me.alegian.thavma.impl.client.model.CubeOverlayModel;
 import me.alegian.thavma.impl.client.model.WithTransformParentModel;
 import me.alegian.thavma.impl.client.particle.CrucibleBubbleParticle;
-import me.alegian.thavma.impl.client.renderer.blockentity.AuraNodeBER;
-import me.alegian.thavma.impl.client.renderer.blockentity.CrucibleBER;
-import me.alegian.thavma.impl.client.renderer.blockentity.WorkbenchBER;
+import me.alegian.thavma.impl.client.renderer.blockentity.*;
 import me.alegian.thavma.impl.client.renderer.entity.FancyItemER;
 import me.alegian.thavma.impl.client.renderer.entity.VisER;
 import me.alegian.thavma.impl.client.screen.WorkbenchScreen;
 import me.alegian.thavma.impl.client.texture.atlas.AspectAtlas;
+import me.alegian.thavma.impl.common.block.entity.MatrixBE;
+import me.alegian.thavma.impl.common.block.entity.PedestalBE;
+import me.alegian.thavma.impl.common.block.entity.PillarBE;
+import me.alegian.thavma.impl.common.block.entity.WorkbenchBE;
 import me.alegian.thavma.impl.common.item.TestaItem;
 import me.alegian.thavma.impl.init.registries.deferred.*;
 import net.minecraft.client.renderer.ShaderInstance;
@@ -42,6 +44,9 @@ public class T7ClientModEvents {
     event.registerBlockEntityRenderer(T7BlockEntities.AURA_NODE.get(), ctx -> new AuraNodeBER());
     event.registerBlockEntityRenderer(T7BlockEntities.CRUCIBLE.get(), ctx -> new CrucibleBER());
     event.registerBlockEntityRenderer(T7BlockEntities.WORKBENCH.get(), ctx -> new WorkbenchBER());
+    event.registerBlockEntityRenderer(T7BlockEntities.MATRIX.get(), ctx -> new MatrixBER());
+    event.registerBlockEntityRenderer(T7BlockEntities.PILLAR.get(), ctx -> new PillarBER());
+    event.registerBlockEntityRenderer(T7BlockEntities.PEDESTAL.get(), ctx -> new PedestalBER());
     event.registerEntityRenderer(T7EntityTypes.FANCY_ITEM.get(), FancyItemER::new);
     event.registerEntityRenderer(T7EntityTypes.VIS.get(), VisER::new);
   }
@@ -55,6 +60,10 @@ public class T7ClientModEvents {
   public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
     for (var wand : T7Items.WANDS.values()) event.registerItem(new WandItemExtensions(), wand);
     event.registerItem(new OculusItemExtensions(), T7Items.OCULUS.get());
+    event.registerItem(BEWLRItemExtensionFactory.create(new WorkbenchBE()), T7Blocks.ARCANE_WORKBENCH.get().asItem());
+    event.registerItem(BEWLRItemExtensionFactory.create(new MatrixBE()), T7Blocks.MATRIX.get().asItem());
+    event.registerItem(BEWLRItemExtensionFactory.create(new PillarBE()), T7Blocks.PILLAR.get().asItem());
+    event.registerItem(BEWLRItemExtensionFactory.create(new PedestalBE()), T7Blocks.PEDESTAL.get().asItem());
   }
 
   @SubscribeEvent
@@ -64,7 +73,6 @@ public class T7ClientModEvents {
 
   @SubscribeEvent
   public static void registerGeometryLoaders(ModelEvent.RegisterGeometryLoaders event) {
-    event.register(CubeOverlayModel.ID, CubeOverlayModel.Loader.INSTANCE);
     event.register(WithTransformParentModel.ID, WithTransformParentModel.Loader.INSTANCE);
   }
 
@@ -93,6 +101,11 @@ public class T7ClientModEvents {
         },
         T7Blocks.SILVERWOOD_LEAVES.get()
     );
+    for (var infusedBlock : T7Blocks.INFUSED_BLOCKS)
+      event.register((stack, tintIndex) -> {
+        if (tintIndex == 0) return infusedBlock.get().getAspect().getColor();
+        return 0xFFFFFFFF;
+      }, infusedBlock.get());
   }
 
   @SubscribeEvent
@@ -109,6 +122,11 @@ public class T7ClientModEvents {
         },
         T7Blocks.SILVERWOOD_LEAVES.get()
     );
+    for (var infusedBlock : T7Blocks.INFUSED_BLOCKS)
+      event.register((blockState, blockAndTintGetter, blockPos, tintIndex) -> {
+        if (tintIndex == 0) return infusedBlock.get().getAspect().getColor();
+        return 0xFFFFFFFF;
+      }, infusedBlock.get());
   }
 
   @SubscribeEvent

@@ -25,7 +25,7 @@ public class PerditioOre {
   );
 
   public static Holder<ConfiguredFeature<?, ?>> registerConfigured(BootstrapContext<ConfiguredFeature<?, ?>> context) {
-    return OreFeatureHelper.registerConfiguredInfusedStone(context, PerditioOre.CONFIGURED_FEATURE, T7Blocks.PERDITIO_INFUSED_STONE.get().defaultBlockState());
+    return OreFeatureHelper.registerConfiguredInfusedStone(context, PerditioOre.CONFIGURED_FEATURE, T7Blocks.PERDITIO_INFUSED_STONE.get().defaultBlockState(), T7Blocks.PERDITIO_INFUSED_DEEPSLATE.get().defaultBlockState());
   }
 
   public static Holder<PlacedFeature> registerPlaced(BootstrapContext<PlacedFeature> context) {

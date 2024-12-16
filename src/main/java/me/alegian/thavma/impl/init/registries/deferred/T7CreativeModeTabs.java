@@ -14,7 +14,7 @@ public class T7CreativeModeTabs {
         Thavma.MODID,
         () -> CreativeModeTab
             .builder()
-            .title(Component.translatable("thavma"))
+            .title(Component.translatable(Thavma.MODID))
             .icon(() -> T7Items.THAUMONOMICON.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
               output.accept(T7Blocks.AURA_NODE.get());
@@ -22,16 +22,15 @@ public class T7CreativeModeTabs {
 
               output.accept(T7Blocks.CRUCIBLE.get());
               output.accept(T7Blocks.ARCANE_WORKBENCH.get());
+              output.accept(T7Blocks.MATRIX.get());
+              output.accept(T7Blocks.PILLAR.get());
+              output.accept(T7Blocks.PEDESTAL.get());
               output.accept(T7Blocks.RESEARCH_TABLE.get());
 
               output.accept(T7Blocks.ELEMENTAL_STONE.get());
 
-              output.accept(T7Blocks.IGNIS_INFUSED_STONE.get());
-              output.accept(T7Blocks.AER_INFUSED_STONE.get());
-              output.accept(T7Blocks.TERRA_INFUSED_STONE.get());
-              output.accept(T7Blocks.AQUA_INFUSED_STONE.get());
-              output.accept(T7Blocks.ORDO_INFUSED_STONE.get());
-              output.accept(T7Blocks.PERDITIO_INFUSED_STONE.get());
+              for (var infusedBlock : T7Blocks.INFUSED_BLOCKS)
+                output.accept(infusedBlock.get());
 
               output.accept(T7Blocks.ARCANUM_BLOCK.get());
               output.accept(T7Blocks.ORICHALCUM_BLOCK.get());

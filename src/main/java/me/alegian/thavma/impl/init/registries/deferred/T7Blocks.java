@@ -14,6 +14,7 @@ import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 public class T7Blocks {
@@ -24,16 +25,26 @@ public class T7Blocks {
 
   public static final DeferredBlock<CrucibleBlock> CRUCIBLE = T7Blocks.register("crucible", CrucibleBlock::new);
   public static final DeferredBlock<WorkbenchBlock> ARCANE_WORKBENCH = T7Blocks.register("arcane_workbench", WorkbenchBlock::new);
+  public static final DeferredBlock<MatrixBlock> MATRIX = T7Blocks.register("infusion_matrix", MatrixBlock::new);
+  public static final DeferredBlock<PillarBlock> PILLAR = T7Blocks.register("infusion_pillar", PillarBlock::new);
+  public static final DeferredBlock<PedestalBlock> PEDESTAL = T7Blocks.register("infusion_pedestal", PedestalBlock::new);
   public static final DeferredBlock<ResearchTableBlock> RESEARCH_TABLE = T7Blocks.register("research_table", ResearchTableBlock::new);
 
   public static final DeferredBlock<Block> ELEMENTAL_STONE = T7Blocks.register("elemental_stone", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)));
 
-  public static final DeferredBlock<InfusedStoneBlock> IGNIS_INFUSED_STONE = T7Blocks.register("ignis_ore", () -> new InfusedStoneBlock(Aspects.IGNIS));
-  public static final DeferredBlock<InfusedStoneBlock> AER_INFUSED_STONE = T7Blocks.register("aer_ore", () -> new InfusedStoneBlock(Aspects.AER));
-  public static final DeferredBlock<InfusedStoneBlock> TERRA_INFUSED_STONE = T7Blocks.register("terra_ore", () -> new InfusedStoneBlock(Aspects.TERRA));
-  public static final DeferredBlock<InfusedStoneBlock> AQUA_INFUSED_STONE = T7Blocks.register("aqua_ore", () -> new InfusedStoneBlock(Aspects.AQUA));
-  public static final DeferredBlock<InfusedStoneBlock> ORDO_INFUSED_STONE = T7Blocks.register("ordo_ore", () -> new InfusedStoneBlock(Aspects.ORDO));
-  public static final DeferredBlock<InfusedStoneBlock> PERDITIO_INFUSED_STONE = T7Blocks.register("perditio_ore", () -> new InfusedStoneBlock(Aspects.PERDITIO));
+  public static final DeferredBlock<InfusedBlock> IGNIS_INFUSED_STONE = T7Blocks.register("ignis_infused_stone", () -> new InfusedBlock(Aspects.IGNIS, BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_ORE), () -> Blocks.STONE));
+  public static final DeferredBlock<InfusedBlock> AER_INFUSED_STONE = T7Blocks.register("aer_infused_stone", () -> new InfusedBlock(Aspects.AER, BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_ORE), () -> Blocks.STONE));
+  public static final DeferredBlock<InfusedBlock> TERRA_INFUSED_STONE = T7Blocks.register("terra_infused_stone", () -> new InfusedBlock(Aspects.TERRA, BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_ORE), () -> Blocks.STONE));
+  public static final DeferredBlock<InfusedBlock> AQUA_INFUSED_STONE = T7Blocks.register("aqua_infused_stone", () -> new InfusedBlock(Aspects.AQUA, BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_ORE), () -> Blocks.STONE));
+  public static final DeferredBlock<InfusedBlock> ORDO_INFUSED_STONE = T7Blocks.register("ordo_infused_stone", () -> new InfusedBlock(Aspects.ORDO, BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_ORE), () -> Blocks.STONE));
+  public static final DeferredBlock<InfusedBlock> PERDITIO_INFUSED_STONE = T7Blocks.register("perditio_infused_stone", () -> new InfusedBlock(Aspects.PERDITIO, BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_ORE), () -> Blocks.STONE));
+  public static final DeferredBlock<InfusedBlock> IGNIS_INFUSED_DEEPSLATE = T7Blocks.register("ignis_infused_deepslate", () -> new InfusedBlock(Aspects.IGNIS, BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_IRON_ORE), () -> Blocks.DEEPSLATE));
+  public static final DeferredBlock<InfusedBlock> AER_INFUSED_DEEPSLATE = T7Blocks.register("aer_infused_deepslate", () -> new InfusedBlock(Aspects.AER, BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_IRON_ORE), () -> Blocks.DEEPSLATE));
+  public static final DeferredBlock<InfusedBlock> TERRA_INFUSED_DEEPSLATE = T7Blocks.register("terra_infused_deepslate", () -> new InfusedBlock(Aspects.TERRA, BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_IRON_ORE), () -> Blocks.DEEPSLATE));
+  public static final DeferredBlock<InfusedBlock> AQUA_INFUSED_DEEPSLATE = T7Blocks.register("aqua_infused_deepslate", () -> new InfusedBlock(Aspects.AQUA, BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_IRON_ORE), () -> Blocks.DEEPSLATE));
+  public static final DeferredBlock<InfusedBlock> ORDO_INFUSED_DEEPSLATE = T7Blocks.register("ordo_infused_deepslate", () -> new InfusedBlock(Aspects.ORDO, BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_IRON_ORE), () -> Blocks.DEEPSLATE));
+  public static final DeferredBlock<InfusedBlock> PERDITIO_INFUSED_DEEPSLATE = T7Blocks.register("perditio_infused_deepslate", () -> new InfusedBlock(Aspects.PERDITIO, BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_IRON_ORE), () -> Blocks.DEEPSLATE));
+  public static final List<DeferredBlock<InfusedBlock>> INFUSED_BLOCKS = List.of(T7Blocks.IGNIS_INFUSED_STONE, T7Blocks.AER_INFUSED_STONE, T7Blocks.TERRA_INFUSED_STONE, T7Blocks.AQUA_INFUSED_STONE, T7Blocks.ORDO_INFUSED_STONE, T7Blocks.PERDITIO_INFUSED_STONE, T7Blocks.IGNIS_INFUSED_DEEPSLATE, T7Blocks.AER_INFUSED_DEEPSLATE, T7Blocks.TERRA_INFUSED_DEEPSLATE, T7Blocks.AQUA_INFUSED_DEEPSLATE, T7Blocks.ORDO_INFUSED_DEEPSLATE, T7Blocks.PERDITIO_INFUSED_DEEPSLATE);
 
   public static final DeferredBlock<LeavesBlock> GREATWOOD_LEAVES = T7Blocks.register("greatwood_leaves", T7Blocks::leaves);
   public static final DeferredBlock<RotatedPillarBlock> GREATWOOD_LOG = T7Blocks.register("greatwood_log", () -> T7Blocks.log(MapColor.WOOD, MapColor.PODZOL));

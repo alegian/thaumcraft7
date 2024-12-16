@@ -1,9 +1,7 @@
 package me.alegian.thavma.impl.init.registries.deferred;
 
 import me.alegian.thavma.impl.Thavma;
-import me.alegian.thavma.impl.common.block.entity.AuraNodeBE;
-import me.alegian.thavma.impl.common.block.entity.CrucibleBE;
-import me.alegian.thavma.impl.common.block.entity.WorkbenchBE;
+import me.alegian.thavma.impl.common.block.entity.*;
 import me.alegian.thavma.impl.common.data.capability.AspectContainer;
 import me.alegian.thavma.impl.init.registries.T7Capabilities;
 import net.minecraft.core.registries.Registries;
@@ -21,6 +19,15 @@ public class T7BlockEntities {
     event.registerBlockEntity(T7Capabilities.AspectContainer.BLOCK, T7BlockEntities.CRUCIBLE.get(), (be, context) -> new AspectContainer(be));
     event.registerBlockEntity(T7Capabilities.AspectContainer.BLOCK, T7BlockEntities.AURA_NODE.get(), (be, context) -> new AspectContainer(be));
   }
+
+  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<PedestalBE>> PEDESTAL =
+      T7BlockEntities.REGISTRAR.register(
+          "infusion_pedestal",
+          () -> BlockEntityType.Builder.of(
+              PedestalBE::new,
+              T7Blocks.PEDESTAL.get()
+          ).build(null)
+      );
 
   public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<AuraNodeBE>> AURA_NODE =
       T7BlockEntities.REGISTRAR.register(
@@ -48,4 +55,24 @@ public class T7BlockEntities {
               T7Blocks.ARCANE_WORKBENCH.get()
           ).build(null)
       );
+
+  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<MatrixBE>> MATRIX =
+      T7BlockEntities.REGISTRAR.register(
+          "infusion_matrix",
+          () -> BlockEntityType.Builder.of(
+              MatrixBE::new,
+              T7Blocks.MATRIX.get()
+          ).build(null)
+      );
+
+  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<PillarBE>> PILLAR =
+      T7BlockEntities.REGISTRAR.register(
+          "infusion_pillar",
+          () -> BlockEntityType.Builder.of(
+              PillarBE::new,
+              T7Blocks.PILLAR.get()
+          ).build(null)
+      );
+
+
 }

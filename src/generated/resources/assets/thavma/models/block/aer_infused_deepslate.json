@@ -1,0 +1,7 @@
+{
+  "parent": "thavma:block/infused_stone",
+  "textures": {
+    "layer0": "minecraft:block/deepslate",
+    "layer1": "thavma:block/infused_stone"
+  }
+}

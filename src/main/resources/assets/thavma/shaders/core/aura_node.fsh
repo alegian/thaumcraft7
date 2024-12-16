@@ -3,7 +3,7 @@
 in vec4 vertexColor;
 in vec3 fragPosition;
 flat in vec3 fragCenter;
-flat in float radius;
+flat in float scale;
 
 uniform mat4 ModelViewMat;
 uniform float GameTime;
@@ -38,10 +38,10 @@ void main() {
     vec3 diff = fragCenter - fragPosition;
     vec4 cameraDiff = ModelViewMat * vec4(diff, 1.0);
     float angle = atan(cameraDiff.y, cameraDiff.x);
-    float phase = random(radius) * 2 * 3.14159;
+    float phase = random(scale) * 2 * 3.14159;
     // wavy patterns only for nodes with a decent radius
-    if (length(diff) > radius * (1 - 0.2 * (sin(angle * 32 + phase) + 1)) && radius > 0.2) discard;
+    if (length(diff) > scale * (1 - 0.2 * (sin(angle * 32 + phase) + 1)) && scale > 0.2) discard;
     // smaller ones are circular
-    if (length(diff) > radius) discard;
+    if (length(diff) > scale) discard;
     fragColor = vertexColor;
 }
