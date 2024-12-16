@@ -1,6 +1,10 @@
 package me.alegian.thavma.impl;
 
 import com.mojang.logging.LogUtils;
+import me.alegian.thavma.impl.client.event.T7ClientGameEventsKt;
+import me.alegian.thavma.impl.client.event.T7ClientModEventsKt;
+import me.alegian.thavma.impl.common.event.T7CommonGameEventsKt;
+import me.alegian.thavma.impl.common.event.T7CommonModEventsKt;
 import me.alegian.thavma.impl.init.registries.deferred.*;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
@@ -34,6 +38,11 @@ public class Thavma {
     Researches.REGISTRAR.register(modEventBus);
     T7Attributes.REGISTRAR.register(modEventBus);
     T7GlobalLootModifierSerializers.REGISTRAR.register(modEventBus);
+
+    T7CommonModEventsKt.registerCommonModEvents();
+    T7ClientModEventsKt.registerClientModEvents();
+    T7CommonGameEventsKt.registerCommonGameEvents();
+    T7ClientGameEventsKt.registerClientGameEvents();
   }
 
   public static ResourceLocation rl(String path) {

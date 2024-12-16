@@ -1,15 +1,11 @@
-@file:EventBusSubscriber(modid = Thavma.MODID, value = [Dist.CLIENT], bus = EventBusSubscriber.Bus.GAME)
-
 package me.alegian.thavma.impl.client.event
 
 import com.mojang.datafixers.util.Either
-import me.alegian.thavma.impl.Thavma
 import me.alegian.thavma.impl.client.ClientHelper
 import me.alegian.thavma.impl.client.gui.tooltip.AspectTooltipComponent
 import me.alegian.thavma.impl.client.gui.tooltip.TooltipHelper
 import me.alegian.thavma.impl.client.renderer.AspectRenderer
 import me.alegian.thavma.impl.client.renderer.HammerHighlightRenderer
-import me.alegian.thavma.impl.common.aspect.AspectMap
 import me.alegian.thavma.impl.common.block.AuraNodeBlock
 import me.alegian.thavma.impl.common.data.capability.AspectContainer
 import me.alegian.thavma.impl.common.data.capability.IAspectContainer
@@ -20,17 +16,16 @@ import net.minecraft.world.entity.EquipmentSlot
 import net.minecraft.world.phys.BlockHitResult
 import net.minecraft.world.phys.HitResult
 import net.neoforged.api.distmarker.Dist
-import net.neoforged.bus.api.SubscribeEvent
-import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.client.event.RenderHighlightEvent
 import net.neoforged.neoforge.client.event.RenderLevelStageEvent
 import net.neoforged.neoforge.client.event.RenderPlayerEvent
 import net.neoforged.neoforge.client.event.RenderTooltipEvent.GatherComponents
+import thedarkcolour.kotlinforforge.neoforge.forge.DIST
+import thedarkcolour.kotlinforforge.neoforge.forge.FORGE_BUS as KFF_GAME_BUS
 
 
 private var allowHammerOutlineEvents = true
 
-@SubscribeEvent
 fun renderBlockHighlight(event: RenderHighlightEvent.Block) {
     val level = Minecraft.getInstance().level ?: return
     val hitResult = event.target
@@ -50,7 +45,6 @@ fun renderBlockHighlight(event: RenderHighlightEvent.Block) {
     if (level.getBlockState(targetPos).block is AuraNodeBlock) event.isCanceled = true
 }
 
-@SubscribeEvent
 fun renderLevelAfterWeather(event: RenderLevelStageEvent) {
     if (event.stage !== RenderLevelStageEvent.Stage.AFTER_WEATHER) return
 
@@ -67,7 +61,7 @@ fun renderLevelAfterWeather(event: RenderLevelStageEvent) {
 
     AspectContainer.at(minecraft.level, blockPos)
         .map(IAspectContainer::getAspects)
-        .ifPresent { aspects: AspectMap? ->
+        .ifPresent { aspects ->
             AspectRenderer.renderAfterWeather(
                 aspects,
                 event.poseStack,
@@ -77,12 +71,11 @@ fun renderLevelAfterWeather(event: RenderLevelStageEvent) {
         }
 }
 
-@SubscribeEvent
 fun gatherTooltipComponents(event: GatherComponents) {
     if (!ClientHelper.localPlayerHasRevealing()) return
 
     AspectContainer.from(event.itemStack).map(IAspectContainer::getAspects)
-        .ifPresent { aspectMap: AspectMap? ->
+        .ifPresent { aspectMap ->
             event.tooltipElements.add(
                 Either.left(
                     TooltipHelper.containedPrimals(aspectMap)
@@ -95,7 +88,6 @@ fun gatherTooltipComponents(event: GatherComponents) {
     event.tooltipElements.addLast(Either.right(AspectTooltipComponent(event.itemStack)))
 }
 
-@SubscribeEvent
 fun renderPlayerPre(event: RenderPlayerEvent.Pre) {
     val model = event.renderer.model
 
@@ -112,3 +104,11 @@ fun renderPlayerPre(event: RenderPlayerEvent.Pre) {
     }
 }
 
+fun registerClientGameEvents() {
+    if (DIST != Dist.CLIENT) return
+
+    KFF_GAME_BUS.addListener(::renderBlockHighlight)
+    KFF_GAME_BUS.addListener(::renderLevelAfterWeather)
+    KFF_GAME_BUS.addListener(::gatherTooltipComponents)
+    KFF_GAME_BUS.addListener(::renderPlayerPre)
+}
