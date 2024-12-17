@@ -41,9 +41,9 @@ public class SilverwoodTree {
 
   public static TreeConfiguration.TreeConfigurationBuilder createSilverwood() {
     return new TreeConfiguration.TreeConfigurationBuilder(
-        BlockStateProvider.simple(T7Blocks.SILVERWOOD_LOG.get()),
+        BlockStateProvider.simple(T7Blocks.INSTANCE.getSILVERWOOD_LOG().get()),
         new StraightTrunkPlacer(6, 4, 0),
-        BlockStateProvider.simple(T7Blocks.SILVERWOOD_LEAVES.get()),
+        BlockStateProvider.simple(T7Blocks.INSTANCE.getSILVERWOOD_LEAVES().get()),
         new PineFoliagePlacer(ConstantInt.of(1), ConstantInt.of(1), UniformInt.of(3, 4)),
         new TwoLayersFeatureSize(2, 0, 2)
     );

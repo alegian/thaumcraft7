@@ -17,33 +17,33 @@ public class T7CreativeModeTabs {
             .title(Component.translatable(Thavma.MODID))
             .icon(() -> T7Items.THAUMONOMICON.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
-              output.accept(T7Blocks.AURA_NODE.get());
-              output.accept(T7Blocks.ESSENTIA_CONTAINER.get());
+              output.accept(T7Blocks.INSTANCE.getAURA_NODE().get());
+              output.accept(T7Blocks.INSTANCE.getESSENTIA_CONTAINER().get());
 
-              output.accept(T7Blocks.CRUCIBLE.get());
-              output.accept(T7Blocks.ARCANE_WORKBENCH.get());
-              output.accept(T7Blocks.MATRIX.get());
-              output.accept(T7Blocks.PILLAR.get());
-              output.accept(T7Blocks.PEDESTAL.get());
-              output.accept(T7Blocks.RESEARCH_TABLE.get());
+              output.accept(T7Blocks.INSTANCE.getCRUCIBLE().get());
+              output.accept(T7Blocks.INSTANCE.getARCANE_WORKBENCH().get());
+              output.accept(T7Blocks.INSTANCE.getMATRIX().get());
+              output.accept(T7Blocks.INSTANCE.getPILLAR().get());
+              output.accept(T7Blocks.INSTANCE.getPEDESTAL().get());
+              output.accept(T7Blocks.INSTANCE.getPEDESTAL().get());
 
-              output.accept(T7Blocks.ELEMENTAL_STONE.get());
+              output.accept(T7Blocks.INSTANCE.getELEMENTAL_STONE().get());
 
-              for (var infusedBlock : T7Blocks.INFUSED_BLOCKS)
+              for (var infusedBlock : T7Blocks.INSTANCE.getINFUSED_BLOCKS())
                 output.accept(infusedBlock.get());
 
-              output.accept(T7Blocks.ARCANUM_BLOCK.get());
-              output.accept(T7Blocks.ORICHALCUM_BLOCK.get());
+              output.accept(T7Blocks.INSTANCE.getARCANUM_BLOCK().get());
+              output.accept(T7Blocks.INSTANCE.getORICHALCUM_BLOCK().get());
 
-              output.accept(T7Blocks.GREATWOOD_LEAVES.get());
-              output.accept(T7Blocks.GREATWOOD_LOG.get());
-              output.accept(T7Blocks.GREATWOOD_PLANKS.get());
-              output.accept(T7Blocks.GREATWOOD_SAPLING.get());
+              output.accept(T7Blocks.INSTANCE.getGREATWOOD_LEAVES().get());
+              output.accept(T7Blocks.INSTANCE.getGREATWOOD_LOG().get());
+              output.accept(T7Blocks.INSTANCE.getGREATWOOD_PLANKS().get());
+              output.accept(T7Blocks.INSTANCE.getGREATWOOD_SAPLING().get());
 
-              output.accept(T7Blocks.SILVERWOOD_LEAVES.get());
-              output.accept(T7Blocks.SILVERWOOD_SAPLING.get());
-              output.accept(T7Blocks.SILVERWOOD_LOG.get());
-              output.accept(T7Blocks.SILVERWOOD_PLANKS.get());
+              output.accept(T7Blocks.INSTANCE.getSILVERWOOD_LEAVES().get());
+              output.accept(T7Blocks.INSTANCE.getSILVERWOOD_SAPLING().get());
+              output.accept(T7Blocks.INSTANCE.getSILVERWOOD_LOG().get());
+              output.accept(T7Blocks.INSTANCE.getSILVERWOOD_PLANKS().get());
 
               output.accept(T7Items.IRON_HANDLE.get());
               output.accept(T7Items.GOLD_HANDLE.get());

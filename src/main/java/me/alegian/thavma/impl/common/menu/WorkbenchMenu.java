@@ -81,11 +81,6 @@ public class WorkbenchMenu extends Menu {
     return List.of(this.wandContainer, this.craftingContainer);
   }
 
-  @Override
-  public boolean stillValid(@NotNull Player pPlayer) {
-    return AbstractContainerMenu.stillValid(this.levelAccess, pPlayer, T7Blocks.ARCANE_WORKBENCH.get());
-  }
-
   public WorkbenchResultContainer getResultContainer() {
     return this.resultContainer;
   }
@@ -107,6 +102,11 @@ public class WorkbenchMenu extends Menu {
     super.removed(pPlayer);
     this.levelAccess.execute((level, blockPos) -> this.clearContainer(pPlayer, this.craftingContainer));
     this.levelAccess.execute((level, blockPos) -> this.clearContainer(pPlayer, this.wandContainer));
+  }
+
+  @Override
+  public boolean stillValid(@NotNull Player pPlayer) {
+    return AbstractContainerMenu.stillValid(this.levelAccess, pPlayer, T7Blocks.INSTANCE.getARCANE_WORKBENCH().get());
   }
 
   @Override

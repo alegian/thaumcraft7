@@ -31,7 +31,7 @@ public class AuraNodeBER implements BlockEntityRenderer<AuraNodeBE> {
     poseStack.pushPose();
     poseStack.scale(3f, 3f, 3f);
     poseStack.translate(-0.5d, -0.5d, -0.5d);
-    Minecraft.getInstance().getBlockRenderer().renderSingleBlock(T7Blocks.ESSENTIA_CONTAINER.get().defaultBlockState(), poseStack, bufferSource, combinedLight, combinedOverlay, ModelData.EMPTY, RenderType.translucent());
+    Minecraft.getInstance().getBlockRenderer().renderSingleBlock(T7Blocks.INSTANCE.getESSENTIA_CONTAINER().get().defaultBlockState(), poseStack, bufferSource, combinedLight, combinedOverlay, ModelData.EMPTY, RenderType.translucent());
     poseStack.popPose();
   }
 

@@ -25,7 +25,7 @@ public class OrdoOre {
   );
 
   public static Holder<ConfiguredFeature<?, ?>> registerConfigured(BootstrapContext<ConfiguredFeature<?, ?>> context) {
-    return OreFeatureHelper.registerConfiguredInfusedStone(context, OrdoOre.CONFIGURED_FEATURE, T7Blocks.ORDO_INFUSED_STONE.get().defaultBlockState(), T7Blocks.ORDO_INFUSED_DEEPSLATE.get().defaultBlockState());
+    return OreFeatureHelper.registerConfiguredInfusedStone(context, OrdoOre.CONFIGURED_FEATURE, T7Blocks.INSTANCE.getORDO_INFUSED_STONE().get().defaultBlockState(), T7Blocks.INSTANCE.getORDO_INFUSED_DEEPSLATE().get().defaultBlockState());
   }
 
   public static Holder<PlacedFeature> registerPlaced(BootstrapContext<PlacedFeature> context) {

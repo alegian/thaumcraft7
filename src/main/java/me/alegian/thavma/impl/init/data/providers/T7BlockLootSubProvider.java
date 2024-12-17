@@ -21,47 +21,47 @@ public class T7BlockLootSubProvider extends BlockLootSubProvider {
 
   @Override
   protected void generate() {
-    this.dropSelf(T7Blocks.GREATWOOD_LOG.get());
-    this.dropSelf(T7Blocks.GREATWOOD_PLANKS.get());
-    this.add(T7Blocks.GREATWOOD_LEAVES.get(), l -> this.createLeavesDrops(l, T7Blocks.GREATWOOD_SAPLING.get(), BlockLootSubProvider.NORMAL_LEAVES_SAPLING_CHANCES));
-    this.dropSelf(T7Blocks.GREATWOOD_SAPLING.get());
+    this.dropSelf(T7Blocks.INSTANCE.getGREATWOOD_LOG().get());
+    this.dropSelf(T7Blocks.INSTANCE.getGREATWOOD_PLANKS().get());
+    this.add(T7Blocks.INSTANCE.getGREATWOOD_LEAVES().get(), l -> this.createLeavesDrops(l, T7Blocks.INSTANCE.getGREATWOOD_SAPLING().get(), BlockLootSubProvider.NORMAL_LEAVES_SAPLING_CHANCES));
+    this.dropSelf(T7Blocks.INSTANCE.getGREATWOOD_SAPLING().get());
 
-    this.dropSelf(T7Blocks.SILVERWOOD_LOG.get());
-    this.dropSelf(T7Blocks.SILVERWOOD_PLANKS.get());
-    this.add(T7Blocks.SILVERWOOD_LEAVES.get(), l -> this.createLeavesDrops(l, T7Blocks.SILVERWOOD_SAPLING.get(), BlockLootSubProvider.NORMAL_LEAVES_SAPLING_CHANCES));
-    this.dropSelf(T7Blocks.SILVERWOOD_SAPLING.get());
+    this.dropSelf(T7Blocks.INSTANCE.getSILVERWOOD_LOG().get());
+    this.dropSelf(T7Blocks.INSTANCE.getSILVERWOOD_PLANKS().get());
+    this.add(T7Blocks.INSTANCE.getSILVERWOOD_LEAVES().get(), l -> this.createLeavesDrops(l, T7Blocks.INSTANCE.getSILVERWOOD_SAPLING().get(), BlockLootSubProvider.NORMAL_LEAVES_SAPLING_CHANCES));
+    this.dropSelf(T7Blocks.INSTANCE.getSILVERWOOD_SAPLING().get());
 
-    this.dropSelf(T7Blocks.CRUCIBLE.get());
-    this.dropSelf(T7Blocks.AURA_NODE.get()); // TODO: replace
-    this.dropSelf(T7Blocks.ARCANE_WORKBENCH.get());
-    this.dropSelf(T7Blocks.MATRIX.get());
-    this.dropSelf(T7Blocks.PILLAR.get());
-    this.dropSelf(T7Blocks.PEDESTAL.get());
-    this.dropSelf(T7Blocks.RESEARCH_TABLE.get());
-    this.dropSelf(T7Blocks.ELEMENTAL_STONE.get());
+    this.dropSelf(T7Blocks.INSTANCE.getCRUCIBLE().get());
+    this.dropSelf(T7Blocks.INSTANCE.getAURA_NODE().get()); // TODO: replace
+    this.dropSelf(T7Blocks.INSTANCE.getARCANE_WORKBENCH().get());
+    this.dropSelf(T7Blocks.INSTANCE.getMATRIX().get());
+    this.dropSelf(T7Blocks.INSTANCE.getPILLAR().get());
+    this.dropSelf(T7Blocks.INSTANCE.getPEDESTAL().get());
+    this.dropSelf(T7Blocks.INSTANCE.getRESEARCH_TABLE().get());
+    this.dropSelf(T7Blocks.INSTANCE.getELEMENTAL_STONE().get());
 
-    this.dropSelf(T7Blocks.ARCANUM_BLOCK.get());
-    this.dropSelf(T7Blocks.ORICHALCUM_BLOCK.get());
+    this.dropSelf(T7Blocks.INSTANCE.getARCANUM_BLOCK().get());
+    this.dropSelf(T7Blocks.INSTANCE.getORICHALCUM_BLOCK().get());
 
-    this.dropSelf(T7Blocks.ESSENTIA_CONTAINER.get());
+    this.dropSelf(T7Blocks.INSTANCE.getESSENTIA_CONTAINER().get());
 
-    this.infusedStone(T7Blocks.IGNIS_INFUSED_STONE, T7Items.IGNIS_TESTA);
-    this.infusedStone(T7Blocks.TERRA_INFUSED_STONE, T7Items.TERRA_TESTA);
-    this.infusedStone(T7Blocks.AER_INFUSED_STONE, T7Items.AER_TESTA);
-    this.infusedStone(T7Blocks.AQUA_INFUSED_STONE, T7Items.AQUA_TESTA);
-    this.infusedStone(T7Blocks.ORDO_INFUSED_STONE, T7Items.ORDO_TESTA);
-    this.infusedStone(T7Blocks.PERDITIO_INFUSED_STONE, T7Items.PERDITIO_TESTA);
-    this.infusedStone(T7Blocks.IGNIS_INFUSED_DEEPSLATE, T7Items.IGNIS_TESTA);
-    this.infusedStone(T7Blocks.TERRA_INFUSED_DEEPSLATE, T7Items.TERRA_TESTA);
-    this.infusedStone(T7Blocks.AER_INFUSED_DEEPSLATE, T7Items.AER_TESTA);
-    this.infusedStone(T7Blocks.AQUA_INFUSED_DEEPSLATE, T7Items.AQUA_TESTA);
-    this.infusedStone(T7Blocks.ORDO_INFUSED_DEEPSLATE, T7Items.ORDO_TESTA);
-    this.infusedStone(T7Blocks.PERDITIO_INFUSED_DEEPSLATE, T7Items.PERDITIO_TESTA);
+    this.infusedStone(T7Blocks.INSTANCE.getIGNIS_INFUSED_STONE(), T7Items.IGNIS_TESTA);
+    this.infusedStone(T7Blocks.INSTANCE.getTERRA_INFUSED_STONE(), T7Items.TERRA_TESTA);
+    this.infusedStone(T7Blocks.INSTANCE.getAER_INFUSED_STONE(), T7Items.AER_TESTA);
+    this.infusedStone(T7Blocks.INSTANCE.getAQUA_INFUSED_STONE(), T7Items.AQUA_TESTA);
+    this.infusedStone(T7Blocks.INSTANCE.getORDO_INFUSED_STONE(), T7Items.ORDO_TESTA);
+    this.infusedStone(T7Blocks.INSTANCE.getPERDITIO_INFUSED_STONE(), T7Items.PERDITIO_TESTA);
+    this.infusedStone(T7Blocks.INSTANCE.getIGNIS_INFUSED_DEEPSLATE(), T7Items.IGNIS_TESTA);
+    this.infusedStone(T7Blocks.INSTANCE.getTERRA_INFUSED_DEEPSLATE(), T7Items.TERRA_TESTA);
+    this.infusedStone(T7Blocks.INSTANCE.getAER_INFUSED_DEEPSLATE(), T7Items.AER_TESTA);
+    this.infusedStone(T7Blocks.INSTANCE.getAQUA_INFUSED_DEEPSLATE(), T7Items.AQUA_TESTA);
+    this.infusedStone(T7Blocks.INSTANCE.getORDO_INFUSED_DEEPSLATE(), T7Items.ORDO_TESTA);
+    this.infusedStone(T7Blocks.INSTANCE.getPERDITIO_INFUSED_DEEPSLATE(), T7Items.PERDITIO_TESTA);
   }
 
   @Override
   protected @NotNull Iterable<Block> getKnownBlocks() {
-    return T7Blocks.REGISTRAR.getEntries()
+    return T7Blocks.INSTANCE.getREGISTRAR().getEntries()
         .stream()
         .map(e -> (Block) e.value())
         .toList();

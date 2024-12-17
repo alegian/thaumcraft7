@@ -25,7 +25,7 @@ public class AerOre {
   );
 
   public static Holder<ConfiguredFeature<?, ?>> registerConfigured(BootstrapContext<ConfiguredFeature<?, ?>> context) {
-    return OreFeatureHelper.registerConfiguredInfusedStone(context, AerOre.CONFIGURED_FEATURE, T7Blocks.AER_INFUSED_STONE.get().defaultBlockState(), T7Blocks.AER_INFUSED_DEEPSLATE.get().defaultBlockState());
+    return OreFeatureHelper.registerConfiguredInfusedStone(context, AerOre.CONFIGURED_FEATURE, T7Blocks.INSTANCE.getAER_INFUSED_STONE().get().defaultBlockState(), T7Blocks.INSTANCE.getAER_INFUSED_DEEPSLATE().get().defaultBlockState());
   }
 
   public static Holder<PlacedFeature> registerPlaced(BootstrapContext<PlacedFeature> context) {

@@ -94,41 +94,41 @@ public class T7LanguageProvider extends LanguageProvider {
         this.add(wand, handleEntry.getValue() + " " + coreEntry.getValue() + " Wand");
       }
 
-    this.add(T7Blocks.AURA_NODE.get(), "Aura Node");
-    this.add(T7Blocks.CRUCIBLE.get(), "Crucible");
-    this.add(T7Blocks.ARCANE_WORKBENCH.get(), "Arcane Workbench");
-    this.add(T7Blocks.MATRIX.get(), "Infusion Matrix");
-    this.add(T7Blocks.PILLAR.get(), "Infusion Pillar");
-    this.add(T7Blocks.PEDESTAL.get(), "Infusion Pedestal");
-    this.add(T7Blocks.RESEARCH_TABLE.get(), "Research Table");
-    this.add(T7Blocks.ELEMENTAL_STONE.get(), "Elemental Stone");
+    this.add(T7Blocks.INSTANCE.getAURA_NODE().get(), "Aura Node");
+    this.add(T7Blocks.INSTANCE.getCRUCIBLE().get(), "Crucible");
+    this.add(T7Blocks.INSTANCE.getARCANE_WORKBENCH().get(), "Arcane Workbench");
+    this.add(T7Blocks.INSTANCE.getMATRIX().get(), "Infusion Matrix");
+    this.add(T7Blocks.INSTANCE.getPILLAR().get(), "Infusion Pillar");
+    this.add(T7Blocks.INSTANCE.getPEDESTAL().get(), "Infusion Pedestal");
+    this.add(T7Blocks.INSTANCE.getRESEARCH_TABLE().get(), "Research Table");
+    this.add(T7Blocks.INSTANCE.getELEMENTAL_STONE().get(), "Elemental Stone");
 
-    this.add(T7Blocks.IGNIS_INFUSED_STONE.get(), "Ignis Infused Stone");
-    this.add(T7Blocks.AER_INFUSED_STONE.get(), "Aer Infused Stone");
-    this.add(T7Blocks.TERRA_INFUSED_STONE.get(), "Terra Infused Stone");
-    this.add(T7Blocks.AQUA_INFUSED_STONE.get(), "Aqua Infused Stone");
-    this.add(T7Blocks.ORDO_INFUSED_STONE.get(), "Ordo Infused Stone");
-    this.add(T7Blocks.PERDITIO_INFUSED_STONE.get(), "Perditio Infused Stone");
-    this.add(T7Blocks.IGNIS_INFUSED_DEEPSLATE.get(), "Ignis Infused Deepslate");
-    this.add(T7Blocks.AER_INFUSED_DEEPSLATE.get(), "Aer Infused Deepslate");
-    this.add(T7Blocks.TERRA_INFUSED_DEEPSLATE.get(), "Terra Infused Deepslate");
-    this.add(T7Blocks.AQUA_INFUSED_DEEPSLATE.get(), "Aqua Infused Deepslate");
-    this.add(T7Blocks.ORDO_INFUSED_DEEPSLATE.get(), "Ordo Infused Deepslate");
-    this.add(T7Blocks.PERDITIO_INFUSED_DEEPSLATE.get(), "Perditio Infused Deepslate");
+    this.add(T7Blocks.INSTANCE.getIGNIS_INFUSED_STONE().get(), "Ignis Infused Stone");
+    this.add(T7Blocks.INSTANCE.getAER_INFUSED_STONE().get(), "Aer Infused Stone");
+    this.add(T7Blocks.INSTANCE.getTERRA_INFUSED_STONE().get(), "Terra Infused Stone");
+    this.add(T7Blocks.INSTANCE.getAQUA_INFUSED_STONE().get(), "Aqua Infused Stone");
+    this.add(T7Blocks.INSTANCE.getORDO_INFUSED_STONE().get(), "Ordo Infused Stone");
+    this.add(T7Blocks.INSTANCE.getPERDITIO_INFUSED_STONE().get(), "Perditio Infused Stone");
+    this.add(T7Blocks.INSTANCE.getIGNIS_INFUSED_DEEPSLATE().get(), "Ignis Infused Deepslate");
+    this.add(T7Blocks.INSTANCE.getAER_INFUSED_DEEPSLATE().get(), "Aer Infused Deepslate");
+    this.add(T7Blocks.INSTANCE.getTERRA_INFUSED_DEEPSLATE().get(), "Terra Infused Deepslate");
+    this.add(T7Blocks.INSTANCE.getAQUA_INFUSED_DEEPSLATE().get(), "Aqua Infused Deepslate");
+    this.add(T7Blocks.INSTANCE.getORDO_INFUSED_DEEPSLATE().get(), "Ordo Infused Deepslate");
+    this.add(T7Blocks.INSTANCE.getPERDITIO_INFUSED_DEEPSLATE().get(), "Perditio Infused Deepslate");
 
-    this.add(T7Blocks.ARCANUM_BLOCK.get(), "Arcanum Block");
-    this.add(T7Blocks.ORICHALCUM_BLOCK.get(), "Orichalcum Block");
+    this.add(T7Blocks.INSTANCE.getARCANUM_BLOCK().get(), "Arcanum Block");
+    this.add(T7Blocks.INSTANCE.getORICHALCUM_BLOCK().get(), "Orichalcum Block");
 
-    this.add(T7Blocks.GREATWOOD_LOG.get(), "Greatwood Log");
-    this.add(T7Blocks.GREATWOOD_LEAVES.get(), "Greatwood Leaves");
-    this.add(T7Blocks.GREATWOOD_PLANKS.get(), "Greatwood Planks");
-    this.add(T7Blocks.GREATWOOD_SAPLING.get(), "Greatwood Sapling");
-    this.add(T7Blocks.SILVERWOOD_LOG.get(), "Silverwood Log");
-    this.add(T7Blocks.SILVERWOOD_LEAVES.get(), "Silverwood Leaves");
-    this.add(T7Blocks.SILVERWOOD_PLANKS.get(), "Silverwood Planks");
-    this.add(T7Blocks.SILVERWOOD_SAPLING.get(), "Silverwood Sapling");
+    this.add(T7Blocks.INSTANCE.getGREATWOOD_LOG().get(), "Greatwood Log");
+    this.add(T7Blocks.INSTANCE.getGREATWOOD_LEAVES().get(), "Greatwood Leaves");
+    this.add(T7Blocks.INSTANCE.getGREATWOOD_PLANKS().get(), "Greatwood Planks");
+    this.add(T7Blocks.INSTANCE.getGREATWOOD_SAPLING().get(), "Greatwood Sapling");
+    this.add(T7Blocks.INSTANCE.getSILVERWOOD_LOG().get(), "Silverwood Log");
+    this.add(T7Blocks.INSTANCE.getSILVERWOOD_LEAVES().get(), "Silverwood Leaves");
+    this.add(T7Blocks.INSTANCE.getSILVERWOOD_PLANKS().get(), "Silverwood Planks");
+    this.add(T7Blocks.INSTANCE.getSILVERWOOD_SAPLING().get(), "Silverwood Sapling");
 
-    this.add(T7Blocks.ESSENTIA_CONTAINER.get(), "Essentia Container");
+    this.add(T7Blocks.INSTANCE.getESSENTIA_CONTAINER().get(), "Essentia Container");
 
     this.add("container." + Thavma.MODID + ".arcane_workbench", "Arcane Workbench");
 

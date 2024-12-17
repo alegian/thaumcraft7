@@ -17,7 +17,7 @@ public class PillarBE extends BlockEntity implements GeoBlockEntity {
    * Dummy constructor used for rendering Item form
    */
   public PillarBE() {
-    this(new BlockPos(0, 0, 0), T7Blocks.PILLAR.get().defaultBlockState());
+    this(new BlockPos(0, 0, 0), T7Blocks.INSTANCE.getPILLAR().get().defaultBlockState());
   }
 
   public PillarBE(BlockPos pos, BlockState blockState) {

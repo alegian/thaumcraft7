@@ -25,7 +25,7 @@ public class TerraOre {
   );
 
   public static Holder<ConfiguredFeature<?, ?>> registerConfigured(BootstrapContext<ConfiguredFeature<?, ?>> context) {
-    return OreFeatureHelper.registerConfiguredInfusedStone(context, TerraOre.CONFIGURED_FEATURE, T7Blocks.TERRA_INFUSED_STONE.get().defaultBlockState(), T7Blocks.TERRA_INFUSED_DEEPSLATE.get().defaultBlockState());
+    return OreFeatureHelper.registerConfiguredInfusedStone(context, TerraOre.CONFIGURED_FEATURE, T7Blocks.INSTANCE.getTERRA_INFUSED_STONE().get().defaultBlockState(), T7Blocks.INSTANCE.getTERRA_INFUSED_DEEPSLATE().get().defaultBlockState());
   }
 
   public static Holder<PlacedFeature> registerPlaced(BootstrapContext<PlacedFeature> context) {

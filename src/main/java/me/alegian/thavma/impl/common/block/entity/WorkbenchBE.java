@@ -25,7 +25,7 @@ public class WorkbenchBE extends BlockEntity implements GeoBlockEntity {
    * Dummy constructor used for rendering Item form
    */
   public WorkbenchBE() {
-    this(new BlockPos(0, 0, 0), T7Blocks.ARCANE_WORKBENCH.get().defaultBlockState());
+    this(new BlockPos(0, 0, 0), T7Blocks.INSTANCE.getARCANE_WORKBENCH().get().defaultBlockState());
   }
 
   public WorkbenchBE(BlockPos pos, BlockState blockState) {

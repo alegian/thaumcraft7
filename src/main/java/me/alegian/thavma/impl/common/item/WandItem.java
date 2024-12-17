@@ -69,7 +69,7 @@ public class WandItem extends Item implements GeoItem {
     var blockPos = context.getClickedPos();
     var blockState = level.getBlockState(blockPos);
 
-    if (blockState.is(T7Blocks.AURA_NODE.get())) {
+    if (blockState.is(T7Blocks.INSTANCE.getAURA_NODE().get())) {
       var player = context.getPlayer();
 
       var optionalPair = AspectContainer.blockSourceItemSink(level, blockPos, context.getItemInHand());
@@ -84,7 +84,8 @@ public class WandItem extends Item implements GeoItem {
       }
     }
     if (blockState.is(Blocks.CAULDRON)) {
-      if (!level.isClientSide()) level.setBlockAndUpdate(blockPos, T7Blocks.CRUCIBLE.get().defaultBlockState());
+      if (!level.isClientSide())
+        level.setBlockAndUpdate(blockPos, T7Blocks.INSTANCE.getCRUCIBLE().get().defaultBlockState());
       level.playSound(context.getPlayer(), blockPos, SoundEvents.PLAYER_LEVELUP, SoundSource.BLOCKS, 1.0F, 1.0F);
       return InteractionResult.SUCCESS;
     }

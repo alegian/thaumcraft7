@@ -27,7 +27,7 @@ public class MatrixBE extends BlockEntity implements GeoBlockEntity {
    * Dummy constructor used for rendering Item form
    */
   public MatrixBE() {
-    this(new BlockPos(0, 0, 0), T7Blocks.MATRIX.get().defaultBlockState());
+    this(new BlockPos(0, 0, 0), T7Blocks.INSTANCE.getMATRIX().get().defaultBlockState());
   }
 
   public MatrixBE(BlockPos pos, BlockState blockState) {

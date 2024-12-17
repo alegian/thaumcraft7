@@ -25,7 +25,7 @@ public class AquaOre {
   );
 
   public static Holder<ConfiguredFeature<?, ?>> registerConfigured(BootstrapContext<ConfiguredFeature<?, ?>> context) {
-    return OreFeatureHelper.registerConfiguredInfusedStone(context, AquaOre.CONFIGURED_FEATURE, T7Blocks.AQUA_INFUSED_STONE.get().defaultBlockState(), T7Blocks.AQUA_INFUSED_DEEPSLATE.get().defaultBlockState());
+    return OreFeatureHelper.registerConfiguredInfusedStone(context, AquaOre.CONFIGURED_FEATURE, T7Blocks.INSTANCE.getAQUA_INFUSED_STONE().get().defaultBlockState(), T7Blocks.INSTANCE.getAQUA_INFUSED_DEEPSLATE().get().defaultBlockState());
   }
 
   public static Holder<PlacedFeature> registerPlaced(BootstrapContext<PlacedFeature> context) {

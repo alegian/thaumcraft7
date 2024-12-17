@@ -17,7 +17,7 @@ public class PedestalBE extends BlockEntity implements GeoBlockEntity {
    * Dummy constructor used for rendering Item form
    */
   public PedestalBE() {
-    this(new BlockPos(0, 0, 0), T7Blocks.PEDESTAL.get().defaultBlockState());
+    this(new BlockPos(0, 0, 0), T7Blocks.INSTANCE.getPEDESTAL().get().defaultBlockState());
   }
 
   public PedestalBE(BlockPos pos, BlockState blockState) {

@@ -104,7 +104,7 @@ public class AuraNodeBE extends DataComponentBE {
         this.getBlockPos().getX() + 0.5,
         this.getBlockPos().getY() + 0.5,
         this.getBlockPos().getZ() + 0.5,
-        new ItemStack(T7Blocks.AURA_NODE.get())));
+        new ItemStack(T7Blocks.INSTANCE.getAURA_NODE().get())));
   }
 
   /**

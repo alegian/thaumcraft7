@@ -40,9 +40,9 @@ public class GreatwoodTree {
 
   public static TreeConfiguration.TreeConfigurationBuilder createGreatwood() {
     return new TreeConfiguration.TreeConfigurationBuilder(
-        BlockStateProvider.simple(T7Blocks.GREATWOOD_LOG.get()),
+        BlockStateProvider.simple(T7Blocks.INSTANCE.getGREATWOOD_LOG().get()),
         new GreatwoodTrunkPlacer(18, 2, 6),
-        BlockStateProvider.simple(T7Blocks.GREATWOOD_LEAVES.get()),
+        BlockStateProvider.simple(T7Blocks.INSTANCE.getGREATWOOD_LEAVES().get()),
         new BlobFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 3),
         new TwoLayersFeatureSize(1, 0, 1)
     );

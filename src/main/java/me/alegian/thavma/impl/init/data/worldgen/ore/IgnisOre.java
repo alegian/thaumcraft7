@@ -25,7 +25,7 @@ public class IgnisOre {
   );
 
   public static Holder<ConfiguredFeature<?, ?>> registerConfigured(BootstrapContext<ConfiguredFeature<?, ?>> context) {
-    return OreFeatureHelper.registerConfiguredInfusedStone(context, IgnisOre.CONFIGURED_FEATURE, T7Blocks.IGNIS_INFUSED_STONE.get().defaultBlockState(), T7Blocks.IGNIS_INFUSED_DEEPSLATE.get().defaultBlockState());
+    return OreFeatureHelper.registerConfiguredInfusedStone(context, IgnisOre.CONFIGURED_FEATURE, T7Blocks.INSTANCE.getIGNIS_INFUSED_STONE().get().defaultBlockState(), T7Blocks.INSTANCE.getIGNIS_INFUSED_DEEPSLATE().get().defaultBlockState());
   }
 
   public static Holder<PlacedFeature> registerPlaced(BootstrapContext<PlacedFeature> context) {
