@@ -29,7 +29,7 @@ public class MatrixBlock extends Block implements EntityBlock {
 
   @Override
   protected InteractionResult useWithoutItem(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, BlockHitResult pHitResult) {
-    if (!pLevel.isClientSide()) pLevel.getBlockEntity(pPos, T7BlockEntities.MATRIX.get()).ifPresent(be ->
+    if (!pLevel.isClientSide()) pLevel.getBlockEntity(pPos, T7BlockEntities.INSTANCE.getMATRIX().get()).ifPresent(be ->
         be.triggerAnim("cycle", MatrixBlock.animKeys.get(MatrixBlock.cycle++ % MatrixBlock.animKeys.size()))
     );
     return InteractionResult.SUCCESS;

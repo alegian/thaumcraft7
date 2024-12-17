@@ -22,10 +22,10 @@ public class Thavma {
     T7ArmorMaterials.INSTANCE.getREGISTRAR().register(modEventBus);
     T7Blocks.REGISTRAR.register(modEventBus);
     T7Items.REGISTRAR.register(modEventBus);
-    T7BlockEntities.REGISTRAR.register(modEventBus);
+    T7BlockEntities.INSTANCE.getREGISTRAR().register(modEventBus);
     T7EntityTypes.INSTANCE.getREGISTRAR().register(modEventBus);
     T7Attachments.INSTANCE.getREGISTRAR().register(modEventBus);
-    T7DataComponents.REGISTRAR.register(modEventBus);
+    T7DataComponents.INSTANCE.getREGISTRAR().register(modEventBus);
     T7ParticleTypes.REGISTRAR.register(modEventBus);
     T7CreativeModeTabs.REGISTRAR.register(modEventBus);
     T7TrunkPlacerTypes.REGISTRAR.register(modEventBus);

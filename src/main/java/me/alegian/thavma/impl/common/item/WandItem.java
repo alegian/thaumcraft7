@@ -97,7 +97,7 @@ public class WandItem extends Item implements GeoItem {
     if (blockState.is(Tags.Blocks.GLASS_BLOCKS)) {
       var direction = context.getClickedFace().getOpposite();
       var behindPos = blockPos.relative(direction, 1);
-      return LevelHelper.getSafeBE(level, behindPos, T7BlockEntities.AURA_NODE.get())
+      return LevelHelper.getSafeBE(level, behindPos, T7BlockEntities.INSTANCE.getAURA_NODE().get())
           .map(be -> {
             if (be.jarInteraction()) return InteractionResult.SUCCESS;
             return InteractionResult.FAIL;

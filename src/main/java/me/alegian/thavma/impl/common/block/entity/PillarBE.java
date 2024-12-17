@@ -21,7 +21,7 @@ public class PillarBE extends BlockEntity implements GeoBlockEntity {
   }
 
   public PillarBE(BlockPos pos, BlockState blockState) {
-    super(T7BlockEntities.PILLAR.get(), pos, blockState);
+    super(T7BlockEntities.INSTANCE.getPILLAR().get(), pos, blockState);
   }
 
   @Override

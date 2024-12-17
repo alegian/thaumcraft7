@@ -29,7 +29,7 @@ public class WorkbenchBE extends BlockEntity implements GeoBlockEntity {
   }
 
   public WorkbenchBE(BlockPos pos, BlockState blockState) {
-    super(T7BlockEntities.WORKBENCH.get(), pos, blockState);
+    super(T7BlockEntities.INSTANCE.getWORKBENCH().get(), pos, blockState);
     SingletonGeoAnimatable.registerSyncedAnimatable(this);
   }
 

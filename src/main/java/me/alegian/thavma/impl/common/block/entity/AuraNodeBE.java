@@ -28,7 +28,7 @@ public class AuraNodeBE extends DataComponentBE {
   private int containingCountdown = -1;
 
   public AuraNodeBE(BlockPos pos, BlockState blockState) {
-    super(T7BlockEntities.AURA_NODE.get(), pos, blockState);
+    super(T7BlockEntities.INSTANCE.getAURA_NODE().get(), pos, blockState);
     this.generateGlassPositions();
     this.generateSlabPositions();
   }
@@ -121,6 +121,6 @@ public class AuraNodeBE extends DataComponentBE {
 
   @Override
   public DataComponentType<?>[] getComponentTypes() {
-    return new DataComponentType[]{T7DataComponents.ASPECTS.get()};
+    return new DataComponentType[]{T7DataComponents.INSTANCE.getASPECTS().get()};
   }
 }

@@ -31,7 +31,7 @@ public class MatrixBE extends BlockEntity implements GeoBlockEntity {
   }
 
   public MatrixBE(BlockPos pos, BlockState blockState) {
-    super(T7BlockEntities.MATRIX.get(), pos, blockState);
+    super(T7BlockEntities.INSTANCE.getMATRIX().get(), pos, blockState);
     SingletonGeoAnimatable.registerSyncedAnimatable(this);
   }
 

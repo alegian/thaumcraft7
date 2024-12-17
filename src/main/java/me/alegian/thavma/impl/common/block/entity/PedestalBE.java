@@ -21,7 +21,7 @@ public class PedestalBE extends BlockEntity implements GeoBlockEntity {
   }
 
   public PedestalBE(BlockPos pos, BlockState blockState) {
-    super(T7BlockEntities.PEDESTAL.get(), pos, blockState);
+    super(T7BlockEntities.INSTANCE.getPEDESTAL().get(), pos, blockState);
   }
 
   @Override

@@ -26,7 +26,7 @@ public class CrucibleBE extends DataComponentBE {
   private final List<CrucibleBubbleParticle> particles = new ArrayList<>();
 
   public CrucibleBE(BlockPos pos, BlockState blockState) {
-    super(T7BlockEntities.CRUCIBLE.get(), pos, blockState);
+    super(T7BlockEntities.INSTANCE.getCRUCIBLE().get(), pos, blockState);
     this.fluidHandler = new CrucibleFluidHandler(this);
   }
 
@@ -36,43 +36,41 @@ public class CrucibleBE extends DataComponentBE {
         && serverLevel.getGameTime() % 7 == 0
         && blockEntity instanceof CrucibleBE crucibleBE
         && !crucibleBE.getFluidHandler().isEmpty()
-    ) {
-      serverLevel.sendParticles(
-          T7ParticleTypes.CRUCIBLE_BUBBLE.get(),
-          (double) pos.getX() + serverLevel.random.nextDouble() * 12 / 16f + 2 / 16f,
-          pos.getY() + crucibleBE.getWaterHeight(),
-          (double) pos.getZ() + serverLevel.random.nextDouble() * 12 / 16f + 2 / 16f,
-          1,
-          0,
-          0,
-          0,
-          0
-      );
-    }
+    ) serverLevel.sendParticles(
+        T7ParticleTypes.CRUCIBLE_BUBBLE.get(),
+        (double) pos.getX() + serverLevel.random.nextDouble() * 12 / 16f + 2 / 16f,
+        pos.getY() + crucibleBE.getWaterHeight(),
+        (double) pos.getZ() + serverLevel.random.nextDouble() * 12 / 16f + 2 / 16f,
+        1,
+        0,
+        0,
+        0,
+        0
+    );
   }
 
   public CrucibleFluidHandler getFluidHandler() {
-    return fluidHandler;
+    return this.fluidHandler;
   }
 
   public double getWaterHeight() {
-    int amount = fluidHandler.getFluidAmount();
-    int total = fluidHandler.getCapacity();
+    int amount = this.fluidHandler.getFluidAmount();
+    int total = this.fluidHandler.getCapacity();
     double percent = (amount / (double) total);
 
     return 3 / 16f + 12 / 16f * percent;
   }
 
   public void addParticle(CrucibleBubbleParticle particle) {
-    particles.add(particle);
+    this.particles.add(particle);
   }
 
   public void removeParticle(CrucibleBubbleParticle particle) {
-    particles.remove(particle);
+    this.particles.remove(particle);
   }
 
   public void clearParticles() {
-    particles.forEach(CrucibleBubbleParticle::scheduleRemove);
+    this.particles.forEach(CrucibleBubbleParticle::scheduleRemove);
   }
 
   @Override
@@ -81,23 +79,23 @@ public class CrucibleBE extends DataComponentBE {
     // however we need to still update when tank empties
     this.loadAdditional(Objects.requireNonNull(pkt.getTag()), lookupProvider);
     // delete floating particles from previous water level
-    clearParticles();
+    this.clearParticles();
   }
 
   @Override
   public DataComponentType<?>[] getComponentTypes() {
-    return new DataComponentType[]{T7DataComponents.ASPECTS.get()};
+    return new DataComponentType[]{T7DataComponents.INSTANCE.getASPECTS().get()};
   }
 
   @Override
   protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
     super.loadAdditional(pTag, pRegistries);
-    fluidHandler.readFromNBT(pRegistries, pTag);
+    this.fluidHandler.readFromNBT(pRegistries, pTag);
   }
 
   @Override
   protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
     super.saveAdditional(pTag, pRegistries);
-    fluidHandler.writeToNBT(pRegistries, pTag);
+    this.fluidHandler.writeToNBT(pRegistries, pTag);
   }
 }

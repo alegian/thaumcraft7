@@ -120,11 +120,11 @@ public class CrucibleBlock extends Block implements EntityBlock {
 
   // returns true if any water was drained
   public static boolean tryLowerFillLevel(Level pLevel, BlockPos pPos) {
-    return pLevel.getBlockEntity(pPos, T7BlockEntities.CRUCIBLE.get()).map(be -> be.getFluidHandler().catalystDrain()).orElse(false);
+    return pLevel.getBlockEntity(pPos, T7BlockEntities.INSTANCE.getCRUCIBLE().get()).map(be -> be.getFluidHandler().catalystDrain()).orElse(false);
   }
 
   public static boolean hasWater(Level pLevel, BlockPos pPos) {
-    return pLevel.getBlockEntity(pPos, T7BlockEntities.CRUCIBLE.get()).map(be -> be.getFluidHandler().getFluidAmount() > 0).orElse(false);
+    return pLevel.getBlockEntity(pPos, T7BlockEntities.INSTANCE.getCRUCIBLE().get()).map(be -> be.getFluidHandler().getFluidAmount() > 0).orElse(false);
   }
 
   // returns true if any water was filled
@@ -185,7 +185,7 @@ public class CrucibleBlock extends Block implements EntityBlock {
   @Nullable
   @Override
   public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-    return type == T7BlockEntities.CRUCIBLE.get() ? CrucibleBE::tick : null;
+    return type == T7BlockEntities.INSTANCE.getCRUCIBLE().get() ? CrucibleBE::tick : null;
   }
 
   @Override

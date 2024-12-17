@@ -75,19 +75,19 @@ public class AspectContainer implements IAspectContainer {
 
   @Override
   public @NotNull AspectMap getAspects() {
-    AspectMap aspectMap = this.holder.get(T7DataComponents.ASPECTS);
+    AspectMap aspectMap = this.holder.get(T7DataComponents.INSTANCE.getASPECTS());
     if (aspectMap == null) return AspectMap.EMPTY;
     return aspectMap;
   }
 
   @Override
   public void setAspects(AspectMap aspects) {
-    this.holder.set(T7DataComponents.ASPECTS, aspects);
+    this.holder.set(T7DataComponents.INSTANCE.getASPECTS(), aspects);
   }
 
   @Override
   public boolean areAspectsNull() {
-    return this.holder.get(T7DataComponents.ASPECTS) == null;
+    return this.holder.get(T7DataComponents.INSTANCE.getASPECTS()) == null;
   }
 
   @Override
