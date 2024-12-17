@@ -46,7 +46,7 @@ public class ZephyrItem extends SwordItem implements GeoItem {
       @Override
       public BlockEntityWithoutLevelRenderer getGeoItemRenderer() {
         if (this.renderer == null)
-          this.renderer = new GeoItemRenderer<>(new DefaultedItemGeoModel<ZephyrItem>(Thavma.Companion.rl("zephyr")));
+          this.renderer = new GeoItemRenderer<>(new DefaultedItemGeoModel<ZephyrItem>(Thavma.INSTANCE.rl("zephyr")));
 
         return this.renderer;
       }

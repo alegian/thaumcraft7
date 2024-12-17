@@ -17,11 +17,11 @@ public class AquaOre {
   public static final String PATH = "ore_aqua";
   public static final ResourceKey<ConfiguredFeature<?, ?>> CONFIGURED_FEATURE = ResourceKey.create(
       Registries.CONFIGURED_FEATURE,
-      Thavma.Companion.rl(AquaOre.PATH)
+      Thavma.INSTANCE.rl(AquaOre.PATH)
   );
   public static final ResourceKey<PlacedFeature> PLACED_FEATURE = ResourceKey.create(
       Registries.PLACED_FEATURE,
-      Thavma.Companion.rl(AquaOre.PATH)
+      Thavma.INSTANCE.rl(AquaOre.PATH)
   );
 
   public static Holder<ConfiguredFeature<?, ?>> registerConfigured(BootstrapContext<ConfiguredFeature<?, ?>> context) {

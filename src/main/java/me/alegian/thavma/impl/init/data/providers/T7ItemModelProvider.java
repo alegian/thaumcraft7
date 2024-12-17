@@ -66,7 +66,7 @@ public class T7ItemModelProvider extends ItemModelProvider {
     this.testaItem(T7Items.INSTANCE.getPERDITIO_TESTA());
 
     for (var wand : T7Items.INSTANCE.getWANDS().values())
-      this.withExistingParent(wand.getName(), Thavma.Companion.rl("wand"));
+      this.withExistingParent(wand.getName(), Thavma.INSTANCE.rl("wand"));
   }
 
   public void testaItem(DeferredItem<TestaItem> deferredItem) {
@@ -88,6 +88,6 @@ public class T7ItemModelProvider extends ItemModelProvider {
 
   public void withVanillaParent(String itemPath, String texturePath, String parent) {
     this.withExistingParent(itemPath, parent)
-        .texture("layer0", Thavma.Companion.rl(texturePath).withPrefix("item/"));
+        .texture("layer0", Thavma.INSTANCE.rl(texturePath).withPrefix("item/"));
   }
 }

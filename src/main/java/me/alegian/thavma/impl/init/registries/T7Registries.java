@@ -10,19 +10,19 @@ import net.minecraft.resources.ResourceKey;
 import net.neoforged.neoforge.registries.RegistryBuilder;
 
 public class T7Registries {
-  public static final Registry<WandHandleMaterial> WAND_HANDLE = new RegistryBuilder<WandHandleMaterial>(ResourceKey.createRegistryKey(Thavma.Companion.rl("wand_handle")))
+  public static final Registry<WandHandleMaterial> WAND_HANDLE = new RegistryBuilder<WandHandleMaterial>(ResourceKey.createRegistryKey(Thavma.INSTANCE.rl("wand_handle")))
       .maxId(Integer.MAX_VALUE)
       .create();
 
-  public static final Registry<WandCoreMaterial> WAND_CORE = new RegistryBuilder<WandCoreMaterial>(ResourceKey.createRegistryKey(Thavma.Companion.rl("wand_core")))
+  public static final Registry<WandCoreMaterial> WAND_CORE = new RegistryBuilder<WandCoreMaterial>(ResourceKey.createRegistryKey(Thavma.INSTANCE.rl("wand_core")))
       .maxId(Integer.MAX_VALUE)
       .create();
 
-  public static final Registry<Aspect> ASPECT = new RegistryBuilder<Aspect>(ResourceKey.createRegistryKey(Thavma.Companion.rl("aspect")))
+  public static final Registry<Aspect> ASPECT = new RegistryBuilder<Aspect>(ResourceKey.createRegistryKey(Thavma.INSTANCE.rl("aspect")))
       .maxId(Integer.MAX_VALUE)
       .create();
 
-  public static final Registry<Research> RESEARCH = new RegistryBuilder<Research>(ResourceKey.createRegistryKey(Thavma.Companion.rl("research")))
+  public static final Registry<Research> RESEARCH = new RegistryBuilder<Research>(ResourceKey.createRegistryKey(Thavma.INSTANCE.rl("research")))
       .maxId(Integer.MAX_VALUE)
       .create();
 }

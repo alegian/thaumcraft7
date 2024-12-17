@@ -51,7 +51,7 @@ public class WorkbenchRecipeBuilder extends ShapedRecipeBuilder {
         this.requiredAspects
     );
 
-    id = Thavma.Companion.rl(id.getPath()).withSuffix("_arcane_workbench");
+    id = Thavma.INSTANCE.rl(id.getPath()).withSuffix("_arcane_workbench");
     recipeOutput.accept(id, recipe, advancement$builder.build(id.withPrefix("recipes/")));
   }
 }

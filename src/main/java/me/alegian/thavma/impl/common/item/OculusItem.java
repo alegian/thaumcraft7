@@ -95,7 +95,7 @@ public class OculusItem extends Item implements GeoItem {
       @Override
       public BlockEntityWithoutLevelRenderer getGeoItemRenderer() {
         if (this.renderer == null)
-          this.renderer = new GeoItemRenderer<>(new DefaultedItemGeoModel<OculusItem>(Thavma.Companion.rl("oculus")) {
+          this.renderer = new GeoItemRenderer<>(new DefaultedItemGeoModel<OculusItem>(Thavma.INSTANCE.rl("oculus")) {
             @Override
             public RenderType getRenderType(OculusItem animatable, ResourceLocation texture) {
               return RenderType.entityTranslucent(texture);

@@ -16,7 +16,7 @@ public class WandRenderer extends DynamicGeoItemRenderer<WandItem> {
   private final ResourceLocation coreLocation;
 
   public WandRenderer(WandHandleMaterial handleMaterial, WandCoreMaterial coreMaterial) {
-    super(new DefaultedItemGeoModel<>(Thavma.Companion.rl("wand")));
+    super(new DefaultedItemGeoModel<>(Thavma.INSTANCE.rl("wand")));
     this.handleLocation = WandRenderer.handleTexture(handleMaterial.getRegisteredLocation());
     this.coreLocation = WandRenderer.coreTexture(coreMaterial.getRegisteredLocation());
   }

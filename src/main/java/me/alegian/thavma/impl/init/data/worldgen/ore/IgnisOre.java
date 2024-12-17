@@ -17,11 +17,11 @@ public class IgnisOre {
   public static final String PATH = "ore_ignis";
   public static final ResourceKey<ConfiguredFeature<?, ?>> CONFIGURED_FEATURE = ResourceKey.create(
       Registries.CONFIGURED_FEATURE,
-      Thavma.Companion.rl(IgnisOre.PATH)
+      Thavma.INSTANCE.rl(IgnisOre.PATH)
   );
   public static final ResourceKey<PlacedFeature> PLACED_FEATURE = ResourceKey.create(
       Registries.PLACED_FEATURE,
-      Thavma.Companion.rl(IgnisOre.PATH)
+      Thavma.INSTANCE.rl(IgnisOre.PATH)
   );
 
   public static Holder<ConfiguredFeature<?, ?>> registerConfigured(BootstrapContext<ConfiguredFeature<?, ?>> context) {

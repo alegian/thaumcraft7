@@ -25,11 +25,11 @@ public class T7BlockStateProvider extends BlockStateProvider {
   protected void registerStatesAndModels() {
     this.simpleBlockWithItem(T7Blocks.INSTANCE.getCRUCIBLE().get(), this.models().getBuilder(T7Blocks.INSTANCE.getCRUCIBLE().getId().getPath())
         .parent(new ModelFile.UncheckedModelFile("block/cauldron"))
-        .texture("particle", Thavma.Companion.rl("block/crucible_side"))
-        .texture("top", Thavma.Companion.rl("block/crucible_top"))
-        .texture("bottom", Thavma.Companion.rl("block/crucible_bottom"))
-        .texture("side", Thavma.Companion.rl("block/crucible_side"))
-        .texture("inside", Thavma.Companion.rl("block/crucible_inner"))
+        .texture("particle", Thavma.INSTANCE.rl("block/crucible_side"))
+        .texture("top", Thavma.INSTANCE.rl("block/crucible_top"))
+        .texture("bottom", Thavma.INSTANCE.rl("block/crucible_bottom"))
+        .texture("side", Thavma.INSTANCE.rl("block/crucible_side"))
+        .texture("inside", Thavma.INSTANCE.rl("block/crucible_inner"))
         .customLoader(WithTransformParentModel.Builder::new)
         .transformParent(ResourceLocation.withDefaultNamespace("block/block"))
         .end()
@@ -58,10 +58,10 @@ public class T7BlockStateProvider extends BlockStateProvider {
     this.blockEntity1x1x1(T7Blocks.INSTANCE.getPEDESTAL().get());
     this.blockEntity1x2x1(T7Blocks.INSTANCE.getPILLAR().get());
 
-    this.simpleBlockWithItem(T7Blocks.INSTANCE.getESSENTIA_CONTAINER().get(), this.models().getExistingFile(Thavma.Companion.rl("essentia_container")));
-    this.simpleBlockWithItem(T7Blocks.INSTANCE.getRESEARCH_TABLE().get(), this.models().getExistingFile(Thavma.Companion.rl("research_table")));
+    this.simpleBlockWithItem(T7Blocks.INSTANCE.getESSENTIA_CONTAINER().get(), this.models().getExistingFile(Thavma.INSTANCE.rl("essentia_container")));
+    this.simpleBlockWithItem(T7Blocks.INSTANCE.getRESEARCH_TABLE().get(), this.models().getExistingFile(Thavma.INSTANCE.rl("research_table")));
 
-    this.itemModels().getBuilder(T7Blocks.INSTANCE.getAURA_NODE().getId().getPath()).parent(new ModelFile.UncheckedModelFile("item/generated")).renderType(RenderType.translucent().name).texture("layer0", Thavma.Companion.rl("item/aura_node"));
+    this.itemModels().getBuilder(T7Blocks.INSTANCE.getAURA_NODE().getId().getPath()).parent(new ModelFile.UncheckedModelFile("item/generated")).renderType(RenderType.translucent().name).texture("layer0", Thavma.INSTANCE.rl("item/aura_node"));
   }
 
   private void simpleBlockWithItem(Block block) {
@@ -75,9 +75,9 @@ public class T7BlockStateProvider extends BlockStateProvider {
   }
 
   private void infusedBlockWithItem(InfusedBlock infusedBlock) {
-    var infusedOreBlockModel = this.models().withExistingParent(this.name(infusedBlock), Thavma.Companion.rl("block/infused_stone"))
+    var infusedOreBlockModel = this.models().withExistingParent(this.name(infusedBlock), Thavma.INSTANCE.rl("block/infused_stone"))
         .texture("layer0", this.blockTexture(infusedBlock.getBaseBlock()))
-        .texture("layer1", Thavma.Companion.rl("block/infused_stone"));
+        .texture("layer1", Thavma.INSTANCE.rl("block/infused_stone"));
     this.simpleBlockWithItem(infusedBlock, infusedOreBlockModel);
   }
 

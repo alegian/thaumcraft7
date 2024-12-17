@@ -1,41 +1,43 @@
 package me.alegian.thavma.impl
 
 import com.mojang.logging.LogUtils
-import me.alegian.thavma.impl.Thavma
 import me.alegian.thavma.impl.client.event.registerClientGameEvents
 import me.alegian.thavma.impl.client.event.registerClientModEvents
 import me.alegian.thavma.impl.common.event.registerCommonGameEvents
 import me.alegian.thavma.impl.common.event.registerCommonModEvents
 import me.alegian.thavma.impl.init.registries.deferred.*
 import net.minecraft.resources.ResourceLocation
-import net.neoforged.bus.api.IEventBus
 import net.neoforged.fml.common.Mod
 import org.slf4j.Logger
+import thedarkcolour.kotlinforforge.neoforge.forge.MOD_BUS as KFF_MOD_BUS
 
 // must match value in META-INF/mods.toml
 @Mod(Thavma.MODID)
-class Thavma(modEventBus: IEventBus) {
+object Thavma {
+    const val MODID: String = "thavma"
+    val LOGGER: Logger = LogUtils.getLogger()
+    
     // FML will recognize some parameter types like IEventBus or ModContainer and pass them in automatically.
     init {
-        T7ArmorMaterials.REGISTRAR.register(modEventBus)
-        T7Blocks.REGISTRAR.register(modEventBus)
-        T7Items.REGISTRAR.register(modEventBus)
-        T7BlockEntities.REGISTRAR.register(modEventBus)
-        T7EntityTypes.REGISTRAR.register(modEventBus)
-        T7Attachments.REGISTRAR.register(modEventBus)
-        T7DataComponents.REGISTRAR.register(modEventBus)
-        T7ParticleTypes.REGISTRAR.register(modEventBus)
-        T7CreativeModeTabs.REGISTRAR.register(modEventBus)
-        T7TrunkPlacerTypes.REGISTRAR.register(modEventBus)
-        T7MenuTypes.REGISTRAR.register(modEventBus)
-        T7RecipeTypes.REGISTRAR.register(modEventBus)
-        T7RecipeSerializers.REGISTRAR.register(modEventBus)
-        WandCoreMaterials.REGISTRAR.register(modEventBus)
-        WandHandleMaterials.REGISTRAR.register(modEventBus)
-        Aspects.REGISTRAR.register(modEventBus)
-        Researches.REGISTRAR.register(modEventBus)
-        T7Attributes.REGISTRAR.register(modEventBus)
-        T7GlobalLootModifierSerializers.REGISTRAR.register(modEventBus)
+        T7ArmorMaterials.REGISTRAR.register(KFF_MOD_BUS)
+        T7Blocks.REGISTRAR.register(KFF_MOD_BUS)
+        T7Items.REGISTRAR.register(KFF_MOD_BUS)
+        T7BlockEntities.REGISTRAR.register(KFF_MOD_BUS)
+        T7EntityTypes.REGISTRAR.register(KFF_MOD_BUS)
+        T7Attachments.REGISTRAR.register(KFF_MOD_BUS)
+        T7DataComponents.REGISTRAR.register(KFF_MOD_BUS)
+        T7ParticleTypes.REGISTRAR.register(KFF_MOD_BUS)
+        T7CreativeModeTabs.REGISTRAR.register(KFF_MOD_BUS)
+        T7TrunkPlacerTypes.REGISTRAR.register(KFF_MOD_BUS)
+        T7MenuTypes.REGISTRAR.register(KFF_MOD_BUS)
+        T7RecipeTypes.REGISTRAR.register(KFF_MOD_BUS)
+        T7RecipeSerializers.REGISTRAR.register(KFF_MOD_BUS)
+        WandCoreMaterials.REGISTRAR.register(KFF_MOD_BUS)
+        WandHandleMaterials.REGISTRAR.register(KFF_MOD_BUS)
+        Aspects.REGISTRAR.register(KFF_MOD_BUS)
+        Researches.REGISTRAR.register(KFF_MOD_BUS)
+        T7Attributes.REGISTRAR.register(KFF_MOD_BUS)
+        T7GlobalLootModifierSerializers.REGISTRAR.register(KFF_MOD_BUS)
 
         registerCommonModEvents()
         registerClientModEvents()
@@ -43,12 +45,7 @@ class Thavma(modEventBus: IEventBus) {
         registerClientGameEvents()
     }
 
-    companion object {
-        const val MODID: String = "thavma"
-        val LOGGER: Logger = LogUtils.getLogger()
-
-        fun rl(path: String): ResourceLocation {
-            return ResourceLocation.fromNamespaceAndPath(MODID, path)
-        }
+    fun rl(path: String): ResourceLocation {
+        return ResourceLocation.fromNamespaceAndPath(MODID, path)
     }
 }

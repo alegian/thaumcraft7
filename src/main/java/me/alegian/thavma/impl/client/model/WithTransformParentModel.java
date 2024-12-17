@@ -36,7 +36,7 @@ import java.util.function.Function;
  */
 @OnlyIn(Dist.CLIENT)
 public class WithTransformParentModel implements IUnbakedGeometry<WithTransformParentModel> {
-  public static final ResourceLocation ID = Thavma.Companion.rl("with_transform_parent");
+  public static final ResourceLocation ID = Thavma.INSTANCE.rl("with_transform_parent");
   public static final String TRANSFORM_PARENT_KEY = "transform_parent";
   private final BlockModel base;
   private final ResourceLocation transformParentLocation;
