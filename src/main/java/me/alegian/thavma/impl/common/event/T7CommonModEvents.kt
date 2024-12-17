@@ -22,14 +22,14 @@ import net.neoforged.neoforge.registries.NewRegistryEvent
 import net.neoforged.neoforge.registries.datamaps.RegisterDataMapTypesEvent
 import thedarkcolour.kotlinforforge.neoforge.forge.MOD_BUS as KFF_MOD_BUS
 
-fun registerRegistries(event: NewRegistryEvent) {
+private fun registerRegistries(event: NewRegistryEvent) {
     event.register(T7Registries.WAND_HANDLE)
     event.register(T7Registries.WAND_CORE)
     event.register(T7Registries.ASPECT)
     event.register(T7Registries.RESEARCH)
 }
 
-fun modifyRegistries(event: ModifyRegistriesEvent) {
+private fun modifyRegistries(event: ModifyRegistriesEvent) {
     val itemRegistry = event.getRegistry(Registries.ITEM)
     val coreRegistry = event.getRegistry(T7Registries.WAND_CORE.key())
     val handleRegistry = event.getRegistry(T7Registries.WAND_HANDLE.key())
@@ -38,17 +38,17 @@ fun modifyRegistries(event: ModifyRegistriesEvent) {
     handleRegistry.addCallback(WandHandleCombinations(itemRegistry, coreRegistry))
 }
 
-fun registerCapabilities(event: RegisterCapabilitiesEvent) {
+private fun registerCapabilities(event: RegisterCapabilitiesEvent) {
     T7Items.registerCapabilities(event)
     T7BlockEntities.registerCapabilities(event)
 }
 
-fun registerDataMapTypes(event: RegisterDataMapTypesEvent) {
+private fun registerDataMapTypes(event: RegisterDataMapTypesEvent) {
     event.register(T7DataMaps.AspectContent.BLOCK)
     event.register(T7DataMaps.AspectContent.ITEM)
 }
 
-fun gatherData(event: GatherDataEvent) {
+private fun gatherData(event: GatherDataEvent) {
     val generator = event.generator
     val lookupProvider = event.lookupProvider
     val existingFileHelper = event.existingFileHelper
@@ -90,7 +90,7 @@ fun gatherData(event: GatherDataEvent) {
     generator.addProvider(event.includeClient(), T7LanguageProvider(packOutput, "en_us"))
 }
 
-fun modifyDefaultComponents(event: ModifyDefaultComponentsEvent) {
+private fun modifyDefaultComponents(event: ModifyDefaultComponentsEvent) {
     event.modify(
         T7Items.ARCANUM_HAMMER
     ) {
@@ -101,7 +101,7 @@ fun modifyDefaultComponents(event: ModifyDefaultComponentsEvent) {
     }
 }
 
-fun entityAttributeModification(event: EntityAttributeModificationEvent) {
+private fun entityAttributeModification(event: EntityAttributeModificationEvent) {
     if (!event.has(EntityType.PLAYER, T7Attributes.REVEALING))
         event.add(EntityType.PLAYER, T7Attributes.REVEALING)
 }

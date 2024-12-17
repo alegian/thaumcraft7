@@ -24,7 +24,7 @@ import thedarkcolour.kotlinforforge.neoforge.forge.FORGE_BUS as KFF_GAME_BUS
 
 private var allowHammerBreakEvents = true
 
-fun entityTickPre(event: EntityTickEvent.Pre) {
+private fun entityTickPre(event: EntityTickEvent.Pre) {
     val livingEntity = event.entity
     if (livingEntity !is LivingEntity) return
 
@@ -43,7 +43,7 @@ fun entityTickPre(event: EntityTickEvent.Pre) {
 
 }
 
-fun livingDamagePost(event: LivingDamageEvent.Post) {
+private fun livingDamagePost(event: LivingDamageEvent.Post) {
     val itemStack = event.source.weaponItem ?: return
     if (itemStack.item != T7Items.ARCANUM_KATANA.get()) return
 
@@ -64,7 +64,7 @@ fun livingDamagePost(event: LivingDamageEvent.Post) {
     }
 }
 
-fun breakBlock(event: BreakEvent) {
+private fun breakBlock(event: BreakEvent) {
     val player = event.player
     val itemStack = player.mainHandItem
     val item = itemStack.item
@@ -81,14 +81,14 @@ fun breakBlock(event: BreakEvent) {
     }
 }
 
-fun mobEffectApplicable(event: Applicable) {
+private fun mobEffectApplicable(event: Applicable) {
     val effectInstance = event.effectInstance ?: return
     if (effectInstance !== MobEffects.DARKNESS) return
     if (!EntityHelper.isEntityWearingAccessory(event.entity, T7Items.DAWN_CHARM.get())) return
     event.result = Applicable.Result.DO_NOT_APPLY
 }
 
-fun preLivingDamage(event: LivingDamageEvent.Pre) {
+private fun preLivingDamage(event: LivingDamageEvent.Pre) {
     val serverLevel = event.entity.level()
     if (serverLevel !is ServerLevel) return
 

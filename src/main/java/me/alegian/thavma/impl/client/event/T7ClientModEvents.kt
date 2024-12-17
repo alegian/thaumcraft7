@@ -34,11 +34,11 @@ import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsE
 import thedarkcolour.kotlinforforge.neoforge.forge.DIST
 import thedarkcolour.kotlinforforge.neoforge.forge.MOD_BUS as KFF_MOD_BUS
 
-fun registerGuiLayers(event: RegisterGuiLayersEvent) {
+private fun registerGuiLayers(event: RegisterGuiLayersEvent) {
     event.registerAboveAll(Thavma.rl("vis"), VisGuiOverlay.LAYER)
 }
 
-fun registerEntityRenderers(event: RegisterRenderers) {
+private fun registerEntityRenderers(event: RegisterRenderers) {
     event.registerBlockEntityRenderer(
         T7BlockEntities.AURA_NODE.get()
     ) { _: BlockEntityRendererProvider.Context? -> AuraNodeBER() }
@@ -65,13 +65,13 @@ fun registerEntityRenderers(event: RegisterRenderers) {
     ) { ctx: EntityRendererProvider.Context? -> VisER(ctx) }
 }
 
-fun registerParticleProviders(event: RegisterParticleProvidersEvent) {
+private fun registerParticleProviders(event: RegisterParticleProvidersEvent) {
     event.registerSpriteSet(
         T7ParticleTypes.CRUCIBLE_BUBBLE.get()
     ) { pSprites -> CrucibleBubbleParticle.Provider(pSprites) }
 }
 
-fun registerClientExtensions(event: RegisterClientExtensionsEvent) {
+private fun registerClientExtensions(event: RegisterClientExtensionsEvent) {
     for (wand in T7Items.WANDS.values())
         event.registerItem(WandItemExtensions(), wand)
 
@@ -82,15 +82,15 @@ fun registerClientExtensions(event: RegisterClientExtensionsEvent) {
     event.registerItem(BEWLRItemExtensionFactory.create(PedestalBE()), T7Blocks.PEDESTAL.get().asItem())
 }
 
-fun registerReloadListenerEvent(event: RegisterClientReloadListenersEvent) {
+private fun registerReloadListenerEvent(event: RegisterClientReloadListenersEvent) {
     event.registerReloadListener(AspectAtlas.INSTANCE)
 }
 
-fun registerGeometryLoaders(event: RegisterGeometryLoaders) {
+private fun registerGeometryLoaders(event: RegisterGeometryLoaders) {
     event.register(WithTransformParentModel.ID, WithTransformParentModel.Loader.INSTANCE)
 }
 
-fun registerItemColorHandlers(event: RegisterColorHandlersEvent.Item) {
+private fun registerItemColorHandlers(event: RegisterColorHandlersEvent.Item) {
     event.register(
         { stack, tintIndex ->
             when (tintIndex) {
@@ -134,7 +134,7 @@ fun registerItemColorHandlers(event: RegisterColorHandlersEvent.Item) {
         )
 }
 
-fun registerBlockColorHandlers(event: RegisterColorHandlersEvent.Block) {
+private fun registerBlockColorHandlers(event: RegisterColorHandlersEvent.Block) {
     event.register(
         { _, _, _, tintIndex ->
             when (tintIndex) {
@@ -165,19 +165,19 @@ fun registerBlockColorHandlers(event: RegisterColorHandlersEvent.Block) {
         )
 }
 
-fun registerShaders(event: RegisterShadersEvent) {
+private fun registerShaders(event: RegisterShadersEvent) {
     event.registerShader(
         ShaderInstance(event.resourceProvider, Thavma.rl("aura_node"), T7VertexFormats.AURA_NODE)
     ) { T7RenderStateShards.auraNodeShader = it }
 }
 
-fun registerClientTooltipComponentFactories(event: RegisterClientTooltipComponentFactoriesEvent) {
+private fun registerClientTooltipComponentFactories(event: RegisterClientTooltipComponentFactoriesEvent) {
     event.register(
         AspectTooltipComponent::class.java, ::AspectClientTooltipComponent
     )
 }
 
-fun registerScreens(event: RegisterMenuScreensEvent) {
+private fun registerScreens(event: RegisterMenuScreensEvent) {
     event.register(
         T7MenuTypes.ARCANE_WORKBENCH.get(), ::WorkbenchScreen
     )

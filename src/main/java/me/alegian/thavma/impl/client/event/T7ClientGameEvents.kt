@@ -26,7 +26,7 @@ import thedarkcolour.kotlinforforge.neoforge.forge.FORGE_BUS as KFF_GAME_BUS
 
 private var allowHammerOutlineEvents = true
 
-fun renderBlockHighlight(event: RenderHighlightEvent.Block) {
+private fun renderBlockHighlight(event: RenderHighlightEvent.Block) {
     val level = Minecraft.getInstance().level ?: return
     val hitResult = event.target
     if (hitResult.type == HitResult.Type.MISS) return
@@ -45,7 +45,7 @@ fun renderBlockHighlight(event: RenderHighlightEvent.Block) {
     if (level.getBlockState(targetPos).block is AuraNodeBlock) event.isCanceled = true
 }
 
-fun renderLevelAfterWeather(event: RenderLevelStageEvent) {
+private fun renderLevelAfterWeather(event: RenderLevelStageEvent) {
     if (event.stage !== RenderLevelStageEvent.Stage.AFTER_WEATHER) return
 
     // general purpose useful stuff
@@ -71,7 +71,7 @@ fun renderLevelAfterWeather(event: RenderLevelStageEvent) {
         }
 }
 
-fun gatherTooltipComponents(event: GatherComponents) {
+private fun gatherTooltipComponents(event: GatherComponents) {
     if (!ClientHelper.localPlayerHasRevealing()) return
 
     AspectContainer.from(event.itemStack).map(IAspectContainer::getAspects)
@@ -88,7 +88,7 @@ fun gatherTooltipComponents(event: GatherComponents) {
     event.tooltipElements.addLast(Either.right(AspectTooltipComponent(event.itemStack)))
 }
 
-fun renderPlayerPre(event: RenderPlayerEvent.Pre) {
+private fun renderPlayerPre(event: RenderPlayerEvent.Pre) {
     val model = event.renderer.model
 
     // if chestplate exists, disable sleeves & jacket to prevent clipping with thin armors
