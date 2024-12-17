@@ -77,7 +77,7 @@ public class CrucibleBlock extends Block implements EntityBlock {
       var input = new CrucibleRecipeInput(crucibleAspects, thrownStack);
 
       boolean success = recipes.getRecipeFor(
-          T7RecipeTypes.CRUCIBLE.get(),
+          T7RecipeTypes.INSTANCE.getCRUCIBLE().get(),
           input,
           level
       ).map(recipe -> {

@@ -27,10 +27,10 @@ public class Thavma {
     T7Attachments.INSTANCE.getREGISTRAR().register(modEventBus);
     T7DataComponents.INSTANCE.getREGISTRAR().register(modEventBus);
     T7ParticleTypes.INSTANCE.getREGISTRAR().register(modEventBus);
-    T7CreativeModeTabs.REGISTRAR.register(modEventBus);
-    T7TrunkPlacerTypes.REGISTRAR.register(modEventBus);
-    T7MenuTypes.REGISTRAR.register(modEventBus);
-    T7RecipeTypes.REGISTRAR.register(modEventBus);
+    T7CreativeModeTabs.INSTANCE.getREGISTRAR().register(modEventBus);
+    T7TrunkPlacerTypes.INSTANCE.getREGISTRAR().register(modEventBus);
+    T7MenuTypes.INSTANCE.getREGISTRAR().register(modEventBus);
+    T7RecipeTypes.INSTANCE.getREGISTRAR().register(modEventBus);
     T7RecipeSerializers.INSTANCE.getREGISTRAR().register(modEventBus);
     WandCoreMaterials.INSTANCE.getREGISTRAR().register(modEventBus);
     WandHandleMaterials.INSTANCE.getREGISTRAR().register(modEventBus);

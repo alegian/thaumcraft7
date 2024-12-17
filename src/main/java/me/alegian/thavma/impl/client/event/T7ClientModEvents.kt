@@ -179,7 +179,7 @@ private fun registerClientTooltipComponentFactories(event: RegisterClientTooltip
 
 private fun registerScreens(event: RegisterMenuScreensEvent) {
     event.register(
-        T7MenuTypes.ARCANE_WORKBENCH.get(), ::WorkbenchScreen
+        T7MenuTypes.WORKBENCH.get(), ::WorkbenchScreen
     )
 }
 

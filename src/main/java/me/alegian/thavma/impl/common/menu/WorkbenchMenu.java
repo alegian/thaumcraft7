@@ -34,7 +34,7 @@ public class WorkbenchMenu extends Menu {
    * Slot index must be container unique, but not necessarily menu unique
    */
   public WorkbenchMenu(int pContainerId, Inventory pPlayerInventory, ContainerLevelAccess pAccess) {
-    super(T7MenuTypes.ARCANE_WORKBENCH.get(), pContainerId, pPlayerInventory);
+    super(T7MenuTypes.INSTANCE.getWORKBENCH().get(), pContainerId, pPlayerInventory);
     this.levelAccess = pAccess;
 
     this.slotPose.push(50, 42);
@@ -59,7 +59,7 @@ public class WorkbenchMenu extends Menu {
   private void refreshRecipeResult() {
     Level level = this.getPlayer().level();
     CraftingInput craftinginput = this.craftingContainer.asCraftInput();
-    var optionalRecipeHolder = level.getRecipeManager().getRecipeFor(T7RecipeTypes.ARCANE_WORKBENCH.get(), this.craftingContainer.asCraftInput(), level);
+    var optionalRecipeHolder = level.getRecipeManager().getRecipeFor(T7RecipeTypes.INSTANCE.getWORKBENCH().get(), this.craftingContainer.asCraftInput(), level);
 
     this.requiredAspects = optionalRecipeHolder.map(r ->
         r.value().assembleAspects()

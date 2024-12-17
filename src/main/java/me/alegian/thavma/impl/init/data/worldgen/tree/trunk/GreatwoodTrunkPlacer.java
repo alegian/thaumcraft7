@@ -12,23 +12,26 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.GiantTrunkPlacer;
+import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.function.BiConsumer;
 
 public class GreatwoodTrunkPlacer extends GiantTrunkPlacer {
   public static final MapCodec<GreatwoodTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec(
-      builder -> trunkPlacerParts(builder).apply(builder, GreatwoodTrunkPlacer::new)
+      builder -> TrunkPlacer.trunkPlacerParts(builder).apply(builder, GreatwoodTrunkPlacer::new)
   );
 
   public GreatwoodTrunkPlacer(int pBaseHeight, int pHeightRandA, int pHeightRandB) {
     super(pBaseHeight, pHeightRandA, pHeightRandB);
   }
 
+  @NotNull
   @Override
   protected TrunkPlacerType<?> type() {
-    return T7TrunkPlacerTypes.GREATWOOD_TRUNK_PLACER_TYPE.get();
+    return T7TrunkPlacerTypes.INSTANCE.getGREATWOOD().get();
   }
 
   @Override

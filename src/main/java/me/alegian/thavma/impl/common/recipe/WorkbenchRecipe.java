@@ -49,7 +49,7 @@ public class WorkbenchRecipe implements Recipe<CraftingInput> {
 
   @Override
   public RecipeType<?> getType() {
-    return T7RecipeTypes.ARCANE_WORKBENCH.get();
+    return T7RecipeTypes.INSTANCE.getWORKBENCH().get();
   }
 
   public AspectMap assembleAspects() {

@@ -22,7 +22,7 @@ public class WorkbenchResultSlot extends T7ResultSlot<WorkbenchMenu> {
     var craftinginput = positionedInput.input();
     int i = positionedInput.left();
     int j = positionedInput.top();
-    var optionalRecipe = player.level().getRecipeManager().getRecipeFor(T7RecipeTypes.ARCANE_WORKBENCH.get(), craftinginput, player.level());
+    var optionalRecipe = player.level().getRecipeManager().getRecipeFor(T7RecipeTypes.INSTANCE.getWORKBENCH().get(), craftinginput, player.level());
 
     for (int k = 0; k < craftinginput.height(); k++)
       for (int l = 0; l < craftinginput.width(); l++) {

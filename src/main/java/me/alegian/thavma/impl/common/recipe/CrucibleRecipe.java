@@ -73,6 +73,6 @@ public class CrucibleRecipe implements Recipe<CrucibleRecipeInput> {
 
   @Override
   public RecipeType<?> getType() {
-    return T7RecipeTypes.CRUCIBLE.get();
+    return T7RecipeTypes.INSTANCE.getCRUCIBLE().get();
   }
 }
