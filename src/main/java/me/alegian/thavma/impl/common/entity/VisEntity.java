@@ -22,8 +22,8 @@ import java.util.UUID;
  * Transfers vis from the target block to the held wand by ticking.
  */
 public class VisEntity extends RendererEntity {
-  private static final int PERIOD_TICKS = 5;
   public static final String PLAYER_TAG = "player";
+  private static final int PERIOD_TICKS = 5;
   @Nullable
   private UUID playerUUID; // save player UUID and not entire Player, because when deserializing, level.players is not yet populated
 
@@ -58,7 +58,7 @@ public class VisEntity extends RendererEntity {
       this.kill();
       return;
     }
-    int transferred = pair.transferPrimal((this.tickCount / VisEntity.PERIOD_TICKS) % Aspects.PRIMAL_ASPECTS.size(), 5);
+    int transferred = pair.transferPrimal((this.tickCount / VisEntity.PERIOD_TICKS) % Aspects.INSTANCE.getPRIMAL_ASPECTS().size(), 5);
     if (transferred > 0) BEHelper.updateServerBlockEntity(this.level(), this.blockPosition());
   }
 
@@ -83,6 +83,12 @@ public class VisEntity extends RendererEntity {
   }
 
   @Override
+  public void restoreFrom(@NotNull Entity pEntity) {
+    super.restoreFrom(pEntity);
+    this.playerUUID = ((VisEntity) pEntity).getPlayerUUID();
+  }
+
+  @Override
   public @NotNull Packet<ClientGamePacketListener> getAddEntityPacket(@NotNull ServerEntity pEntity) {
     Entity player = this.getPlayer();
     return new ClientboundAddEntityPacket(this, pEntity, player == null ? 0 : player.getId());
@@ -93,11 +99,5 @@ public class VisEntity extends RendererEntity {
     super.recreateFromPacket(pPacket);
     Entity entity = this.level().getEntity(pPacket.getData());
     if (entity instanceof Player player) this.playerUUID = player.getUUID();
-  }
-
-  @Override
-  public void restoreFrom(@NotNull Entity pEntity) {
-    super.restoreFrom(pEntity);
-    this.playerUUID = ((VisEntity) pEntity).getPlayerUUID();
   }
 }

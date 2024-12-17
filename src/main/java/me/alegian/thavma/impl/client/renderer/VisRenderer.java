@@ -20,7 +20,7 @@ public class VisRenderer {
   // triangle resolution
   public static int N = 100;
   // delta angle: how fast we rotate the spiral
-  public static double da = 2 * Math.PI / N;
+  public static double da = 2 * Math.PI / VisRenderer.N;
 
   /**
    * Assumes the Pose is at player hand position, with no rotation.
@@ -28,7 +28,7 @@ public class VisRenderer {
    */
   public static void render(Vec3 blockPos, T7PoseStack t7pose, MultiBufferSource bufferSource, float partialTicks) {
     // delta vector (scaled b-a)
-    Vector3f dv = relative(t7pose, blockPos).div(N);
+    Vector3f dv = VisRenderer.relative(t7pose, blockPos).div(VisRenderer.N);
 
     t7pose.push();
     VertexConsumer vc = bufferSource.getBuffer(T7RenderTypes.TRANSLUCENT_TRIANGLES);
@@ -42,28 +42,28 @@ public class VisRenderer {
     double phase = (partialTicks / 20 / 4 * 2 * Math.PI) % 2 * Math.PI;
     t7pose.rotate(mainAxis, phase);
 
-    for (int i = 0; i <= N; i++) {
+    for (int i = 0; i <= VisRenderer.N; i++) {
       // this goes from 0 to 1 and back to 0, giving thickness
-      double thicknessYOffset = Math.sin(da / 2 * i) / 8;
+      double thicknessYOffset = Math.sin(VisRenderer.da / 2 * i) / 8;
 
       // the 2 vertices render with opposite offsets to give thickness
       t7pose.push();
       t7pose.translateY(thicknessYOffset);
-      renderVertex(vc, t7pose);
+      VisRenderer.renderVertex(vc, t7pose);
       t7pose.pop();
 
       t7pose.push();
       t7pose.translateY(-thicknessYOffset);
-      renderVertex(vc, t7pose);
+      VisRenderer.renderVertex(vc, t7pose);
       t7pose.pop();
 
       // move towards goal
       t7pose.translate(dv);
       // offset on the Z axis to create spiral
-      Vector3f translation = new Vector3f(zBasis).mul((float) (Math.sin(da) / 4f));
+      Vector3f translation = new Vector3f(zBasis).mul((float) (Math.sin(VisRenderer.da) / 4f));
       t7pose.translate(translation);
       // spiral vertices should be drawn rotated
-      t7pose.rotate(mainAxis, da);
+      t7pose.rotate(mainAxis, VisRenderer.da);
     }
 
     t7pose.pop();
@@ -78,7 +78,7 @@ public class VisRenderer {
       T7PoseStack t7pose
   ) {
     vc.addVertex(t7pose.pose(), 0, 0, 0)
-        .setColor(Aspects.PRAECANTATIO.get().getColor() & 0xFFFFFF | 0x88000000);
+        .setColor(Aspects.INSTANCE.getPRAECANTATIO().get().getColor() & 0xFFFFFF | 0x88000000);
   }
 
   /**

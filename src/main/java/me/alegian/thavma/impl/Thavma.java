@@ -34,7 +34,7 @@ public class Thavma {
     T7RecipeSerializers.INSTANCE.getREGISTRAR().register(modEventBus);
     WandCoreMaterials.INSTANCE.getREGISTRAR().register(modEventBus);
     WandHandleMaterials.INSTANCE.getREGISTRAR().register(modEventBus);
-    Aspects.REGISTRAR.register(modEventBus);
+    Aspects.INSTANCE.getREGISTRAR().register(modEventBus);
     Researches.INSTANCE.getREGISTRAR().register(modEventBus);
     T7Attributes.INSTANCE.getREGISTRAR().register(modEventBus);
     T7GlobalLootModifierSerializers.INSTANCE.getREGISTRAR().register(modEventBus);

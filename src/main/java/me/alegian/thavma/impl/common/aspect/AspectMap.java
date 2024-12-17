@@ -72,7 +72,7 @@ public class AspectMap implements Iterable<AspectStack> {
   public static AspectMap randomPrimals() {
     Random random = new Random();
     LinkedHashMap<Aspect, Integer> map = new LinkedHashMap<>();
-    var primals = new ArrayList<>(Aspects.PRIMAL_ASPECTS);
+    var primals = new ArrayList<>(Aspects.INSTANCE.getPRIMAL_ASPECTS());
     Collections.shuffle(primals);
     var randomPrimals = primals.subList(0, random.nextInt(primals.size()) + 1);
     for (var a : randomPrimals)
@@ -143,7 +143,7 @@ public class AspectMap implements Iterable<AspectStack> {
 
   public ImmutableList<AspectStack> displayedAspects() {
     if (this == AspectMap.EMPTY) return ImmutableList.of();
-    return Aspects.REGISTRAR.getEntries().stream().map(Supplier::get).filter(a -> this.get(a) > 0).map(a -> AspectStack.of(a, this.get(a))).collect(ImmutableList.toImmutableList());
+    return Aspects.INSTANCE.getREGISTRAR().getEntries().stream().map(Supplier::get).filter(a -> this.get(a) > 0).map(a -> AspectStack.of(a, this.get(a))).collect(ImmutableList.toImmutableList());
   }
 
   public int size() {

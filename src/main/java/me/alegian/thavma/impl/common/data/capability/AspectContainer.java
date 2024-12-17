@@ -144,15 +144,15 @@ public class AspectContainer implements IAspectContainer {
     }
 
     public boolean canTransferPrimals() {
-      return Aspects.PRIMAL_ASPECTS.stream()
+      return Aspects.INSTANCE.getPRIMAL_ASPECTS().stream()
           .map(a -> this.simulateTransfer(a.get(), 1))
           .anyMatch(e -> e > 0);
     }
 
     public int transferPrimal(int indexOffset, int idealAmount) {
-      var primals = Aspects.PRIMAL_ASPECTS.size();
+      var primals = Aspects.INSTANCE.getPRIMAL_ASPECTS().size();
       for (int i = 0; i < primals; i++) {
-        var a = Aspects.PRIMAL_ASPECTS.get((i + indexOffset) % primals).get();
+        var a = Aspects.INSTANCE.getPRIMAL_ASPECTS().get((i + indexOffset) % primals).get();
         int amount = this.simulateTransfer(a, idealAmount);
         if (amount == 0) continue;
         this.sink.insert(a, amount, false);

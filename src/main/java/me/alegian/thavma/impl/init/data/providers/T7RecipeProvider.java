@@ -189,16 +189,16 @@ public class T7RecipeProvider extends RecipeProvider {
     T7RecipeProvider.inCrucible(pRecipeOutput,
         new ItemStack(Items.DIAMOND),
         AspectMap.builder()
-            .add(Aspects.TERRA.get(), 6)
-            .add(Aspects.PERDITIO.get(), 2)
+            .add(Aspects.INSTANCE.getTERRA().get(), 6)
+            .add(Aspects.INSTANCE.getPERDITIO().get(), 2)
             .build(),
         Ingredient.of(Items.DRAGON_EGG)
     );
 
     WorkbenchRecipeBuilder.shaped(Items.DIAMOND, 2)
         .requireAspects(AspectMap.builder()
-            .add(Aspects.IGNIS.get(), 6)
-            .add(Aspects.ORDO.get(), 2)
+            .add(Aspects.INSTANCE.getIGNIS().get(), 6)
+            .add(Aspects.INSTANCE.getORDO().get(), 2)
             .build())
         .define('d', Blocks.COBBLED_DEEPSLATE)
         .define('g', Items.GOLD_INGOT)

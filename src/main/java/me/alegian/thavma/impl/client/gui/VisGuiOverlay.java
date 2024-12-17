@@ -40,7 +40,7 @@ public class VisGuiOverlay {
     graphics.translateXY(VisGuiOverlay.STAR.width() / 2f, VisGuiOverlay.STAR.height() / 2f);
     graphics.rotateZ(15);
 
-    for (var deferredAspect : Aspects.PRIMAL_ASPECTS) {
+    for (var deferredAspect : Aspects.INSTANCE.getPRIMAL_ASPECTS()) {
       Aspect a = deferredAspect.get();
       var color = a.getColorRGB();
       graphics.push();

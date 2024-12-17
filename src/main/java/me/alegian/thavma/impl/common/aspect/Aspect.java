@@ -13,6 +13,11 @@ import java.util.Random;
 import java.util.function.Supplier;
 
 public class Aspect {
+  public static final StreamCodec<ByteBuf, Aspect> STREAM_CODEC = ByteBufCodecs.STRING_UTF8.map(
+      s -> T7Registries.ASPECT.get(ResourceLocation.parse(s)),
+      a -> T7Registries.ASPECT.getKey(a).toString()
+  );
+  public static final Codec<Aspect> CODEC = T7Registries.ASPECT.byNameCodec();
   String id;
   int color;
   List<Supplier<Aspect>> components;
@@ -21,6 +26,11 @@ public class Aspect {
     this.id = id;
     this.color = color;
     this.components = components;
+  }
+
+  public static Aspect getRandomAspect() {
+    var registeredAspects = Aspects.INSTANCE.getREGISTRAR().getEntries();
+    return registeredAspects.stream().skip(new Random().nextInt(registeredAspects.size())).findFirst().get().get();
   }
 
   public boolean isPrimal() {
@@ -46,16 +56,4 @@ public class Aspect {
   public List<Supplier<Aspect>> getComponents() {
     return this.components;
   }
-
-  public static Aspect getRandomAspect() {
-    var registeredAspects = Aspects.REGISTRAR.getEntries();
-    return registeredAspects.stream().skip(new Random().nextInt(registeredAspects.size())).findFirst().get().get();
-  }
-
-  public static final StreamCodec<ByteBuf, Aspect> STREAM_CODEC = ByteBufCodecs.STRING_UTF8.map(
-      s -> T7Registries.ASPECT.get(ResourceLocation.parse(s)),
-      a -> T7Registries.ASPECT.getKey(a).toString()
-  );
-
-  public static final Codec<Aspect> CODEC = T7Registries.ASPECT.byNameCodec();
 }
