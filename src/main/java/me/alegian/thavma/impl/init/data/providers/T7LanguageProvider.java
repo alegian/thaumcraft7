@@ -24,58 +24,58 @@ public class T7LanguageProvider extends LanguageProvider {
   protected void addTranslations() {
     this.add(Thavma.MODID, "Thavma");
 
-    this.add(T7Items.IRON_HANDLE.get(), "Iron Wand Handle");
-    this.add(T7Items.GOLD_HANDLE.get(), "Gold Wand Handle");
-    this.add(T7Items.ORICHALCUM_HANDLE.get(), "Orichalcum Wand Handle");
-    this.add(T7Items.ARCANUM_HANDLE.get(), "Arcanum Wand Handle");
+    this.add(T7Items.INSTANCE.getIRON_HANDLE().get(), "Iron Wand Handle");
+    this.add(T7Items.INSTANCE.getGOLD_HANDLE().get(), "Gold Wand Handle");
+    this.add(T7Items.INSTANCE.getORICHALCUM_HANDLE().get(), "Orichalcum Wand Handle");
+    this.add(T7Items.INSTANCE.getARCANUM_HANDLE().get(), "Arcanum Wand Handle");
 
-    this.add(T7Items.EYE_OF_WARDEN.get(), "Eye of Warden");
+    this.add(T7Items.INSTANCE.getEYE_OF_WARDEN().get(), "Eye of Warden");
 
-    this.add(T7Items.GREATWOOD_CORE.get(), "Greatwood Wand Core");
-    this.add(T7Items.SILVERWOOD_CORE.get(), "Silverwood Wand Core");
+    this.add(T7Items.INSTANCE.getGREATWOOD_CORE().get(), "Greatwood Wand Core");
+    this.add(T7Items.INSTANCE.getSILVERWOOD_CORE().get(), "Silverwood Wand Core");
 
-    this.add(T7Items.RUNE.get(), "Rune");
-    this.add(T7Items.ARCANUM_INGOT.get(), "Arcanum Ingot");
-    this.add(T7Items.ARCANUM_NUGGET.get(), "Arcanum Nugget");
-    this.add(T7Items.ORICHALCUM_INGOT.get(), "Orichalcum Ingot");
-    this.add(T7Items.ORICHALCUM_NUGGET.get(), "Orichalcum Nugget");
-    this.add(T7Items.RESEARCH_SCROLL.get(), "Research Scroll");
-    this.add(T7Items.COMPLETED_RESEARCH.get(), "Completed Research");
-    this.add(T7Items.OCULUS.get(), "Oculus");
-    this.add(T7Items.THAUMONOMICON.get(), "Thaumonomicon");
+    this.add(T7Items.INSTANCE.getRUNE().get(), "Rune");
+    this.add(T7Items.INSTANCE.getARCANUM_INGOT().get(), "Arcanum Ingot");
+    this.add(T7Items.INSTANCE.getARCANUM_NUGGET().get(), "Arcanum Nugget");
+    this.add(T7Items.INSTANCE.getORICHALCUM_INGOT().get(), "Orichalcum Ingot");
+    this.add(T7Items.INSTANCE.getORICHALCUM_NUGGET().get(), "Orichalcum Nugget");
+    this.add(T7Items.INSTANCE.getRESEARCH_SCROLL().get(), "Research Scroll");
+    this.add(T7Items.INSTANCE.getCOMPLETED_RESEARCH().get(), "Completed Research");
+    this.add(T7Items.INSTANCE.getOCULUS().get(), "Oculus");
+    this.add(T7Items.INSTANCE.getTHAUMONOMICON().get(), "Thaumonomicon");
 
-    this.add(T7Items.GOGGLES.get(), "Goggles Of Revealing");
-    this.add(T7Items.GOGGLES_ACCESSORY.get(), "Goggles Of Revealing (Accessory)");
-    this.add(T7Items.DAWN_CHARM.get(), "Charm of the Dawn");
-    this.add(T7Items.RESEARCHER_BOOTS.get(), "Researcher Boots");
-    this.add(T7Items.RESEARCHER_CHESTPLATE.get(), "Researcher Chestplate");
-    this.add(T7Items.RESEARCHER_LEGGINGS.get(), "Researcher Leggings");
+    this.add(T7Items.INSTANCE.getGOGGLES().get(), "Goggles Of Revealing");
+    this.add(T7Items.INSTANCE.getGOGGLES_ACCESSORY().get(), "Goggles Of Revealing (Accessory)");
+    this.add(T7Items.INSTANCE.getDAWN_CHARM().get(), "Charm of the Dawn");
+    this.add(T7Items.INSTANCE.getRESEARCHER_BOOTS().get(), "Researcher Boots");
+    this.add(T7Items.INSTANCE.getRESEARCHER_CHESTPLATE().get(), "Researcher Chestplate");
+    this.add(T7Items.INSTANCE.getRESEARCHER_LEGGINGS().get(), "Researcher Leggings");
 
-    this.add(T7Items.ARCANUM_BOOTS.get(), "Arcanum Boots");
-    this.add(T7Items.ARCANUM_HELMET.get(), "Arcanum Helmet");
-    this.add(T7Items.ARCANUM_CHESTPLATE.get(), "Arcanum Chestplate");
-    this.add(T7Items.ARCANUM_LEGGINGS.get(), "Arcanum Leggings");
+    this.add(T7Items.INSTANCE.getARCANUM_BOOTS().get(), "Arcanum Boots");
+    this.add(T7Items.INSTANCE.getARCANUM_HELMET().get(), "Arcanum Helmet");
+    this.add(T7Items.INSTANCE.getARCANUM_CHESTPLATE().get(), "Arcanum Chestplate");
+    this.add(T7Items.INSTANCE.getARCANUM_LEGGINGS().get(), "Arcanum Leggings");
 
-    this.add(T7Items.CUSTOS_ARCANUM_BOOTS.get(), "Custos Arcanum Boots");
-    this.add(T7Items.CUSTOS_ARCANUM_HELMET.get(), "Custos Arcanum Helmet");
-    this.add(T7Items.CUSTOS_ARCANUM_CHESTPLATE.get(), "Custos Arcanum Chestplate");
-    this.add(T7Items.CUSTOS_ARCANUM_LEGGINGS.get(), "Custos Arcanum Leggings");
+    this.add(T7Items.INSTANCE.getCUSTOS_ARCANUM_BOOTS().get(), "Custos Arcanum Boots");
+    this.add(T7Items.INSTANCE.getCUSTOS_ARCANUM_HELMET().get(), "Custos Arcanum Helmet");
+    this.add(T7Items.INSTANCE.getCUSTOS_ARCANUM_CHESTPLATE().get(), "Custos Arcanum Chestplate");
+    this.add(T7Items.INSTANCE.getCUSTOS_ARCANUM_LEGGINGS().get(), "Custos Arcanum Leggings");
 
-    this.add(T7Items.IGNIS_TESTA.get(), "Ignis Testa");
-    this.add(T7Items.AER_TESTA.get(), "Aer Testa");
-    this.add(T7Items.TERRA_TESTA.get(), "Terra Testa");
-    this.add(T7Items.AQUA_TESTA.get(), "Aqua Testa");
-    this.add(T7Items.ORDO_TESTA.get(), "Ordo Testa");
-    this.add(T7Items.PERDITIO_TESTA.get(), "Perditio Testa");
+    this.add(T7Items.INSTANCE.getIGNIS_TESTA().get(), "Ignis Testa");
+    this.add(T7Items.INSTANCE.getAER_TESTA().get(), "Aer Testa");
+    this.add(T7Items.INSTANCE.getTERRA_TESTA().get(), "Terra Testa");
+    this.add(T7Items.INSTANCE.getAQUA_TESTA().get(), "Aqua Testa");
+    this.add(T7Items.INSTANCE.getORDO_TESTA().get(), "Ordo Testa");
+    this.add(T7Items.INSTANCE.getPERDITIO_TESTA().get(), "Perditio Testa");
 
-    this.add(T7Items.ARCANUM_SWORD.get(), "Arcanum Sword");
-    this.add(T7Items.ARCANUM_AXE.get(), "Arcanum Axe");
-    this.add(T7Items.ARCANUM_PICKAXE.get(), "Arcanum Pickaxe");
-    this.add(T7Items.ARCANUM_HAMMER.get(), "Arcanum Hammer");
-    this.add(T7Items.ARCANUM_SHOVEL.get(), "Arcanum Shovel");
-    this.add(T7Items.ARCANUM_HOE.get(), "Arcanum Hoe");
-    this.add(T7Items.ARCANUM_KATANA.get(), "Arcanum Katana");
-    this.add(T7Items.ZEPHYR.get(), "Zephyr");
+    this.add(T7Items.INSTANCE.getARCANUM_SWORD().get(), "Arcanum Sword");
+    this.add(T7Items.INSTANCE.getARCANUM_AXE().get(), "Arcanum Axe");
+    this.add(T7Items.INSTANCE.getARCANUM_PICKAXE().get(), "Arcanum Pickaxe");
+    this.add(T7Items.INSTANCE.getARCANUM_HAMMER().get(), "Arcanum Hammer");
+    this.add(T7Items.INSTANCE.getARCANUM_SHOVEL().get(), "Arcanum Shovel");
+    this.add(T7Items.INSTANCE.getARCANUM_HOE().get(), "Arcanum Hoe");
+    this.add(T7Items.INSTANCE.getARCANUM_KATANA().get(), "Arcanum Katana");
+    this.add(T7Items.INSTANCE.getZEPHYR().get(), "Zephyr");
 
     Map<WandHandleMaterial, String> handleNames = new HashMap<>();
     handleNames.put(WandHandleMaterials.INSTANCE.getIRON().get(), "Iron Handle");
@@ -90,7 +90,7 @@ public class T7LanguageProvider extends LanguageProvider {
 
     for (var handleEntry : handleNames.entrySet())
       for (var coreEntry : coreNames.entrySet()) {
-        WandItem wand = T7Items.wandOrThrow(handleEntry.getKey(), coreEntry.getKey());
+        WandItem wand = T7Items.INSTANCE.wandOrThrow(handleEntry.getKey(), coreEntry.getKey());
         this.add(wand, handleEntry.getValue() + " " + coreEntry.getValue() + " Wand");
       }
 

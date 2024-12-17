@@ -19,10 +19,10 @@ public class KatanaItem extends SwordItem implements GeoItem {
   private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
   public KatanaItem() {
-    super(T7Tiers.ARCANUM_TIER,
+    super(T7Tiers.INSTANCE.getARCANUM_TIER(),
         new Item.Properties().fireResistant().attributes(
             SwordItem.createAttributes(
-                T7Tiers.ARCANUM_TIER,
+                T7Tiers.INSTANCE.getARCANUM_TIER(),
                 3, -2.4f
             )
         ));

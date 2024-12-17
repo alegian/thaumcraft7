@@ -24,7 +24,7 @@ public class EntityHelper {
   }
 
   public static boolean isHandKatana(InteractionHand hand) {
-    return Minecraft.getInstance().player.getItemInHand(hand).getItem().equals(T7Items.ARCANUM_KATANA.get());
+    return Minecraft.getInstance().player.getItemInHand(hand).getItem().equals(T7Items.INSTANCE.getARCANUM_KATANA().get());
   }
 
   public static BlockHitResult getServerHitResult(ServerPlayer player) {

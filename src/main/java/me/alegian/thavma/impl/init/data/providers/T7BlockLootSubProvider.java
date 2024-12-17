@@ -45,18 +45,18 @@ public class T7BlockLootSubProvider extends BlockLootSubProvider {
 
     this.dropSelf(T7Blocks.INSTANCE.getESSENTIA_CONTAINER().get());
 
-    this.infusedStone(T7Blocks.INSTANCE.getIGNIS_INFUSED_STONE(), T7Items.IGNIS_TESTA);
-    this.infusedStone(T7Blocks.INSTANCE.getTERRA_INFUSED_STONE(), T7Items.TERRA_TESTA);
-    this.infusedStone(T7Blocks.INSTANCE.getAER_INFUSED_STONE(), T7Items.AER_TESTA);
-    this.infusedStone(T7Blocks.INSTANCE.getAQUA_INFUSED_STONE(), T7Items.AQUA_TESTA);
-    this.infusedStone(T7Blocks.INSTANCE.getORDO_INFUSED_STONE(), T7Items.ORDO_TESTA);
-    this.infusedStone(T7Blocks.INSTANCE.getPERDITIO_INFUSED_STONE(), T7Items.PERDITIO_TESTA);
-    this.infusedStone(T7Blocks.INSTANCE.getIGNIS_INFUSED_DEEPSLATE(), T7Items.IGNIS_TESTA);
-    this.infusedStone(T7Blocks.INSTANCE.getTERRA_INFUSED_DEEPSLATE(), T7Items.TERRA_TESTA);
-    this.infusedStone(T7Blocks.INSTANCE.getAER_INFUSED_DEEPSLATE(), T7Items.AER_TESTA);
-    this.infusedStone(T7Blocks.INSTANCE.getAQUA_INFUSED_DEEPSLATE(), T7Items.AQUA_TESTA);
-    this.infusedStone(T7Blocks.INSTANCE.getORDO_INFUSED_DEEPSLATE(), T7Items.ORDO_TESTA);
-    this.infusedStone(T7Blocks.INSTANCE.getPERDITIO_INFUSED_DEEPSLATE(), T7Items.PERDITIO_TESTA);
+    this.infusedStone(T7Blocks.INSTANCE.getIGNIS_INFUSED_STONE(), T7Items.INSTANCE.getIGNIS_TESTA());
+    this.infusedStone(T7Blocks.INSTANCE.getTERRA_INFUSED_STONE(), T7Items.INSTANCE.getTERRA_TESTA());
+    this.infusedStone(T7Blocks.INSTANCE.getAER_INFUSED_STONE(), T7Items.INSTANCE.getAER_TESTA());
+    this.infusedStone(T7Blocks.INSTANCE.getAQUA_INFUSED_STONE(), T7Items.INSTANCE.getAQUA_TESTA());
+    this.infusedStone(T7Blocks.INSTANCE.getORDO_INFUSED_STONE(), T7Items.INSTANCE.getORDO_TESTA());
+    this.infusedStone(T7Blocks.INSTANCE.getPERDITIO_INFUSED_STONE(), T7Items.INSTANCE.getPERDITIO_TESTA());
+    this.infusedStone(T7Blocks.INSTANCE.getIGNIS_INFUSED_DEEPSLATE(), T7Items.INSTANCE.getIGNIS_TESTA());
+    this.infusedStone(T7Blocks.INSTANCE.getTERRA_INFUSED_DEEPSLATE(), T7Items.INSTANCE.getTERRA_TESTA());
+    this.infusedStone(T7Blocks.INSTANCE.getAER_INFUSED_DEEPSLATE(), T7Items.INSTANCE.getAER_TESTA());
+    this.infusedStone(T7Blocks.INSTANCE.getAQUA_INFUSED_DEEPSLATE(), T7Items.INSTANCE.getAQUA_TESTA());
+    this.infusedStone(T7Blocks.INSTANCE.getORDO_INFUSED_DEEPSLATE(), T7Items.INSTANCE.getORDO_TESTA());
+    this.infusedStone(T7Blocks.INSTANCE.getPERDITIO_INFUSED_DEEPSLATE(), T7Items.INSTANCE.getPERDITIO_TESTA());
   }
 
   @Override

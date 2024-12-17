@@ -12,7 +12,7 @@ public class DawnCharmItem extends Item {
 
     AccessoryChangeCallback.EVENT.register((prevStack, currentStack, reference, stateChange) -> {
       if (stateChange != SlotStateChange.REPLACEMENT) return;
-      if (!currentStack.getItem().equals(T7Items.DAWN_CHARM.get())) return;
+      if (!currentStack.getItem().equals(T7Items.INSTANCE.getDAWN_CHARM().get())) return;
       reference.entity().removeEffect(MobEffects.DARKNESS);
     });
   }

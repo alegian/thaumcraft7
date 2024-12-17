@@ -21,7 +21,7 @@ public class Thavma {
   public Thavma(IEventBus modEventBus) {
     T7ArmorMaterials.INSTANCE.getREGISTRAR().register(modEventBus);
     T7Blocks.INSTANCE.getREGISTRAR().register(modEventBus);
-    T7Items.REGISTRAR.register(modEventBus);
+    T7Items.INSTANCE.getREGISTRAR().register(modEventBus);
     T7BlockEntities.INSTANCE.getREGISTRAR().register(modEventBus);
     T7EntityTypes.INSTANCE.getREGISTRAR().register(modEventBus);
     T7Attachments.INSTANCE.getREGISTRAR().register(modEventBus);

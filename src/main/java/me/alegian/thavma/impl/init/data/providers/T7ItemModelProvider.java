@@ -16,56 +16,56 @@ public class T7ItemModelProvider extends ItemModelProvider {
 
   @Override
   protected void registerModels() {
-    this.basicItem(T7Items.IRON_HANDLE.get());
-    this.basicItem(T7Items.GOLD_HANDLE.get());
-    this.basicItem(T7Items.ORICHALCUM_HANDLE.get());
-    this.basicItem(T7Items.ARCANUM_HANDLE.get());
+    this.basicItem(T7Items.INSTANCE.getIRON_HANDLE().get());
+    this.basicItem(T7Items.INSTANCE.getGOLD_HANDLE().get());
+    this.basicItem(T7Items.INSTANCE.getORICHALCUM_HANDLE().get());
+    this.basicItem(T7Items.INSTANCE.getARCANUM_HANDLE().get());
 
-    this.basicItem(T7Items.EYE_OF_WARDEN.get());
+    this.basicItem(T7Items.INSTANCE.getEYE_OF_WARDEN().get());
 
-    this.basicItem(T7Items.GREATWOOD_CORE.get());
-    this.basicItem(T7Items.SILVERWOOD_CORE.get());
+    this.basicItem(T7Items.INSTANCE.getGREATWOOD_CORE().get());
+    this.basicItem(T7Items.INSTANCE.getSILVERWOOD_CORE().get());
 
-    this.basicItem(T7Items.RUNE.get());
-    this.basicItem(T7Items.ARCANUM_INGOT.get());
-    this.basicItem(T7Items.ARCANUM_NUGGET.get());
-    this.basicItem(T7Items.ORICHALCUM_INGOT.get());
-    this.basicItem(T7Items.ORICHALCUM_NUGGET.get());
-    this.basicItem(T7Items.RESEARCH_SCROLL.get());
-    this.basicItem(T7Items.COMPLETED_RESEARCH.get());
+    this.basicItem(T7Items.INSTANCE.getRUNE().get());
+    this.basicItem(T7Items.INSTANCE.getARCANUM_INGOT().get());
+    this.basicItem(T7Items.INSTANCE.getARCANUM_NUGGET().get());
+    this.basicItem(T7Items.INSTANCE.getORICHALCUM_INGOT().get());
+    this.basicItem(T7Items.INSTANCE.getORICHALCUM_NUGGET().get());
+    this.basicItem(T7Items.INSTANCE.getRESEARCH_SCROLL().get());
+    this.basicItem(T7Items.INSTANCE.getCOMPLETED_RESEARCH().get());
 
-    this.basicItem(T7Items.GOGGLES.get());
-    this.basicItem(T7Items.GOGGLES_ACCESSORY.get());
-    this.basicItem(T7Items.DAWN_CHARM.get());
-    this.basicItem(T7Items.RESEARCHER_CHESTPLATE.get());
-    this.basicItem(T7Items.RESEARCHER_LEGGINGS.get());
-    this.basicItem(T7Items.RESEARCHER_BOOTS.get());
+    this.basicItem(T7Items.INSTANCE.getGOGGLES().get());
+    this.basicItem(T7Items.INSTANCE.getGOGGLES_ACCESSORY().get());
+    this.basicItem(T7Items.INSTANCE.getDAWN_CHARM().get());
+    this.basicItem(T7Items.INSTANCE.getRESEARCHER_CHESTPLATE().get());
+    this.basicItem(T7Items.INSTANCE.getRESEARCHER_LEGGINGS().get());
+    this.basicItem(T7Items.INSTANCE.getRESEARCHER_BOOTS().get());
 
-    this.basicItem(T7Items.ARCANUM_HELMET.get());
-    this.basicItem(T7Items.ARCANUM_CHESTPLATE.get());
-    this.basicItem(T7Items.ARCANUM_LEGGINGS.get());
-    this.basicItem(T7Items.ARCANUM_BOOTS.get());
+    this.basicItem(T7Items.INSTANCE.getARCANUM_HELMET().get());
+    this.basicItem(T7Items.INSTANCE.getARCANUM_CHESTPLATE().get());
+    this.basicItem(T7Items.INSTANCE.getARCANUM_LEGGINGS().get());
+    this.basicItem(T7Items.INSTANCE.getARCANUM_BOOTS().get());
 
-    this.basicItem(T7Items.CUSTOS_ARCANUM_HELMET.get());
-    this.basicItem(T7Items.CUSTOS_ARCANUM_CHESTPLATE.get());
-    this.basicItem(T7Items.CUSTOS_ARCANUM_LEGGINGS.get());
-    this.basicItem(T7Items.CUSTOS_ARCANUM_BOOTS.get());
+    this.basicItem(T7Items.INSTANCE.getCUSTOS_ARCANUM_HELMET().get());
+    this.basicItem(T7Items.INSTANCE.getCUSTOS_ARCANUM_CHESTPLATE().get());
+    this.basicItem(T7Items.INSTANCE.getCUSTOS_ARCANUM_LEGGINGS().get());
+    this.basicItem(T7Items.INSTANCE.getCUSTOS_ARCANUM_BOOTS().get());
 
-    this.handheldItem(T7Items.ARCANUM_SWORD);
-    this.handheldItem(T7Items.ARCANUM_AXE);
-    this.handheldItem(T7Items.ARCANUM_PICKAXE);
-    this.handheldItem(T7Items.ARCANUM_HAMMER);
-    this.handheldItem(T7Items.ARCANUM_SHOVEL);
-    this.handheldItem(T7Items.ARCANUM_HOE);
+    this.handheldItem(T7Items.INSTANCE.getARCANUM_SWORD());
+    this.handheldItem(T7Items.INSTANCE.getARCANUM_AXE());
+    this.handheldItem(T7Items.INSTANCE.getARCANUM_PICKAXE());
+    this.handheldItem(T7Items.INSTANCE.getARCANUM_HAMMER());
+    this.handheldItem(T7Items.INSTANCE.getARCANUM_SHOVEL());
+    this.handheldItem(T7Items.INSTANCE.getARCANUM_HOE());
 
-    this.testaItem(T7Items.IGNIS_TESTA);
-    this.testaItem(T7Items.AER_TESTA);
-    this.testaItem(T7Items.TERRA_TESTA);
-    this.testaItem(T7Items.AQUA_TESTA);
-    this.testaItem(T7Items.ORDO_TESTA);
-    this.testaItem(T7Items.PERDITIO_TESTA);
+    this.testaItem(T7Items.INSTANCE.getIGNIS_TESTA());
+    this.testaItem(T7Items.INSTANCE.getAER_TESTA());
+    this.testaItem(T7Items.INSTANCE.getTERRA_TESTA());
+    this.testaItem(T7Items.INSTANCE.getAQUA_TESTA());
+    this.testaItem(T7Items.INSTANCE.getORDO_TESTA());
+    this.testaItem(T7Items.INSTANCE.getPERDITIO_TESTA());
 
-    for (var wand : T7Items.WANDS.values()) this.withExistingParent(wand.getName(), Thavma.rl("wand"));
+    for (var wand : T7Items.INSTANCE.getWANDS().values()) this.withExistingParent(wand.getName(), Thavma.rl("wand"));
   }
 
   public void testaItem(DeferredItem<TestaItem> deferredItem) {
