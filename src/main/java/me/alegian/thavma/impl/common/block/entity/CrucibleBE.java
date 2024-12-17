@@ -37,7 +37,7 @@ public class CrucibleBE extends DataComponentBE {
         && blockEntity instanceof CrucibleBE crucibleBE
         && !crucibleBE.getFluidHandler().isEmpty()
     ) serverLevel.sendParticles(
-        T7ParticleTypes.CRUCIBLE_BUBBLE.get(),
+        T7ParticleTypes.INSTANCE.getCRUCIBLE_BUBBLE().get(),
         (double) pos.getX() + serverLevel.random.nextDouble() * 12 / 16f + 2 / 16f,
         pos.getY() + crucibleBE.getWaterHeight(),
         (double) pos.getZ() + serverLevel.random.nextDouble() * 12 / 16f + 2 / 16f,
