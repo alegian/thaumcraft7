@@ -197,7 +197,7 @@ public class WandItem extends Item implements GeoItem {
    * has multiple instances.
    */
   public String syncableId() {
-    var location = Thavma.rl(this.getName());
+    var location = Thavma.Companion.rl(this.getName());
     return location.toString();
   }
 }

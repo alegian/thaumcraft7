@@ -17,11 +17,11 @@ public class AerOre {
   public static final String PATH = "ore_aer";
   public static final ResourceKey<ConfiguredFeature<?, ?>> CONFIGURED_FEATURE = ResourceKey.create(
       Registries.CONFIGURED_FEATURE,
-      Thavma.rl(AerOre.PATH)
+      Thavma.Companion.rl(AerOre.PATH)
   );
   public static final ResourceKey<PlacedFeature> PLACED_FEATURE = ResourceKey.create(
       Registries.PLACED_FEATURE,
-      Thavma.rl(AerOre.PATH)
+      Thavma.Companion.rl(AerOre.PATH)
   );
 
   public static Holder<ConfiguredFeature<?, ?>> registerConfigured(BootstrapContext<ConfiguredFeature<?, ?>> context) {

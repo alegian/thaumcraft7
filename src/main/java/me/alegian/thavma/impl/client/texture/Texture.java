@@ -12,10 +12,10 @@ import net.neoforged.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public record Texture(ResourceLocation location, int width, int height, int canvasWidth, int canvasHeight) {
   public Texture(String path, int width, int height) {
-    this(Thavma.rl("textures/" + path + ".png"), width, height, width, height);
+    this(Thavma.Companion.rl("textures/" + path + ".png"), width, height, width, height);
   }
 
   public Texture(String path, int width, int height, int canvasWidth, int canvasHeight) {
-    this(Thavma.rl("textures/" + path + ".png"), width, height, canvasWidth, canvasHeight);
+    this(Thavma.Companion.rl("textures/" + path + ".png"), width, height, canvasWidth, canvasHeight);
   }
 }

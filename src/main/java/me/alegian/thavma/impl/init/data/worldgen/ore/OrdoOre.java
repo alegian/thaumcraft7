@@ -17,11 +17,11 @@ public class OrdoOre {
   public static final String PATH = "ore_ordo";
   public static final ResourceKey<ConfiguredFeature<?, ?>> CONFIGURED_FEATURE = ResourceKey.create(
       Registries.CONFIGURED_FEATURE,
-      Thavma.rl(OrdoOre.PATH)
+      Thavma.Companion.rl(OrdoOre.PATH)
   );
   public static final ResourceKey<PlacedFeature> PLACED_FEATURE = ResourceKey.create(
       Registries.PLACED_FEATURE,
-      Thavma.rl(OrdoOre.PATH)
+      Thavma.Companion.rl(OrdoOre.PATH)
   );
 
   public static Holder<ConfiguredFeature<?, ?>> registerConfigured(BootstrapContext<ConfiguredFeature<?, ?>> context) {

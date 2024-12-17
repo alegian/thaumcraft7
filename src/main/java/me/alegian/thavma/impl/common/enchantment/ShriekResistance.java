@@ -9,7 +9,7 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import org.apache.commons.lang3.mutable.MutableFloat;
 
 public class ShriekResistance {
-  public static final ResourceLocation LOCATION = Thavma.rl("shriek_resistance");
+  public static final ResourceLocation LOCATION = Thavma.Companion.rl("shriek_resistance");
 
   /**
    * Custom version of EnchantmentHelper.getDamageProtection

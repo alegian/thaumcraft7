@@ -33,7 +33,7 @@ import java.util.Optional;
 
 public class SilverwoodTree {
   public static final String NAME = "silverwood";
-  public static final ResourceLocation LOCATION = Thavma.rl("tree_" + SilverwoodTree.NAME);
+  public static final ResourceLocation LOCATION = Thavma.Companion.rl("tree_" + SilverwoodTree.NAME);
   public static final ResourceKey<ConfiguredFeature<?, ?>> CONFIGURED_FEATURE = ResourceKey.create(Registries.CONFIGURED_FEATURE, SilverwoodTree.LOCATION);
   public static final TreeGrower GROWER = new TreeGrower(SilverwoodTree.NAME, Optional.empty(), Optional.of(SilverwoodTree.CONFIGURED_FEATURE), Optional.empty());
   public static final ResourceKey<PlacedFeature> PLACED_FEATURE = ResourceKey.create(Registries.PLACED_FEATURE, SilverwoodTree.LOCATION);

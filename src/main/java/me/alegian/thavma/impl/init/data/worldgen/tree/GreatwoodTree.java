@@ -32,7 +32,7 @@ import java.util.Optional;
 
 public class GreatwoodTree {
   public static final String NAME = "greatwood";
-  public static final ResourceLocation LOCATION = Thavma.rl("tree_" + GreatwoodTree.NAME);
+  public static final ResourceLocation LOCATION = Thavma.Companion.rl("tree_" + GreatwoodTree.NAME);
   public static final ResourceKey<ConfiguredFeature<?, ?>> CONFIGURED_FEATURE = ResourceKey.create(Registries.CONFIGURED_FEATURE, GreatwoodTree.LOCATION);
   public static final TreeGrower GROWER = new TreeGrower(GreatwoodTree.NAME, Optional.of(GreatwoodTree.CONFIGURED_FEATURE), Optional.empty(), Optional.empty());
   public static final ResourceKey<PlacedFeature> PLACED_FEATURE = ResourceKey.create(Registries.PLACED_FEATURE, GreatwoodTree.LOCATION);

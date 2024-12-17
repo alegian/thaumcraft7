@@ -46,7 +46,7 @@ public class KatanaItem extends SwordItem implements GeoItem {
       @Override
       public BlockEntityWithoutLevelRenderer getGeoItemRenderer() {
         if (this.renderer == null)
-          this.renderer = new GeoItemRenderer<>(new DefaultedItemGeoModel<KatanaItem>(Thavma.rl("arcanum_katana")));
+          this.renderer = new GeoItemRenderer<>(new DefaultedItemGeoModel<KatanaItem>(Thavma.Companion.rl("arcanum_katana")));
 
         return this.renderer;
       }

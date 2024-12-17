@@ -6,7 +6,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 
 public class T7AttributeModifiers {
   public static class StepHeight {
-    public static final ResourceLocation LOCATION = Thavma.rl("step_height");
+    public static final ResourceLocation LOCATION = Thavma.Companion.rl("step_height");
     public static final AttributeModifier MODIFIER =
         new AttributeModifier(
             StepHeight.LOCATION,
@@ -20,7 +20,7 @@ public class T7AttributeModifiers {
    * otherwise race conditions may occur
    */
   public static class Revealing {
-    public static final ResourceLocation LOCATION = Thavma.rl("revealing");
+    public static final ResourceLocation LOCATION = Thavma.Companion.rl("revealing");
 
     public static final AttributeModifier GOGGLES =
         new AttributeModifier(

@@ -29,15 +29,15 @@ public class InfusedStoneOre {
   public static final String PATH = "ore_infused_stone";
   public static final ResourceKey<ConfiguredFeature<?, ?>> CONFIGURED_FEATURE = ResourceKey.create(
       Registries.CONFIGURED_FEATURE,
-      Thavma.rl(InfusedStoneOre.PATH)
+      Thavma.Companion.rl(InfusedStoneOre.PATH)
   );
   public static final ResourceKey<PlacedFeature> PLACED_FEATURE = ResourceKey.create(
       Registries.PLACED_FEATURE,
-      Thavma.rl(InfusedStoneOre.PATH)
+      Thavma.Companion.rl(InfusedStoneOre.PATH)
   );
   public static final ResourceKey<BiomeModifier> BIOME_MODIFIER = ResourceKey.create(
       NeoForgeRegistries.Keys.BIOME_MODIFIERS,
-      Thavma.rl(InfusedStoneOre.PATH)
+      Thavma.Companion.rl(InfusedStoneOre.PATH)
   );
 
   public static void registerConfigured(BootstrapContext<ConfiguredFeature<?, ?>> context) {
