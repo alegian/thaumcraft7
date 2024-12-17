@@ -111,7 +111,7 @@ class T7DataMapProvider(packOutput: PackOutput, lookupProvider: CompletableFutur
      * Therefore, to avoid ambiguities, BlockItem aspect registration is forbidden.
      */
     private fun item(builder: Builder<AspectMap, Item>, item: Item, builderConsumer: Consumer<AspectMap.Builder>) {
-        require(item is BlockItem) { "Cannot register Aspects for BlockItems, you should register for their Blocks instead" }
+        require(item !is BlockItem) { "Cannot register Aspects for BlockItems, you should register for their Blocks instead" }
 
         val aspectBuilder = AspectMap.builder()
         builderConsumer.accept(aspectBuilder)
