@@ -2,7 +2,7 @@ package me.alegian.thavma.impl.client.renderer.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import me.alegian.thavma.impl.client.renderer.RenderHelper;
+import me.alegian.thavma.impl.client.renderer.RenderHelperKt;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -36,11 +36,16 @@ public class FancyItemER extends EntityRenderer<ItemEntity> {
   public void render(ItemEntity pEntity, float pEntityYaw, float pPartialTicks, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight) {
     // WARNING: the two render method's poses are coupled
     pPoseStack.pushPose();
-    renderItem(pEntity, pPoseStack, pBuffer, pPartialTicks, pPackedLight);
-    renderEnderDragonRays(pEntity, pPoseStack, pBuffer, pPartialTicks);
+    this.renderItem(pEntity, pPoseStack, pBuffer, pPartialTicks, pPackedLight);
+    this.renderEnderDragonRays(pEntity, pPoseStack, pBuffer, pPartialTicks);
     pPoseStack.popPose();
 
     super.render(pEntity, pEntityYaw, pPartialTicks, pPoseStack, pBuffer, pPackedLight);
+  }
+
+  @Override
+  public ResourceLocation getTextureLocation(ItemEntity pEntity) {
+    return InventoryMenu.BLOCK_ATLAS;
   }
 
   private void renderItem(ItemEntity pEntity, PoseStack pPoseStack, MultiBufferSource pBuffer, float pPartialTicks, int pPackedLight) {
@@ -53,7 +58,7 @@ public class FancyItemER extends EntityRenderer<ItemEntity> {
     float f1 = shouldBob ? Mth.sin(((float) pEntity.getAge() + pPartialTicks) / 10.0F + pEntity.bobOffs) * 0.1F + 0.1F : 0;
     float f2 = ItemTransforms.NO_TRANSFORMS.getTransform(ItemDisplayContext.GROUND).scale.y();
     pPoseStack.translate(0.0F, f1 + 0.25F * f2, 0.0F);
-    var angle = RenderHelper.calculatePlayerAngle(pEntity.getEyePosition());
+    var angle = RenderHelperKt.calculatePlayerAngle(pEntity.getEyePosition());
     pPoseStack.mulPose(Axis.YP.rotation(angle));
     renderMultipleFromCount(itemRenderer, pPoseStack, pBuffer, pPackedLight, itemstack, bakedmodel, flag, this.random);
     pPoseStack.translate(0, 0, -.5f);
@@ -66,10 +71,5 @@ public class FancyItemER extends EntityRenderer<ItemEntity> {
     pPoseStack.scale(.1f, .1f, .1f);
     EnderDragonRenderer.renderRays(pPoseStack, 0.7f, pBuffer.getBuffer(RenderType.dragonRays()));
     EnderDragonRenderer.renderRays(pPoseStack, 0.7f, pBuffer.getBuffer(RenderType.dragonRaysDepth()));
-  }
-
-  @Override
-  public ResourceLocation getTextureLocation(ItemEntity pEntity) {
-    return InventoryMenu.BLOCK_ATLAS;
   }
 }

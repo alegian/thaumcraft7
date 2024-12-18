@@ -1,9 +1,10 @@
 package me.alegian.thavma.impl.client.event
 
 import com.mojang.datafixers.util.Either
-import me.alegian.thavma.impl.client.ClientHelper
+import me.alegian.thavma.impl.client.getLocalPlayerEquipmentItem
 import me.alegian.thavma.impl.client.gui.tooltip.AspectTooltipComponent
 import me.alegian.thavma.impl.client.gui.tooltip.containedPrimalsComponent
+import me.alegian.thavma.impl.client.localPlayerHasRevealing
 import me.alegian.thavma.impl.client.renderer.AspectRenderer
 import me.alegian.thavma.impl.client.renderer.HammerHighlightRenderer
 import me.alegian.thavma.impl.common.block.AuraNodeBlock
@@ -57,7 +58,7 @@ private fun renderLevelAfterWeather(event: RenderLevelStageEvent) {
 
     // aspect renderer
     if (!AspectContainer.isAspectContainer(minecraft.level, blockPos)) return
-    if (!ClientHelper.localPlayerHasRevealing()) return
+    if (!localPlayerHasRevealing()) return
 
     AspectContainer.at(minecraft.level, blockPos)
         .map(IAspectContainer::getAspects)
@@ -72,7 +73,7 @@ private fun renderLevelAfterWeather(event: RenderLevelStageEvent) {
 }
 
 private fun gatherTooltipComponents(event: GatherComponents) {
-    if (!ClientHelper.localPlayerHasRevealing()) return
+    if (!localPlayerHasRevealing()) return
 
     AspectContainer.from(event.itemStack).map(IAspectContainer::getAspects)
         .ifPresent { aspectMap ->
@@ -92,13 +93,13 @@ private fun renderPlayerPre(event: RenderPlayerEvent.Pre) {
     val model = event.renderer.model
 
     // if chestplate exists, disable sleeves & jacket to prevent clipping with thin armors
-    ClientHelper.getLocalPlayerEquipmentItem(EquipmentSlot.CHEST).ifPresent {
+    getLocalPlayerEquipmentItem(EquipmentSlot.CHEST)?.let {
         model.leftSleeve.visible = false
         model.rightSleeve.visible = false
         model.jacket.visible = false
     }
     // if leggings exist, disable pants to prevent clipping with thin armors
-    ClientHelper.getLocalPlayerEquipmentItem(EquipmentSlot.LEGS).ifPresent {
+    getLocalPlayerEquipmentItem(EquipmentSlot.LEGS)?.let {
         model.leftPants.visible = false
         model.rightPants.visible = false
     }
