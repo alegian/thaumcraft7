@@ -31,7 +31,7 @@ public class GogglesItem extends ArmorItem implements GeoItem {
         .attributes(
             ItemAttributeModifiers.builder().add(
                 T7Attributes.INSTANCE.getREVEALING(),
-                T7AttributeModifiers.Revealing.GOGGLES,
+                T7AttributeModifiers.Revealing.INSTANCE.getGOGGLES(),
                 EquipmentSlotGroup.HEAD
             ).build()
         ));

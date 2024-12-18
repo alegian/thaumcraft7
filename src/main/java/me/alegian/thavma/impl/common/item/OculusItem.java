@@ -38,7 +38,7 @@ public class OculusItem extends Item implements GeoItem {
     super(props.attributes(
         ItemAttributeModifiers.builder().add(
             T7Attributes.INSTANCE.getREVEALING(),
-            T7AttributeModifiers.Revealing.OCULUS,
+            T7AttributeModifiers.Revealing.INSTANCE.getOCULUS(),
             EquipmentSlotGroup.MAINHAND
         ).build()
     ).stacksTo(1));

@@ -38,7 +38,7 @@ public class AspectContainer implements IAspectContainer {
   }
 
   public static Optional<IAspectContainer> at(Level level, BlockPos pos) {
-    return Optional.ofNullable(level.getCapability(T7Capabilities.AspectContainer.BLOCK, pos, null));
+    return Optional.ofNullable(level.getCapability(T7Capabilities.AspectContainer.INSTANCE.getBLOCK(), pos, null));
   }
 
   public static IAspectContainer getAspectContainerInHand(Player player) {
@@ -48,23 +48,23 @@ public class AspectContainer implements IAspectContainer {
     IAspectContainer aspectContainer = null;
 
     if (!mainHandItem.isEmpty())
-      aspectContainer = mainHandItem.getCapability(T7Capabilities.AspectContainer.ITEM);
+      aspectContainer = mainHandItem.getCapability(T7Capabilities.AspectContainer.INSTANCE.getITEM());
     else if (!offHandItem.isEmpty())
-      aspectContainer = offHandItem.getCapability(T7Capabilities.AspectContainer.ITEM);
+      aspectContainer = offHandItem.getCapability(T7Capabilities.AspectContainer.INSTANCE.getITEM());
 
     return aspectContainer;
   }
 
   public static Optional<IAspectContainer> from(ItemStack itemStack) {
-    return Optional.ofNullable(itemStack.getCapability(T7Capabilities.AspectContainer.ITEM));
+    return Optional.ofNullable(itemStack.getCapability(T7Capabilities.AspectContainer.INSTANCE.getITEM()));
   }
 
   public static Optional<IAspectContainer> from(BlockEntity be) {
-    return Optional.ofNullable(be.getLevel()).map(l -> l.getCapability(T7Capabilities.AspectContainer.BLOCK, be.getBlockPos()));
+    return Optional.ofNullable(be.getLevel()).map(l -> l.getCapability(T7Capabilities.AspectContainer.INSTANCE.getBLOCK(), be.getBlockPos()));
   }
 
   public static boolean isAspectContainer(Level level, BlockPos blockPos) {
-    return level.getCapability(T7Capabilities.AspectContainer.BLOCK, blockPos) != null;
+    return level.getCapability(T7Capabilities.AspectContainer.INSTANCE.getBLOCK(), blockPos) != null;
   }
 
   public static Optional<Pair> blockSourceItemSink(Level level, BlockPos blockPos, ItemStack itemStack) {
