@@ -3,7 +3,7 @@ package me.alegian.thavma.impl.client.event
 import com.mojang.datafixers.util.Either
 import me.alegian.thavma.impl.client.ClientHelper
 import me.alegian.thavma.impl.client.gui.tooltip.AspectTooltipComponent
-import me.alegian.thavma.impl.client.gui.tooltip.TooltipHelper
+import me.alegian.thavma.impl.client.gui.tooltip.containedPrimalsComponent
 import me.alegian.thavma.impl.client.renderer.AspectRenderer
 import me.alegian.thavma.impl.client.renderer.HammerHighlightRenderer
 import me.alegian.thavma.impl.common.block.AuraNodeBlock
@@ -78,7 +78,7 @@ private fun gatherTooltipComponents(event: GatherComponents) {
         .ifPresent { aspectMap ->
             event.tooltipElements.add(
                 Either.left(
-                    TooltipHelper.containedPrimals(aspectMap)
+                    containedPrimalsComponent(aspectMap)
                 )
             )
         }

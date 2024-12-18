@@ -1,6 +1,6 @@
 package me.alegian.thavma.impl.common.block;
 
-import me.alegian.thavma.impl.common.aspect.AspectHelper;
+import me.alegian.thavma.impl.common.aspect.AspectHelperKt;
 import me.alegian.thavma.impl.common.aspect.AspectMap;
 import me.alegian.thavma.impl.common.block.entity.CrucibleBE;
 import me.alegian.thavma.impl.common.data.capability.AspectContainer;
@@ -105,8 +105,8 @@ public class CrucibleBlock extends Block implements EntityBlock {
       if (success) return;// if catalyst failed, try to melt item instead
     }
 
-    if (!AspectHelper.hasAspects(thrownStack) || !CrucibleBlock.hasWater(level, pPos)) return;
-    AspectMap itemAspects = AspectHelper.getAspects(itemEntity);
+    if (!AspectHelperKt.hasAspects(thrownStack) || !CrucibleBlock.hasWater(level, pPos)) return;
+    AspectMap itemAspects = AspectHelperKt.getAspects(itemEntity);
     AspectContainer
         .at(level, pPos)
         .ifPresent(c -> c.insert(itemAspects));

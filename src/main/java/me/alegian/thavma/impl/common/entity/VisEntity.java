@@ -1,6 +1,6 @@
 package me.alegian.thavma.impl.common.entity;
 
-import me.alegian.thavma.impl.common.block.entity.BEHelper;
+import me.alegian.thavma.impl.common.block.entity.BEHelperKt;
 import me.alegian.thavma.impl.common.data.capability.AspectContainer;
 import me.alegian.thavma.impl.init.registries.deferred.Aspects;
 import net.minecraft.core.BlockPos;
@@ -59,7 +59,7 @@ public class VisEntity extends RendererEntity {
       return;
     }
     int transferred = pair.transferPrimal((this.tickCount / VisEntity.PERIOD_TICKS) % Aspects.INSTANCE.getPRIMAL_ASPECTS().size(), 5);
-    if (transferred > 0) BEHelper.updateServerBlockEntity(this.level(), this.blockPosition());
+    if (transferred > 0) BEHelperKt.updateServerBlockEntity(this.level(), this.blockPosition());
   }
 
   public @Nullable Player getPlayer() {

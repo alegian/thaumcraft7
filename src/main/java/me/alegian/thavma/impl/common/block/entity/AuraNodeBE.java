@@ -45,7 +45,7 @@ public class AuraNodeBE extends DataComponentBE {
       AspectContainer.at(this.getLevel(), this.getBlockPos())
           .filter(IAspectContainer::areAspectsNull)
           .ifPresent(c -> c.setAspects(AspectMap.randomPrimals()));
-      BEHelper.updateServerBlockEntity(this.getLevel(), this.getBlockPos());
+      BEHelperKt.updateServerBlockEntity(this.getLevel(), this.getBlockPos());
     }
   }
 

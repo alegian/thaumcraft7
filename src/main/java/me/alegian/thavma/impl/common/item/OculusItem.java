@@ -1,7 +1,7 @@
 package me.alegian.thavma.impl.common.item;
 
 import me.alegian.thavma.impl.Thavma;
-import me.alegian.thavma.impl.common.aspect.AspectHelper;
+import me.alegian.thavma.impl.common.aspect.AspectHelperKt;
 import me.alegian.thavma.impl.common.block.AuraNodeBlock;
 import me.alegian.thavma.impl.init.registries.T7AttributeModifiers;
 import me.alegian.thavma.impl.init.registries.deferred.T7Attributes;
@@ -51,7 +51,8 @@ public class OculusItem extends Item implements GeoItem {
     if (block instanceof AuraNodeBlock) {
       var player = context.getPlayer();
       if (player != null)
-        if (level.isClientSide) player.sendSystemMessage(Component.literal(AspectHelper.getAspects(block).toString()));
+        if (level.isClientSide)
+          player.sendSystemMessage(Component.literal(AspectHelperKt.getAspects(block).toString()));
     }
     return InteractionResult.PASS;
   }
