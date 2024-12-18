@@ -90,7 +90,7 @@ public class T7DatapackBuiltinEntriesProvider extends DatapackBuiltinEntriesProv
                         new ConditionalEffect<>(
                             new AddValue(LevelBasedValue.perLevel(2.0F)),
                             Optional.of(DamageSourceCondition.hasDamageSource(
-                                DamageSourcePredicate.Builder.damageType().tag(TagPredicate.is(T7Tags.SONIC))
+                                DamageSourcePredicate.Builder.damageType().tag(TagPredicate.is(T7Tags.INSTANCE.getSONIC()))
                             ).build())
                         ))
                     ).build()

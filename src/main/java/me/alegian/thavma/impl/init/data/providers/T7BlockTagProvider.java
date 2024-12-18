@@ -24,7 +24,7 @@ public class T7BlockTagProvider extends BlockTagsProvider {
   protected void addTags(HolderLookup.Provider pProvider) {
     var boundInfusedBlocksArray = T7Blocks.INSTANCE.getINFUSED_BLOCKS().stream().map(DeferredHolder::get).toArray(InfusedBlock[]::new);
     // TODO: add nitor
-    this.tag(T7Tags.CrucibleHeatSourceTag.BLOCK).addTag(BlockTags.FIRE).addTag(BlockTags.CAMPFIRES);
+    this.tag(T7Tags.CrucibleHeatSourceTag.INSTANCE.getBLOCK()).addTag(BlockTags.FIRE).addTag(BlockTags.CAMPFIRES);
     this.tag(Tags.Blocks.ORES).add(boundInfusedBlocksArray);
     this.tag(Tags.Blocks.ORE_RATES_SINGULAR).add(boundInfusedBlocksArray);
     this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(boundInfusedBlocksArray);

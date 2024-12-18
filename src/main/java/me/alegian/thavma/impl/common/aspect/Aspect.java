@@ -14,10 +14,10 @@ import java.util.function.Supplier;
 
 public class Aspect {
   public static final StreamCodec<ByteBuf, Aspect> STREAM_CODEC = ByteBufCodecs.STRING_UTF8.map(
-      s -> T7Registries.ASPECT.get(ResourceLocation.parse(s)),
-      a -> T7Registries.ASPECT.getKey(a).toString()
+      s -> T7Registries.INSTANCE.getASPECT().get(ResourceLocation.parse(s)),
+      a -> T7Registries.INSTANCE.getASPECT().getKey(a).toString()
   );
-  public static final Codec<Aspect> CODEC = T7Registries.ASPECT.byNameCodec();
+  public static final Codec<Aspect> CODEC = T7Registries.INSTANCE.getASPECT().byNameCodec();
   String id;
   int color;
   List<Supplier<Aspect>> components;

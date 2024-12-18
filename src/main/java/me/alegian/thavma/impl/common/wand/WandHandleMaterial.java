@@ -16,10 +16,10 @@ public class WandHandleMaterial {
   }
 
   public String getRegisteredName() {
-    return getRegisteredLocation().getPath();
+    return this.getRegisteredLocation().getPath();
   }
 
   public ResourceLocation getRegisteredLocation() {
-    return T7Registries.WAND_HANDLE.getKey(this);
+    return T7Registries.INSTANCE.getWAND_HANDLE().getKey(this);
   }
 }

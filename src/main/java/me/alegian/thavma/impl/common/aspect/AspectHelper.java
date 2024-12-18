@@ -26,8 +26,8 @@ public class AspectHelper {
   public static AspectMap getAspects(ItemLike itemLike) {
     var item = itemLike.asItem();
     if (item instanceof BlockItem blockItem)
-      return BuiltInRegistries.BLOCK.wrapAsHolder(blockItem.getBlock()).getData(T7DataMaps.AspectContent.BLOCK);
-    return BuiltInRegistries.ITEM.wrapAsHolder(item).getData(T7DataMaps.AspectContent.ITEM);
+      return BuiltInRegistries.BLOCK.wrapAsHolder(blockItem.getBlock()).getData(T7DataMaps.AspectContent.INSTANCE.getBLOCK());
+    return BuiltInRegistries.ITEM.wrapAsHolder(item).getData(T7DataMaps.AspectContent.INSTANCE.getITEM());
   }
 
   public static AspectMap getAspects(ItemStack itemStack) {

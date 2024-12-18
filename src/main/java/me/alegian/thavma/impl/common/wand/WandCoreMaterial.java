@@ -17,10 +17,10 @@ public class WandCoreMaterial {
   }
 
   public String getRegisteredName() {
-    return getRegisteredLocation().getPath();
+    return this.getRegisteredLocation().getPath();
   }
 
   public ResourceLocation getRegisteredLocation() {
-    return T7Registries.WAND_CORE.getKey(this);
+    return T7Registries.INSTANCE.getWAND_CORE().getKey(this);
   }
 }

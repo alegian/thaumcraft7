@@ -69,7 +69,7 @@ public class CrucibleBlock extends Block implements EntityBlock {
     var thrownStack = itemEntity.getItem();
 
     // try to use as catalyst
-    if (thrownStack.is(T7Tags.CATALYST)) {
+    if (thrownStack.is(T7Tags.INSTANCE.getCATALYST())) {
       AspectMap crucibleAspects = AspectContainer
           .at(level, pPos).map(IAspectContainer::getAspects).orElseThrow();
 
@@ -143,9 +143,9 @@ public class CrucibleBlock extends Block implements EntityBlock {
 
   public static boolean isHeatSource(LevelAccessor level, BlockPos pos) {
     var bs = level.getBlockState(pos);
-    var bsHeat = bs.is(T7Tags.CrucibleHeatSourceTag.BLOCK);
+    var bsHeat = bs.is(T7Tags.CrucibleHeatSourceTag.INSTANCE.getBLOCK());
     var fs = level.getFluidState(pos);
-    var fsHeat = fs.is(T7Tags.CrucibleHeatSourceTag.FLUID);
+    var fsHeat = fs.is(T7Tags.CrucibleHeatSourceTag.INSTANCE.getFLUID());
     return bsHeat || fsHeat;
   }
 

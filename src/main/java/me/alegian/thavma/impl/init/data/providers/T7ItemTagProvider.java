@@ -23,21 +23,21 @@ public class T7ItemTagProvider extends ItemTagsProvider {
 
   @Override
   protected void addTags(HolderLookup.Provider pProvider) {
-    this.tag(T7Tags.WAND_HANDLE).add(
+    this.tag(T7Tags.INSTANCE.getWAND_HANDLE()).add(
         T7Items.INSTANCE.getIRON_HANDLE().get(),
         T7Items.INSTANCE.getGOLD_HANDLE().get(),
         T7Items.INSTANCE.getORICHALCUM_HANDLE().get(),
         T7Items.INSTANCE.getARCANUM_HANDLE().get()
     );
 
-    this.tag(T7Tags.WAND_CORE)
+    this.tag(T7Tags.INSTANCE.getWAND_CORE())
         .addTag(Tags.Items.RODS_WOODEN)
         .add(
             T7Items.INSTANCE.getGREATWOOD_CORE().get(),
             T7Items.INSTANCE.getSILVERWOOD_CORE().get()
         );
 
-    this.tag(T7Tags.TESTA).add(
+    this.tag(T7Tags.INSTANCE.getTESTA()).add(
         T7Items.INSTANCE.getTERRA_TESTA().get(),
         T7Items.INSTANCE.getAER_TESTA().get(),
         T7Items.INSTANCE.getIGNIS_TESTA().get(),
@@ -90,7 +90,7 @@ public class T7ItemTagProvider extends ItemTagsProvider {
         T7Items.INSTANCE.getCUSTOS_ARCANUM_HELMET().get()
     );
 
-    this.tag(T7Tags.CATALYST).add(Items.DRAGON_EGG);
+    this.tag(T7Tags.INSTANCE.getCATALYST()).add(Items.DRAGON_EGG);
 
     this.tag(AccessoriesTags.FACE_TAG).add(T7Items.INSTANCE.getGOGGLES_ACCESSORY().get());
     this.tag(AccessoriesTags.CHARM_TAG).add(T7Items.INSTANCE.getDAWN_CHARM().get());
