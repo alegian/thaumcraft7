@@ -185,7 +185,7 @@ public class CrucibleBlock extends Block implements EntityBlock {
   @Nullable
   @Override
   public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-    return type == T7BlockEntities.INSTANCE.getCRUCIBLE().get() ? CrucibleBE::tick : null;
+    return type == T7BlockEntities.INSTANCE.getCRUCIBLE().get() ? CrucibleBE.Companion::tick : null;
   }
 
   @Override

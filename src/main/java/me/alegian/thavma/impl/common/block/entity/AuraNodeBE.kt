@@ -2,6 +2,7 @@ package me.alegian.thavma.impl.common.block.entity
 
 import me.alegian.thavma.impl.common.aspect.AspectMap
 import me.alegian.thavma.impl.common.data.capability.AspectContainer
+import me.alegian.thavma.impl.common.util.updateBlockEntityS2C
 import me.alegian.thavma.impl.init.registries.deferred.T7BlockEntities
 import me.alegian.thavma.impl.init.registries.deferred.T7Blocks
 import me.alegian.thavma.impl.init.registries.deferred.T7DataComponents.ASPECTS
@@ -35,11 +36,13 @@ class AuraNodeBE(pos: BlockPos?, blockState: BlockState?) :
     }
 
     override fun onLoad() {
-        if (level?.isClientSide() != true) {
-            AspectContainer.at(level, blockPos)
-                .filter { c -> c.areAspectsNull() }
-                .ifPresent { c -> c.aspects = AspectMap.randomPrimals() }
-            level?.updateServerBlockEntity(blockPos)
+        level?.run {
+            if (!isClientSide() && this is ServerLevel) {
+                AspectContainer.at(this, blockPos)
+                    .filter { c -> c.areAspectsNull() }
+                    .ifPresent { c -> c.aspects = AspectMap.randomPrimals() }
+                updateBlockEntityS2C(blockPos)
+            }
         }
     }
 
@@ -49,10 +52,12 @@ class AuraNodeBE(pos: BlockPos?, blockState: BlockState?) :
      * 3x3x3 except center
      */
     private fun generateGlassPositions() {
-        for (i in -1..1) for (j in -1..1) for (k in -1..1) {
-            if (i == 0 && j == 0 && k == 0) continue
-            glassPositions.add(this.blockPos.offset(i, j, k))
-        }
+        for (i in -1..1)
+            for (j in -1..1)
+                for (k in -1..1) {
+                    if (i == 0 && j == 0 && k == 0) continue
+                    glassPositions.add(this.blockPos.offset(i, j, k))
+                }
     }
 
     /**
@@ -61,29 +66,35 @@ class AuraNodeBE(pos: BlockPos?, blockState: BlockState?) :
      * 3x1x3, above the center
      */
     private fun generateSlabPositions() {
-        for (i in -1..1) for (j in -1..1) slabPositions.add(this.blockPos.offset(i, 2, j))
+        for (i in -1..1)
+            for (j in -1..1)
+                slabPositions.add(this.blockPos.offset(i, 2, j))
     }
 
     /**
      * Returns true if the interaction was successful
      */
     fun jarInteraction(): Boolean {
-        // check if glass exists
-        for (pos in this.glassPositions) if (!level!!.getBlockState(pos).`is`(Tags.Blocks.GLASS_BLOCKS)) return false
-        // check if slabs exist, and are bottom slabs
-        for (pos in this.slabPositions) {
-            val blockState = level!!.getBlockState(pos)
-            if (!blockState.`is`(BlockTags.WOODEN_SLABS) || blockState.getValue(BlockStateProperties.SLAB_TYPE) != SlabType.BOTTOM) return false
+        level?.let { level ->
+            // check if glass exists
+            for (pos in this.glassPositions)
+                if (!level.getBlockState(pos).`is`(Tags.Blocks.GLASS_BLOCKS)) return false
+            // check if slabs exist, and are bottom slabs
+            for (pos in this.slabPositions) {
+                val blockState = level.getBlockState(pos)
+                if (blockState.`is`(BlockTags.WOODEN_SLABS) || blockState.getValue(BlockStateProperties.SLAB_TYPE) != SlabType.BOTTOM) return false
+            }
+
+            if (!level.isClientSide() && level is ServerLevel) {
+                for (pos in this.glassPositions) level.removeBlock(pos, false)
+                for (pos in this.slabPositions) level.removeBlock(pos, false)
+            }
+
+            this.containingCountdown = MAX_COUNTDOWN
+
+            return true
         }
-
-        if (level?.isClientSide() != true && level is ServerLevel) {
-            for (pos in this.glassPositions) level?.removeBlock(pos, false)
-            for (pos in this.slabPositions) level?.removeBlock(pos, false)
-        }
-
-        this.containingCountdown = MAX_COUNTDOWN
-
-        return true
+        return false
     }
 
     fun contain() {
@@ -92,9 +103,9 @@ class AuraNodeBE(pos: BlockPos?, blockState: BlockState?) :
         level?.let {
             val itemEntity = ItemEntity(
                 it,
-                this.blockPos.x + 0.5,
-                this.blockPos.y + 0.5,
-                this.blockPos.z + 0.5,
+                blockPos.x + 0.5,
+                blockPos.y + 0.5,
+                blockPos.z + 0.5,
                 ItemStack(T7Blocks.AURA_NODE.get())
             )
             it.addFreshEntity(itemEntity)

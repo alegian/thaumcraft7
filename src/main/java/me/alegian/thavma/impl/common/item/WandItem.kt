@@ -5,7 +5,7 @@ import me.alegian.thavma.impl.client.renderer.geo.WandRenderer
 import me.alegian.thavma.impl.common.data.capability.AspectContainer
 import me.alegian.thavma.impl.common.entity.FancyThaumonomiconEntity
 import me.alegian.thavma.impl.common.entity.VisEntity
-import me.alegian.thavma.impl.common.util.getSafeBE
+import me.alegian.thavma.impl.common.util.getBE
 import me.alegian.thavma.impl.common.wand.WandCoreMaterial
 import me.alegian.thavma.impl.common.wand.WandHandleMaterial
 import me.alegian.thavma.impl.init.registries.deferred.T7BlockEntities
@@ -93,7 +93,7 @@ open class WandItem(props: Properties, val handleMaterial: WandHandleMaterial, v
         if (blockState.`is`(Tags.Blocks.GLASS_BLOCKS)) {
             val direction: Direction = context.clickedFace.opposite
             val behindPos: BlockPos = blockPos.relative(direction, 1)
-            return getSafeBE(level, behindPos, T7BlockEntities.AURA_NODE.get())
+            return level.getBE(behindPos, T7BlockEntities.AURA_NODE.get())
                 ?.let { be ->
                     if (be.jarInteraction()) InteractionResult.SUCCESS
                     else InteractionResult.FAIL
