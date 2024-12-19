@@ -70,7 +70,7 @@ public class T7DatapackBuiltinEntriesProvider extends DatapackBuiltinEntriesProv
         bootstrap.register(
             ResourceKey.create(
                 Registries.ENCHANTMENT,
-                ShriekResistance.LOCATION
+                ShriekResistance.INSTANCE.getLOCATION()
             ),
             new Enchantment(
                 Component.literal("Shriek Resistance"),
