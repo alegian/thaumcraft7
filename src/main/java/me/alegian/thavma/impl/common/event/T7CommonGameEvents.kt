@@ -13,7 +13,6 @@ import net.minecraft.sounds.SoundSource
 import net.minecraft.world.damagesource.DamageTypes
 import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.entity.LivingEntity
-import net.minecraft.world.entity.ai.attributes.AttributeInstance
 import net.minecraft.world.entity.ai.attributes.Attributes
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent.Applicable
@@ -28,9 +27,8 @@ private fun entityTickPre(event: EntityTickEvent.Pre) {
     val livingEntity = event.entity
     if (livingEntity !is LivingEntity) return
 
-    val attribute: AttributeInstance =
-        livingEntity.getAttribute(Attributes.STEP_HEIGHT)
-            ?: return
+    val attribute = livingEntity.getAttribute(Attributes.STEP_HEIGHT)
+        ?: return
 
     val hasStepHeightFromOtherModifier =
         attribute.value >= 1.0 && !attribute.hasModifier(T7AttributeModifiers.StepHeight.LOCATION)
