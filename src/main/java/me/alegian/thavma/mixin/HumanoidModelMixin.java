@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.Shadow;
 public abstract class HumanoidModelMixin {
   @WrapMethod(method = "setupAttackAnimation(Lnet/minecraft/world/entity/LivingEntity;F)V")
   private void thavma_setupAttackAnimationWrapper(LivingEntity pLivingEntity, float pAgeInTicks, Operation<Void> original) {
-    if (!(pLivingEntity instanceof AbstractClientPlayer) || !EntityHelper.isHandKatana(InteractionHand.MAIN_HAND) || !EntityHelper.isHandKatana(InteractionHand.OFF_HAND)) {
+    if (!(pLivingEntity instanceof AbstractClientPlayer) || !EntityHelper.INSTANCE.isHandKatana(InteractionHand.MAIN_HAND) || !EntityHelper.INSTANCE.isHandKatana(InteractionHand.OFF_HAND)) {
       original.call(pLivingEntity, pAgeInTicks);
       return;
     }
@@ -37,14 +37,14 @@ public abstract class HumanoidModelMixin {
     this.getArm(offArm).loadPose(originalOffPose);
 
     // actually run offhand animation
-    EntityHelper.invertSwingingArm(pLivingEntity);
+    EntityHelper.INSTANCE.invertSwingingArm(pLivingEntity);
     original.call(pLivingEntity, pAgeInTicks);
 
     // load the simulated main hand pose
     this.getArm(mainArm).loadPose(correctMainPose);
 
     // restore original swinging arm
-    EntityHelper.invertSwingingArm(pLivingEntity);
+    EntityHelper.INSTANCE.invertSwingingArm(pLivingEntity);
   }
 
   @Shadow

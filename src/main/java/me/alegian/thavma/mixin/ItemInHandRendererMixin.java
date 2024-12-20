@@ -27,7 +27,7 @@ public abstract class ItemInHandRendererMixin {
       int pCombinedLight,
       Operation<Void> original
   ) {
-    if (EntityHelper.isHandKatana(InteractionHand.MAIN_HAND) && EntityHelper.isHandKatana(InteractionHand.OFF_HAND))
+    if (EntityHelper.INSTANCE.isHandKatana(InteractionHand.MAIN_HAND) && EntityHelper.INSTANCE.isHandKatana(InteractionHand.OFF_HAND))
       pSwingProgress = player.getAttackAnim(pPartialTicks);
     original.call(player, pPartialTicks, pPitch, pHand, pSwingProgress, pStack, pEquippedProgress, pPoseStack, pBuffer, pCombinedLight);
   }
