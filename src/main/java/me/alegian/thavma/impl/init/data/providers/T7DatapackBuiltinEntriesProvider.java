@@ -2,7 +2,8 @@ package me.alegian.thavma.impl.init.data.providers;
 
 import me.alegian.thavma.impl.Thavma;
 import me.alegian.thavma.impl.common.enchantment.ShriekResistance;
-import me.alegian.thavma.impl.init.data.worldgen.ore.*;
+import me.alegian.thavma.impl.init.data.worldgen.ore.InfusedOre;
+import me.alegian.thavma.impl.init.data.worldgen.ore.InfusedStoneOre;
 import me.alegian.thavma.impl.init.data.worldgen.tree.GreatwoodTree;
 import me.alegian.thavma.impl.init.data.worldgen.tree.SilverwoodTree;
 import me.alegian.thavma.impl.init.registries.T7Tags;
@@ -38,12 +39,7 @@ public class T7DatapackBuiltinEntriesProvider extends DatapackBuiltinEntriesProv
         GreatwoodTree.registerConfigured(bootstrap);
         SilverwoodTree.registerConfigured(bootstrap);
 
-        IgnisOre.registerConfigured(bootstrap);
-        TerraOre.registerConfigured(bootstrap);
-        AerOre.registerConfigured(bootstrap);
-        AquaOre.registerConfigured(bootstrap);
-        OrdoOre.registerConfigured(bootstrap);
-        PerditioOre.registerConfigured(bootstrap);
+        InfusedOre.INSTANCE.registerConfigured(bootstrap);
 
         InfusedStoneOre.registerConfigured(bootstrap);
       })
@@ -51,12 +47,7 @@ public class T7DatapackBuiltinEntriesProvider extends DatapackBuiltinEntriesProv
         GreatwoodTree.registerPlaced(bootstrap);
         SilverwoodTree.registerPlaced(bootstrap);
 
-        IgnisOre.registerPlaced(bootstrap);
-        TerraOre.registerPlaced(bootstrap);
-        AerOre.registerPlaced(bootstrap);
-        AquaOre.registerPlaced(bootstrap);
-        OrdoOre.registerPlaced(bootstrap);
-        PerditioOre.registerPlaced(bootstrap);
+        InfusedOre.INSTANCE.registerPlaced(bootstrap);
 
         InfusedStoneOre.registerPlaced(bootstrap);
       })

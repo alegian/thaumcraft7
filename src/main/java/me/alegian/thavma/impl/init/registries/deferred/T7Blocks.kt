@@ -54,128 +54,15 @@ object T7Blocks {
         "elemental_stone"
     ) { Block(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)) }
 
-    val IGNIS_INFUSED_STONE = register(
-        "ignis_infused_stone"
-    ) {
-        InfusedBlock(
-            Aspects.IGNIS,
-            BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_ORE)
-        ) { Blocks.STONE }
+    val INFUSED_STONES = linkedMapWithPrimalKeys { aspect ->
+        register(aspect.id.path + "_infused_stone") { InfusedBlock(aspect, BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_ORE)) { Blocks.STONE } }
     }
 
-    val AER_INFUSED_STONE = register(
-        "aer_infused_stone"
-    ) {
-        InfusedBlock(
-            Aspects.AER,
-            BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_ORE)
-        ) { Blocks.STONE }
+    val INFUSED_DEEPSLATES = linkedMapWithPrimalKeys { aspect ->
+        register(aspect.id.path + "_infused_deepslate") { InfusedBlock(aspect, BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_IRON_ORE)) { Blocks.DEEPSLATE } }
     }
 
-    val TERRA_INFUSED_STONE = register(
-        "terra_infused_stone"
-    ) {
-        InfusedBlock(
-            Aspects.TERRA,
-            BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_ORE)
-        ) { Blocks.STONE }
-    }
-
-    val AQUA_INFUSED_STONE = register(
-        "aqua_infused_stone"
-    ) {
-        InfusedBlock(
-            Aspects.AQUA,
-            BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_ORE)
-        ) { Blocks.STONE }
-    }
-
-    val ORDO_INFUSED_STONE = register(
-        "ordo_infused_stone"
-    ) {
-        InfusedBlock(
-            Aspects.ORDO,
-            BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_ORE)
-        ) { Blocks.STONE }
-    }
-
-    val PERDITIO_INFUSED_STONE = register(
-        "perditio_infused_stone"
-    ) {
-        InfusedBlock(
-            Aspects.PERDITIO,
-            BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_ORE)
-        ) { Blocks.STONE }
-    }
-
-    val IGNIS_INFUSED_DEEPSLATE = register(
-        "ignis_infused_deepslate"
-    ) {
-        InfusedBlock(
-            Aspects.IGNIS,
-            BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_IRON_ORE)
-        ) { Blocks.DEEPSLATE }
-    }
-
-    val AER_INFUSED_DEEPSLATE = register(
-        "aer_infused_deepslate"
-    ) {
-        InfusedBlock(
-            Aspects.AER,
-            BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_IRON_ORE)
-        ) { Blocks.DEEPSLATE }
-    }
-
-    val TERRA_INFUSED_DEEPSLATE = register(
-        "terra_infused_deepslate"
-    ) {
-        InfusedBlock(
-            Aspects.TERRA,
-            BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_IRON_ORE)
-        ) { Blocks.DEEPSLATE }
-    }
-
-    val AQUA_INFUSED_DEEPSLATE = register(
-        "aqua_infused_deepslate"
-    ) {
-        InfusedBlock(
-            Aspects.AQUA,
-            BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_IRON_ORE)
-        ) { Blocks.DEEPSLATE }
-    }
-
-    val ORDO_INFUSED_DEEPSLATE = register(
-        "ordo_infused_deepslate"
-    ) {
-        InfusedBlock(
-            Aspects.ORDO,
-            BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_IRON_ORE)
-        ) { Blocks.DEEPSLATE }
-    }
-
-    val PERDITIO_INFUSED_DEEPSLATE = register(
-        "perditio_infused_deepslate"
-    ) {
-        InfusedBlock(
-            Aspects.PERDITIO,
-            BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_IRON_ORE)
-        ) { Blocks.DEEPSLATE }
-    }
-
-    val INFUSED_BLOCKS = listOf(
-        IGNIS_INFUSED_STONE,
-        AER_INFUSED_STONE,
-        TERRA_INFUSED_STONE,
-        AQUA_INFUSED_STONE,
-        ORDO_INFUSED_STONE,
-        PERDITIO_INFUSED_STONE,
-        IGNIS_INFUSED_DEEPSLATE,
-        AER_INFUSED_DEEPSLATE,
-        TERRA_INFUSED_DEEPSLATE,
-        AQUA_INFUSED_DEEPSLATE,
-        ORDO_INFUSED_DEEPSLATE,
-        PERDITIO_INFUSED_DEEPSLATE
-    )
+    val INFUSED_BLOCKS = (INFUSED_STONES+INFUSED_DEEPSLATES).values
 
     val GREATWOOD_LEAVES = register(
         "greatwood_leaves",
@@ -216,7 +103,7 @@ object T7Blocks {
     val ARCANUM_BLOCK = register(
         "arcanum_block"
     ) { Block(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK)) }
-    
+
     val ORICHALCUM_BLOCK = register(
         "orichalcum_block"
     ) { Block(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK)) }

@@ -60,3 +60,11 @@ object Aspects {
         return REGISTRAR.registerAspect(id) { Aspect(id, color, components) }
     }
 }
+
+fun <T> linkedMapWithPrimalKeys(mapper: (DeferredAspect<Aspect>) -> T): LinkedHashMap<DeferredAspect<Aspect>, T> {
+    return linkedMapOf(*Aspects.PRIMAL_ASPECTS.map { Pair(it, mapper(it)) }.toTypedArray())
+}
+
+fun <T> listFromPrimals(mapper: (DeferredAspect<Aspect>) -> T): List<T> {
+    return Aspects.PRIMAL_ASPECTS.map { mapper(it) }
+}
