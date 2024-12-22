@@ -62,8 +62,6 @@ object T7Blocks {
         register(aspect.id.path + "_infused_deepslate") { InfusedBlock(aspect, BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_IRON_ORE)) { Blocks.DEEPSLATE } }
     }
 
-    val INFUSED_BLOCKS = (INFUSED_STONES+INFUSED_DEEPSLATES).values
-
     val GREATWOOD_LEAVES = register(
         "greatwood_leaves",
         ::leaves

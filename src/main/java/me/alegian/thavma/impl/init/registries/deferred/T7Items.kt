@@ -166,12 +166,10 @@ object T7Items {
         { props -> CustosArcanumArmorItem(ArmorItem.Type.BOOTS, props) },
         Item.Properties().fireResistant().durability(ArmorItem.Type.BOOTS.getDurability(21))
     )
-    val IGNIS_TESTA = REGISTRAR.registerItem("ignis_testa") { _ -> TestaItem(Aspects.IGNIS) }
-    val AER_TESTA = REGISTRAR.registerItem("aer_testa") { _ -> TestaItem(Aspects.AER) }
-    val TERRA_TESTA = REGISTRAR.registerItem("terra_testa") { _ -> TestaItem(Aspects.TERRA) }
-    val AQUA_TESTA = REGISTRAR.registerItem("aqua_testa") { _ -> TestaItem(Aspects.AQUA) }
-    val ORDO_TESTA = REGISTRAR.registerItem("ordo_testa") { _ -> TestaItem(Aspects.ORDO) }
-    val PERDITIO_TESTA = REGISTRAR.registerItem("perditio_testa") { _ -> TestaItem(Aspects.PERDITIO) }
+
+    val TESTAS = linkedMapWithPrimalKeys { aspect ->
+        REGISTRAR.registerItem(aspect.id.path + "_testa") { _ -> TestaItem(aspect) }
+    }
 
     // (handleName, coreName)->wand. populated on Item Registry bake
     val WANDS = DoubleMap<String, String, WandItem>()

@@ -2,6 +2,7 @@ package me.alegian.thavma.impl.init.data.providers;
 
 import me.alegian.thavma.impl.common.block.InfusedBlock;
 import me.alegian.thavma.impl.common.item.TestaItem;
+import me.alegian.thavma.impl.init.registries.deferred.Aspects;
 import me.alegian.thavma.impl.init.registries.deferred.T7Blocks;
 import me.alegian.thavma.impl.init.registries.deferred.T7Items;
 import net.minecraft.core.HolderLookup;
@@ -45,18 +46,10 @@ public class T7BlockLootSubProvider extends BlockLootSubProvider {
 
     this.dropSelf(T7Blocks.INSTANCE.getESSENTIA_CONTAINER().get());
 
-    this.infusedStone(T7Blocks.INSTANCE.getIGNIS_INFUSED_STONE(), T7Items.INSTANCE.getIGNIS_TESTA());
-    this.infusedStone(T7Blocks.INSTANCE.getTERRA_INFUSED_STONE(), T7Items.INSTANCE.getTERRA_TESTA());
-    this.infusedStone(T7Blocks.INSTANCE.getAER_INFUSED_STONE(), T7Items.INSTANCE.getAER_TESTA());
-    this.infusedStone(T7Blocks.INSTANCE.getAQUA_INFUSED_STONE(), T7Items.INSTANCE.getAQUA_TESTA());
-    this.infusedStone(T7Blocks.INSTANCE.getORDO_INFUSED_STONE(), T7Items.INSTANCE.getORDO_TESTA());
-    this.infusedStone(T7Blocks.INSTANCE.getPERDITIO_INFUSED_STONE(), T7Items.INSTANCE.getPERDITIO_TESTA());
-    this.infusedStone(T7Blocks.INSTANCE.getIGNIS_INFUSED_DEEPSLATE(), T7Items.INSTANCE.getIGNIS_TESTA());
-    this.infusedStone(T7Blocks.INSTANCE.getTERRA_INFUSED_DEEPSLATE(), T7Items.INSTANCE.getTERRA_TESTA());
-    this.infusedStone(T7Blocks.INSTANCE.getAER_INFUSED_DEEPSLATE(), T7Items.INSTANCE.getAER_TESTA());
-    this.infusedStone(T7Blocks.INSTANCE.getAQUA_INFUSED_DEEPSLATE(), T7Items.INSTANCE.getAQUA_TESTA());
-    this.infusedStone(T7Blocks.INSTANCE.getORDO_INFUSED_DEEPSLATE(), T7Items.INSTANCE.getORDO_TESTA());
-    this.infusedStone(T7Blocks.INSTANCE.getPERDITIO_INFUSED_DEEPSLATE(), T7Items.INSTANCE.getPERDITIO_TESTA());
+    for(var aspect : Aspects.INSTANCE.getPRIMAL_ASPECTS()){
+      this.infusedBlock(T7Blocks.INSTANCE.getINFUSED_STONES().get(aspect), T7Items.INSTANCE.getTESTAS().get(aspect));
+      this.infusedBlock(T7Blocks.INSTANCE.getINFUSED_DEEPSLATES().get(aspect), T7Items.INSTANCE.getTESTAS().get(aspect));
+    }
   }
 
   @Override
@@ -67,7 +60,7 @@ public class T7BlockLootSubProvider extends BlockLootSubProvider {
         .toList();
   }
 
-  private void infusedStone(DeferredBlock<InfusedBlock> block, DeferredItem<TestaItem> item) {
+  private void infusedBlock(DeferredBlock<InfusedBlock> block, DeferredItem<TestaItem> item) {
     this.add(block.get(), b -> this.createOreDrop(b, item.get()));
   }
 }

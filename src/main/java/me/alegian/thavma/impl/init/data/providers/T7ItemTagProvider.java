@@ -37,14 +37,8 @@ public class T7ItemTagProvider extends ItemTagsProvider {
             T7Items.INSTANCE.getSILVERWOOD_CORE().get()
         );
 
-    this.tag(T7Tags.INSTANCE.getTESTA()).add(
-        T7Items.INSTANCE.getTERRA_TESTA().get(),
-        T7Items.INSTANCE.getAER_TESTA().get(),
-        T7Items.INSTANCE.getIGNIS_TESTA().get(),
-        T7Items.INSTANCE.getORDO_TESTA().get(),
-        T7Items.INSTANCE.getAQUA_TESTA().get(),
-        T7Items.INSTANCE.getPERDITIO_TESTA().get()
-    );
+    for (var testa : T7Items.INSTANCE.getTESTAS().values())
+      this.tag(T7Tags.INSTANCE.getTESTA()).add(testa.get());
 
     this.tag(Tags.Items.INGOTS).add(
         T7Items.INSTANCE.getARCANUM_INGOT().get(),

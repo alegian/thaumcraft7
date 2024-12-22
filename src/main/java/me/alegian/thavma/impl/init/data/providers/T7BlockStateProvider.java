@@ -35,8 +35,11 @@ public class T7BlockStateProvider extends BlockStateProvider {
         .end()
     );
 
-    for (var infusedBlock : T7Blocks.INSTANCE.getINFUSED_BLOCKS())
-      this.infusedBlockWithItem(infusedBlock.get());
+    for (var infusedStone : T7Blocks.INSTANCE.getINFUSED_STONES().values())
+      this.infusedBlockWithItem(infusedStone.get());
+
+    for (var infusedDeepslate : T7Blocks.INSTANCE.getINFUSED_DEEPSLATES().values())
+      this.infusedBlockWithItem(infusedDeepslate.get());
 
     this.logBlockWithItem(T7Blocks.INSTANCE.getGREATWOOD_LOG().get());
     this.simpleBlockWithItem(T7Blocks.INSTANCE.getGREATWOOD_PLANKS().get());

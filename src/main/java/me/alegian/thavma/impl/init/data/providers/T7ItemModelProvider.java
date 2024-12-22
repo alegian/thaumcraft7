@@ -58,12 +58,8 @@ public class T7ItemModelProvider extends ItemModelProvider {
     this.handheldItem(T7Items.INSTANCE.getARCANUM_SHOVEL());
     this.handheldItem(T7Items.INSTANCE.getARCANUM_HOE());
 
-    this.testaItem(T7Items.INSTANCE.getIGNIS_TESTA());
-    this.testaItem(T7Items.INSTANCE.getAER_TESTA());
-    this.testaItem(T7Items.INSTANCE.getTERRA_TESTA());
-    this.testaItem(T7Items.INSTANCE.getAQUA_TESTA());
-    this.testaItem(T7Items.INSTANCE.getORDO_TESTA());
-    this.testaItem(T7Items.INSTANCE.getPERDITIO_TESTA());
+    for (var testa : T7Items.INSTANCE.getTESTAS().values())
+      this.testaItem(testa);
 
     for (var wand : T7Items.INSTANCE.getWANDS().values())
       this.withExistingParent(wand.getName(), Thavma.INSTANCE.rl("wand"));

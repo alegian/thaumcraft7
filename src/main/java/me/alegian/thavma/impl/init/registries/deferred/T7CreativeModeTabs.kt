@@ -11,7 +11,8 @@ import me.alegian.thavma.impl.init.registries.deferred.T7Blocks.GREATWOOD_LEAVES
 import me.alegian.thavma.impl.init.registries.deferred.T7Blocks.GREATWOOD_LOG
 import me.alegian.thavma.impl.init.registries.deferred.T7Blocks.GREATWOOD_PLANKS
 import me.alegian.thavma.impl.init.registries.deferred.T7Blocks.GREATWOOD_SAPLING
-import me.alegian.thavma.impl.init.registries.deferred.T7Blocks.INFUSED_BLOCKS
+import me.alegian.thavma.impl.init.registries.deferred.T7Blocks.INFUSED_DEEPSLATES
+import me.alegian.thavma.impl.init.registries.deferred.T7Blocks.INFUSED_STONES
 import me.alegian.thavma.impl.init.registries.deferred.T7Blocks.MATRIX
 import me.alegian.thavma.impl.init.registries.deferred.T7Blocks.ORICHALCUM_BLOCK
 import me.alegian.thavma.impl.init.registries.deferred.T7Blocks.PEDESTAL
@@ -55,7 +56,8 @@ object T7CreativeModeTabs {
 
                     output.accept(ELEMENTAL_STONE.get())
 
-                    for (infusedBlock in INFUSED_BLOCKS) output.accept(infusedBlock.get())
+                    for(infusedStone in INFUSED_STONES.values) output.accept(infusedStone.get())
+                    for(infusedStone in INFUSED_DEEPSLATES.values) output.accept(infusedStone.get())
 
                     output.accept(ARCANUM_BLOCK.get())
                     output.accept(ORICHALCUM_BLOCK.get())
@@ -121,12 +123,7 @@ object T7CreativeModeTabs {
                     output.accept(T7Items.CUSTOS_ARCANUM_LEGGINGS.get())
                     output.accept(T7Items.CUSTOS_ARCANUM_BOOTS.get())
 
-                    output.accept(T7Items.IGNIS_TESTA.get())
-                    output.accept(T7Items.AER_TESTA.get())
-                    output.accept(T7Items.TERRA_TESTA.get())
-                    output.accept(T7Items.AQUA_TESTA.get())
-                    output.accept(T7Items.ORDO_TESTA.get())
-                    output.accept(T7Items.PERDITIO_TESTA.get())
+                    for(testa in T7Items.TESTAS.values) output.accept(testa.get())
 
                     output.accept(T7Items.ARCANUM_AXE.get())
                     output.accept(T7Items.ARCANUM_PICKAXE.get())

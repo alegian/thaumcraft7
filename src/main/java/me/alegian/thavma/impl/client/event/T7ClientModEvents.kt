@@ -21,7 +21,6 @@ import me.alegian.thavma.impl.common.block.entity.MatrixBE
 import me.alegian.thavma.impl.common.block.entity.PedestalBE
 import me.alegian.thavma.impl.common.block.entity.PillarBE
 import me.alegian.thavma.impl.common.block.entity.WorkbenchBE
-import me.alegian.thavma.impl.common.item.TestaItem
 import me.alegian.thavma.impl.init.registries.deferred.*
 import net.minecraft.client.renderer.ShaderInstance
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider
@@ -91,50 +90,52 @@ private fun registerGeometryLoaders(event: RegisterGeometryLoaders) {
 }
 
 private fun registerItemColorHandlers(event: RegisterColorHandlersEvent.Item) {
-    event.register(
-        { stack, tintIndex ->
-            when (tintIndex) {
-                0 -> (stack.item as TestaItem).aspect.color
-                else -> 0xFFFFFFFF.toInt()
-            }
-        },
-        T7Items.IGNIS_TESTA.get(),
-        T7Items.AER_TESTA.get(),
-        T7Items.TERRA_TESTA.get(),
-        T7Items.AQUA_TESTA.get(),
-        T7Items.ORDO_TESTA.get(),
-        T7Items.PERDITIO_TESTA.get()
-    )
-    event.register(
-        { _, tintIndex ->
-            when (tintIndex) {
-                0 -> T7Colors.GREATWOOD_LEAVES
-                else -> 0xFFFFFFFF.toInt()
-            }
-        },
-        T7Blocks.GREATWOOD_LEAVES.get()
-    )
-    event.register(
-        { _, tintIndex ->
-            when (tintIndex) {
-                0 -> T7Colors.SILVERWOOD_LEAVES
-                else -> 0xFFFFFFFF.toInt()
-            }
-        },
-        T7Blocks.SILVERWOOD_LEAVES.get()
-    )
-    for (infusedBlock in T7Blocks.INFUSED_BLOCKS)
+    for(aspect in Aspects.PRIMAL_ASPECTS){
         event.register(
             { _, tintIndex ->
                 when (tintIndex) {
-                    0 -> infusedBlock.get().aspect.color
+                    0 -> aspect.get().color
                     else -> 0xFFFFFFFF.toInt()
                 }
-            }, infusedBlock.get()
+            },
+            T7Blocks.INFUSED_DEEPSLATES[aspect],
+            T7Blocks.INFUSED_STONES[aspect],
+            T7Items.TESTAS[aspect]
         )
+    }
+    event.register(
+        { _, tintIndex ->
+            when (tintIndex) {
+                0 -> T7Colors.GREATWOOD_LEAVES
+                else -> 0xFFFFFFFF.toInt()
+            }
+        },
+        T7Blocks.GREATWOOD_LEAVES.get()
+    )
+    event.register(
+        { _, tintIndex ->
+            when (tintIndex) {
+                0 -> T7Colors.SILVERWOOD_LEAVES
+                else -> 0xFFFFFFFF.toInt()
+            }
+        },
+        T7Blocks.SILVERWOOD_LEAVES.get()
+    )
 }
 
 private fun registerBlockColorHandlers(event: RegisterColorHandlersEvent.Block) {
+    for(aspect in Aspects.PRIMAL_ASPECTS){
+        event.register(
+            { _, _, _, tintIndex ->
+                when (tintIndex) {
+                    0 -> aspect.get().color
+                    else -> 0xFFFFFFFF.toInt()
+                }
+            },
+            T7Blocks.INFUSED_DEEPSLATES[aspect]!!.get(),
+            T7Blocks.INFUSED_STONES[aspect]!!.get()
+        )
+    }
     event.register(
         { _, _, _, tintIndex ->
             when (tintIndex) {
@@ -153,16 +154,6 @@ private fun registerBlockColorHandlers(event: RegisterColorHandlersEvent.Block) 
         },
         T7Blocks.SILVERWOOD_LEAVES.get()
     )
-    for (infusedBlock in T7Blocks.INFUSED_BLOCKS)
-        event.register(
-            { _, _, _, tintIndex ->
-                when (tintIndex) {
-                    0 -> infusedBlock.get().aspect.color
-                    else -> 0xFFFFFFFF.toInt()
-                }
-            },
-            infusedBlock.get()
-        )
 }
 
 private fun registerShaders(event: RegisterShadersEvent) {
