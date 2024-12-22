@@ -13,8 +13,7 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.GiantTrunkPlacer
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType
 import java.util.function.BiConsumer
 
-class GreatwoodTrunkPlacer(pBaseHeight: Int, pHeightRandA: Int, pHeightRandB: Int) :
-    GiantTrunkPlacer(pBaseHeight, pHeightRandA, pHeightRandB) {
+class GreatwoodTrunkPlacer(pBaseHeight: Int, pHeightRandA: Int, pHeightRandB: Int) : GiantTrunkPlacer(pBaseHeight, pHeightRandA, pHeightRandB) {
     override fun type(): TrunkPlacerType<*> {
         return GREATWOOD.get()
     }
@@ -30,31 +29,33 @@ class GreatwoodTrunkPlacer(pBaseHeight: Int, pHeightRandA: Int, pHeightRandB: In
         val list = ArrayList<FoliageAttachment>()
         list.addAll(super.placeTrunk(pLevel, pBlockSetter, pRandom, pFreeTreeHeight, pPos, pConfig))
 
-        var i = pFreeTreeHeight - 2
-        while (i > pFreeTreeHeight / 4) {
-            val f = pRandom.nextFloat() * (Math.PI * 2).toFloat()
-            var j: Int
-            var k: Int
-
-            for (l in 0..5) {
-                j = (1.5f + Mth.cos(f) * l.toFloat()).toInt()
-                k = (1.5f + Mth.sin(f) * l.toFloat()).toInt()
-                val blockpos = pPos.offset(j, i - 3 + l / 2, k)
-                this.placeLog(pLevel, pBlockSetter, pRandom, blockpos, pConfig)
-                if (l == 6 - 1) list.add(FoliageAttachment(blockpos.above(3), 0, false))
+        var currY = pFreeTreeHeight - 2
+        while (currY > pFreeTreeHeight / 4) {
+            repeat(2) {
+                branch(pRandom, pPos, currY, pLevel, pBlockSetter, pConfig, list)
             }
-            i -= 1
+            currY--
         }
 
         return list
     }
 
+    private fun branch(pRandom: RandomSource, pPos: BlockPos, currY: Int, pLevel: LevelSimulatedReader, pBlockSetter: BiConsumer<BlockPos, BlockState>, pConfig: TreeConfiguration, list: ArrayList<FoliageAttachment>) {
+        val f = pRandom.nextFloat() * (Math.PI * 2).toFloat()
+        var j: Int
+        var k: Int
+
+        val branchLength = pRandom.nextIntBetweenInclusive(4, 7)
+        for (l in 0..branchLength) {
+            j = (Mth.cos(f) * l).toInt()
+            k = (Mth.sin(f) * l).toInt()
+            val blockpos = pPos.offset(j, currY + l / 2 - 3, k)
+            this.placeLog(pLevel, pBlockSetter, pRandom, blockpos, pConfig)
+            if (l == branchLength) list.add(FoliageAttachment(blockpos.above(3), 0, false))
+        }
+    }
+
     companion object {
-        val CODEC =
-            RecordCodecBuilder.mapCodec { builder ->
-                trunkPlacerParts(builder).apply(
-                    builder, ::GreatwoodTrunkPlacer
-                )
-            }
+        val CODEC = RecordCodecBuilder.mapCodec { builder -> trunkPlacerParts(builder).apply(builder, ::GreatwoodTrunkPlacer) }
     }
 }
