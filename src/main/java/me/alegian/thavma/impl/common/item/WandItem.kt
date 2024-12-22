@@ -79,7 +79,7 @@ open class WandItem(props: Properties, val handleMaterial: WandHandleMaterial, v
             }
         }
         if (blockState.`is`(Blocks.CAULDRON)) {
-            if (!level.isClientSide()) level.setBlockAndUpdate(blockPos, T7Blocks.CRUCIBLE.get().defaultBlockState())
+            if (!level.isClientSide()) level.setBlockAndUpdate(blockPos, T7Blocks.CRUCIBLE.get().stateWithBoiling(level, blockPos))
             level.playSound(context.player, blockPos, SoundEvents.PLAYER_LEVELUP, SoundSource.BLOCKS, 1.0f, 1.0f)
             return InteractionResult.SUCCESS
         }

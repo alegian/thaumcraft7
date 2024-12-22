@@ -71,7 +71,7 @@ open class CrucibleBE(pos: BlockPos?, blockState: BlockState?) :
     }
 
     companion object {
-        fun tick(level: Level, pos: BlockPos, state: BlockState, blockEntity: BlockEntity) {
+        fun tick(level: Level, pos: BlockPos, state: BlockState, blockEntity: BlockEntity?) {
             if (level is ServerLevel
                 && state.getValue(T7BlockStateProperties.BOILING)
                 && level.getGameTime() % 7 == 0L && blockEntity is CrucibleBE
