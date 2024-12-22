@@ -63,6 +63,7 @@ public class CrucibleBlock extends Block implements EntityBlock {
 
   public CrucibleBlock() {
     super(BlockBehaviour.Properties.ofFullCopy(Blocks.CAULDRON));
+    this.registerDefaultState(stateDefinition.any().setValue(BOILING, false));
   }
 
   public static void meltItem(ServerLevel level, BlockPos pPos, ItemEntity itemEntity) {
@@ -92,10 +93,8 @@ public class CrucibleBlock extends Block implements EntityBlock {
 
         if (itemEntity.getOwner() instanceof ServerPlayer player) {
           ItemEntity itementity = player.drop(recipe.value().assemble(input, level.registryAccess()), true, true);
-          if (itementity != null) {
-            itementity.setNoPickUpDelay();
-            itementity.setTarget(player.getUUID());
-          }
+          itementity.setNoPickUpDelay();
+          itementity.setTarget(player.getUUID());
           CrucibleBlock.shrinkItemEntity(itemEntity);
         }
 
@@ -141,7 +140,7 @@ public class CrucibleBlock extends Block implements EntityBlock {
     else itemEntity.setItem(stack.copy());
   }
 
-  public static boolean isHeatSource(LevelAccessor level, BlockPos pos) {
+  private static boolean isHeatSource(LevelAccessor level, BlockPos pos) {
     var bs = level.getBlockState(pos);
     var bsHeat = bs.is(T7Tags.CrucibleHeatSourceTag.INSTANCE.getBLOCK());
     var fs = level.getFluidState(pos);
