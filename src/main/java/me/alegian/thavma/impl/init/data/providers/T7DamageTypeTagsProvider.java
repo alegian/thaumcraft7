@@ -17,6 +17,6 @@ public class T7DamageTypeTagsProvider extends DamageTypeTagsProvider {
 
   @Override
   protected void addTags(HolderLookup.Provider provider) {
-    this.tag(T7Tags.SONIC).add(DamageTypes.SONIC_BOOM);
+    this.tag(T7Tags.INSTANCE.getSONIC()).add(DamageTypes.SONIC_BOOM);
   }
 }

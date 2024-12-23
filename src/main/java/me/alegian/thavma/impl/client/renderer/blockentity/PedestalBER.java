@@ -11,7 +11,7 @@ import software.bernie.geckolib.renderer.GeoBlockRenderer;
 @OnlyIn(Dist.CLIENT)
 public class PedestalBER extends GeoBlockRenderer<PedestalBE> {
   public PedestalBER() {
-    super(new DefaultedBlockGeoModel<>(Thavma.rl("infusion_pedestal")));
+    super(new DefaultedBlockGeoModel<>(Thavma.INSTANCE.rl("infusion_pedestal")));
     this.addRenderLayer(new EmissiveGeoLayer<>(this));
   }
 }

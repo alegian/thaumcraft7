@@ -22,7 +22,7 @@ public class WardenLootModifier extends LootModifier {
 
   @Override
   protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
-    generatedLoot.add(new ItemStack(T7Items.EYE_OF_WARDEN.get()));
+    generatedLoot.add(new ItemStack(T7Items.INSTANCE.getEYE_OF_WARDEN().get()));
     return generatedLoot;
   }
 

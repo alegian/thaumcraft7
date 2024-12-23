@@ -22,7 +22,7 @@ public class CustosArcanumArmorItem extends ArmorItem implements GeoItem {
   private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
   public CustosArcanumArmorItem(ArmorItem.Type type, Properties properties) {
-    super(T7ArmorMaterials.CUSTOS_ARCANUM, type, properties);
+    super(T7ArmorMaterials.INSTANCE.getCUSTOS_ARCANUM(), type, properties);
   }
 
   @Override
@@ -42,7 +42,7 @@ public class CustosArcanumArmorItem extends ArmorItem implements GeoItem {
       @Override
       public <T extends LivingEntity> HumanoidModel<?> getGeoArmorRenderer(@Nullable T livingEntity, ItemStack itemStack, @Nullable EquipmentSlot equipmentSlot, @Nullable HumanoidModel<T> original) {
         if (this.renderer == null)
-          this.renderer = new GeoArmorRenderer<>(new DefaultedItemGeoModel<CustosArcanumArmorItem>(Thavma.rl("custos_arcanum_armor")));
+          this.renderer = new GeoArmorRenderer<>(new DefaultedItemGeoModel<CustosArcanumArmorItem>(Thavma.INSTANCE.rl("custos_arcanum_armor")));
 
         return this.renderer;
       }

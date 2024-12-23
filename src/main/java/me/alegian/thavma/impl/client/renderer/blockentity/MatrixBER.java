@@ -12,7 +12,7 @@ import software.bernie.geckolib.renderer.GeoBlockRenderer;
 public class MatrixBER extends GeoBlockRenderer<MatrixBE> {
 
   public MatrixBER() {
-    super(new DefaultedBlockGeoModel<>(Thavma.rl("infusion_matrix")));
+    super(new DefaultedBlockGeoModel<>(Thavma.INSTANCE.rl("infusion_matrix")));
     this.addRenderLayer(new EmissiveGeoLayer<>(this));
   }
 }

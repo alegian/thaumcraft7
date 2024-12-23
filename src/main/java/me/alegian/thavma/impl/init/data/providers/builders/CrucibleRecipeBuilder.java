@@ -56,7 +56,7 @@ public class CrucibleRecipeBuilder implements RecipeBuilder {
 
     var recipe = new CrucibleRecipe(this.aspects, this.catalyst, this.result);
 
-    id = Thavma.rl(id.getPath()).withSuffix("_crucible");
+    id = Thavma.INSTANCE.rl(id.getPath()).withSuffix("_crucible");
     output.accept(id, recipe, advancement.build(id.withPrefix("recipes/")));
   }
 }

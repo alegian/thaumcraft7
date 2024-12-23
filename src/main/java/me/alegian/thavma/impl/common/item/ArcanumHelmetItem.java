@@ -22,7 +22,7 @@ public class ArcanumHelmetItem extends ArmorItem implements GeoItem {
   private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
   public ArcanumHelmetItem(Properties props) {
-    super(T7ArmorMaterials.ARCANUM, ArmorItem.Type.HELMET, props);
+    super(T7ArmorMaterials.INSTANCE.getARCANUM(), ArmorItem.Type.HELMET, props);
   }
 
   @Override
@@ -42,7 +42,7 @@ public class ArcanumHelmetItem extends ArmorItem implements GeoItem {
       @Override
       public <T extends LivingEntity> HumanoidModel<?> getGeoArmorRenderer(@Nullable T livingEntity, ItemStack itemStack, @Nullable EquipmentSlot equipmentSlot, @Nullable HumanoidModel<T> original) {
         if (this.renderer == null)
-          this.renderer = new GeoArmorRenderer<>(new DefaultedItemGeoModel<ArcanumHelmetItem>(Thavma.rl("arcanum_armor")));
+          this.renderer = new GeoArmorRenderer<>(new DefaultedItemGeoModel<ArcanumHelmetItem>(Thavma.INSTANCE.rl("arcanum_armor")));
 
         return this.renderer;
       }

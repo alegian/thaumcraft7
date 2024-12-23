@@ -11,7 +11,7 @@ import software.bernie.geckolib.renderer.GeoBlockRenderer;
 @OnlyIn(Dist.CLIENT)
 public class PillarBER extends GeoBlockRenderer<PillarBE> {
   public PillarBER() {
-    super(new DefaultedBlockGeoModel<>(Thavma.rl("infusion_pillar")));
+    super(new DefaultedBlockGeoModel<>(Thavma.INSTANCE.rl("infusion_pillar")));
     this.addRenderLayer(new EmissiveGeoLayer<>(this));
   }
 }

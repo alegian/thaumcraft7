@@ -34,7 +34,7 @@ public class WorkbenchMenu extends Menu {
    * Slot index must be container unique, but not necessarily menu unique
    */
   public WorkbenchMenu(int pContainerId, Inventory pPlayerInventory, ContainerLevelAccess pAccess) {
-    super(T7MenuTypes.ARCANE_WORKBENCH.get(), pContainerId, pPlayerInventory);
+    super(T7MenuTypes.INSTANCE.getWORKBENCH().get(), pContainerId, pPlayerInventory);
     this.levelAccess = pAccess;
 
     this.slotPose.push(50, 42);
@@ -59,7 +59,7 @@ public class WorkbenchMenu extends Menu {
   private void refreshRecipeResult() {
     Level level = this.getPlayer().level();
     CraftingInput craftinginput = this.craftingContainer.asCraftInput();
-    var optionalRecipeHolder = level.getRecipeManager().getRecipeFor(T7RecipeTypes.ARCANE_WORKBENCH.get(), this.craftingContainer.asCraftInput(), level);
+    var optionalRecipeHolder = level.getRecipeManager().getRecipeFor(T7RecipeTypes.INSTANCE.getWORKBENCH().get(), this.craftingContainer.asCraftInput(), level);
 
     this.requiredAspects = optionalRecipeHolder.map(r ->
         r.value().assembleAspects()
@@ -79,11 +79,6 @@ public class WorkbenchMenu extends Menu {
   @Override
   protected List<T7Container> getQuickMovePriorities() {
     return List.of(this.wandContainer, this.craftingContainer);
-  }
-
-  @Override
-  public boolean stillValid(@NotNull Player pPlayer) {
-    return AbstractContainerMenu.stillValid(this.levelAccess, pPlayer, T7Blocks.ARCANE_WORKBENCH.get());
   }
 
   public WorkbenchResultContainer getResultContainer() {
@@ -107,6 +102,11 @@ public class WorkbenchMenu extends Menu {
     super.removed(pPlayer);
     this.levelAccess.execute((level, blockPos) -> this.clearContainer(pPlayer, this.craftingContainer));
     this.levelAccess.execute((level, blockPos) -> this.clearContainer(pPlayer, this.wandContainer));
+  }
+
+  @Override
+  public boolean stillValid(@NotNull Player pPlayer) {
+    return AbstractContainerMenu.stillValid(this.levelAccess, pPlayer, T7Blocks.INSTANCE.getARCANE_WORKBENCH().get());
   }
 
   @Override

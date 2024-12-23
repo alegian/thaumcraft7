@@ -1,7 +1,7 @@
 package me.alegian.thavma.impl.common.item;
 
 import me.alegian.thavma.impl.Thavma;
-import me.alegian.thavma.impl.common.aspect.AspectHelper;
+import me.alegian.thavma.impl.common.aspect.AspectHelperKt;
 import me.alegian.thavma.impl.common.block.AuraNodeBlock;
 import me.alegian.thavma.impl.init.registries.T7AttributeModifiers;
 import me.alegian.thavma.impl.init.registries.deferred.T7Attributes;
@@ -37,8 +37,8 @@ public class OculusItem extends Item implements GeoItem {
   public OculusItem(Properties props) {
     super(props.attributes(
         ItemAttributeModifiers.builder().add(
-            T7Attributes.REVEALING,
-            T7AttributeModifiers.Revealing.OCULUS,
+            T7Attributes.INSTANCE.getREVEALING(),
+            T7AttributeModifiers.Revealing.INSTANCE.getOCULUS(),
             EquipmentSlotGroup.MAINHAND
         ).build()
     ).stacksTo(1));
@@ -51,7 +51,8 @@ public class OculusItem extends Item implements GeoItem {
     if (block instanceof AuraNodeBlock) {
       var player = context.getPlayer();
       if (player != null)
-        if (level.isClientSide) player.sendSystemMessage(Component.literal(AspectHelper.getAspects(block).toString()));
+        if (level.isClientSide)
+          player.sendSystemMessage(Component.literal(AspectHelperKt.getAspects(block).toString()));
     }
     return InteractionResult.PASS;
   }
@@ -95,7 +96,7 @@ public class OculusItem extends Item implements GeoItem {
       @Override
       public BlockEntityWithoutLevelRenderer getGeoItemRenderer() {
         if (this.renderer == null)
-          this.renderer = new GeoItemRenderer<>(new DefaultedItemGeoModel<OculusItem>(Thavma.rl("oculus")) {
+          this.renderer = new GeoItemRenderer<>(new DefaultedItemGeoModel<OculusItem>(Thavma.INSTANCE.rl("oculus")) {
             @Override
             public RenderType getRenderType(OculusItem animatable, ResourceLocation texture) {
               return RenderType.entityTranslucent(texture);

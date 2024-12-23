@@ -30,10 +30,9 @@ public class HammerItem extends DiggerItem {
    * Used in event
    */
   public void tryBreak3x3exceptOrigin(ServerPlayer serverPlayer, LevelAccessor level, ItemStack itemStack) {
-    var hitResult = EntityHelper.getServerHitResult(serverPlayer);
-    for (var pos : getValid3x3PositionsExceptOrigin(hitResult, level, itemStack, serverPlayer)) {
+    var hitResult = EntityHelper.INSTANCE.getServerHitResult(serverPlayer);
+    for (var pos : this.getValid3x3PositionsExceptOrigin(hitResult, level, itemStack, serverPlayer))
       serverPlayer.gameMode.destroyBlock(pos);
-    }
   }
 
   public List<BlockPos> getValid3x3PositionsExceptOrigin(BlockHitResult hitResult, LevelAccessor level, ItemStack itemStack, LivingEntity entity) {
@@ -50,7 +49,7 @@ public class HammerItem extends DiggerItem {
     var perpendicularAxes = allAxes.stream().filter(a -> a != hitAxis).toList();
 
     // 3x3 area, except original block, only for correct mining tool
-    for (int i = -1; i <= 1; i++) {
+    for (int i = -1; i <= 1; i++)
       for (int j = -1; j <= 1; j++) {
         var currPos = originBlockPos
             .relative(perpendicularAxes.get(0), i)
@@ -60,7 +59,6 @@ public class HammerItem extends DiggerItem {
         if ((i != 0 || j != 0) && this.isCorrectToolForDrops(itemStack, currBlockState))
           positions.add(currPos);
       }
-    }
 
     return positions;
   }

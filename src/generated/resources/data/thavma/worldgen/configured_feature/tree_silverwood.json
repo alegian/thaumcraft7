@@ -9,14 +9,14 @@
       }
     },
     "foliage_placer": {
-      "type": "minecraft:pine_foliage_placer",
-      "height": {
-        "type": "minecraft:uniform",
-        "max_inclusive": 4,
-        "min_inclusive": 3
-      },
-      "offset": 1,
-      "radius": 1
+      "type": "minecraft:cherry_foliage_placer",
+      "corner_hole_chance": 0.0,
+      "hanging_leaves_chance": 0.0,
+      "hanging_leaves_extension_chance": 0.0,
+      "height": 10,
+      "offset": 0,
+      "radius": 3,
+      "wide_bottom_layer_hole_chance": 0.0
     },
     "foliage_provider": {
       "type": "minecraft:simple_state_provider",
@@ -34,13 +34,13 @@
     "minimum_size": {
       "type": "minecraft:two_layers_feature_size",
       "limit": 2,
-      "lower_size": 0,
-      "upper_size": 2
+      "lower_size": 2,
+      "upper_size": 1
     },
     "trunk_placer": {
-      "type": "minecraft:straight_trunk_placer",
-      "base_height": 6,
-      "height_rand_a": 4,
+      "type": "thavma:silverwood",
+      "base_height": 9,
+      "height_rand_a": 3,
       "height_rand_b": 0
     },
     "trunk_provider": {

@@ -13,6 +13,6 @@ public class T7ParticleDescriptionProvider extends ParticleDescriptionProvider {
 
   @Override
   protected void addDescriptions() {
-    spriteSet(T7ParticleTypes.CRUCIBLE_BUBBLE.get(), ResourceLocation.withDefaultNamespace("bubble"));
+    this.spriteSet(T7ParticleTypes.INSTANCE.getCRUCIBLE_BUBBLE().get(), ResourceLocation.withDefaultNamespace("bubble"));
   }
 }

@@ -29,25 +29,9 @@ public class WorkbenchRecipe implements Recipe<CraftingInput> {
     return this.getResultItem(registries).copy();
   }
 
-  public AspectMap assembleAspects() {
-    return this.resultAspects.copy();
-  }
-
   @Override
   public boolean canCraftInDimensions(int width, int height) {
     return width >= this.pattern.width() && height >= this.pattern.height();
-  }
-
-  public ShapedRecipePattern getPattern() {
-    return this.pattern;
-  }
-
-  public ItemStack getResultItem() {
-    return this.resultItem;
-  }
-
-  public AspectMap getResultAspects() {
-    return this.resultAspects;
   }
 
   /**
@@ -60,11 +44,27 @@ public class WorkbenchRecipe implements Recipe<CraftingInput> {
 
   @Override
   public RecipeSerializer<?> getSerializer() {
-    return T7RecipeSerializers.ARCANE_WORKBENCH.get();
+    return T7RecipeSerializers.INSTANCE.getARCANE_WORKBENCH().get();
   }
 
   @Override
   public RecipeType<?> getType() {
-    return T7RecipeTypes.ARCANE_WORKBENCH.get();
+    return T7RecipeTypes.INSTANCE.getWORKBENCH().get();
+  }
+
+  public AspectMap assembleAspects() {
+    return this.resultAspects.copy();
+  }
+
+  public ShapedRecipePattern getPattern() {
+    return this.pattern;
+  }
+
+  public ItemStack getResultItem() {
+    return this.resultItem;
+  }
+
+  public AspectMap getResultAspects() {
+    return this.resultAspects;
   }
 }

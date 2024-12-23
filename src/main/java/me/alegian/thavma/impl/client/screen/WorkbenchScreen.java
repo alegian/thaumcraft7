@@ -60,6 +60,13 @@ public class WorkbenchScreen extends AbstractContainerScreen<WorkbenchMenu> {
     for (var slot : this.menu.slots) this.renderSlotBg(t7graphics, slot);
   }
 
+  @Override
+  protected void renderSlotContents(GuiGraphics guiGraphics, ItemStack itemstack, Slot slot, @Nullable String countString) {
+    super.renderSlotContents(guiGraphics, itemstack, slot, countString);
+    if (slot instanceof ResultSlot resultSlot && !resultSlot.mayPickup(this.menu.getPlayer()))
+      guiGraphics.fill(RenderType.guiGhostRecipeOverlay(), slot.x, slot.y, slot.x + 16, slot.y + 16, 0x50FFFFFF);
+  }
+
   protected void renderSlotBg(T7GuiGraphics t7graphics, Slot slot) {
     Texture texture = WorkbenchScreen.SLOT_TEXTURE;
     if (slot instanceof ResultSlot) texture = WorkbenchScreen.RESULT_SLOT_TEXTURE;
@@ -74,7 +81,7 @@ public class WorkbenchScreen extends AbstractContainerScreen<WorkbenchMenu> {
 
   protected void renderAspects(GuiGraphics guiGraphics) {
     final int RADIUS = 48;
-    final float ANGLE = 360f / Aspects.PRIMAL_ASPECTS.size();
+    final float ANGLE = 360f / Aspects.INSTANCE.getPRIMAL_ASPECTS().size();
     var middleSlot = this.menu.slots.get(4);
     var t7graphics = new T7GuiGraphics(guiGraphics);
 
@@ -84,7 +91,7 @@ public class WorkbenchScreen extends AbstractContainerScreen<WorkbenchMenu> {
 
     // draw aspects at hexagon points (or N-gon if more primals are added by addons)
     int i = 0;
-    for (var a : Aspects.PRIMAL_ASPECTS) {
+    for (var a : Aspects.INSTANCE.getPRIMAL_ASPECTS()) {
       var requiredAmount = this.menu.getRequiredAspects().get(a.get());
       var requiredStack = new AspectStack(a.get(), requiredAmount);
       t7graphics.push();
@@ -100,12 +107,5 @@ public class WorkbenchScreen extends AbstractContainerScreen<WorkbenchMenu> {
     }
 
     t7graphics.pop();
-  }
-
-  @Override
-  protected void renderSlotContents(GuiGraphics guiGraphics, ItemStack itemstack, Slot slot, @Nullable String countString) {
-    super.renderSlotContents(guiGraphics, itemstack, slot, countString);
-    if (slot instanceof ResultSlot resultSlot && !resultSlot.mayPickup(this.menu.getPlayer()))
-      guiGraphics.fill(RenderType.guiGhostRecipeOverlay(), slot.x, slot.y, slot.x + 16, slot.y + 16, 0x50FFFFFF);
   }
 }

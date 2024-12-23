@@ -26,12 +26,12 @@ public class GogglesItem extends ArmorItem implements GeoItem {
   private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
   public GogglesItem(Properties props) {
-    super(T7ArmorMaterials.GOGGLES, ArmorItem.Type.HELMET, props
+    super(T7ArmorMaterials.INSTANCE.getGOGGLES(), ArmorItem.Type.HELMET, props
         .durability(Type.HELMET.getDurability(15))
         .attributes(
             ItemAttributeModifiers.builder().add(
-                T7Attributes.REVEALING,
-                T7AttributeModifiers.Revealing.GOGGLES,
+                T7Attributes.INSTANCE.getREVEALING(),
+                T7AttributeModifiers.Revealing.INSTANCE.getGOGGLES(),
                 EquipmentSlotGroup.HEAD
             ).build()
         ));
@@ -55,7 +55,7 @@ public class GogglesItem extends ArmorItem implements GeoItem {
       @Override
       public <T extends LivingEntity> HumanoidModel<?> getGeoArmorRenderer(@Nullable T livingEntity, ItemStack itemStack, @Nullable EquipmentSlot equipmentSlot, @Nullable HumanoidModel<T> original) {
         if (this.renderer == null)
-          this.renderer = new GeoArmorRenderer<>(new DefaultedItemGeoModel<GogglesItem>(Thavma.rl("goggles_armor")));
+          this.renderer = new GeoArmorRenderer<>(new DefaultedItemGeoModel<GogglesItem>(Thavma.INSTANCE.rl("goggles_armor")));
 
         return this.renderer;
       }

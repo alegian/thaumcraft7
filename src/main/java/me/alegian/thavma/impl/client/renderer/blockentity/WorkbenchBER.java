@@ -10,6 +10,6 @@ import software.bernie.geckolib.renderer.GeoBlockRenderer;
 @OnlyIn(Dist.CLIENT)
 public class WorkbenchBER extends GeoBlockRenderer<WorkbenchBE> {
   public WorkbenchBER() {
-    super(new DefaultedBlockGeoModel<>(Thavma.rl("arcane_workbench")));
+    super(new DefaultedBlockGeoModel<>(Thavma.INSTANCE.rl("arcane_workbench")));
   }
 }

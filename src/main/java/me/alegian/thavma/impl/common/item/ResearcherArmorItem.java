@@ -22,7 +22,7 @@ public class ResearcherArmorItem extends ArmorItem implements GeoItem {
   private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
   public ResearcherArmorItem(Type type, Properties properties) {
-    super(T7ArmorMaterials.RESEARCHER, type, properties);
+    super(T7ArmorMaterials.INSTANCE.getRESEARCHER(), type, properties);
   }
 
   @Override
@@ -42,7 +42,7 @@ public class ResearcherArmorItem extends ArmorItem implements GeoItem {
       @Override
       public <T extends LivingEntity> HumanoidModel<?> getGeoArmorRenderer(@Nullable T livingEntity, ItemStack itemStack, @Nullable EquipmentSlot equipmentSlot, @Nullable HumanoidModel<T> original) {
         if (this.renderer == null)
-          this.renderer = new GeoArmorRenderer<>(new DefaultedItemGeoModel<ResearcherArmorItem>(Thavma.rl("researcher_armor")));
+          this.renderer = new GeoArmorRenderer<>(new DefaultedItemGeoModel<ResearcherArmorItem>(Thavma.INSTANCE.rl("researcher_armor")));
 
         return this.renderer;
       }

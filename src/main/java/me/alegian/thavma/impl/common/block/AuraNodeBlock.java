@@ -39,6 +39,6 @@ public class AuraNodeBlock extends TransparentBlock implements EntityBlock {
   @Nullable
   @Override
   public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-    return BaseEntityBlock.createTickerHelper(type, T7BlockEntities.AURA_NODE.get(), AuraNodeBE::tick);
+    return BaseEntityBlock.createTickerHelper(type, T7BlockEntities.INSTANCE.getAURA_NODE().get(), AuraNodeBE.Companion::tick);
   }
 }

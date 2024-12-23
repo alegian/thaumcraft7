@@ -1,6 +1,8 @@
 {
   "values": [
     "thavma:greatwood_log",
-    "thavma:greatwood_planks"
+    "thavma:silverwood_log",
+    "thavma:greatwood_planks",
+    "thavma:silverwood_planks"
   ]
 }

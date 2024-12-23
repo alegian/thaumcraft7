@@ -38,7 +38,7 @@ public class AspectContainer implements IAspectContainer {
   }
 
   public static Optional<IAspectContainer> at(Level level, BlockPos pos) {
-    return Optional.ofNullable(level.getCapability(T7Capabilities.AspectContainer.BLOCK, pos, null));
+    return Optional.ofNullable(level.getCapability(T7Capabilities.AspectContainer.INSTANCE.getBLOCK(), pos, null));
   }
 
   public static IAspectContainer getAspectContainerInHand(Player player) {
@@ -48,23 +48,23 @@ public class AspectContainer implements IAspectContainer {
     IAspectContainer aspectContainer = null;
 
     if (!mainHandItem.isEmpty())
-      aspectContainer = mainHandItem.getCapability(T7Capabilities.AspectContainer.ITEM);
+      aspectContainer = mainHandItem.getCapability(T7Capabilities.AspectContainer.INSTANCE.getITEM());
     else if (!offHandItem.isEmpty())
-      aspectContainer = offHandItem.getCapability(T7Capabilities.AspectContainer.ITEM);
+      aspectContainer = offHandItem.getCapability(T7Capabilities.AspectContainer.INSTANCE.getITEM());
 
     return aspectContainer;
   }
 
   public static Optional<IAspectContainer> from(ItemStack itemStack) {
-    return Optional.ofNullable(itemStack.getCapability(T7Capabilities.AspectContainer.ITEM));
+    return Optional.ofNullable(itemStack.getCapability(T7Capabilities.AspectContainer.INSTANCE.getITEM()));
   }
 
   public static Optional<IAspectContainer> from(BlockEntity be) {
-    return Optional.ofNullable(be.getLevel()).map(l -> l.getCapability(T7Capabilities.AspectContainer.BLOCK, be.getBlockPos()));
+    return Optional.ofNullable(be.getLevel()).map(l -> l.getCapability(T7Capabilities.AspectContainer.INSTANCE.getBLOCK(), be.getBlockPos()));
   }
 
   public static boolean isAspectContainer(Level level, BlockPos blockPos) {
-    return level.getCapability(T7Capabilities.AspectContainer.BLOCK, blockPos) != null;
+    return level.getCapability(T7Capabilities.AspectContainer.INSTANCE.getBLOCK(), blockPos) != null;
   }
 
   public static Optional<Pair> blockSourceItemSink(Level level, BlockPos blockPos, ItemStack itemStack) {
@@ -75,19 +75,19 @@ public class AspectContainer implements IAspectContainer {
 
   @Override
   public @NotNull AspectMap getAspects() {
-    AspectMap aspectMap = this.holder.get(T7DataComponents.ASPECTS);
+    AspectMap aspectMap = this.holder.get(T7DataComponents.INSTANCE.getASPECTS());
     if (aspectMap == null) return AspectMap.EMPTY;
     return aspectMap;
   }
 
   @Override
   public void setAspects(AspectMap aspects) {
-    this.holder.set(T7DataComponents.ASPECTS, aspects);
+    this.holder.set(T7DataComponents.INSTANCE.getASPECTS(), aspects);
   }
 
   @Override
   public boolean areAspectsNull() {
-    return this.holder.get(T7DataComponents.ASPECTS) == null;
+    return this.holder.get(T7DataComponents.INSTANCE.getASPECTS()) == null;
   }
 
   @Override
@@ -144,15 +144,15 @@ public class AspectContainer implements IAspectContainer {
     }
 
     public boolean canTransferPrimals() {
-      return Aspects.PRIMAL_ASPECTS.stream()
+      return Aspects.INSTANCE.getPRIMAL_ASPECTS().stream()
           .map(a -> this.simulateTransfer(a.get(), 1))
           .anyMatch(e -> e > 0);
     }
 
     public int transferPrimal(int indexOffset, int idealAmount) {
-      var primals = Aspects.PRIMAL_ASPECTS.size();
+      var primals = Aspects.INSTANCE.getPRIMAL_ASPECTS().size();
       for (int i = 0; i < primals; i++) {
-        var a = Aspects.PRIMAL_ASPECTS.get((i + indexOffset) % primals).get();
+        var a = Aspects.INSTANCE.getPRIMAL_ASPECTS().get((i + indexOffset) % primals).get();
         int amount = this.simulateTransfer(a, idealAmount);
         if (amount == 0) continue;
         this.sink.insert(a, amount, false);

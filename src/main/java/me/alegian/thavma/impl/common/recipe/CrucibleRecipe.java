@@ -26,11 +26,6 @@ public class CrucibleRecipe implements Recipe<CrucibleRecipeInput> {
     this.result = result;
   }
 
-  @Override
-  public NonNullList<Ingredient> getIngredients() {
-    return NonNullList.of(this.requiredCatalyst);
-  }
-
   public AspectMap getRequiredAspects() {
     return this.requiredAspects;
   }
@@ -67,12 +62,17 @@ public class CrucibleRecipe implements Recipe<CrucibleRecipeInput> {
   }
 
   @Override
+  public NonNullList<Ingredient> getIngredients() {
+    return NonNullList.of(this.requiredCatalyst);
+  }
+
+  @Override
   public RecipeSerializer<?> getSerializer() {
-    return T7RecipeSerializers.CRUCIBLE.get();
+    return T7RecipeSerializers.INSTANCE.getCRUCIBLE().get();
   }
 
   @Override
   public RecipeType<?> getType() {
-    return T7RecipeTypes.CRUCIBLE.get();
+    return T7RecipeTypes.INSTANCE.getCRUCIBLE().get();
   }
 }

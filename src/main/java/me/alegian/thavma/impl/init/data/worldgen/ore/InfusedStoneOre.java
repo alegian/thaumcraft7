@@ -20,6 +20,8 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
 import java.util.List;
 
+import static me.alegian.thavma.impl.init.registries.deferred.AspectsKt.listFromPrimals;
+
 /**
  * Handles generation of all 6 different Infused Stone Ores. Uses a
  * random feature, and checks all placement criteria here (the individual
@@ -29,31 +31,25 @@ public class InfusedStoneOre {
   public static final String PATH = "ore_infused_stone";
   public static final ResourceKey<ConfiguredFeature<?, ?>> CONFIGURED_FEATURE = ResourceKey.create(
       Registries.CONFIGURED_FEATURE,
-      Thavma.rl(InfusedStoneOre.PATH)
+      Thavma.INSTANCE.rl(InfusedStoneOre.PATH)
   );
   public static final ResourceKey<PlacedFeature> PLACED_FEATURE = ResourceKey.create(
       Registries.PLACED_FEATURE,
-      Thavma.rl(InfusedStoneOre.PATH)
+      Thavma.INSTANCE.rl(InfusedStoneOre.PATH)
   );
   public static final ResourceKey<BiomeModifier> BIOME_MODIFIER = ResourceKey.create(
       NeoForgeRegistries.Keys.BIOME_MODIFIERS,
-      Thavma.rl(InfusedStoneOre.PATH)
+      Thavma.INSTANCE.rl(InfusedStoneOre.PATH)
   );
 
   public static void registerConfigured(BootstrapContext<ConfiguredFeature<?, ?>> context) {
     HolderGetter<PlacedFeature> placedRegistry = context.lookup(Registries.PLACED_FEATURE);
-    var ignisOre = placedRegistry.getOrThrow(IgnisOre.PLACED_FEATURE);
-    var terraOre = placedRegistry.getOrThrow(TerraOre.PLACED_FEATURE);
-    var aerOre = placedRegistry.getOrThrow(AerOre.PLACED_FEATURE);
-    var aquaOre = placedRegistry.getOrThrow(AquaOre.PLACED_FEATURE);
-    var ordoOre = placedRegistry.getOrThrow(OrdoOre.PLACED_FEATURE);
-    var perditioOre = placedRegistry.getOrThrow(PerditioOre.PLACED_FEATURE);
+    var everyPrimal = listFromPrimals(aspect -> placedRegistry.getOrThrow(InfusedOre.INSTANCE.getPLACED_FEATURES().get(aspect)));
 
     // 6 ores, equally likely
     context.register(
         InfusedStoneOre.CONFIGURED_FEATURE,
-        new ConfiguredFeature<>(Feature.SIMPLE_RANDOM_SELECTOR, new SimpleRandomFeatureConfiguration((HolderSet.direct(terraOre, ignisOre, aerOre, aquaOre, ordoOre, perditioOre)))
-        )
+        new ConfiguredFeature<>(Feature.SIMPLE_RANDOM_SELECTOR, new SimpleRandomFeatureConfiguration((HolderSet.direct(everyPrimal))))
     );
   }
 

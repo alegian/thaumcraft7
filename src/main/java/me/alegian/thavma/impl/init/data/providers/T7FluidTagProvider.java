@@ -18,6 +18,6 @@ public class T7FluidTagProvider extends FluidTagsProvider {
 
   @Override
   protected void addTags(HolderLookup.Provider pProvider) {
-    tag(T7Tags.CrucibleHeatSourceTag.FLUID).addTag(FluidTags.LAVA);
+    this.tag(T7Tags.CrucibleHeatSourceTag.INSTANCE.getFLUID()).addTag(FluidTags.LAVA);
   }
 }

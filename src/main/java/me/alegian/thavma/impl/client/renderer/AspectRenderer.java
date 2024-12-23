@@ -33,7 +33,7 @@ public class AspectRenderer {
     poseStack.pushPose();
     var cameraPos = camera.getPosition();
     poseStack.translate(blockPos.getX() - cameraPos.x() + 0.5d, blockPos.getY() - cameraPos.y() + 1.25d + AspectRenderer.QUAD_SIZE / 2, blockPos.getZ() - cameraPos.z() + 0.5d);
-    var angle = RenderHelper.calculatePlayerAngle(blockPos.getCenter());
+    var angle = RenderHelperKt.calculatePlayerAngle(blockPos.getCenter());
     poseStack.mulPose(Axis.YP.rotation(angle));
     poseStack.scale(AspectRenderer.QUAD_SIZE, AspectRenderer.QUAD_SIZE, 1); // this puts us in "aspect space" where 1 means 1 aspect width
 
@@ -65,7 +65,7 @@ public class AspectRenderer {
   }
 
   public static void drawAspectIcon(T7GuiGraphics guiGraphics, Aspect aspect, int pX, int pY) {
-    var sprite = AspectAtlas.sprite(Thavma.rl(aspect.getId()));
+    var sprite = AspectAtlas.sprite(Thavma.INSTANCE.rl(aspect.getId()));
 
     var color = aspect.getColor();
     RenderSystem.disableDepthTest();

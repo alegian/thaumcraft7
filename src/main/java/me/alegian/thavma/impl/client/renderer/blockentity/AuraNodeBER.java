@@ -31,7 +31,7 @@ public class AuraNodeBER implements BlockEntityRenderer<AuraNodeBE> {
     poseStack.pushPose();
     poseStack.scale(3f, 3f, 3f);
     poseStack.translate(-0.5d, -0.5d, -0.5d);
-    Minecraft.getInstance().getBlockRenderer().renderSingleBlock(T7Blocks.ESSENTIA_CONTAINER.get().defaultBlockState(), poseStack, bufferSource, combinedLight, combinedOverlay, ModelData.EMPTY, RenderType.translucent());
+    Minecraft.getInstance().getBlockRenderer().renderSingleBlock(T7Blocks.INSTANCE.getESSENTIA_CONTAINER().get().defaultBlockState(), poseStack, bufferSource, combinedLight, combinedOverlay, ModelData.EMPTY, RenderType.translucent());
     poseStack.popPose();
   }
 
@@ -82,10 +82,10 @@ public class AuraNodeBER implements BlockEntityRenderer<AuraNodeBE> {
         .map(AspectMap::toSortedList)
         .ifPresentOrElse(aspectList -> {
           for (var stack : aspectList)
-            BERHelper.renderAuraNodeLayer(poseStack, bufferSource, stack.aspect().getColor(), 0.4f, stack.amount() / 32f);
+            BERHelperKt.renderAuraNodeLayer(poseStack, bufferSource, stack.aspect().getColor(), 0.4f, stack.amount() / 32f);
         }, () -> {
           // empty nodes look like small black circles
-          BERHelper.renderAuraNodeLayer(poseStack, bufferSource, 0, 1, 0.5f / 32f);
+          BERHelperKt.renderAuraNodeLayer(poseStack, bufferSource, 0, 1, 0.5f / 32f);
         });
 
     poseStack.popPose();

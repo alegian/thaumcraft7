@@ -19,10 +19,10 @@ public class ZephyrItem extends SwordItem implements GeoItem {
   private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
   public ZephyrItem() {
-    super(T7Tiers.ARCANUM_TIER,
+    super(T7Tiers.INSTANCE.getARCANUM_TIER(),
         new Item.Properties().fireResistant().attributes(
             SwordItem.createAttributes(
-                T7Tiers.ARCANUM_TIER,
+                T7Tiers.INSTANCE.getARCANUM_TIER(),
                 3, -2.4f
             )
         ));
@@ -46,7 +46,7 @@ public class ZephyrItem extends SwordItem implements GeoItem {
       @Override
       public BlockEntityWithoutLevelRenderer getGeoItemRenderer() {
         if (this.renderer == null)
-          this.renderer = new GeoItemRenderer<>(new DefaultedItemGeoModel<ZephyrItem>(Thavma.rl("zephyr")));
+          this.renderer = new GeoItemRenderer<>(new DefaultedItemGeoModel<ZephyrItem>(Thavma.INSTANCE.rl("zephyr")));
 
         return this.renderer;
       }
