@@ -5,6 +5,7 @@ import me.alegian.thavma.impl.init.registries.deferred.T7TrunkPlacerTypes.SILVER
 import net.minecraft.core.BlockPos
 import net.minecraft.core.BlockPos.MutableBlockPos
 import net.minecraft.core.Direction
+import net.minecraft.tags.BlockTags
 import net.minecraft.util.RandomSource
 import net.minecraft.world.level.LevelSimulatedReader
 import net.minecraft.world.level.block.RotatedPillarBlock
@@ -31,7 +32,7 @@ class SilverwoodTrunkPlacer(pBaseHeight: Int, pHeightRandA: Int, pHeightRandB: I
         val mutableBlockPos = MutableBlockPos()
 
         for (i in 0..<freeTreeHeight) {
-            place3x3Layer(level, blockSetter, random, mutableBlockPos, config, pos, i, i < 2)
+            place3x3Slice(level, blockSetter, random, mutableBlockPos, config, pos, i, i < 2)
         }
         placeLegs(level, blockSetter, random, mutableBlockPos, config, pos)
 
@@ -48,7 +49,7 @@ class SilverwoodTrunkPlacer(pBaseHeight: Int, pHeightRandA: Int, pHeightRandB: I
         return FoliageAttachment(pos.offset(offsetX, freeTreeHeight - 3, offsetZ), 0, false)
     }
 
-    private fun place3x3Layer(
+    private fun place3x3Slice(
         level: LevelSimulatedReader,
         blockSetter: BiConsumer<BlockPos, BlockState>,
         random: RandomSource,
@@ -61,7 +62,7 @@ class SilverwoodTrunkPlacer(pBaseHeight: Int, pHeightRandA: Int, pHeightRandB: I
         for (x in -1..1) {
             for (z in -1..1) {
                 if (x * z != 0 && !placeCorners) continue
-                this.placeLogIfFreeWithOffset(level, blockSetter, random, mutableBlockPos, config, pos, x, offsetY, z)
+                placeLogIfFreeWithOffset(level, blockSetter, random, mutableBlockPos, config, pos, x, offsetY, z)
             }
         }
     }
@@ -74,10 +75,17 @@ class SilverwoodTrunkPlacer(pBaseHeight: Int, pHeightRandA: Int, pHeightRandB: I
         config: TreeConfiguration,
         pos: BlockPos,
     ) {
-        this.placeLogWithOffset(level, blockSetter, random, mutableBlockPos, config, pos, -2, 0, 0, Direction.Axis.X)
-        this.placeLogWithOffset(level, blockSetter, random, mutableBlockPos, config, pos, 2, 0, 0, Direction.Axis.X)
-        this.placeLogWithOffset(level, blockSetter, random, mutableBlockPos, config, pos, 0, 0, -2, Direction.Axis.Z)
-        this.placeLogWithOffset(level, blockSetter, random, mutableBlockPos, config, pos, 0, 0, 2, Direction.Axis.Z)
+        placeLogWithOffsetAlongAxis(level, blockSetter, random, mutableBlockPos, config, pos, -2, 0, 0, Direction.Axis.X)
+        placeLogIfFreeWithOffset(level, blockSetter, random, mutableBlockPos, config, pos, -2, -1, 0)
+
+        placeLogWithOffsetAlongAxis(level, blockSetter, random, mutableBlockPos, config, pos, 2, 0, 0, Direction.Axis.X)
+        placeLogIfFreeWithOffset(level, blockSetter, random, mutableBlockPos, config, pos, 2, -1, 0)
+
+        placeLogWithOffsetAlongAxis(level, blockSetter, random, mutableBlockPos, config, pos, 0, 0, -2, Direction.Axis.Z)
+        placeLogIfFreeWithOffset(level, blockSetter, random, mutableBlockPos, config, pos, 0, -1, -2)
+
+        placeLogWithOffsetAlongAxis(level, blockSetter, random, mutableBlockPos, config, pos, 0, 0, 2, Direction.Axis.Z)
+        placeLogIfFreeWithOffset(level, blockSetter, random, mutableBlockPos, config, pos, 0, -1, 2)
     }
 
     private fun placeLogIfFreeWithOffset(
@@ -92,10 +100,10 @@ class SilverwoodTrunkPlacer(pBaseHeight: Int, pHeightRandA: Int, pHeightRandB: I
         offsetZ: Int
     ) {
         pos.setWithOffset(offsetPos, offsetX, offsetY, offsetZ)
-        this.placeLogIfFree(level, blockSetter, random, pos, config)
+        placeLogIfFree(level, blockSetter, random, pos, config)
     }
 
-    private fun placeLogWithOffset(
+    private fun placeLogWithOffsetAlongAxis(
         level: LevelSimulatedReader,
         blockSetter: BiConsumer<BlockPos, BlockState>,
         random: RandomSource,
@@ -108,7 +116,14 @@ class SilverwoodTrunkPlacer(pBaseHeight: Int, pHeightRandA: Int, pHeightRandB: I
         axis: Direction.Axis
     ) {
         pos.setWithOffset(offsetPos, offsetX, offsetY, offsetZ)
-        this.placeLog(level, blockSetter, random, pos, config) { bs -> bs.trySetValue(RotatedPillarBlock.AXIS, axis) }
+        placeLog(level, blockSetter, random, pos, config) { bs -> bs.trySetValue(RotatedPillarBlock.AXIS, axis) }
+    }
+
+    /**
+     * silverwood logs can overwrite dirt
+     */
+    override fun validTreePos(level: LevelSimulatedReader, pos: BlockPos): Boolean {
+        return super.validTreePos(level, pos) || level.isStateAtPosition(pos) { bs -> bs.`is`(BlockTags.DIRT) }
     }
 
     companion object {
