@@ -14,7 +14,6 @@ import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer.F
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType
 import java.util.function.BiConsumer
-import java.util.function.Function
 
 class SilverwoodTrunkPlacer(pBaseHeight: Int, pHeightRandA: Int, pHeightRandB: Int) : TrunkPlacer(pBaseHeight, pHeightRandA, pHeightRandB) {
     override fun type(): TrunkPlacerType<*> {
@@ -36,7 +35,17 @@ class SilverwoodTrunkPlacer(pBaseHeight: Int, pHeightRandA: Int, pHeightRandB: I
         }
         placeLegs(level, blockSetter, random, mutableBlockPos, config, pos)
 
-        return listOf(FoliageAttachment(pos.above(freeTreeHeight), 0, true))
+        return listOf(
+            leavesBubble(pos, freeTreeHeight, 0, 0),
+            leavesBubble(pos, freeTreeHeight, -1, 0),
+            leavesBubble(pos, freeTreeHeight, 1, 0),
+            leavesBubble(pos, freeTreeHeight, 0, -1),
+            leavesBubble(pos, freeTreeHeight, 0, 1),
+        )
+    }
+
+    private fun leavesBubble(pos: BlockPos, freeTreeHeight: Int, offsetX: Int, offsetZ: Int): FoliageAttachment {
+        return FoliageAttachment(pos.offset(offsetX, freeTreeHeight - 3, offsetZ), 0, false)
     }
 
     private fun place3x3Layer(

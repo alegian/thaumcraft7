@@ -12,7 +12,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.util.valueproviders.ConstantInt;
-import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.grower.TreeGrower;
@@ -21,9 +20,8 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
-import net.minecraft.world.level.levelgen.feature.foliageplacers.PineFoliagePlacer;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.CherryFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
-import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
 import net.minecraft.world.level.levelgen.placement.*;
 import net.neoforged.neoforge.common.world.BiomeModifier;
 import net.neoforged.neoforge.common.world.BiomeModifiers;
@@ -43,10 +41,10 @@ public class SilverwoodTree {
   public static TreeConfiguration.TreeConfigurationBuilder createSilverwood() {
     return new TreeConfiguration.TreeConfigurationBuilder(
         BlockStateProvider.simple(T7Blocks.INSTANCE.getSILVERWOOD_LOG().get()),
-        new SilverwoodTrunkPlacer(6, 4, 0),
+        new SilverwoodTrunkPlacer(9, 3, 0),
         BlockStateProvider.simple(T7Blocks.INSTANCE.getSILVERWOOD_LEAVES().get()),
-        new PineFoliagePlacer(ConstantInt.of(1), ConstantInt.of(1), UniformInt.of(3, 4)),
-        new TwoLayersFeatureSize(2, 0, 2)
+        new CherryFoliagePlacer(ConstantInt.of(3), ConstantInt.of(0), ConstantInt.of(10), 0, 0.3f, 0, 0),
+        new TwoLayersFeatureSize(2, 2, 1)
     );
   }
 
