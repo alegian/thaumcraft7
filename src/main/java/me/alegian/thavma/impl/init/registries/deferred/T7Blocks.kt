@@ -98,6 +98,8 @@ object T7Blocks {
         "silverwood_sapling"
     ) { sapling(SilverwoodTree.GROWER) }
 
+    private fun s() = "apling"
+
     val ARCANUM_BLOCK = register(
         "arcanum_block"
     ) { Block(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK)) }

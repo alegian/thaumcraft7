@@ -1,6 +1,7 @@
 package me.alegian.thavma.impl.init.data.worldgen.tree;
 
 import me.alegian.thavma.impl.Thavma;
+import me.alegian.thavma.impl.init.data.worldgen.tree.trunk.SilverwoodTrunkPlacer;
 import me.alegian.thavma.impl.init.registries.deferred.T7Blocks;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
@@ -42,7 +43,7 @@ public class SilverwoodTree {
   public static TreeConfiguration.TreeConfigurationBuilder createSilverwood() {
     return new TreeConfiguration.TreeConfigurationBuilder(
         BlockStateProvider.simple(T7Blocks.INSTANCE.getSILVERWOOD_LOG().get()),
-        new StraightTrunkPlacer(6, 4, 0),
+        new SilverwoodTrunkPlacer(6, 4, 0),
         BlockStateProvider.simple(T7Blocks.INSTANCE.getSILVERWOOD_LEAVES().get()),
         new PineFoliagePlacer(ConstantInt.of(1), ConstantInt.of(1), UniformInt.of(3, 4)),
         new TwoLayersFeatureSize(2, 0, 2)

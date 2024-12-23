@@ -38,7 +38,7 @@
       "upper_size": 2
     },
     "trunk_placer": {
-      "type": "minecraft:straight_trunk_placer",
+      "type": "thavma:silverwood",
       "base_height": 6,
       "height_rand_a": 4,
       "height_rand_b": 0

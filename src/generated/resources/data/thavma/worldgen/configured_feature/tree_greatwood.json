@@ -35,7 +35,7 @@
     },
     "trunk_placer": {
       "type": "thavma:greatwood",
-      "base_height": 18,
+      "base_height": 24,
       "height_rand_a": 2,
       "height_rand_b": 6
     },
