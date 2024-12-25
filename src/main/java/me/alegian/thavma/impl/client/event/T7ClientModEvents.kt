@@ -13,6 +13,7 @@ import me.alegian.thavma.impl.client.gui.tooltip.AspectTooltipComponent
 import me.alegian.thavma.impl.client.model.WithTransformParentModel
 import me.alegian.thavma.impl.client.particle.CrucibleBubbleParticle
 import me.alegian.thavma.impl.client.renderer.blockentity.*
+import me.alegian.thavma.impl.client.renderer.entity.AngryZombieER
 import me.alegian.thavma.impl.client.renderer.entity.FancyItemER
 import me.alegian.thavma.impl.client.renderer.entity.VisER
 import me.alegian.thavma.impl.client.screen.WorkbenchScreen
@@ -23,7 +24,6 @@ import me.alegian.thavma.impl.common.block.entity.PillarBE
 import me.alegian.thavma.impl.common.block.entity.WorkbenchBE
 import me.alegian.thavma.impl.init.registries.deferred.*
 import net.minecraft.client.renderer.ShaderInstance
-import net.minecraft.client.renderer.entity.ZombieRenderer
 import net.neoforged.api.distmarker.Dist
 import net.neoforged.neoforge.client.event.*
 import net.neoforged.neoforge.client.event.EntityRenderersEvent.RegisterRenderers
@@ -45,7 +45,7 @@ private fun registerEntityRenderers(event: RegisterRenderers) {
     event.registerBlockEntityRenderer(T7BlockEntities.PEDESTAL.get()) { _ -> PedestalBER() }
     event.registerEntityRenderer(T7EntityTypes.FANCY_ITEM.get()) { ctx -> FancyItemER(ctx) }
     event.registerEntityRenderer(T7EntityTypes.VIS.get()) { ctx -> VisER(ctx) }
-    event.registerEntityRenderer(T7EntityTypes.ANGRY_ZOMBIE.get()) { ctx -> ZombieRenderer(ctx) }
+    event.registerEntityRenderer(T7EntityTypes.ANGRY_ZOMBIE.get()) { ctx -> AngryZombieER(ctx) }
 }
 
 private fun registerParticleProviders(event: RegisterParticleProvidersEvent) {

@@ -6,7 +6,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes
 import net.minecraft.world.entity.monster.Zombie
 import net.minecraft.world.level.Level
 
-class AngryZombieEntity(entityType: EntityType<out Zombie?>, level: Level) : Zombie(entityType, level) {
+open class AngryZombieEntity(entityType: EntityType<out Zombie?>, level: Level) : Zombie(entityType, level) {
     companion object {
         fun createAttributes(): AttributeSupplier {
             return createMonsterAttributes()
