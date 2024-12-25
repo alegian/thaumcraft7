@@ -1,10 +1,12 @@
 package me.alegian.thavma.impl.common.event
 
+import me.alegian.thavma.impl.common.entity.AngryZombieEntity
 import me.alegian.thavma.impl.init.data.providers.*
 import me.alegian.thavma.impl.init.registries.T7DataMaps
 import me.alegian.thavma.impl.init.registries.T7Registries
 import me.alegian.thavma.impl.init.registries.deferred.T7Attributes
 import me.alegian.thavma.impl.init.registries.deferred.T7BlockEntities
+import me.alegian.thavma.impl.init.registries.deferred.T7EntityTypes
 import me.alegian.thavma.impl.init.registries.deferred.T7Items
 import me.alegian.thavma.impl.init.registries.deferred.callback.WandCoreCombinations
 import me.alegian.thavma.impl.init.registries.deferred.callback.WandHandleCombinations
@@ -16,6 +18,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent
 import net.neoforged.neoforge.data.event.GatherDataEvent
 import net.neoforged.neoforge.event.ModifyDefaultComponentsEvent
+import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent
 import net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent
 import net.neoforged.neoforge.registries.ModifyRegistriesEvent
 import net.neoforged.neoforge.registries.NewRegistryEvent
@@ -106,6 +109,10 @@ private fun entityAttributeModification(event: EntityAttributeModificationEvent)
         event.add(EntityType.PLAYER, T7Attributes.REVEALING)
 }
 
+private fun entityAttributeCreation(event: EntityAttributeCreationEvent) {
+    event.put(T7EntityTypes.ANGRY_ZOMBIE.get(), AngryZombieEntity.createAttributes())
+}
+
 fun registerCommonModEvents() {
     KFF_MOD_BUS.addListener(::registerRegistries)
     KFF_MOD_BUS.addListener(::modifyRegistries)
@@ -114,4 +121,5 @@ fun registerCommonModEvents() {
     KFF_MOD_BUS.addListener(::gatherData)
     KFF_MOD_BUS.addListener(::modifyDefaultComponents)
     KFF_MOD_BUS.addListener(::entityAttributeModification)
+    KFF_MOD_BUS.addListener(::entityAttributeCreation)
 }

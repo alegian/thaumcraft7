@@ -12,6 +12,7 @@ import me.alegian.thavma.impl.init.registries.deferred.T7ArmorMaterials.ARCANUM
 import net.minecraft.core.Registry
 import net.minecraft.world.item.*
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent
+import net.neoforged.neoforge.common.DeferredSpawnEggItem
 import net.neoforged.neoforge.registries.DeferredRegister
 
 object T7Items {
@@ -170,6 +171,8 @@ object T7Items {
     val TESTAS = linkedMapWithPrimalKeys { aspect ->
         REGISTRAR.registerItem(aspect.id.path + "_testa") { _ -> TestaItem(aspect) }
     }
+
+    val ANGRY_ZOMBIE_SPAWN_EGG = REGISTRAR.registerItem("angry_zombie_spawn_egg") { p -> DeferredSpawnEggItem(T7EntityTypes.ANGRY_ZOMBIE, 0x00AFAF, 0x9e2323, p) }
 
     // (handleName, coreName)->wand. populated on Item Registry bake
     val WANDS = DoubleMap<String, String, WandItem>()

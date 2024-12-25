@@ -25,6 +25,7 @@ import me.alegian.thavma.impl.init.registries.deferred.T7Blocks.SILVERWOOD_LEAVE
 import me.alegian.thavma.impl.init.registries.deferred.T7Blocks.SILVERWOOD_LOG
 import me.alegian.thavma.impl.init.registries.deferred.T7Blocks.SILVERWOOD_PLANKS
 import me.alegian.thavma.impl.init.registries.deferred.T7Blocks.SILVERWOOD_SAPLING
+import me.alegian.thavma.impl.init.registries.deferred.T7EntityTypes
 import me.alegian.thavma.impl.init.registries.deferred.T7Items
 import me.alegian.thavma.impl.init.registries.deferred.T7Items.ARCANUM_AXE
 import me.alegian.thavma.impl.init.registries.deferred.T7Items.ARCANUM_BOOTS
@@ -181,6 +182,8 @@ class T7LanguageProvider(output: PackOutput, locale: String) : LanguageProvider(
         this.add("container." + Thavma.MODID + ".arcane_workbench", "Arcane Workbench")
 
         this.add(REVEALING, "Revealing")
+        this.add(T7EntityTypes.ANGRY_ZOMBIE.get(), "Angry Zombie")
+        this.add(T7Items.ANGRY_ZOMBIE_SPAWN_EGG.get(), "Angry Zombie Spawn Egg")
     }
 
     private fun add(attributeHolder: DeferredHolder<Attribute, Attribute>, name: String) {

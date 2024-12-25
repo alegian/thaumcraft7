@@ -23,8 +23,7 @@ import me.alegian.thavma.impl.common.block.entity.PillarBE
 import me.alegian.thavma.impl.common.block.entity.WorkbenchBE
 import me.alegian.thavma.impl.init.registries.deferred.*
 import net.minecraft.client.renderer.ShaderInstance
-import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider
-import net.minecraft.client.renderer.entity.EntityRendererProvider
+import net.minecraft.client.renderer.entity.ZombieRenderer
 import net.neoforged.api.distmarker.Dist
 import net.neoforged.neoforge.client.event.*
 import net.neoforged.neoforge.client.event.EntityRenderersEvent.RegisterRenderers
@@ -38,30 +37,15 @@ private fun registerGuiLayers(event: RegisterGuiLayersEvent) {
 }
 
 private fun registerEntityRenderers(event: RegisterRenderers) {
-    event.registerBlockEntityRenderer(
-        T7BlockEntities.AURA_NODE.get()
-    ) { _: BlockEntityRendererProvider.Context? -> AuraNodeBER() }
-    event.registerBlockEntityRenderer(
-        T7BlockEntities.CRUCIBLE.get()
-    ) { _: BlockEntityRendererProvider.Context? -> CrucibleBER() }
-    event.registerBlockEntityRenderer(
-        T7BlockEntities.WORKBENCH.get()
-    ) { _: BlockEntityRendererProvider.Context? -> WorkbenchBER() }
-    event.registerBlockEntityRenderer(
-        T7BlockEntities.MATRIX.get()
-    ) { _: BlockEntityRendererProvider.Context? -> MatrixBER() }
-    event.registerBlockEntityRenderer(
-        T7BlockEntities.PILLAR.get()
-    ) { _: BlockEntityRendererProvider.Context? -> PillarBER() }
-    event.registerBlockEntityRenderer(
-        T7BlockEntities.PEDESTAL.get()
-    ) { _: BlockEntityRendererProvider.Context? -> PedestalBER() }
-    event.registerEntityRenderer(
-        T7EntityTypes.FANCY_ITEM.get()
-    ) { ctx: EntityRendererProvider.Context? -> FancyItemER(ctx) }
-    event.registerEntityRenderer(
-        T7EntityTypes.VIS.get()
-    ) { ctx: EntityRendererProvider.Context? -> VisER(ctx) }
+    event.registerBlockEntityRenderer(T7BlockEntities.AURA_NODE.get()) { _ -> AuraNodeBER() }
+    event.registerBlockEntityRenderer(T7BlockEntities.CRUCIBLE.get()) { _ -> CrucibleBER() }
+    event.registerBlockEntityRenderer(T7BlockEntities.WORKBENCH.get()) { _ -> WorkbenchBER() }
+    event.registerBlockEntityRenderer(T7BlockEntities.MATRIX.get()) { _ -> MatrixBER() }
+    event.registerBlockEntityRenderer(T7BlockEntities.PILLAR.get()) { _ -> PillarBER() }
+    event.registerBlockEntityRenderer(T7BlockEntities.PEDESTAL.get()) { _ -> PedestalBER() }
+    event.registerEntityRenderer(T7EntityTypes.FANCY_ITEM.get()) { ctx -> FancyItemER(ctx) }
+    event.registerEntityRenderer(T7EntityTypes.VIS.get()) { ctx -> VisER(ctx) }
+    event.registerEntityRenderer(T7EntityTypes.ANGRY_ZOMBIE.get()) { ctx -> ZombieRenderer(ctx) }
 }
 
 private fun registerParticleProviders(event: RegisterParticleProvidersEvent) {
@@ -90,7 +74,7 @@ private fun registerGeometryLoaders(event: RegisterGeometryLoaders) {
 }
 
 private fun registerItemColorHandlers(event: RegisterColorHandlersEvent.Item) {
-    for(aspect in Aspects.PRIMAL_ASPECTS){
+    for (aspect in Aspects.PRIMAL_ASPECTS) {
         event.register(
             { _, tintIndex ->
                 when (tintIndex) {
@@ -124,7 +108,7 @@ private fun registerItemColorHandlers(event: RegisterColorHandlersEvent.Item) {
 }
 
 private fun registerBlockColorHandlers(event: RegisterColorHandlersEvent.Block) {
-    for(aspect in Aspects.PRIMAL_ASPECTS){
+    for (aspect in Aspects.PRIMAL_ASPECTS) {
         event.register(
             { _, _, _, tintIndex ->
                 when (tintIndex) {
