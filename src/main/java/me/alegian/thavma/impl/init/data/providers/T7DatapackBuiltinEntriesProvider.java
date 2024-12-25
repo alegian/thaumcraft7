@@ -4,6 +4,7 @@ import me.alegian.thavma.impl.Thavma;
 import me.alegian.thavma.impl.common.enchantment.ShriekResistance;
 import me.alegian.thavma.impl.init.data.worldgen.ore.InfusedOre;
 import me.alegian.thavma.impl.init.data.worldgen.ore.InfusedStoneOre;
+import me.alegian.thavma.impl.init.data.worldgen.spawn.AngryZombieSpawn;
 import me.alegian.thavma.impl.init.data.worldgen.tree.GreatwoodTree;
 import me.alegian.thavma.impl.init.data.worldgen.tree.SilverwoodTree;
 import me.alegian.thavma.impl.init.registries.T7Tags;
@@ -43,18 +44,17 @@ public class T7DatapackBuiltinEntriesProvider extends DatapackBuiltinEntriesProv
 
         InfusedStoneOre.registerConfigured(bootstrap);
       })
-      .add(Registries.PLACED_FEATURE, bootstrap -> {
-        GreatwoodTree.registerPlaced(bootstrap);
-        SilverwoodTree.registerPlaced(bootstrap);
-
-        InfusedOre.INSTANCE.registerPlaced(bootstrap);
-
-        InfusedStoneOre.registerPlaced(bootstrap);
+      .add(Registries.PLACED_FEATURE, ctx -> {
+        GreatwoodTree.registerPlaced(ctx);
+        SilverwoodTree.registerPlaced(ctx);
+        InfusedOre.INSTANCE.registerPlaced(ctx);
+        InfusedStoneOre.registerPlaced(ctx);
       })
-      .add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, bootstrap -> {
-        GreatwoodTree.registerBiomeModifier(bootstrap);
-        SilverwoodTree.registerBiomeModifier(bootstrap);
-        InfusedStoneOre.registerBiomeModifier(bootstrap);
+      .add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, ctx -> {
+        GreatwoodTree.registerBiomeModifier(ctx);
+        SilverwoodTree.registerBiomeModifier(ctx);
+        InfusedStoneOre.registerBiomeModifier(ctx);
+        AngryZombieSpawn.INSTANCE.registerBiomeModifier(ctx);
       })
       .add(Registries.ENCHANTMENT, bootstrap -> {
         var itemRegistry = bootstrap.lookup(Registries.ITEM);
