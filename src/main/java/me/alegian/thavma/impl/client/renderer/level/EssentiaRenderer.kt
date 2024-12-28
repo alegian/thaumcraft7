@@ -11,9 +11,15 @@ import thedarkcolour.kotlinforforge.neoforge.forge.vectorutil.v3d.div
 import thedarkcolour.kotlinforforge.neoforge.forge.vectorutil.v3d.minus
 import thedarkcolour.kotlinforforge.neoforge.forge.vectorutil.v3d.plus
 import thedarkcolour.kotlinforforge.neoforge.forge.vectorutil.v3d.times
+import kotlin.math.PI
+import kotlin.math.cos
+import kotlin.math.sin
+
+val MAIN_AXIS_RESOLUTION = 10
+val CR0SS_AXIS_RESOLUTION = 16
 
 fun trajectory(start: Vec3, end: Vec3): List<Vec3> {
-    val dl = (end - start) / 10.0
+    val dl = (end - start) / MAIN_AXIS_RESOLUTION.toDouble()
     return (0..10).map { start + dl * it.toDouble() }
 }
 
@@ -32,10 +38,14 @@ fun renderEssentia(startPos: BlockPos, endPos: BlockPos, poseStack: PoseStack, m
             val normal1 = direction.cross(randomOtherDirection)
             val normal2 = direction.cross(normal1)
 
-            vc.addVertex(poseStack, currentPoint).setColorDebug()
-            //vc.addVertex(poseStack, nextPoint).setColorDebug()
-            vc.addVertex(poseStack, currentPoint + normal2).setColorDebug()
-            //vc.addVertex(poseStack, nextPoint + normal2).setColorDebug()
+            for (j in 0 .. CR0SS_AXIS_RESOLUTION) {
+                val angle = 2 * PI * j / CR0SS_AXIS_RESOLUTION
+
+                val offset = (normal1 * cos(angle) + normal2 * sin(angle)) * 0.5
+
+                vc.addVertex(poseStack, currentPoint + offset).setColorDebug()
+                vc.addVertex(poseStack, nextPoint + offset).setColorDebug()
+            }
         }
     }
 }
