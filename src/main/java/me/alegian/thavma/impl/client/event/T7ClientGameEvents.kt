@@ -7,12 +7,15 @@ import me.alegian.thavma.impl.client.gui.tooltip.containedPrimalsComponent
 import me.alegian.thavma.impl.client.localPlayerHasRevealing
 import me.alegian.thavma.impl.client.renderer.AspectRenderer
 import me.alegian.thavma.impl.client.renderer.HammerHighlightRenderer
+import me.alegian.thavma.impl.client.renderer.level.renderEssentia
+import me.alegian.thavma.impl.client.util.translate
 import me.alegian.thavma.impl.common.block.AuraNodeBlock
 import me.alegian.thavma.impl.common.data.capability.AspectContainer
 import me.alegian.thavma.impl.common.data.capability.IAspectContainer
 import me.alegian.thavma.impl.common.item.HammerItem
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.screens.Screen
+import net.minecraft.core.BlockPos
 import net.minecraft.world.entity.EquipmentSlot
 import net.minecraft.world.phys.BlockHitResult
 import net.minecraft.world.phys.HitResult
@@ -22,6 +25,7 @@ import net.neoforged.neoforge.client.event.RenderLevelStageEvent
 import net.neoforged.neoforge.client.event.RenderPlayerEvent
 import net.neoforged.neoforge.client.event.RenderTooltipEvent.GatherComponents
 import thedarkcolour.kotlinforforge.neoforge.forge.DIST
+import thedarkcolour.kotlinforforge.neoforge.forge.vectorutil.v3d.unaryMinus
 import thedarkcolour.kotlinforforge.neoforge.forge.FORGE_BUS as KFF_GAME_BUS
 
 
@@ -72,6 +76,12 @@ private fun renderLevelAfterWeather(event: RenderLevelStageEvent) {
         }
 }
 
+private fun renderLevelAfterParticles(event: RenderLevelStageEvent) {
+    if (event.stage !== RenderLevelStageEvent.Stage.AFTER_PARTICLES) return
+    event.poseStack.translate(-event.camera.position)
+    renderEssentia(BlockPos.ZERO, BlockPos.ZERO.offset(0, 0, 1), event.poseStack, Minecraft.getInstance().renderBuffers().bufferSource())
+}
+
 private fun gatherTooltipComponents(event: GatherComponents) {
     if (!localPlayerHasRevealing()) return
 
@@ -112,4 +122,5 @@ fun registerClientGameEvents() {
     KFF_GAME_BUS.addListener(::renderLevelAfterWeather)
     KFF_GAME_BUS.addListener(::gatherTooltipComponents)
     KFF_GAME_BUS.addListener(::renderPlayerPre)
+    KFF_GAME_BUS.addListener(::renderLevelAfterParticles)
 }
