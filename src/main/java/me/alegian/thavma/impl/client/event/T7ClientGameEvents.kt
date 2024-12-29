@@ -77,7 +77,7 @@ private fun renderLevelAfterWeather(event: RenderLevelStageEvent) {
 }
 
 private fun renderLevelAfterParticles(event: RenderLevelStageEvent) {
-    if (event.stage !== RenderLevelStageEvent.Stage.AFTER_PARTICLES) return
+    if (event.stage !== RenderLevelStageEvent.Stage.AFTER_BLOCK_ENTITIES) return
     event.poseStack.translate(-event.camera.position)
     renderEssentia(BlockPos.ZERO.offset(0,-59,0), BlockPos.ZERO.offset(0, -59, 4), event.poseStack, Minecraft.getInstance().renderBuffers().bufferSource())
 }
