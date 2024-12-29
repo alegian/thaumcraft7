@@ -1,6 +1,7 @@
 package me.alegian.thavma.impl.client.renderer.level
 
 import com.mojang.blaze3d.vertex.PoseStack
+import com.mojang.blaze3d.vertex.VertexConsumer
 import me.alegian.thavma.impl.client.T7RenderTypes
 import me.alegian.thavma.impl.client.util.addVertex
 import me.alegian.thavma.impl.client.util.setColorDebug
@@ -15,8 +16,8 @@ import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
 
-val MAIN_AXIS_RESOLUTION = 10
-val CR0SS_AXIS_RESOLUTION = 16
+const val MAIN_AXIS_RESOLUTION = 10
+const val CR0SS_AXIS_RESOLUTION = 16
 
 fun trajectory(start: Vec3, end: Vec3): List<Vec3> {
     val dl = (end - start) / MAIN_AXIS_RESOLUTION.toDouble()
@@ -29,23 +30,34 @@ fun renderEssentia(startPos: BlockPos, endPos: BlockPos, poseStack: PoseStack, m
     val end = endPos.center
 
     trajectory(start, end).run {
-        for (i in 0 until size - 1) {
-            val currentPoint = this[i]
-            val nextPoint = this[i + 1]
+        renderVariableRadiusCylinder(this, vc, poseStack)
+    }
+}
 
-            val direction = (nextPoint - currentPoint).normalize()
-            val randomOtherDirection = (direction - Vec3(0.0, 1.0, 0.0)).normalize()
-            val normal1 = direction.cross(randomOtherDirection)
-            val normal2 = direction.cross(normal1)
+private fun renderVariableRadiusCylinder(trajectory: List<Vec3>, vc: VertexConsumer, poseStack: PoseStack) {
+    for (i in 0 until trajectory.size - 1) {
+        val currentPoint = trajectory[i]
+        val nextPoint = trajectory[i + 1]
 
-            for (j in 0 .. CR0SS_AXIS_RESOLUTION) {
-                val angle = 2 * PI * j / CR0SS_AXIS_RESOLUTION
+        val direction = (nextPoint - currentPoint).normalize()
+        val randomOtherDirection = (direction - Vec3(0.0, 1.0, 0.0)).normalize()
+        val normal1 = direction.cross(randomOtherDirection)
+        val normal2 = direction.cross(normal1)
 
-                val offset = (normal1 * cos(angle) + normal2 * sin(angle)) * 0.5
+        val radius1 = oscillatingRadius(i)
+        val radius2 = oscillatingRadius(i + 1)
 
-                vc.addVertex(poseStack, currentPoint + offset).setColorDebug()
-                vc.addVertex(poseStack, nextPoint + offset).setColorDebug()
-            }
+        for (j in 0..CR0SS_AXIS_RESOLUTION) {
+            val angle = 2 * PI * j / CR0SS_AXIS_RESOLUTION
+
+            val normalizedOffset = normal1 * cos(angle) + normal2 * sin(angle)
+
+            vc.addVertex(poseStack, currentPoint + normalizedOffset * radius1).setColorDebug()
+            vc.addVertex(poseStack, nextPoint + normalizedOffset * radius2).setColorDebug()
         }
     }
+}
+
+private fun oscillatingRadius(i: Int): Double {
+    return 0.2 + 0.05 * sin(i * 2 * 2 * PI / MAIN_AXIS_RESOLUTION)
 }

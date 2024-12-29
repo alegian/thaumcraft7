@@ -31,6 +31,7 @@ public class T7RenderTypes {
           .setShaderState(POSITION_COLOR_SHADER)
           .setTransparencyState(TRANSLUCENT_TRANSPARENCY)
           .setCullState(NO_CULL)
+          .setWriteMaskState(COLOR_WRITE)
           .createCompositeState(false)
   );
 

@@ -79,7 +79,7 @@ private fun renderLevelAfterWeather(event: RenderLevelStageEvent) {
 private fun renderLevelAfterParticles(event: RenderLevelStageEvent) {
     if (event.stage !== RenderLevelStageEvent.Stage.AFTER_PARTICLES) return
     event.poseStack.translate(-event.camera.position)
-    renderEssentia(BlockPos.ZERO, BlockPos.ZERO.offset(0, 0, 1), event.poseStack, Minecraft.getInstance().renderBuffers().bufferSource())
+    renderEssentia(BlockPos.ZERO.offset(0,-59,0), BlockPos.ZERO.offset(0, -59, 4), event.poseStack, Minecraft.getInstance().renderBuffers().bufferSource())
 }
 
 private fun gatherTooltipComponents(event: GatherComponents) {
