@@ -62,6 +62,7 @@ import me.alegian.thavma.impl.init.registries.deferred.T7Items.RESEARCHER_CHESTP
 import me.alegian.thavma.impl.init.registries.deferred.T7Items.RESEARCHER_LEGGINGS
 import me.alegian.thavma.impl.init.registries.deferred.T7Items.RESEARCH_SCROLL
 import me.alegian.thavma.impl.init.registries.deferred.T7Items.RUNE
+import me.alegian.thavma.impl.init.registries.deferred.T7Items.SIGIL
 import me.alegian.thavma.impl.init.registries.deferred.T7Items.SILVERWOOD_CORE
 import me.alegian.thavma.impl.init.registries.deferred.T7Items.THAUMONOMICON
 import me.alegian.thavma.impl.init.registries.deferred.T7Items.ZEPHYR
@@ -92,6 +93,7 @@ class T7LanguageProvider(output: PackOutput, locale: String) : LanguageProvider(
         this.add(ARCANUM_HANDLE.get(), "Arcanum Wand Handle")
 
         this.add(EYE_OF_WARDEN.get(), "Eye of Warden")
+        this.add(SIGIL.get(), "Sigil")
 
         this.add(GREATWOOD_CORE.get(), "Greatwood Wand Core")
         this.add(SILVERWOOD_CORE.get(), "Silverwood Wand Core")

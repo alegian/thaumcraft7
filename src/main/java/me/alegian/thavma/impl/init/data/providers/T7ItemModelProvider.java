@@ -21,6 +21,7 @@ public class T7ItemModelProvider extends ItemModelProvider {
     basicItem(T7Items.INSTANCE.getARCANUM_HANDLE().get());
 
     basicItem(T7Items.INSTANCE.getEYE_OF_WARDEN().get());
+    basicItem(T7Items.INSTANCE.getSIGIL().get());
 
     basicItem(T7Items.INSTANCE.getGREATWOOD_CORE().get());
     basicItem(T7Items.INSTANCE.getSILVERWOOD_CORE().get());

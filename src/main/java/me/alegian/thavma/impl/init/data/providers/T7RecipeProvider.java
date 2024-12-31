@@ -186,6 +186,16 @@ public class T7RecipeProvider extends RecipeProvider {
         .unlockedBy(RecipeProvider.getHasName(T7Items.INSTANCE.getARCANUM_INGOT().get()), RecipeProvider.has(T7Items.INSTANCE.getARCANUM_INGOT().get()))
         .save(pRecipeOutput);
 
+    ShapedRecipeBuilder.shaped(RecipeCategory.MISC, T7Blocks.INSTANCE.getARCANE_WORKBENCH())
+        .define('s', T7Blocks.INSTANCE.getELEMENTAL_STONE())
+        .define('l', T7Blocks.INSTANCE.getGREATWOOD_LOG())
+        .define('#', T7Items.INSTANCE.getSIGIL())
+        .pattern("sls")
+        .pattern("s#s")
+        .pattern("sls")
+        .unlockedBy(RecipeProvider.getHasName(T7Items.INSTANCE.getSIGIL().get()), RecipeProvider.has(T7Items.INSTANCE.getSIGIL().get()))
+        .save(pRecipeOutput);
+
     T7RecipeProvider.inCrucible(pRecipeOutput,
         new ItemStack(Items.DIAMOND),
         AspectMap.builder()
