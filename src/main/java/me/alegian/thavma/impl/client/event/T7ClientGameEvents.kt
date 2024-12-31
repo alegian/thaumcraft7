@@ -76,10 +76,10 @@ private fun renderLevelAfterWeather(event: RenderLevelStageEvent) {
         }
 }
 
-private fun renderLevelAfterParticles(event: RenderLevelStageEvent) {
+private fun renderLevelAfterBEs(event: RenderLevelStageEvent) {
     if (event.stage !== RenderLevelStageEvent.Stage.AFTER_BLOCK_ENTITIES) return
     event.poseStack.translate(-event.camera.position)
-    renderEssentia(BlockPos.ZERO.offset(0,-59,0), BlockPos.ZERO.offset(0, -59, 4), event.poseStack, Minecraft.getInstance().renderBuffers().bufferSource())
+    renderEssentia(BlockPos.ZERO.offset(0,-59,0), BlockPos.ZERO.offset(0, -59, 4), event.poseStack, Minecraft.getInstance().renderBuffers().bufferSource(), event.partialTick.getGameTimeDeltaPartialTick(true) + event.renderTick)
 }
 
 private fun gatherTooltipComponents(event: GatherComponents) {
@@ -122,5 +122,5 @@ fun registerClientGameEvents() {
     KFF_GAME_BUS.addListener(::renderLevelAfterWeather)
     KFF_GAME_BUS.addListener(::gatherTooltipComponents)
     KFF_GAME_BUS.addListener(::renderPlayerPre)
-    KFF_GAME_BUS.addListener(::renderLevelAfterParticles)
+    KFF_GAME_BUS.addListener(::renderLevelAfterBEs)
 }

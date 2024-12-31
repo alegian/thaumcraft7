@@ -25,17 +25,17 @@ fun trajectory(start: Vec3, end: Vec3): List<Vec3> {
     return (0..MAIN_AXIS_RESOLUTION).map { start + dl * it.toDouble() }
 }
 
-fun renderEssentia(startPos: BlockPos, endPos: BlockPos, poseStack: PoseStack, multiBufferSource: MultiBufferSource) {
+fun renderEssentia(startPos: BlockPos, endPos: BlockPos, poseStack: PoseStack, multiBufferSource: MultiBufferSource, ticks: Float) {
     val vc = multiBufferSource.getBuffer(T7RenderTypes.TRANSLUCENT_TRIANGLES)
     val start = startPos.center
     val end = endPos.center
 
     trajectory(start, end).run {
-        renderVariableRadiusCylinder(this, vc, poseStack)
+        renderVariableRadiusCylinder(this, vc, poseStack, ticks)
     }
 }
 
-private fun renderVariableRadiusCylinder(trajectory: List<Vec3>, vc: VertexConsumer, poseStack: PoseStack) {
+private fun renderVariableRadiusCylinder(trajectory: List<Vec3>, vc: VertexConsumer, poseStack: PoseStack, ticks: Float) {
     for (i in 0 until trajectory.size - 1) {
         val currentPoint = trajectory[i]
         val nextPoint = trajectory[i + 1]
@@ -45,8 +45,8 @@ private fun renderVariableRadiusCylinder(trajectory: List<Vec3>, vc: VertexConsu
         val normal1 = direction.cross(randomOtherDirection)
         val normal2 = direction.cross(normal1)
 
-        val radius1 = oscillatingRadius(i, trajectory.size - 1)
-        val radius2 = oscillatingRadius(i + 1, trajectory.size - 1)
+        val radius1 = oscillatingRadius(i, trajectory.size - 1, ticks)
+        val radius2 = oscillatingRadius(i + 1, trajectory.size - 1, ticks)
 
         for (j in 0..CR0SS_AXIS_RESOLUTION) {
             val angle = 2 * PI * j / CR0SS_AXIS_RESOLUTION
@@ -72,8 +72,9 @@ private fun isEndpoint(i: Int, maxI: Int): Boolean {
  * Calculates the of the cylinder at the current point in the trajectory.
  * Endpoint radii are multiplied with an extra term to avoid open ends.
  */
-private fun oscillatingRadius(i: Int, maxI: Int): Double {
-    val default = 0.18 + 0.04 * sin(i * 4 * 2 * PI / MAIN_AXIS_RESOLUTION)
+private fun oscillatingRadius(i: Int, maxI: Int, ticks: Float): Double {
+    val timePhase = 1.5 * 2 * PI * ticks / 20
+    val default = 0.18 + 0.04 * sin(i * 4 * 2 * PI / MAIN_AXIS_RESOLUTION + timePhase)
     if (isEndpoint(i, maxI)) return default * abs(sin(2 * PI * i * 2 / maxI))
     return default
 }
