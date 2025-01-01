@@ -16,13 +16,20 @@ import kotlin.math.*
 
 // number of trajectory points per block length
 const val MAIN_AXIS_RESOLUTION = 8
+
 // number of "corners" of every 3d cylinder slice
 const val CR0SS_AXIS_RESOLUTION = 16
+const val TRAJECTORY_HEIGHT = 1.0
 
 fun trajectory(start: Vec3, end: Vec3): List<Vec3> {
-    val dl = (end - start).normalize() / MAIN_AXIS_RESOLUTION.toDouble()
-    val trajectoryLength = ((end - start).length() * MAIN_AXIS_RESOLUTION).roundToInt()
-    return (0..trajectoryLength).map { start + dl * it.toDouble() }
+    val diff = end - start
+    val dl = diff.normalize() / MAIN_AXIS_RESOLUTION.toDouble()
+    val trajectoryLength = (diff.length() * MAIN_AXIS_RESOLUTION).roundToInt()
+    return (0..trajectoryLength).map {
+        val t = it.toDouble() / trajectoryLength // t ranges from 0 to 1
+        val quadraticYOffset = Vec3(0.0, 1.0, 0.0) * t * (1 - t) * 4.0 * TRAJECTORY_HEIGHT
+        start + dl * it.toDouble() + quadraticYOffset
+    }
 }
 
 fun renderEssentia(startPos: BlockPos, endPos: BlockPos, poseStack: PoseStack, multiBufferSource: MultiBufferSource, ticks: Float) {
@@ -40,10 +47,10 @@ private fun renderVariableRadiusCylinder(trajectory: List<Vec3>, vc: VertexConsu
         val currentPoint = trajectory[i]
         val nextPoint = trajectory[i + 1]
 
-        val direction = (nextPoint - currentPoint).normalize()
-        val randomOtherDirection = (direction - Vec3(0.0, 1.0, 0.0)).normalize()
-        val normal1 = direction.cross(randomOtherDirection)
-        val normal2 = direction.cross(normal1)
+        val direction = nextPoint - currentPoint
+        val randomOtherDirection = direction - Vec3(0.0, 1.0, 0.0)
+        val normal1 = direction.cross(randomOtherDirection).normalize()
+        val normal2 = direction.cross(normal1).normalize()
 
         val radius1 = oscillatingRadius(i, trajectory.size - 1, ticks)
         val radius2 = oscillatingRadius(i + 1, trajectory.size - 1, ticks)
@@ -73,7 +80,7 @@ private fun isEndpoint(i: Int, maxI: Int): Boolean {
  * Endpoint radii are multiplied with an extra term to avoid open ends.
  */
 private fun oscillatingRadius(i: Int, maxI: Int, ticks: Float): Double {
-    val timePhase = - 1.5 * 2 * PI * ticks / 20 // minus makes it look like start is being sucked into end
+    val timePhase = -1.5 * 2 * PI * ticks / 20 // minus makes it look like start is being sucked into end
     val default = 0.18 + 0.04 * sin(i * 4 * 2 * PI / maxI + timePhase)
     if (isEndpoint(i, maxI)) return default * abs(sin(2 * PI * i * 2 / maxI))
     return default
