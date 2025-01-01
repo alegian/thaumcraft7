@@ -78,9 +78,11 @@ private fun renderLevelAfterWeather(event: RenderLevelStageEvent) {
 
 private fun renderLevelAfterBEs(event: RenderLevelStageEvent) {
     if (event.stage !== RenderLevelStageEvent.Stage.AFTER_BLOCK_ENTITIES) return
+    event.poseStack.pushPose()
     event.poseStack.translate(-event.camera.position)
-    renderEssentia(BlockPos.ZERO.offset(0,-59,0), BlockPos.ZERO.offset(0, -59, 4), event.poseStack, Minecraft.getInstance().renderBuffers().bufferSource(), event.partialTick.getGameTimeDeltaPartialTick(true) + event.renderTick)
-    renderEssentia(BlockPos.ZERO.offset(0,-59,0), BlockPos.ZERO.offset(0, -57, -4), event.poseStack, Minecraft.getInstance().renderBuffers().bufferSource(), event.partialTick.getGameTimeDeltaPartialTick(true) + event.renderTick)
+    renderEssentia(BlockPos.ZERO.offset(0,-59,0).center, BlockPos.ZERO.offset(0, -59, 4).center, event.poseStack, Minecraft.getInstance().renderBuffers().bufferSource(), event.partialTick.getGameTimeDeltaPartialTick(true) + event.renderTick)
+    renderEssentia(BlockPos.ZERO.offset(0,-59,0).center, BlockPos.ZERO.offset(0, -57, -4).center, event.poseStack, Minecraft.getInstance().renderBuffers().bufferSource(), event.partialTick.getGameTimeDeltaPartialTick(true) + event.renderTick)
+    event.poseStack.popPose()
 }
 
 private fun gatherTooltipComponents(event: GatherComponents) {

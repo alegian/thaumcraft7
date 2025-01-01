@@ -6,7 +6,6 @@ import me.alegian.thavma.impl.client.T7RenderTypes
 import me.alegian.thavma.impl.client.util.addVertex
 import me.alegian.thavma.impl.client.util.setColorDebug
 import net.minecraft.client.renderer.MultiBufferSource
-import net.minecraft.core.BlockPos
 import net.minecraft.world.phys.Vec3
 import thedarkcolour.kotlinforforge.neoforge.forge.vectorutil.v3d.div
 import thedarkcolour.kotlinforforge.neoforge.forge.vectorutil.v3d.minus
@@ -32,10 +31,8 @@ fun trajectory(start: Vec3, end: Vec3): List<Vec3> {
     }
 }
 
-fun renderEssentia(startPos: BlockPos, endPos: BlockPos, poseStack: PoseStack, multiBufferSource: MultiBufferSource, ticks: Float) {
+fun renderEssentia(start: Vec3, end: Vec3, poseStack: PoseStack, multiBufferSource: MultiBufferSource, ticks: Float) {
     val vc = multiBufferSource.getBuffer(T7RenderTypes.TRANSLUCENT_TRIANGLES)
-    val start = startPos.center
-    val end = endPos.center
 
     trajectory(start, end).run {
         renderVariableRadiusCylinder(this, vc, poseStack, ticks)
