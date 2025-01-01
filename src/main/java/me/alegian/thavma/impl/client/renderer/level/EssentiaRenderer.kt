@@ -15,11 +15,11 @@ import thedarkcolour.kotlinforforge.neoforge.forge.vectorutil.v3d.times
 import kotlin.math.*
 
 // number of trajectory points per block length
-const val MAIN_AXIS_RESOLUTION = 8
+const val MAIN_AXIS_RESOLUTION = 16
 
 // number of "corners" of every 3d cylinder slice
 const val CR0SS_AXIS_RESOLUTION = 16
-const val TRAJECTORY_HEIGHT = 1.0
+const val TRAJECTORY_HEIGHT = 1.2
 
 fun trajectory(start: Vec3, end: Vec3): List<Vec3> {
     val diff = end - start
@@ -43,6 +43,10 @@ fun renderEssentia(startPos: BlockPos, endPos: BlockPos, poseStack: PoseStack, m
 }
 
 private fun renderVariableRadiusCylinder(trajectory: List<Vec3>, vc: VertexConsumer, poseStack: PoseStack, ticks: Float) {
+    // we keep track of the previous normals to fix open ends in the cylinder, in non-linear trajectories
+    var prevNormal1 = Vec3(0.0, 1.0, 0.0)
+    var prevNormal2 = Vec3(1.0, 0.0, 0.0)
+
     for (i in 0 until trajectory.size - 1) {
         val currentPoint = trajectory[i]
         val nextPoint = trajectory[i + 1]
@@ -58,11 +62,16 @@ private fun renderVariableRadiusCylinder(trajectory: List<Vec3>, vc: VertexConsu
         for (j in 0..CR0SS_AXIS_RESOLUTION) {
             val angle = 2 * PI * j / CR0SS_AXIS_RESOLUTION
 
+            val prevNormalizedOffset = prevNormal1 * cos(angle) + prevNormal2 * sin(angle)
             val normalizedOffset = normal1 * cos(angle) + normal2 * sin(angle)
 
-            vc.addVertex(poseStack, currentPoint + normalizedOffset * radius1).setColorDebug()
+            // the first vertex uses the previous normals, to avoid open ends
+            vc.addVertex(poseStack, currentPoint + prevNormalizedOffset * radius1).setColorDebug()
             vc.addVertex(poseStack, nextPoint + normalizedOffset * radius2).setColorDebug()
         }
+
+        prevNormal1 = normal1
+        prevNormal2 = normal2
     }
 }
 
@@ -81,7 +90,7 @@ private fun isEndpoint(i: Int, maxI: Int): Boolean {
  */
 private fun oscillatingRadius(i: Int, maxI: Int, ticks: Float): Double {
     val timePhase = -1.5 * 2 * PI * ticks / 20 // minus makes it look like start is being sucked into end
-    val default = 0.18 + 0.04 * sin(i * 4 * 2 * PI / maxI + timePhase)
+    val default = 0.14 + 0.02 * sin(i * 2 * PI / MAIN_AXIS_RESOLUTION + timePhase)
     if (isEndpoint(i, maxI)) return default * abs(sin(2 * PI * i * 2 / maxI))
     return default
 }
