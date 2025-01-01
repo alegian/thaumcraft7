@@ -12,17 +12,17 @@ import thedarkcolour.kotlinforforge.neoforge.forge.vectorutil.v3d.div
 import thedarkcolour.kotlinforforge.neoforge.forge.vectorutil.v3d.minus
 import thedarkcolour.kotlinforforge.neoforge.forge.vectorutil.v3d.plus
 import thedarkcolour.kotlinforforge.neoforge.forge.vectorutil.v3d.times
-import kotlin.math.PI
-import kotlin.math.abs
-import kotlin.math.cos
-import kotlin.math.sin
+import kotlin.math.*
 
-const val MAIN_AXIS_RESOLUTION = 32
+// number of trajectory points per block length
+const val MAIN_AXIS_RESOLUTION = 8
+// number of "corners" of every 3d cylinder slice
 const val CR0SS_AXIS_RESOLUTION = 16
 
 fun trajectory(start: Vec3, end: Vec3): List<Vec3> {
-    val dl = (end - start) / MAIN_AXIS_RESOLUTION.toDouble()
-    return (0..MAIN_AXIS_RESOLUTION).map { start + dl * it.toDouble() }
+    val dl = (end - start).normalize() / MAIN_AXIS_RESOLUTION.toDouble()
+    val trajectoryLength = ((end - start).length() * MAIN_AXIS_RESOLUTION).roundToInt()
+    return (0..trajectoryLength).map { start + dl * it.toDouble() }
 }
 
 fun renderEssentia(startPos: BlockPos, endPos: BlockPos, poseStack: PoseStack, multiBufferSource: MultiBufferSource, ticks: Float) {
@@ -64,7 +64,7 @@ private fun renderVariableRadiusCylinder(trajectory: List<Vec3>, vc: VertexConsu
  * or not (whether it is close to the start or end)
  */
 private fun isEndpoint(i: Int, maxI: Int): Boolean {
-    val endpointRange = MAIN_AXIS_RESOLUTION / 8
+    val endpointRange = maxI / 8
     return i < endpointRange || i > maxI - endpointRange
 }
 
@@ -73,8 +73,8 @@ private fun isEndpoint(i: Int, maxI: Int): Boolean {
  * Endpoint radii are multiplied with an extra term to avoid open ends.
  */
 private fun oscillatingRadius(i: Int, maxI: Int, ticks: Float): Double {
-    val timePhase = 1.5 * 2 * PI * ticks / 20
-    val default = 0.18 + 0.04 * sin(i * 4 * 2 * PI / MAIN_AXIS_RESOLUTION + timePhase)
+    val timePhase = - 1.5 * 2 * PI * ticks / 20 // minus makes it look like start is being sucked into end
+    val default = 0.18 + 0.04 * sin(i * 4 * 2 * PI / maxI + timePhase)
     if (isEndpoint(i, maxI)) return default * abs(sin(2 * PI * i * 2 / maxI))
     return default
 }
