@@ -85,8 +85,10 @@ private fun isEndpoint(i: Int, maxI: Int): Boolean {
  * Endpoint radii are multiplied with an extra term to avoid open ends.
  */
 private fun oscillatingRadius(i: Int, maxI: Int, ticks: Float): Double {
+    val currLength = min(maxI, floor(ticks / 20 * 16).toInt())
+    if (i > currLength) return 0.0
     val timePhase = -1.5 * 2 * PI * ticks / 20 // minus makes it look like start is being sucked into end
     val default = 0.14 + 0.02 * sin(i * 2 * PI / MAIN_AXIS_RESOLUTION + timePhase)
-    if (isEndpoint(i, maxI)) return default * abs(sin(2 * PI * i * 2 / maxI))
+    if (isEndpoint(i, currLength)) return default * abs(sin(2 * PI * i * 2 / currLength))
     return default
 }
