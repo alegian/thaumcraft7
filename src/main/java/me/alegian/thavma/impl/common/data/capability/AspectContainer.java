@@ -2,6 +2,7 @@ package me.alegian.thavma.impl.common.data.capability;
 
 import me.alegian.thavma.impl.common.aspect.Aspect;
 import me.alegian.thavma.impl.common.aspect.AspectMap;
+import me.alegian.thavma.impl.common.aspect.AspectStack;
 import me.alegian.thavma.impl.init.registries.T7Capabilities;
 import me.alegian.thavma.impl.init.registries.deferred.Aspects;
 import me.alegian.thavma.impl.init.registries.deferred.T7DataComponents;
@@ -149,7 +150,7 @@ public class AspectContainer implements IAspectContainer {
           .anyMatch(e -> e > 0);
     }
 
-    public int transferPrimal(int indexOffset, int idealAmount) {
+    public AspectStack transferPrimal(int indexOffset, int idealAmount) {
       var primals = Aspects.INSTANCE.getPRIMAL_ASPECTS().size();
       for (int i = 0; i < primals; i++) {
         var a = Aspects.INSTANCE.getPRIMAL_ASPECTS().get((i + indexOffset) % primals).get();
@@ -157,9 +158,9 @@ public class AspectContainer implements IAspectContainer {
         if (amount == 0) continue;
         this.sink.insert(a, amount, false);
         this.source.extract(a, amount, false);
-        return amount;
+        return AspectStack.of(a, amount);
       }
-      return 0;
+      return AspectStack.EMPTY;
     }
   }
 }

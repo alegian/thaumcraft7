@@ -4,7 +4,6 @@ import com.mojang.blaze3d.vertex.PoseStack
 import com.mojang.blaze3d.vertex.VertexConsumer
 import me.alegian.thavma.impl.client.T7RenderTypes
 import me.alegian.thavma.impl.client.util.addVertex
-import me.alegian.thavma.impl.client.util.setColorDebug
 import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.world.phys.Vec3
 import thedarkcolour.kotlinforforge.neoforge.forge.vectorutil.v3d.div
@@ -31,15 +30,15 @@ fun trajectory(start: Vec3, end: Vec3): List<Vec3> {
     }
 }
 
-fun renderEssentia(start: Vec3, end: Vec3, poseStack: PoseStack, multiBufferSource: MultiBufferSource, ticks: Float) {
+fun renderEssentia(start: Vec3, end: Vec3, poseStack: PoseStack, multiBufferSource: MultiBufferSource, ticks: Float, color: Int) {
     val vc = multiBufferSource.getBuffer(T7RenderTypes.TRANSLUCENT_TRIANGLES)
 
     trajectory(start, end).run {
-        renderVariableRadiusCylinder(this, vc, poseStack, ticks)
+        renderVariableRadiusCylinder(this, vc, poseStack, ticks, color)
     }
 }
 
-private fun renderVariableRadiusCylinder(trajectory: List<Vec3>, vc: VertexConsumer, poseStack: PoseStack, ticks: Float) {
+private fun renderVariableRadiusCylinder(trajectory: List<Vec3>, vc: VertexConsumer, poseStack: PoseStack, ticks: Float, color: Int) {
     // we keep track of the previous normals to fix open ends in the cylinder, in non-linear trajectories
     var prevNormal1 = Vec3(0.0, 1.0, 0.0)
     var prevNormal2 = Vec3(1.0, 0.0, 0.0)
@@ -63,8 +62,8 @@ private fun renderVariableRadiusCylinder(trajectory: List<Vec3>, vc: VertexConsu
             val normalizedOffset = normal1 * cos(angle) + normal2 * sin(angle)
 
             // the first vertex uses the previous normals, to avoid open ends
-            vc.addVertex(poseStack, currentPoint + prevNormalizedOffset * radius1).setColorDebug()
-            vc.addVertex(poseStack, nextPoint + normalizedOffset * radius2).setColorDebug()
+            vc.addVertex(poseStack, currentPoint + prevNormalizedOffset * radius1).setColor(color)
+            vc.addVertex(poseStack, nextPoint + normalizedOffset * radius2).setColor(color)
         }
 
         prevNormal1 = normal1

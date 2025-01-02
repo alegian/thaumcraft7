@@ -13,6 +13,7 @@ import me.alegian.thavma.impl.common.block.AuraNodeBlock
 import me.alegian.thavma.impl.common.data.capability.AspectContainer
 import me.alegian.thavma.impl.common.data.capability.IAspectContainer
 import me.alegian.thavma.impl.common.item.HammerItem
+import me.alegian.thavma.impl.init.registries.deferred.Aspects
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.screens.Screen
 import net.minecraft.core.BlockPos
@@ -80,8 +81,8 @@ private fun renderLevelAfterBEs(event: RenderLevelStageEvent) {
     if (event.stage !== RenderLevelStageEvent.Stage.AFTER_BLOCK_ENTITIES) return
     event.poseStack.pushPose()
     event.poseStack.translate(-event.camera.position)
-    renderEssentia(BlockPos.ZERO.offset(0,-59,0).center, BlockPos.ZERO.offset(0, -59, 4).center, event.poseStack, Minecraft.getInstance().renderBuffers().bufferSource(), event.partialTick.getGameTimeDeltaPartialTick(true) + event.renderTick)
-    renderEssentia(BlockPos.ZERO.offset(0,-59,0).center, BlockPos.ZERO.offset(0, -57, -4).center, event.poseStack, Minecraft.getInstance().renderBuffers().bufferSource(), event.partialTick.getGameTimeDeltaPartialTick(true) + event.renderTick)
+    renderEssentia(BlockPos.ZERO.offset(0, -59, 0).center, BlockPos.ZERO.offset(0, -59, 4).center, event.poseStack, Minecraft.getInstance().renderBuffers().bufferSource(), event.partialTick.getGameTimeDeltaPartialTick(true) + event.renderTick, Aspects.PRAECANTATIO.get().color)
+    renderEssentia(BlockPos.ZERO.offset(0, -59, 0).center, BlockPos.ZERO.offset(0, -57, -4).center, event.poseStack, Minecraft.getInstance().renderBuffers().bufferSource(), event.partialTick.getGameTimeDeltaPartialTick(true) + event.renderTick, Aspects.PRAECANTATIO.get().color)
     event.poseStack.popPose()
 }
 

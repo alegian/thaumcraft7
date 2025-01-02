@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack
 import me.alegian.thavma.impl.client.renderer.level.renderEssentia
 import me.alegian.thavma.impl.client.util.translate
 import me.alegian.thavma.impl.common.entity.VisEntity
+import me.alegian.thavma.impl.init.registries.deferred.Aspects
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.client.renderer.culling.Frustum
@@ -28,7 +29,7 @@ class VisER(pContext: EntityRendererProvider.Context) : EntityRenderer<VisEntity
         poseStack.translate(-visEntity.position()) // we are inside an entity renderer
         val playerHandPos = preparePlayerHandPosition(pPartialTick, player)
 
-        renderEssentia(visEntity.position(), playerHandPos, poseStack, pBufferSource, visEntity.tickCount + pPartialTick)
+        renderEssentia(visEntity.position(), playerHandPos, poseStack, pBufferSource, visEntity.tickCount + pPartialTick, Aspects.PRAECANTATIO.get().color)
         poseStack.popPose()
     }
 
