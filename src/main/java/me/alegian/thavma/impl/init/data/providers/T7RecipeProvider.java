@@ -205,7 +205,7 @@ public class T7RecipeProvider extends RecipeProvider {
         Ingredient.of(Items.DRAGON_EGG)
     );
 
-    WorkbenchRecipeBuilder.shaped(Items.DIAMOND, 2)
+    WorkbenchRecipeBuilder.Companion.shaped(Items.DIAMOND, 2)
         .requireAspects(AspectMap.builder()
             .add(Aspects.INSTANCE.getIGNIS().get(), 6)
             .add(Aspects.INSTANCE.getORDO().get(), 2)
