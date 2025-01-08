@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack
 import com.mojang.blaze3d.vertex.VertexConsumer
 import me.alegian.thavma.impl.client.T7RenderTypes
 import me.alegian.thavma.impl.client.util.addVertex
+import me.alegian.thavma.impl.common.util.cross
 import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.world.phys.Vec3
 import thedarkcolour.kotlinforforge.neoforge.forge.vectorutil.v3d.div
@@ -14,9 +15,9 @@ import kotlin.math.*
 
 // number of trajectory points per block length
 const val MAIN_AXIS_RESOLUTION = 16
-
 // number of "corners" of every 3d cylinder slice
 const val CR0SS_AXIS_RESOLUTION = 16
+// how high the "inverse gravity" parabola will rise
 const val TRAJECTORY_HEIGHT = 1.2
 
 fun trajectory(start: Vec3, end: Vec3): List<Vec3> {
@@ -49,8 +50,8 @@ private fun renderVariableRadiusCylinder(trajectory: List<Vec3>, vc: VertexConsu
 
         val direction = nextPoint - currentPoint
         val randomOtherDirection = direction - Vec3(0.0, 1.0, 0.0)
-        val normal1 = direction.cross(randomOtherDirection).normalize()
-        val normal2 = direction.cross(normal1).normalize()
+        val normal1 = (direction cross randomOtherDirection).normalize()
+        val normal2 = (direction cross normal1).normalize()
 
         val radius1 = oscillatingRadius(i, trajectory.size - 1, ticks)
         val radius2 = oscillatingRadius(i + 1, trajectory.size - 1, ticks)
