@@ -22,17 +22,17 @@ import org.jetbrains.annotations.Nullable;
 public class WorkbenchScreen extends AbstractContainerScreen<WorkbenchMenu> {
   protected static final int PADDING = 2;
   protected static final int SLOT_SIZE = 16;
-  private static final Texture WORKBENCH_BG = new Texture("gui/container/arcane_workbench", 216, 127, 255, 255);
+  private static final Texture WORKBENCH_BG = new Texture("gui/container/arcane_workbench", 216, 134, 255, 255);
   private static final Texture INVENTORY_BG = new Texture("gui/container/inventory", 176, 99, 255, 255);
   private static final Texture SLOT_TEXTURE = new Texture("gui/container/arcane_workbench_slot", 18, 18);
-  private static final Texture RESULT_SLOT_TEXTURE = new Texture("gui/container/arcane_workbench_result_slot", 26, 26);
-  private static final Texture ASPECT_SLOT_TEXTURE = new Texture("gui/container/arcane_workbench_aspect_slot", 20, 20);
+  private static final Texture RESULT_SLOT_TEXTURE = new Texture("gui/container/arcane_workbench_result_slot", 34, 34);
+  private static final Texture ASPECT_SLOT_TEXTURE = new Texture("gui/container/arcane_workbench_aspect_slot", 25, 25);
 
   public WorkbenchScreen(WorkbenchMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
     super(pMenu, pPlayerInventory, pTitle);
     this.inventoryLabelX += 20;
-    this.inventoryLabelY += 62;
-    this.titleLabelY -= 1;
+    this.inventoryLabelY += 69;
+    this.titleLabelY -= 15;
     this.imageWidth = Math.max(WorkbenchScreen.WORKBENCH_BG.width(), WorkbenchScreen.INVENTORY_BG.width());
     this.imageHeight = WorkbenchScreen.WORKBENCH_BG.height() + WorkbenchScreen.PADDING + WorkbenchScreen.INVENTORY_BG.height();
   }
@@ -42,6 +42,12 @@ public class WorkbenchScreen extends AbstractContainerScreen<WorkbenchMenu> {
     super.render(pGuiGraphics, pMouseX, pMouseY, pPartialTick);
     this.renderAspects(pGuiGraphics);
     this.renderTooltip(pGuiGraphics, pMouseX, pMouseY);
+  }
+
+  @Override
+  protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+    guiGraphics.drawString(this.font, this.title, this.titleLabelX, this.titleLabelY, 0x83FF9B, false);
+    guiGraphics.drawString(this.font, this.playerInventoryTitle, this.inventoryLabelX, this.inventoryLabelY, 0x404040, false);
   }
 
   @Override
@@ -80,7 +86,7 @@ public class WorkbenchScreen extends AbstractContainerScreen<WorkbenchMenu> {
   }
 
   protected void renderAspects(GuiGraphics guiGraphics) {
-    final int RADIUS = 48;
+    final int BASE_RADIUS = 52;
     final float ANGLE = 360f / Aspects.INSTANCE.getPRIMAL_ASPECTS().size();
     var middleSlot = this.menu.slots.get(4);
     var t7graphics = new T7GuiGraphics(guiGraphics);
@@ -96,10 +102,11 @@ public class WorkbenchScreen extends AbstractContainerScreen<WorkbenchMenu> {
       var requiredStack = new AspectStack(a.get(), requiredAmount);
       t7graphics.push();
       t7graphics.rotateZ(ANGLE * i);
-      t7graphics.translateXY(RADIUS, 0);
+      var fac = Math.abs(Math.cos(2*Math.PI / Aspects.INSTANCE.getPRIMAL_ASPECTS().size() * i));
+      t7graphics.translateXY((float) (BASE_RADIUS * (1-0.16*fac*fac)), 0);
       t7graphics.rotateZ(-ANGLE * i);
       Texture texture = WorkbenchScreen.ASPECT_SLOT_TEXTURE;
-      t7graphics.blit(texture.location(), -2, -2, 0, 0, texture.width(), texture.height(), texture.width(), texture.height());
+      t7graphics.blit(texture.location(), (SLOT_TEXTURE.width()-ASPECT_SLOT_TEXTURE.width())/2, (SLOT_TEXTURE.height()-ASPECT_SLOT_TEXTURE.height())/2, 0, 0, texture.width(), texture.height(), texture.width(), texture.height());
       if (requiredAmount != 0)
         AspectRenderer.renderAspect(t7graphics, requiredStack, 0, 0);
       t7graphics.pop();

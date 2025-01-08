@@ -37,19 +37,19 @@ public class WorkbenchMenu extends Menu {
     super(T7MenuTypes.INSTANCE.getWORKBENCH().get(), pContainerId, pPlayerInventory);
     this.levelAccess = pAccess;
 
-    this.slotPose.push(50, 42);
+    this.slotPose.push(40, 41);
     this.craftingContainer.addSlots();
     this.slotPose.pop();
 
-    this.slotPose.push(177, 36);
+    this.slotPose.push(165, 36);
     this.wandContainer.addSlots();
     this.slotPose.pop();
 
-    this.slotPose.push(28, 146);
+    this.slotPose.push(28, 153);
     this.playerInventory.addSlots();
     this.slotPose.pop();
 
-    this.slotPose.push(177, 62);
+    this.slotPose.push(165, 64);
     this.resultContainer.addSlots();
     this.slotPose.pop();
 
