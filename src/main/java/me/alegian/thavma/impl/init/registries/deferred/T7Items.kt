@@ -4,6 +4,7 @@ import me.alegian.thavma.impl.Thavma
 import me.alegian.thavma.impl.common.data.capability.AspectContainer
 import me.alegian.thavma.impl.common.item.*
 import me.alegian.thavma.impl.common.util.DoubleMap
+import me.alegian.thavma.impl.common.util.registerItem
 import me.alegian.thavma.impl.common.wand.WandCoreMaterial
 import me.alegian.thavma.impl.common.wand.WandHandleMaterial
 import me.alegian.thavma.impl.init.registries.T7Capabilities
@@ -34,7 +35,7 @@ object T7Items {
     val ARCANUM_NUGGET = REGISTRAR.registerSimpleItem("arcanum_nugget")
     val ORICHALCUM_INGOT = REGISTRAR.registerSimpleItem("orichalcum_ingot")
     val ORICHALCUM_NUGGET = REGISTRAR.registerSimpleItem("orichalcum_nugget")
-    val RESEARCH_SCROLL = REGISTRAR.registerSimpleItem("research_scroll", Item.Properties().stacksTo(1))
+    val RESEARCH_SCROLL = REGISTRAR.registerItem("research_scroll", ::ResearchScrollItem)
     val COMPLETED_RESEARCH = REGISTRAR.registerSimpleItem("completed_research", Item.Properties().stacksTo(1))
 
     val ARCANUM_SWORD = REGISTRAR.register("arcanum_sword") { ->
