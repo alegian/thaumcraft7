@@ -104,8 +104,8 @@ open class WorkbenchScreen(pMenu: WorkbenchMenu, pPlayerInventory: Inventory, pT
   companion object {
     protected const val PADDING: Int = 2
     protected const val SLOT_SIZE: Int = 16
-    private val WORKBENCH_BG = Texture("gui/container/arcane_workbench", 216, 134, 255, 255)
-    private val INVENTORY_BG = Texture("gui/container/inventory", 176, 99, 255, 255)
+    private val WORKBENCH_BG = Texture("gui/container/arcane_workbench", 216, 134, 256, 256)
+    private val INVENTORY_BG = Texture("gui/container/inventory", 176, 99, 256, 256)
     private val SLOT_TEXTURE = Texture("gui/container/arcane_workbench_slot", 18, 18)
     private val RESULT_SLOT_TEXTURE = Texture("gui/container/arcane_workbench_result_slot", 34, 34)
     private val ASPECT_SLOT_TEXTURE = Texture("gui/container/arcane_workbench_aspect_slot", 25, 25)
