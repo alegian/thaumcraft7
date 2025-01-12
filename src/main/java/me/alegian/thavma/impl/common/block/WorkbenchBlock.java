@@ -3,6 +3,7 @@ package me.alegian.thavma.impl.common.block;
 import me.alegian.thavma.impl.Thavma;
 import me.alegian.thavma.impl.common.block.entity.WorkbenchBE;
 import me.alegian.thavma.impl.common.menu.WorkbenchMenu;
+import me.alegian.thavma.impl.init.registries.deferred.T7BlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
@@ -16,11 +17,15 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import static net.minecraft.world.level.block.BaseEntityBlock.createTickerHelper;
 
 public class WorkbenchBlock extends Block implements EntityBlock {
   private static final Component CONTAINER_TITLE = Component.translatable("container." + Thavma.MODID + ".arcane_workbench");
@@ -57,5 +62,11 @@ public class WorkbenchBlock extends Block implements EntityBlock {
   @Override
   public BlockEntity newBlockEntity(BlockPos pos, BlockState blockState) {
     return new WorkbenchBE(pos, blockState);
+  }
+
+  @Nullable
+  @Override
+  public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
+    return !level.isClientSide ? createTickerHelper(blockEntityType, T7BlockEntities.INSTANCE.getWORKBENCH().get(), WorkbenchBE.Companion::serverTick) : null;
   }
 }
