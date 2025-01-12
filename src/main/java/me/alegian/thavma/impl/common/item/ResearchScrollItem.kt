@@ -11,8 +11,7 @@ import net.minecraft.world.level.Level
 
 class ResearchScrollItem : Item(Properties().stacksTo(1)){
     override fun use(level: Level, player: Player, usedHand: InteractionHand): InteractionResultHolder<ItemStack> {
-        val mc = Minecraft.getInstance()
-        mc.setScreen(BookEntryScreen())
+        if(level.isClientSide) Minecraft.getInstance().setScreen(BookEntryScreen())
         return super.use(level, player, usedHand)
     }
 }

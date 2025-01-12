@@ -26,6 +26,24 @@ class BookEntryScreen : Screen(Component.literal("Book Entry")) {
         left = (width - BG.width) / 2.0
         top = (height - BG.height) / 2.0
         addRenderableOnly(testText)
+
+        Root(width, height) {
+            Column {
+                Box(width = 100, height = 100, 0xFFFF0000.toInt()) {
+
+                    addRenderableOnly(rect())
+                    Box(width = 20, height = 20, color = 0xFF00FF00.toInt()) {
+                        addRenderableOnly(rect())
+                    }
+                }
+                Box(width = 30, height = 30, color = 0xFF00FF00.toInt()) {
+                    addRenderableOnly(rect())
+                }
+                Box(width = 50, height = 50, color = 0xFF0000FF.toInt()) {
+                    addRenderableOnly(rect())
+                }
+            }
+        }
     }
 
     override fun renderBackground(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
@@ -35,4 +53,30 @@ class BookEntryScreen : Screen(Component.literal("Book Entry")) {
             guiGraphics.blit(BG)
         }
     }
+}
+
+private fun Root(width: Int, height: Int, children: ComposeContext.() -> Unit) {
+    ComposeContext(Shape.BOX, width, height, 0, 0).children()
+}
+
+private fun ComposeContext.Box(width: Int = this.width, height: Int = this.height, color: Int = this.color, children: ComposeContext.() -> Unit) {
+    ComposeContext(Shape.BOX, width, height, color, this.top).children()
+    if (this.shape == Shape.COLUMN) {
+        this.height -= height
+        this.top += height
+    }
+}
+
+private fun ComposeContext.Column(children: ComposeContext.() -> Unit) {
+    ComposeContext(Shape.COLUMN, this.width, this.height, this.color, this.top).children()
+}
+
+class ComposeContext(val shape: Shape, var width: Int, var height: Int, val color: Int, var top: Int) {
+    fun rect() = Renderable { guiGraphics, _, _, _ ->
+        guiGraphics.fill(0, top, width, top+height, color)
+    }
+}
+
+enum class Shape {
+    BOX, COLUMN, ROW
 }
