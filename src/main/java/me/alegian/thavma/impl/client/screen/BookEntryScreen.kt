@@ -32,15 +32,16 @@ class BookEntryScreen : Screen(Component.literal("Book Entry")) {
                 Box(width = 100, height = 100, 0xFFFF0000.toInt()) {
 
                     addRenderableOnly(rect())
-                    Box(width = 20, height = 20, color = 0xFF00FF00.toInt()) {
-                        addRenderableOnly(rect())
-                    }
+
                 }
                 Box(width = 30, height = 30, color = 0xFF00FF00.toInt()) {
                     addRenderableOnly(rect())
                 }
-                Box(width = 50, height = 50, color = 0xFF0000FF.toInt()) {
+                Box(width = 50, pY = 30, color = 0xFF0000FF.toInt()) {
                     addRenderableOnly(rect())
+                    Box(width = 20, color = 0xFF00FF00.toInt()) {
+                        addRenderableOnly(rect())
+                    }
                 }
             }
         }
@@ -59,7 +60,9 @@ private fun Root(width: Int, height: Int, children: ComposeContext.() -> Unit) {
     ComposeContext(Shape.BOX, width, height, 0, 0).children()
 }
 
-private fun ComposeContext.Box(width: Int = this.width, height: Int = this.height, color: Int = this.color, children: ComposeContext.() -> Unit) {
+private fun ComposeContext.Box(width: Int = this.width, height: Int = this.height, color: Int = this.color, pY: Int = 0, children: ComposeContext.() -> Unit) {
+    this.height -= 2*pY
+    this.top += pY
     ComposeContext(Shape.BOX, width, height, color, this.top).children()
     if (this.shape == Shape.COLUMN) {
         this.height -= height
@@ -73,7 +76,7 @@ private fun ComposeContext.Column(children: ComposeContext.() -> Unit) {
 
 class ComposeContext(val shape: Shape, var width: Int, var height: Int, val color: Int, var top: Int) {
     fun rect() = Renderable { guiGraphics, _, _, _ ->
-        guiGraphics.fill(0, top, width, top+height, color)
+        guiGraphics.fill(0, top, width, top + height, color)
     }
 }
 
