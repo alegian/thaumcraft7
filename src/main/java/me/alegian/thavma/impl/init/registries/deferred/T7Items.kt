@@ -4,7 +4,6 @@ import me.alegian.thavma.impl.Thavma
 import me.alegian.thavma.impl.common.data.capability.AspectContainer
 import me.alegian.thavma.impl.common.item.*
 import me.alegian.thavma.impl.common.util.DoubleMap
-import me.alegian.thavma.impl.common.util.registerItem
 import me.alegian.thavma.impl.common.wand.WandCoreMaterial
 import me.alegian.thavma.impl.common.wand.WandHandleMaterial
 import me.alegian.thavma.impl.init.registries.T7Capabilities
@@ -35,7 +34,7 @@ object T7Items {
     val ARCANUM_NUGGET = REGISTRAR.registerSimpleItem("arcanum_nugget")
     val ORICHALCUM_INGOT = REGISTRAR.registerSimpleItem("orichalcum_ingot")
     val ORICHALCUM_NUGGET = REGISTRAR.registerSimpleItem("orichalcum_nugget")
-    val RESEARCH_SCROLL = REGISTRAR.registerItem("research_scroll", ::ResearchScrollItem)
+    val RESEARCH_SCROLL = REGISTRAR.register("research_scroll", ::ResearchScrollItem)
     val COMPLETED_RESEARCH = REGISTRAR.registerSimpleItem("completed_research", Item.Properties().stacksTo(1))
 
     val ARCANUM_SWORD = REGISTRAR.register("arcanum_sword") { ->
@@ -104,13 +103,13 @@ object T7Items {
             )
         )
     }
-    val ARCANUM_KATANA = REGISTRAR.register("arcanum_katana") { -> KatanaItem() }
-    val ZEPHYR = REGISTRAR.register("zephyr") { -> ZephyrItem() }
+    val ARCANUM_KATANA = REGISTRAR.register("arcanum_katana", ::KatanaItem)
+    val ZEPHYR = REGISTRAR.register("zephyr", ::ZephyrItem)
     val OCULUS = REGISTRAR.registerItem("oculus", ::OculusItem)
     val THAUMONOMICON = REGISTRAR.registerItem("thaumonomicon", ::ThaumonomiconItem)
 
-    val GOGGLES = REGISTRAR.registerItem("goggles") { props -> GogglesItem(props) }
-    val GOGGLES_ACCESSORY = REGISTRAR.registerItem("goggles_accessory") { props -> GogglesAccessoryItem(props) }
+    val GOGGLES = REGISTRAR.register("goggles", ::GogglesItem)
+    val GOGGLES_ACCESSORY = REGISTRAR.register("goggles_accessory", ::GogglesAccessoryItem)
     val RESEARCHER_CHESTPLATE = REGISTRAR.registerItem(
         "researcher_chestplate",
         { props -> ResearcherArmorItem(ArmorItem.Type.CHESTPLATE, props) },
@@ -131,7 +130,7 @@ object T7Items {
         { props -> ArcanumHelmetItem(props) },
         Item.Properties().durability(ArmorItem.Type.HELMET.getDurability(21))
     )
-    val DAWN_CHARM = REGISTRAR.registerItem("charm_of_the_dawn", ::DawnCharmItem)
+    val DAWN_CHARM = REGISTRAR.register("charm_of_the_dawn", ::DawnCharmItem)
     val ARCANUM_CHESTPLATE = REGISTRAR.registerItem(
         "arcanum_chestplate",
         { props -> ArmorItem(ARCANUM, ArmorItem.Type.CHESTPLATE, props) },
