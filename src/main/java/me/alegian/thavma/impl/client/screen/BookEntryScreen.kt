@@ -29,17 +29,15 @@ class BookEntryScreen : Screen(Component.literal("Book Entry")) {
 
         Root(width, height) {
             Column {
-                Box(width = 100, height = 100, 0xFFFF0000.toInt()) {
-
-                    addRenderableOnly(rect())
-
-                }
-                Box(width = 30, height = 30, color = 0xFF00FF00.toInt()) {
+                Box(Modifier().width(100).height(100).color(0xFFFF0000.toInt())) {
                     addRenderableOnly(rect())
                 }
-                Box(width = 50, pY = 30, color = 0xFF0000FF.toInt()) {
+                Box(Modifier().width(30).height(30).color(0xFF00FF00.toInt())) {
                     addRenderableOnly(rect())
-                    Box(width = 20, color = 0xFF00FF00.toInt()) {
+                }
+                Box(Modifier().width(50).color(0xFF0000FF.toInt())) {
+                    addRenderableOnly(rect())
+                    Box(Modifier().width(20).color(0xFF00FF00.toInt())) {
                         addRenderableOnly(rect())
                     }
                 }
@@ -57,26 +55,64 @@ class BookEntryScreen : Screen(Component.literal("Book Entry")) {
 }
 
 private fun Root(width: Int, height: Int, children: ComposeContext.() -> Unit) {
-    ComposeContext(Shape.BOX, width, height, 0, 0).children()
+    ComposeContext(Shape.BOX, width, height, 0, 0, 0).children()
 }
 
-private fun ComposeContext.Box(width: Int = this.width, height: Int = this.height, color: Int = this.color, pY: Int = 0, children: ComposeContext.() -> Unit) {
-    this.height -= 2*pY
-    this.top += pY
-    ComposeContext(Shape.BOX, width, height, color, this.top).children()
-    if (this.shape == Shape.COLUMN) {
-        this.height -= height
-        this.top += height
+private fun ComposeContext.Box(modifier: Modifier = Modifier(), children: ComposeContext.() -> Unit) {
+    modifier.shape(Shape.BOX)
+    ComposeContext.Builder(this).apply(modifier).build().children()
+}
+
+private fun ComposeContext.Column(modifier: Modifier = Modifier(), children: ComposeContext.() -> Unit) {
+    modifier.shape(Shape.COLUMN)
+    ComposeContext.Builder(this).apply(modifier).build().children()
+}
+
+class Modifier {
+    private val mutations: MutableList<ComposeContext.() -> Unit> = mutableListOf()
+
+    fun shape(shape: Shape) = apply { mutations.add { this.shape = shape } }
+    fun width(width: Int) = apply { mutations.add { this.width = width } }
+    fun height(height: Int) = apply { mutations.add { this.height = height } }
+    fun color(color: Int) = apply { mutations.add { this.color = color } }
+    fun top(top: Int) = apply { mutations.add { this.top = top } }
+    fun left(left: Int) = apply { mutations.add { this.left = left } }
+
+    fun apply(parent : ComposeContext) {
+        mutations.forEach { it.invoke(parent) }
     }
 }
 
-private fun ComposeContext.Column(children: ComposeContext.() -> Unit) {
-    ComposeContext(Shape.COLUMN, this.width, this.height, this.color, this.top).children()
-}
-
-class ComposeContext(val shape: Shape, var width: Int, var height: Int, val color: Int, var top: Int) {
+class ComposeContext(var shape: Shape, var width: Int, var height: Int, var color: Int, var top: Int, var left: Int) {
     fun rect() = Renderable { guiGraphics, _, _, _ ->
-        guiGraphics.fill(0, top, width, top + height, color)
+        guiGraphics.fill(left, top, left + width, top + height, color)
+    }
+
+    class Builder(private val parent: ComposeContext) {
+        private var shape = parent.shape
+        private var width = parent.width
+        private var height = parent.height
+        private var color = parent.color
+        private var top = parent.top
+        private var left = parent.left
+        private val context = ComposeContext(shape, width, height, color, top, left)
+
+        private fun parentSideEffects(){
+            if (parent.shape == Shape.COLUMN) {
+                parent.height -= context.height
+                parent.top += context.height
+            }
+        }
+
+        fun apply(modifier: Modifier): Builder {
+            modifier.apply(context)
+            return this
+        }
+
+        fun build(): ComposeContext{
+            parentSideEffects()
+            return context
+        }
     }
 }
 
