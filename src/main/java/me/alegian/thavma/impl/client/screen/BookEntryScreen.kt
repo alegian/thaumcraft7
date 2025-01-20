@@ -4,6 +4,7 @@ import me.alegian.thavma.impl.client.texture.Texture
 import me.alegian.thavma.impl.client.util.blit
 import me.alegian.thavma.impl.client.util.drawString
 import me.alegian.thavma.impl.client.util.usePose
+import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.Renderable
 import net.minecraft.client.gui.screens.Screen
@@ -14,49 +15,23 @@ private val BG = Texture("gui/book/background", 510, 282, 512, 512)
 class BookEntryScreen : Screen(Component.literal("Book Entry")) {
   private var left = 0.0
   private var top = 0.0
-  private val testText = Renderable { guiGraphics: GuiGraphics, _: Int, _: Int, _: Float ->
-    guiGraphics.usePose {
-      translate(left + 30, top + 30, 0.0)
-      guiGraphics.drawString(font, "Reaves likes cockroaches")
-    }
-  }
 
   override fun init() {
     super.init()
     left = (width - BG.width) / 2.0
     top = (height - BG.height) / 2.0
-    addRenderableOnly(testText)
 
     Root(width, height) {
-      Column {
-        Box(
-          Modifier()
-            .width(100)
-            .height(100)
-            .color(0xFFFF0000.toInt())
+      Box(
+        Modifier().center()
+      ) {
+        Row(
+          Modifier().size(BG)
         ) {
-          addRenderableOnly(rect())
-        }
-        Box(
-          Modifier()
-            .width(30)
-            .height(30)
-            .color(0xFF00FF00.toInt())
-        ) {
-          addRenderableOnly(rect())
-        }
-        Box(
-          Modifier()
-            .width(50)
-            .color(0xFF0000FF.toInt())
-        ) {
-          addRenderableOnly(rect())
           Box(
-            Modifier()
-              .width(20)
-              .color(0xFF00FF00.toInt())
+            Modifier().maxWidth(0.5f).center()
           ) {
-            addRenderableOnly(rect())
+            addRenderableOnly(text("Reaves likes cockroaches"))
           }
         }
       }
@@ -73,16 +48,15 @@ class BookEntryScreen : Screen(Component.literal("Book Entry")) {
 }
 
 private fun Root(width: Int, height: Int, children: ComposeContext.() -> Unit) {
-  ComposeContext(Shape.BOX, width, height, 0, 0, 0).children()
+  ComposeContext(Shape.BOX, Alignment.START, Alignment.START, width, height, 0, 0, 0).children()
 }
 
-private fun ComposeContext.Box(modifier: Modifier = Modifier(), children: ComposeContext.() -> Unit) {
-  modifier.shape(Shape.BOX)
-  ComposeContext.Builder(this).apply(modifier).build().children()
-}
+private fun ComposeContext.Box(modifier: Modifier = Modifier(), children: ComposeContext.() -> Unit) = Component(Shape.BOX, modifier, children)
+private fun ComposeContext.Column(modifier: Modifier = Modifier(), children: ComposeContext.() -> Unit) = Component(Shape.COLUMN, modifier, children)
+private fun ComposeContext.Row(modifier: Modifier = Modifier(), children: ComposeContext.() -> Unit) = Component(Shape.ROW, modifier, children)
 
-private fun ComposeContext.Column(modifier: Modifier = Modifier(), children: ComposeContext.() -> Unit) {
-  modifier.shape(Shape.COLUMN)
+fun ComposeContext.Component(shape: Shape, modifier: Modifier, children: ComposeContext.() -> Unit) {
+  modifier.shape(shape)
   ComposeContext.Builder(this).apply(modifier).build().children()
 }
 
@@ -95,30 +69,68 @@ class Modifier {
   fun color(color: Int) = apply { mutations.add { this.color = color } }
   fun top(top: Int) = apply { mutations.add { this.top = top } }
   fun left(left: Int) = apply { mutations.add { this.left = left } }
+  fun size(size: Int) = width(size).height(size)
+  fun size(texture: Texture) = width(texture.width).height(texture.height)
+
+  fun maxWidth(scale: Float) = apply { mutations.add { this.width = (this.width * scale).toInt() } }
+  fun maxHeight(scale: Float) = apply { mutations.add { this.height = (this.height * scale).toInt() } }
+
+  fun centerX() = apply { mutations.add { this.alignmentX = Alignment.CENTER } }
+  fun centerY() = apply { mutations.add { this.alignmentY = Alignment.CENTER } }
+  fun center() = centerY().centerX()
+
+  fun endX() = apply { mutations.add { this.alignmentX = Alignment.END } }
+  fun endY() = apply { mutations.add { this.alignmentY = Alignment.END } }
 
   fun apply(parent: ComposeContext) {
     mutations.forEach { it.invoke(parent) }
   }
 }
 
-class ComposeContext(var shape: Shape, var width: Int, var height: Int, var color: Int, var top: Int, var left: Int) {
-  fun rect() = Renderable { guiGraphics, _, _, _ ->
+class ComposeContext(var shape: Shape, var alignmentX: Alignment, var alignmentY: Alignment, var width: Int, var height: Int, var color: Int, var top: Int, var left: Int) {
+  fun debugRect() = Renderable { guiGraphics, _, _, _ ->
     guiGraphics.fill(left, top, left + width, top + height, color)
   }
 
+  fun text(content: String) =Renderable { guiGraphics: GuiGraphics, _: Int, _: Int, _: Float ->
+    guiGraphics.usePose {
+      translate(left.toDouble(), top.toDouble(), 0.0)
+      guiGraphics.drawString(Minecraft.getInstance().font, content)
+    }
+  }
+
   class Builder(private val parent: ComposeContext) {
-    private var shape = parent.shape
-    private var width = parent.width
-    private var height = parent.height
-    private var color = parent.color
-    private var top = parent.top
-    private var left = parent.left
-    private val context = ComposeContext(shape, width, height, color, top, left)
+    private val context = ComposeContext(
+      Shape.BOX,
+      Alignment.START,
+      Alignment.START,
+      parent.width,
+      parent.height,
+      parent.color,
+      parent.top,
+      parent.left
+    )
 
     private fun parentSideEffects() {
       if (parent.shape == Shape.COLUMN) {
         parent.height -= context.height
         parent.top += context.height
+      }
+      if (parent.shape == Shape.ROW) {
+        parent.width -= context.width
+        parent.left += context.width
+      }
+      if (parent.alignmentX == Alignment.CENTER) {
+        context.left += (parent.width - context.width) / 2
+      }
+      if (parent.alignmentY == Alignment.CENTER) {
+        context.top += (parent.height - context.height) / 2
+      }
+      if (parent.alignmentX == Alignment.END) {
+        context.left += parent.width - context.width
+      }
+      if (parent.alignmentY == Alignment.END) {
+        context.top += parent.height - context.height
       }
     }
 
@@ -136,4 +148,8 @@ class ComposeContext(var shape: Shape, var width: Int, var height: Int, var colo
 
 enum class Shape {
   BOX, COLUMN, ROW
+}
+
+enum class Alignment {
+  START, CENTER, END
 }
