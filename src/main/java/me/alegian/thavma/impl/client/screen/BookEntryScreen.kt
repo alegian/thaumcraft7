@@ -29,9 +29,17 @@ class BookEntryScreen : Screen(Component.literal("Book Entry")) {
           Modifier().size(BG)
         ) {
           Box(
-            Modifier().maxWidth(0.5f).center()
+            Modifier().maxWidth(0.5f).color(0xFFFF00FF.toInt())
           ) {
-            addRenderableOnly(text("Reaves likes cockroaches"))
+            addRenderableOnly(debugRect())
+            PaddingY(30) {
+              Box(Modifier().color(0xFFFF0000.toInt())) {
+                addRenderableOnly(debugRect())
+                PaddingX(30) {
+                  addRenderableOnly(text("Reaves likes cockroaches"))
+                }
+              }
+            }
           }
         }
       }
@@ -55,6 +63,28 @@ private fun ComposeContext.Box(modifier: Modifier = Modifier(), children: Compos
 private fun ComposeContext.Column(modifier: Modifier = Modifier(), children: ComposeContext.() -> Unit) = Component(Shape.COLUMN, modifier, children)
 private fun ComposeContext.Row(modifier: Modifier = Modifier(), children: ComposeContext.() -> Unit) = Component(Shape.ROW, modifier, children)
 
+private fun ComposeContext.PaddingX(size: Int, children: ComposeContext.() -> Unit) {
+  Row {
+    Box(Modifier().width(size)) {}
+    Component(Shape.BOX, Modifier().shrinkX(size), children)
+    Box(Modifier().width(size)) {}
+  }
+}
+
+private fun ComposeContext.PaddingY(size: Int, children: ComposeContext.() -> Unit) {
+  Column {
+    Box(Modifier().height(size)) {}
+    Component(Shape.BOX, Modifier().shrinkY(size), children)
+    Box(Modifier().height(size)) {}
+  }
+}
+
+private fun ComposeContext.Padding(size: Int, children: ComposeContext.() -> Unit) {
+  PaddingX(size) {
+    PaddingY(size, children)
+  }
+}
+
 fun ComposeContext.Component(shape: Shape, modifier: Modifier, children: ComposeContext.() -> Unit) {
   modifier.shape(shape)
   ComposeContext.Builder(this).apply(modifier).build().children()
@@ -71,6 +101,9 @@ class Modifier {
   fun left(left: Int) = apply { mutations.add { this.left = left } }
   fun size(size: Int) = width(size).height(size)
   fun size(texture: Texture) = width(texture.width).height(texture.height)
+
+  fun shrinkX(x: Int) = apply { mutations.add { this.width -= x } }
+  fun shrinkY(y: Int) = apply { mutations.add { this.height -= y } }
 
   fun maxWidth(scale: Float) = apply { mutations.add { this.width = (this.width * scale).toInt() } }
   fun maxHeight(scale: Float) = apply { mutations.add { this.height = (this.height * scale).toInt() } }
@@ -92,7 +125,7 @@ class ComposeContext(var shape: Shape, var alignmentX: Alignment, var alignmentY
     guiGraphics.fill(left, top, left + width, top + height, color)
   }
 
-  fun text(content: String) =Renderable { guiGraphics: GuiGraphics, _: Int, _: Int, _: Float ->
+  fun text(content: String) = Renderable { guiGraphics: GuiGraphics, _: Int, _: Int, _: Float ->
     guiGraphics.usePose {
       translate(left.toDouble(), top.toDouble(), 0.0)
       guiGraphics.drawString(Minecraft.getInstance().font, content)
