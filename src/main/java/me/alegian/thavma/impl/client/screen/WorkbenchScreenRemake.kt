@@ -2,10 +2,16 @@ package me.alegian.thavma.impl.client.screen
 
 import me.alegian.thavma.impl.client.texture.Texture
 import me.alegian.thavma.impl.common.menu.WorkbenchMenu
+import me.alegian.thavma.impl.common.menu.slot.DynamicSlot
+import net.minecraft.ChatFormatting
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.player.Inventory
+import net.minecraft.world.inventory.AbstractContainerMenu
+import net.minecraft.world.inventory.Slot
+import net.minecraft.world.item.ItemStack
+import kotlin.math.min
 
 private val WORKBENCH_BG = Texture("gui/container/arcane_workbench", 214, 132, 256, 256)
 private val INVENTORY_BG = Texture("gui/container/inventory", 174, 97, 256, 256)
@@ -68,12 +74,13 @@ open class WorkbenchScreenRemake(pMenu: WorkbenchMenu, pPlayerInventory: Invento
                   }
                 }
                 Column(Modifier().color(0xFF00FFFF.toInt())) {
-                  Box(Modifier().height(SLOT_TEXTURE.height*3)){
-                    addRenderableOnly(textureGrid(3, 9) { _, _ -> SLOT_TEXTURE })
+                  val inventorySlots = this@WorkbenchScreenRemake.menu.playerInventory.range.slots
+                  Box(Modifier().height(SLOT_TEXTURE.height * 3)) {
+                    addRenderableOnly(slotGrid(3, 9, inventorySlots) { _, _ -> SLOT_TEXTURE })
                   }
                   Box(Modifier().height(HOTBAR_GAP))
-                  Box{
-                    addRenderableOnly(textureGrid(1, 9) { _, _ -> SLOT_TEXTURE })
+                  Box {
+                    addRenderableOnly(slotGrid(1, 9, inventorySlots.takeLast(9)) { _, _ -> SLOT_TEXTURE })
                   }
                 }
               }
@@ -87,4 +94,83 @@ open class WorkbenchScreenRemake(pMenu: WorkbenchMenu, pPlayerInventory: Invento
   override fun renderBg(guiGraphics: GuiGraphics, partialTick: Float, mouseX: Int, mouseY: Int) {}
 
   override fun renderLabels(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int) {}
+
+  override fun renderSlot(guiGraphics: GuiGraphics, slot: Slot) {
+    if (slot !is DynamicSlot<*>) return super.renderSlot(guiGraphics, slot)
+
+    val i = slot.getX()
+    val j = slot.getY()
+    var itemstack = slot.item
+    var flag = false
+    var flag1 = slot === this.clickedSlot && !draggingItem.isEmpty && !this.isSplittingStack
+    val itemstack1 = menu.carried
+    var s: String? = null
+    if (slot === this.clickedSlot && !draggingItem.isEmpty && this.isSplittingStack && !itemstack.isEmpty) {
+      itemstack = itemstack.copyWithCount(itemstack.count / 2)
+    } else if (this.isQuickCrafting && quickCraftSlots.contains(slot) && !itemstack1.isEmpty) {
+      if (quickCraftSlots.size == 1) {
+        return
+      }
+
+      if (AbstractContainerMenu.canItemQuickReplace(slot, itemstack1, true) && menu.canDragTo(slot)) {
+        flag = true
+        val k = min(itemstack1.maxStackSize.toDouble(), slot.getMaxStackSize(itemstack1).toDouble()).toInt()
+        val l = if (slot.item.isEmpty) 0 else slot.item.count
+        var i1 = AbstractContainerMenu.getQuickCraftPlaceCount(this.quickCraftSlots, this.quickCraftingType, itemstack1) + l
+        if (i1 > k) {
+          i1 = k
+          s = ChatFormatting.YELLOW.toString() + k
+        }
+
+        itemstack = itemstack1.copyWithCount(i1)
+      } else {
+        quickCraftSlots.remove(slot)
+        this.recalculateQuickCraftRemaining()
+      }
+    }
+
+    guiGraphics.pose().pushPose()
+    guiGraphics.pose().translate(0.0f, 0.0f, 100.0f)
+    if (itemstack.isEmpty && slot.isActive) {
+      val pair = slot.noItemIcon
+      if (pair != null) {
+        val textureatlassprite = minecraft!!.getTextureAtlas(pair.first).apply(pair.second)
+        guiGraphics.blit(i, j, 0, 16, 16, textureatlassprite)
+        flag1 = true
+      }
+    }
+
+    if (!flag1) {
+      if (flag) {
+        guiGraphics.fill(i, j, i + 16, j + 16, -2130706433)
+      }
+
+      renderSlotContents(guiGraphics, itemstack, slot, s)
+    }
+
+    guiGraphics.pose().popPose()
+  }
+
+  override fun renderSlotHighlight(guiGraphics: GuiGraphics, slot: Slot, mouseX: Int, mouseY: Int, partialTick: Float) {
+    if (slot !is DynamicSlot<*>) return super.renderSlotHighlight(guiGraphics, slot, mouseX, mouseY, partialTick)
+
+    if (slot.isHighlightable) {
+      renderSlotHighlight(guiGraphics, slot.getX(), slot.getY(), 0, getSlotColor(slot.index))
+    }
+  }
+
+  override fun renderSlotContents(guiGraphics: GuiGraphics, itemstack: ItemStack, slot: Slot, countString: String?) {
+    if (slot !is DynamicSlot<*>) return super.renderSlotContents(guiGraphics, itemstack, slot, countString)
+
+    val i = slot.getX()
+    val j = slot.getY()
+    val j1 = i + j * this.imageWidth
+    if (slot.isFake) {
+      guiGraphics.renderFakeItem(itemstack, i, j, j1)
+    } else {
+      guiGraphics.renderItem(itemstack, i, j, j1)
+    }
+
+    guiGraphics.renderItemDecorations(this.font, itemstack, i, j, countString)
+  }
 }

@@ -3,12 +3,16 @@ package me.alegian.thavma.impl.client.screen
 import me.alegian.thavma.impl.client.texture.Texture
 import me.alegian.thavma.impl.client.util.blit
 import me.alegian.thavma.impl.client.util.drawString
+import me.alegian.thavma.impl.client.util.transformOrigin
 import me.alegian.thavma.impl.client.util.usePose
+import me.alegian.thavma.impl.common.menu.slot.DynamicSlot
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.Renderable
 import net.minecraft.network.chat.Component
+import net.minecraft.world.inventory.Slot
 import kotlin.math.max
+import kotlin.math.roundToInt
 
 
 fun Root(width: Int, height: Int, children: ComposeContext.() -> Unit) {
@@ -121,13 +125,19 @@ class ComposeContext(var shape: Shape, var alignmentX: Alignment, var alignmentY
     }
   }
 
-  fun textureGrid(rows: Int, columns: Int, getTexture: (Int, Int) -> Texture) = Renderable { guiGraphics: GuiGraphics, _: Int, _: Int, _: Float ->
+  fun slotGrid(rows: Int, columns: Int, slots: List<Slot>, getTexture: (Int, Int) -> Texture) = Renderable { guiGraphics: GuiGraphics, _: Int, _: Int, _: Float ->
     guiGraphics.usePose {
       translate(left.toDouble(), top.toDouble(), 0.0)
       for (i in 0 until rows) {
         pushPose()
         for (j in 0 until columns) {
           guiGraphics.blit(getTexture(i, j))
+          val slot = slots[i * rows + j]
+          if (slot is DynamicSlot<*>) {
+            val pos = transformOrigin()
+            slot.setX(pos.x.roundToInt())
+            slot.setY(pos.y.roundToInt())
+          }
           translate(getTexture(0, 0).width.toDouble(), 0.0, 0.0)
         }
         popPose()

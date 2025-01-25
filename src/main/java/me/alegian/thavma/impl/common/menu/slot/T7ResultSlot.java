@@ -10,10 +10,11 @@ import net.minecraft.world.item.ItemStack;
 /**
  * A Sized ResultSlot, with a back-reference to a Menu
  */
-public class T7ResultSlot<T extends Menu> extends ResultSlot implements Sized {
+public class T7ResultSlot<T extends Menu> extends ResultSlot implements DynamicSlot<T> {
   private final int size;
   private boolean mayPickup = true;
   private final T menu;
+  private int x,y;
 
   public T7ResultSlot(T menu, CraftingContainer craftingContainer, ResultContainer container, int id, int size) {
     super(menu.getPlayer(), craftingContainer, container, id, menu.getSlotPose().getX(), menu.getSlotPose().getY());
@@ -23,6 +24,26 @@ public class T7ResultSlot<T extends Menu> extends ResultSlot implements Sized {
 
   public T getMenu() {
     return this.menu;
+  }
+
+  @Override
+  public int getX() {
+    return x;
+  }
+
+  @Override
+  public int getY() {
+    return y;
+  }
+
+  @Override
+  public void setX(int x) {
+    this.x = x;
+  }
+
+  @Override
+  public void setY(int y) {
+    this.y = y;
   }
 
   @Override

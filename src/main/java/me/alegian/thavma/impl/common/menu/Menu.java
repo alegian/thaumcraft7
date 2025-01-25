@@ -2,7 +2,7 @@ package me.alegian.thavma.impl.common.menu;
 
 import me.alegian.thavma.impl.common.menu.container.T7Container;
 import me.alegian.thavma.impl.common.menu.container.T7Inventory;
-import me.alegian.thavma.impl.common.menu.slot.Sized;
+import me.alegian.thavma.impl.common.menu.slot.DynamicSlot;
 import me.alegian.thavma.impl.common.menu.slot.SlotPose;
 import me.alegian.thavma.impl.common.menu.slot.SlotRange;
 import net.minecraft.world.entity.player.Inventory;
@@ -33,7 +33,7 @@ public abstract class Menu extends AbstractContainerMenu implements ContainerLis
 
   @Override
   public @NotNull Slot addSlot(@NotNull Slot slot) {
-    if (slot instanceof Sized sizedSlot) this.slotPose.translateX(sizedSlot.getSize());
+    if (slot instanceof DynamicSlot<?> dynamicSlot) this.slotPose.translateX(dynamicSlot.getSize());
     else this.slotPose.translateX(18);
     return super.addSlot(slot);
   }
@@ -85,6 +85,10 @@ public abstract class Menu extends AbstractContainerMenu implements ContainerLis
 
   protected List<T7Container> getQuickMovePriorities() {
     return List.of();
+  }
+
+  public T7Inventory getPlayerInventory() {
+    return this.playerInventory;
   }
 
   @Override

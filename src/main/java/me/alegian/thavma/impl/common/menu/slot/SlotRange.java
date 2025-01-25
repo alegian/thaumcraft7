@@ -1,6 +1,9 @@
 package me.alegian.thavma.impl.common.menu.slot;
 
 import me.alegian.thavma.impl.common.menu.Menu;
+import net.minecraft.world.inventory.Slot;
+
+import java.util.List;
 
 /**
  * Keeps track of slot index ranges. Need to call start() and end() before the
@@ -36,6 +39,8 @@ public class SlotRange {
   public boolean contains(int slotId) {
     return slotId >= this.start && slotId <= this.end;
   }
+
+  public List<Slot> getSlots() { return this.menu.slots.subList(this.start, this.end + 1); }
 
   /**
    * Tracking single slots should be done AFTER adding them
