@@ -1,6 +1,7 @@
 package me.alegian.thavma.impl.client.screen
 
 import me.alegian.thavma.impl.client.texture.Texture
+import me.alegian.thavma.impl.client.util.blit
 import me.alegian.thavma.impl.client.util.drawString
 import me.alegian.thavma.impl.client.util.usePose
 import net.minecraft.client.Minecraft
@@ -57,9 +58,17 @@ class Modifier {
   fun size(size: Int) = width(size).height(size)
   fun size(texture: Texture) = width(texture.width).height(texture.height)
 
+  fun extendBelow(size: Int) = apply {
+    mutations.add { this.height += size }
+  }
+
   fun extendBelow(texture: Texture) = apply {
     mutations.add { this.height += texture.height }
     mutations.add { this.width = max(this.width, texture.width) }
+  }
+
+  fun extendRight(size: Int) = apply {
+    mutations.add { this.width += size }
   }
 
   fun extendRight(texture: Texture) = apply {
@@ -94,6 +103,13 @@ class ComposeContext(var shape: Shape, var alignmentX: Alignment, var alignmentY
     guiGraphics.usePose {
       translate(left.toDouble(), top.toDouble(), 0.0)
       guiGraphics.drawString(Minecraft.getInstance().font, content)
+    }
+  }
+
+  fun texture(texture: Texture) = Renderable { guiGraphics: GuiGraphics, _: Int, _: Int, _: Float ->
+    guiGraphics.usePose {
+      translate(left.toDouble(), top.toDouble(), 0.0)
+      guiGraphics.blit(texture)
     }
   }
 
