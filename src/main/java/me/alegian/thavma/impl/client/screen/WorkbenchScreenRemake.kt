@@ -64,11 +64,17 @@ open class WorkbenchScreenRemake(pMenu: WorkbenchMenu, pPlayerInventory: Invento
                     .centerY()
                 ) {
                   Box(Modifier().height(lineHeight)) {
-                    addRenderableOnly(text(this@WorkbenchScreenRemake.playerInventoryTitle))
+                    addRenderableOnly(text(this@WorkbenchScreenRemake.playerInventoryTitle, 0x404040))
                   }
                 }
-                Box(Modifier().color(0xFF00FFFF.toInt())) {
-                  addRenderableOnly(debugRect())
+                Column(Modifier().color(0xFF00FFFF.toInt())) {
+                  Box(Modifier().height(SLOT_TEXTURE.height*3)){
+                    addRenderableOnly(textureGrid(3, 9) { _, _ -> SLOT_TEXTURE })
+                  }
+                  Box(Modifier().height(HOTBAR_GAP))
+                  Box{
+                    addRenderableOnly(textureGrid(1, 9) { _, _ -> SLOT_TEXTURE })
+                  }
                 }
               }
             }

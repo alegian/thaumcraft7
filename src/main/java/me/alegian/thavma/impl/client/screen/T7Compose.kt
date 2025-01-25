@@ -121,6 +121,21 @@ class ComposeContext(var shape: Shape, var alignmentX: Alignment, var alignmentY
     }
   }
 
+  fun textureGrid(rows: Int, columns: Int, getTexture: (Int, Int) -> Texture) = Renderable { guiGraphics: GuiGraphics, _: Int, _: Int, _: Float ->
+    guiGraphics.usePose {
+      translate(left.toDouble(), top.toDouble(), 0.0)
+      for (i in 0 until rows) {
+        pushPose()
+        for (j in 0 until columns) {
+          guiGraphics.blit(getTexture(i, j))
+          translate(getTexture(0, 0).width.toDouble(), 0.0, 0.0)
+        }
+        popPose()
+        translate(0.0, getTexture(0, 0).height.toDouble(), 0.0)
+      }
+    }
+  }
+
   class Builder(private val parent: ComposeContext) {
     private val child = ComposeContext(
       Shape.BOX,
