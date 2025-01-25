@@ -28,7 +28,7 @@ import org.jetbrains.annotations.Nullable;
 import static net.minecraft.world.level.block.BaseEntityBlock.createTickerHelper;
 
 public class WorkbenchBlock extends Block implements EntityBlock {
-  private static final Component CONTAINER_TITLE = Component.translatable("container." + Thavma.MODID + ".arcane_workbench");
+  public static final Component CONTAINER_TITLE = Component.translatable("container." + Thavma.MODID + ".arcane_workbench");
 
   public WorkbenchBlock() {
     super(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).noOcclusion());

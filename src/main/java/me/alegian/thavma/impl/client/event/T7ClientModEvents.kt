@@ -16,7 +16,7 @@ import me.alegian.thavma.impl.client.renderer.blockentity.*
 import me.alegian.thavma.impl.client.renderer.entity.AngryZombieER
 import me.alegian.thavma.impl.client.renderer.entity.FancyItemER
 import me.alegian.thavma.impl.client.renderer.entity.VisER
-import me.alegian.thavma.impl.client.screen.WorkbenchScreen
+import me.alegian.thavma.impl.client.screen.WorkbenchScreenRemake
 import me.alegian.thavma.impl.client.texture.atlas.AspectAtlas
 import me.alegian.thavma.impl.common.block.entity.MatrixBE
 import me.alegian.thavma.impl.common.block.entity.PedestalBE
@@ -33,143 +33,143 @@ import thedarkcolour.kotlinforforge.neoforge.forge.DIST
 import thedarkcolour.kotlinforforge.neoforge.forge.MOD_BUS as KFF_MOD_BUS
 
 private fun registerGuiLayers(event: RegisterGuiLayersEvent) {
-    event.registerAboveAll(Thavma.rl("vis"), VisGuiOverlay.LAYER)
+  event.registerAboveAll(Thavma.rl("vis"), VisGuiOverlay.LAYER)
 }
 
 private fun registerEntityRenderers(event: RegisterRenderers) {
-    event.registerBlockEntityRenderer(T7BlockEntities.AURA_NODE.get()) { _ -> AuraNodeBER() }
-    event.registerBlockEntityRenderer(T7BlockEntities.CRUCIBLE.get()) { _ -> CrucibleBER() }
-    event.registerBlockEntityRenderer(T7BlockEntities.WORKBENCH.get()) { _ -> WorkbenchBER() }
-    event.registerBlockEntityRenderer(T7BlockEntities.MATRIX.get()) { _ -> MatrixBER() }
-    event.registerBlockEntityRenderer(T7BlockEntities.PILLAR.get()) { _ -> PillarBER() }
-    event.registerBlockEntityRenderer(T7BlockEntities.PEDESTAL.get()) { _ -> PedestalBER() }
-    event.registerEntityRenderer(T7EntityTypes.FANCY_ITEM.get()) { ctx -> FancyItemER(ctx) }
-    event.registerEntityRenderer(T7EntityTypes.VIS.get()) { ctx -> VisER(ctx) }
-    event.registerEntityRenderer(T7EntityTypes.ANGRY_ZOMBIE.get()) { ctx -> AngryZombieER(ctx) }
+  event.registerBlockEntityRenderer(T7BlockEntities.AURA_NODE.get()) { _ -> AuraNodeBER() }
+  event.registerBlockEntityRenderer(T7BlockEntities.CRUCIBLE.get()) { _ -> CrucibleBER() }
+  event.registerBlockEntityRenderer(T7BlockEntities.WORKBENCH.get()) { _ -> WorkbenchBER() }
+  event.registerBlockEntityRenderer(T7BlockEntities.MATRIX.get()) { _ -> MatrixBER() }
+  event.registerBlockEntityRenderer(T7BlockEntities.PILLAR.get()) { _ -> PillarBER() }
+  event.registerBlockEntityRenderer(T7BlockEntities.PEDESTAL.get()) { _ -> PedestalBER() }
+  event.registerEntityRenderer(T7EntityTypes.FANCY_ITEM.get()) { ctx -> FancyItemER(ctx) }
+  event.registerEntityRenderer(T7EntityTypes.VIS.get()) { ctx -> VisER(ctx) }
+  event.registerEntityRenderer(T7EntityTypes.ANGRY_ZOMBIE.get()) { ctx -> AngryZombieER(ctx) }
 }
 
 private fun registerParticleProviders(event: RegisterParticleProvidersEvent) {
-    event.registerSpriteSet(
-        T7ParticleTypes.CRUCIBLE_BUBBLE.get()
-    ) { pSprites -> CrucibleBubbleParticle.Provider(pSprites) }
+  event.registerSpriteSet(
+    T7ParticleTypes.CRUCIBLE_BUBBLE.get()
+  ) { pSprites -> CrucibleBubbleParticle.Provider(pSprites) }
 }
 
 private fun registerClientExtensions(event: RegisterClientExtensionsEvent) {
-    for (wand in T7Items.WANDS.values())
-        event.registerItem(WandItemExtensions(), wand)
+  for (wand in T7Items.WANDS.values())
+    event.registerItem(WandItemExtensions(), wand)
 
-    event.registerItem(OculusItemExtensions(), T7Items.OCULUS.get())
-    event.registerItem(BEWLRItemExtensionFactory.create(WorkbenchBE()), T7Blocks.ARCANE_WORKBENCH.get().asItem())
-    event.registerItem(BEWLRItemExtensionFactory.create(MatrixBE()), T7Blocks.MATRIX.get().asItem())
-    event.registerItem(BEWLRItemExtensionFactory.create(PillarBE()), T7Blocks.PILLAR.get().asItem())
-    event.registerItem(BEWLRItemExtensionFactory.create(PedestalBE()), T7Blocks.PEDESTAL.get().asItem())
+  event.registerItem(OculusItemExtensions(), T7Items.OCULUS.get())
+  event.registerItem(BEWLRItemExtensionFactory.create(WorkbenchBE()), T7Blocks.ARCANE_WORKBENCH.get().asItem())
+  event.registerItem(BEWLRItemExtensionFactory.create(MatrixBE()), T7Blocks.MATRIX.get().asItem())
+  event.registerItem(BEWLRItemExtensionFactory.create(PillarBE()), T7Blocks.PILLAR.get().asItem())
+  event.registerItem(BEWLRItemExtensionFactory.create(PedestalBE()), T7Blocks.PEDESTAL.get().asItem())
 }
 
 private fun registerReloadListenerEvent(event: RegisterClientReloadListenersEvent) {
-    event.registerReloadListener(AspectAtlas.INSTANCE)
+  event.registerReloadListener(AspectAtlas.INSTANCE)
 }
 
 private fun registerGeometryLoaders(event: RegisterGeometryLoaders) {
-    event.register(WithTransformParentModel.ID, WithTransformParentModel.Loader.INSTANCE)
+  event.register(WithTransformParentModel.ID, WithTransformParentModel.Loader.INSTANCE)
 }
 
 private fun registerItemColorHandlers(event: RegisterColorHandlersEvent.Item) {
-    for (aspect in Aspects.PRIMAL_ASPECTS) {
-        event.register(
-            { _, tintIndex ->
-                when (tintIndex) {
-                    0 -> aspect.get().color
-                    else -> 0xFFFFFFFF.toInt()
-                }
-            },
-            T7Blocks.INFUSED_DEEPSLATES[aspect],
-            T7Blocks.INFUSED_STONES[aspect],
-            T7Items.TESTAS[aspect]
-        )
-    }
+  for (aspect in Aspects.PRIMAL_ASPECTS) {
     event.register(
-        { _, tintIndex ->
-            when (tintIndex) {
-                0 -> T7Colors.GREATWOOD_LEAVES
-                else -> 0xFFFFFFFF.toInt()
-            }
-        },
-        T7Blocks.GREATWOOD_LEAVES.get()
+      { _, tintIndex ->
+        when (tintIndex) {
+          0 -> aspect.get().color
+          else -> 0xFFFFFFFF.toInt()
+        }
+      },
+      T7Blocks.INFUSED_DEEPSLATES[aspect],
+      T7Blocks.INFUSED_STONES[aspect],
+      T7Items.TESTAS[aspect]
     )
-    event.register(
-        { _, tintIndex ->
-            when (tintIndex) {
-                0 -> T7Colors.SILVERWOOD_LEAVES
-                else -> 0xFFFFFFFF.toInt()
-            }
-        },
-        T7Blocks.SILVERWOOD_LEAVES.get()
-    )
+  }
+  event.register(
+    { _, tintIndex ->
+      when (tintIndex) {
+        0 -> T7Colors.GREATWOOD_LEAVES
+        else -> 0xFFFFFFFF.toInt()
+      }
+    },
+    T7Blocks.GREATWOOD_LEAVES.get()
+  )
+  event.register(
+    { _, tintIndex ->
+      when (tintIndex) {
+        0 -> T7Colors.SILVERWOOD_LEAVES
+        else -> 0xFFFFFFFF.toInt()
+      }
+    },
+    T7Blocks.SILVERWOOD_LEAVES.get()
+  )
 }
 
 private fun registerBlockColorHandlers(event: RegisterColorHandlersEvent.Block) {
-    for (aspect in Aspects.PRIMAL_ASPECTS) {
-        event.register(
-            { _, _, _, tintIndex ->
-                when (tintIndex) {
-                    0 -> aspect.get().color
-                    else -> 0xFFFFFFFF.toInt()
-                }
-            },
-            T7Blocks.INFUSED_DEEPSLATES[aspect]!!.get(),
-            T7Blocks.INFUSED_STONES[aspect]!!.get()
-        )
-    }
+  for (aspect in Aspects.PRIMAL_ASPECTS) {
     event.register(
-        { _, _, _, tintIndex ->
-            when (tintIndex) {
-                0 -> T7Colors.GREATWOOD_LEAVES
-                else -> 0xFFFFFFFF.toInt()
-            }
-        },
-        T7Blocks.GREATWOOD_LEAVES.get()
+      { _, _, _, tintIndex ->
+        when (tintIndex) {
+          0 -> aspect.get().color
+          else -> 0xFFFFFFFF.toInt()
+        }
+      },
+      T7Blocks.INFUSED_DEEPSLATES[aspect]!!.get(),
+      T7Blocks.INFUSED_STONES[aspect]!!.get()
     )
-    event.register(
-        { _, _, _, tintIndex ->
-            when (tintIndex) {
-                0 -> T7Colors.SILVERWOOD_LEAVES
-                else -> 0xFFFFFFFF.toInt()
-            }
-        },
-        T7Blocks.SILVERWOOD_LEAVES.get()
-    )
+  }
+  event.register(
+    { _, _, _, tintIndex ->
+      when (tintIndex) {
+        0 -> T7Colors.GREATWOOD_LEAVES
+        else -> 0xFFFFFFFF.toInt()
+      }
+    },
+    T7Blocks.GREATWOOD_LEAVES.get()
+  )
+  event.register(
+    { _, _, _, tintIndex ->
+      when (tintIndex) {
+        0 -> T7Colors.SILVERWOOD_LEAVES
+        else -> 0xFFFFFFFF.toInt()
+      }
+    },
+    T7Blocks.SILVERWOOD_LEAVES.get()
+  )
 }
 
 private fun registerShaders(event: RegisterShadersEvent) {
-    event.registerShader(
-        ShaderInstance(event.resourceProvider, Thavma.rl("aura_node"), T7VertexFormats.AURA_NODE)
-    ) { T7RenderStateShards.auraNodeShader = it }
+  event.registerShader(
+    ShaderInstance(event.resourceProvider, Thavma.rl("aura_node"), T7VertexFormats.AURA_NODE)
+  ) { T7RenderStateShards.auraNodeShader = it }
 }
 
 private fun registerClientTooltipComponentFactories(event: RegisterClientTooltipComponentFactoriesEvent) {
-    event.register(
-        AspectTooltipComponent::class.java, ::AspectClientTooltipComponent
-    )
+  event.register(
+    AspectTooltipComponent::class.java, ::AspectClientTooltipComponent
+  )
 }
 
 private fun registerScreens(event: RegisterMenuScreensEvent) {
-    event.register(
-        T7MenuTypes.WORKBENCH.get(), ::WorkbenchScreen
-    )
+  event.register(
+    T7MenuTypes.WORKBENCH.get(), ::WorkbenchScreenRemake
+  )
 }
 
 fun registerClientModEvents() {
-    if (DIST != Dist.CLIENT) return
+  if (DIST != Dist.CLIENT) return
 
-    KFF_MOD_BUS.addListener(::registerGuiLayers)
-    KFF_MOD_BUS.addListener(::registerEntityRenderers)
-    KFF_MOD_BUS.addListener(::registerParticleProviders)
-    KFF_MOD_BUS.addListener(::registerClientExtensions)
-    KFF_MOD_BUS.addListener(::registerReloadListenerEvent)
-    KFF_MOD_BUS.addListener(::registerGeometryLoaders)
-    KFF_MOD_BUS.addListener(::registerItemColorHandlers)
-    KFF_MOD_BUS.addListener(::registerBlockColorHandlers)
-    KFF_MOD_BUS.addListener(::registerShaders)
-    KFF_MOD_BUS.addListener(::registerClientTooltipComponentFactories)
-    KFF_MOD_BUS.addListener(::registerScreens)
+  KFF_MOD_BUS.addListener(::registerGuiLayers)
+  KFF_MOD_BUS.addListener(::registerEntityRenderers)
+  KFF_MOD_BUS.addListener(::registerParticleProviders)
+  KFF_MOD_BUS.addListener(::registerClientExtensions)
+  KFF_MOD_BUS.addListener(::registerReloadListenerEvent)
+  KFF_MOD_BUS.addListener(::registerGeometryLoaders)
+  KFF_MOD_BUS.addListener(::registerItemColorHandlers)
+  KFF_MOD_BUS.addListener(::registerBlockColorHandlers)
+  KFF_MOD_BUS.addListener(::registerShaders)
+  KFF_MOD_BUS.addListener(::registerClientTooltipComponentFactories)
+  KFF_MOD_BUS.addListener(::registerScreens)
 }
