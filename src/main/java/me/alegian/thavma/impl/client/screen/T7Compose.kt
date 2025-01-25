@@ -7,6 +7,7 @@ import me.alegian.thavma.impl.client.util.usePose
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.Renderable
+import net.minecraft.network.chat.Component
 import kotlin.math.max
 
 
@@ -99,10 +100,17 @@ class ComposeContext(var shape: Shape, var alignmentX: Alignment, var alignmentY
     guiGraphics.fill(left, top, left + width, top + height, color)
   }
 
-  fun text(content: String) = Renderable { guiGraphics: GuiGraphics, _: Int, _: Int, _: Float ->
+  fun text(content: String, color: Int = 0) = Renderable { guiGraphics: GuiGraphics, _: Int, _: Int, _: Float ->
     guiGraphics.usePose {
       translate(left.toDouble(), top.toDouble(), 0.0)
-      guiGraphics.drawString(Minecraft.getInstance().font, content)
+      guiGraphics.drawString(Minecraft.getInstance().font, content, color)
+    }
+  }
+
+  fun text(content: Component, color: Int = 0) = Renderable { guiGraphics: GuiGraphics, _: Int, _: Int, _: Float ->
+    guiGraphics.usePose {
+      translate(left.toDouble(), top.toDouble(), 0.0)
+      guiGraphics.drawString(Minecraft.getInstance().font, content, color)
     }
   }
 
