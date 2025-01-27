@@ -63,11 +63,11 @@ class Modifier {
   fun size(size: Int) = width(size).height(size)
   fun size(texture: Texture) = width(texture.width).height(texture.height)
 
-  fun extendBelow(size: Int) = apply {
+  fun extendVertically(size: Int) = apply {
     mutations.add { this.height += size }
   }
 
-  fun extendBelow(texture: Texture) = apply {
+  fun extendVertically(texture: Texture) = apply {
     mutations.add { this.height += texture.height }
     mutations.add { this.width = max(this.width, texture.width) }
   }
@@ -132,7 +132,7 @@ class ComposeContext(var shape: Shape, var alignmentX: Alignment, var alignmentY
         pushPose()
         for (j in 0 until columns) {
           guiGraphics.blit(getTexture(i, j))
-          val slot = slots[i * rows + j]
+          val slot = slots[i * columns + j]
           if (slot is DynamicSlot<*>) {
             val pos = transformOrigin()
             slot.setX(pos.x.roundToInt())

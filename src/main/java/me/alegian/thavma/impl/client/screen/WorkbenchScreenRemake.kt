@@ -6,6 +6,7 @@ import me.alegian.thavma.impl.common.menu.slot.DynamicSlot
 import net.minecraft.ChatFormatting
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen
+import net.minecraft.client.renderer.RenderType
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.inventory.AbstractContainerMenu
@@ -27,19 +28,16 @@ private val HOTBAR_GAP = 4
 open class WorkbenchScreenRemake(pMenu: WorkbenchMenu, pPlayerInventory: Inventory, pTitle: Component) : AbstractContainerScreen<WorkbenchMenu>(pMenu, pPlayerInventory, pTitle) {
   override fun init() {
     super.init()
-    val lineHeight = this.font.lineHeight
+    val lineHeight = font.lineHeight
+    topPos = 0
+    leftPos = 0
 
     Root(width, height) {
       Box(
         Modifier().center()
       ) {
         Column(
-          Modifier()
-            .size(WORKBENCH_BG)
-            .extendBelow(INVENTORY_BG)
-            .extendBelow(GAP)
-            .extendBelow(lineHeight)
-            .centerX()
+          Modifier().size(WORKBENCH_BG).extendVertically(INVENTORY_BG).extendVertically(GAP).extendVertically(lineHeight).centerX()
         ) {
           Box(Modifier().height(lineHeight)) {
             addRenderableOnly(text(this@WorkbenchScreenRemake.title, 0x83FF9B))
@@ -64,10 +62,7 @@ open class WorkbenchScreenRemake(pMenu: WorkbenchMenu, pPlayerInventory: Invento
             PaddingX(INVENTORY_PADDING) {
               Column {
                 Box(
-                  Modifier()
-                    .height(INVENTORY_PADDING)
-                    .extendBelow(lineHeight)
-                    .centerY()
+                  Modifier().height(INVENTORY_PADDING).extendVertically(lineHeight).centerY()
                 ) {
                   Box(Modifier().height(lineHeight)) {
                     addRenderableOnly(text(this@WorkbenchScreenRemake.playerInventoryTitle, 0x404040))
@@ -155,15 +150,20 @@ open class WorkbenchScreenRemake(pMenu: WorkbenchMenu, pPlayerInventory: Invento
     if (slot !is DynamicSlot<*>) return super.renderSlotHighlight(guiGraphics, slot, mouseX, mouseY, partialTick)
 
     if (slot.isHighlightable) {
-      renderSlotHighlight(guiGraphics, slot.getX(), slot.getY(), 0, getSlotColor(slot.index))
+      renderSlotHighlight(guiGraphics, slot, getSlotColor(slot.index))
     }
+  }
+
+  private fun renderSlotHighlight(guiGraphics: GuiGraphics, slot: DynamicSlot<*>, color: Int) {
+    val padding = (slot.size - 16) / 2
+    guiGraphics.fillGradient(RenderType.guiOverlay(), slot.getX() + padding, slot.getY() + padding, slot.getX() + padding + 16, slot.getY() + padding + 16, color, color, 0)
   }
 
   override fun renderSlotContents(guiGraphics: GuiGraphics, itemstack: ItemStack, slot: Slot, countString: String?) {
     if (slot !is DynamicSlot<*>) return super.renderSlotContents(guiGraphics, itemstack, slot, countString)
 
-    val i = slot.getX()
-    val j = slot.getY()
+    val i = slot.getX() + 1
+    val j = slot.getY() + 1
     val j1 = i + j * this.imageWidth
     if (slot.isFake) {
       guiGraphics.renderFakeItem(itemstack, i, j, j1)
@@ -172,5 +172,10 @@ open class WorkbenchScreenRemake(pMenu: WorkbenchMenu, pPlayerInventory: Invento
     }
 
     guiGraphics.renderItemDecorations(this.font, itemstack, i, j, countString)
+  }
+
+  override fun isHovering(slot: Slot, mouseX: Double, mouseY: Double): Boolean {
+    if (slot !is DynamicSlot<*>) return super.isHovering(slot, mouseX, mouseY)
+    return this.isHovering(slot.getX(), slot.getY(), 16, 16, mouseX, mouseY)
   }
 }
