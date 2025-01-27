@@ -8,7 +8,7 @@ import net.minecraft.world.inventory.Slot;
  * A Slot that implements Sized, and has a back-reference to a Menu
  */
 public class T7Slot<T extends Menu> extends Slot implements DynamicSlot<T> {
-  private final int size;
+  private int size;
   private final T menu;
   private int x,y;
 
@@ -46,5 +46,10 @@ public class T7Slot<T extends Menu> extends Slot implements DynamicSlot<T> {
   @Override
   public int getSize() {
     return this.size;
+  }
+
+  @Override
+  public void setSize(int size) {
+    this.size = size;
   }
 }

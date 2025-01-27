@@ -137,6 +137,7 @@ class ComposeContext(var shape: Shape, var alignmentX: Alignment, var alignmentY
             val pos = transformOrigin()
             slot.setX(pos.x.roundToInt())
             slot.setY(pos.y.roundToInt())
+            slot.size = getTexture(i, j).width
           }
           translate(getTexture(0, 0).width.toDouble(), 0.0, 0.0)
         }

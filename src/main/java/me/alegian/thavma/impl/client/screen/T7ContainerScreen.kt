@@ -15,7 +15,7 @@ import net.minecraft.world.item.ItemStack
 import kotlin.math.min
 
 private val INVENTORY_BG = Texture("gui/container/inventory", 174, 97, 256, 256)
-private val SLOT_TEXTURE = Texture("gui/container/arcane_workbench_slot", 18, 18)
+private val SLOT_TEXTURE = Texture("gui/container/slot", 18, 18)
 private const val GAP = 4
 private const val INVENTORY_PADDING = 6
 private const val HOTBAR_GAP = 4

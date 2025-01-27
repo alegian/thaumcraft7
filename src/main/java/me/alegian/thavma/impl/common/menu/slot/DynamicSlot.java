@@ -16,5 +16,7 @@ public interface DynamicSlot<T extends Menu> {
 
   int getSize();
 
+  void setSize(int size);
+
   T getMenu();
 }

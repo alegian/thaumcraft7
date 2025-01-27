@@ -11,7 +11,7 @@ import net.minecraft.world.item.ItemStack;
  * A Sized ResultSlot, with a back-reference to a Menu
  */
 public class T7ResultSlot<T extends Menu> extends ResultSlot implements DynamicSlot<T> {
-  private final int size;
+  private int size;
   private boolean mayPickup = true;
   private final T menu;
   private int x,y;
@@ -49,6 +49,11 @@ public class T7ResultSlot<T extends Menu> extends ResultSlot implements DynamicS
   @Override
   public int getSize() {
     return this.size;
+  }
+
+  @Override
+  public void setSize(int size) {
+    this.size = size;
   }
 
   @Override
