@@ -25,10 +25,10 @@ fun ComposeContext.Row(modifier: Modifier = Modifier(), children: ComposeContext
 
 fun ComposeContext.PaddingX(size: Int, children: ComposeContext.() -> Unit) = PaddingInternal(size, size, 0, 0, children)
 fun ComposeContext.PaddingY(size: Int, children: ComposeContext.() -> Unit) = PaddingInternal(0, 0, size, size, children)
-fun ComposeContext.paddingLeft(size: Int, children: ComposeContext.() -> Unit) = PaddingInternal(size, 0, 0, 0, children)
-fun ComposeContext.paddingRight(size: Int, children: ComposeContext.() -> Unit) = PaddingInternal(0, size, 0, 0, children)
-fun ComposeContext.paddingTop(size: Int, children: ComposeContext.() -> Unit) = PaddingInternal(0, 0, size, 0, children)
-fun ComposeContext.paddingBottom(size: Int, children: ComposeContext.() -> Unit) = PaddingInternal(0, 0, 0, size, children)
+fun ComposeContext.PaddingLeft(size: Int, children: ComposeContext.() -> Unit) = PaddingInternal(size, 0, 0, 0, children)
+fun ComposeContext.PaddingRight(size: Int, children: ComposeContext.() -> Unit) = PaddingInternal(0, size, 0, 0, children)
+fun ComposeContext.PaddingTop(size: Int, children: ComposeContext.() -> Unit) = PaddingInternal(0, 0, size, 0, children)
+fun ComposeContext.PaddingBottom(size: Int, children: ComposeContext.() -> Unit) = PaddingInternal(0, 0, 0, size, children)
 fun ComposeContext.Padding(size: Int, children: ComposeContext.() -> Unit) = PaddingInternal(size, size, size, size, children)
 
 /**
