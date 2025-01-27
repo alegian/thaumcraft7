@@ -22,8 +22,10 @@ open class WorkbenchScreenRemake(val menu: WorkbenchMenu, pPlayerInventory: Inve
           }
         }
         Box(Modifier().width(BORDER))
-        Box(Modifier().color(0xFF0000FF.toInt())) {
-          addRenderableOnly(debugRect())
+        Box(Modifier().center()) {
+          Box(Modifier().size(RESULT_SLOT_TEXTURE)){
+            addRenderableOnly(slot(menu.resultContainer.range.slot, RESULT_SLOT_TEXTURE))
+          }
         }
       }
     }

@@ -81,7 +81,7 @@ public class WandContainer<T extends Menu> implements T7Container {
   }
 
   @Override
-  public SlotRange getRange() {
+  public SlotRange.Single getRange() {
     return this.range;
   }
 }

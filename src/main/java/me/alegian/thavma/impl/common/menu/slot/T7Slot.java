@@ -3,6 +3,7 @@ package me.alegian.thavma.impl.common.menu.slot;
 import me.alegian.thavma.impl.common.menu.Menu;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.Slot;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * A Slot that implements Sized, and has a back-reference to a Menu
@@ -19,7 +20,7 @@ public class T7Slot<T extends Menu> extends Slot implements DynamicSlot<T> {
   }
 
   @Override
-  public T getMenu() {
+  public @NotNull T getMenu() {
     return this.menu;
   }
 

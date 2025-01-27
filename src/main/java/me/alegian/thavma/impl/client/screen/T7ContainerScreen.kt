@@ -4,6 +4,7 @@ import me.alegian.thavma.impl.client.texture.Texture
 import me.alegian.thavma.impl.common.menu.Menu
 import me.alegian.thavma.impl.common.menu.slot.DynamicSlot
 import net.minecraft.ChatFormatting
+import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen
 import net.minecraft.client.renderer.RenderType
@@ -84,31 +85,31 @@ abstract class T7ContainerScreen<T : Menu>(menu: T, pPlayerInventory: Inventory,
     if (slot !is DynamicSlot<*>) return super.renderSlot(guiGraphics, slot)
 
     val padding = (slot.size - 16) / 2
-    val i = slot.getX() + padding
-    val j = slot.getY() + padding
-    var itemstack = slot.item
-    var flag = false
-    var flag1 = slot === this.clickedSlot && !draggingItem.isEmpty && !this.isSplittingStack
-    val itemstack1 = menu.carried
-    var s: String? = null
-    if (slot === this.clickedSlot && !draggingItem.isEmpty && this.isSplittingStack && !itemstack.isEmpty) {
-      itemstack = itemstack.copyWithCount(itemstack.count / 2)
-    } else if (this.isQuickCrafting && quickCraftSlots.contains(slot) && !itemstack1.isEmpty) {
+    val i = slot.x + padding
+    val j = slot.y + padding
+    var itemStack = slot.item
+    var quickReplace = false
+    var drawItem = slot === this.clickedSlot && !draggingItem.isEmpty && !this.isSplittingStack
+    val carriedStack = menu.carried
+    var count: String? = null
+    if (slot === this.clickedSlot && !draggingItem.isEmpty && this.isSplittingStack && !itemStack.isEmpty) {
+      itemStack = itemStack.copyWithCount(itemStack.count / 2)
+    } else if (this.isQuickCrafting && quickCraftSlots.contains(slot) && !carriedStack.isEmpty) {
       if (quickCraftSlots.size == 1) {
         return
       }
 
-      if (AbstractContainerMenu.canItemQuickReplace(slot, itemstack1, true) && menu.canDragTo(slot)) {
-        flag = true
-        val k = min(itemstack1.maxStackSize.toDouble(), slot.getMaxStackSize(itemstack1).toDouble()).toInt()
+      if (AbstractContainerMenu.canItemQuickReplace(slot, carriedStack, true) && menu.canDragTo(slot)) {
+        quickReplace = true
+        val k = min(carriedStack.maxStackSize.toDouble(), slot.getMaxStackSize(carriedStack).toDouble()).toInt()
         val l = if (slot.item.isEmpty) 0 else slot.item.count
-        var i1 = AbstractContainerMenu.getQuickCraftPlaceCount(this.quickCraftSlots, this.quickCraftingType, itemstack1) + l
+        var i1 = AbstractContainerMenu.getQuickCraftPlaceCount(this.quickCraftSlots, this.quickCraftingType, carriedStack) + l
         if (i1 > k) {
           i1 = k
-          s = ChatFormatting.YELLOW.toString() + k
+          count = ChatFormatting.YELLOW.toString() + k
         }
 
-        itemstack = itemstack1.copyWithCount(i1)
+        itemStack = carriedStack.copyWithCount(i1)
       } else {
         quickCraftSlots.remove(slot)
         this.recalculateQuickCraftRemaining()
@@ -117,21 +118,21 @@ abstract class T7ContainerScreen<T : Menu>(menu: T, pPlayerInventory: Inventory,
 
     guiGraphics.pose().pushPose()
     guiGraphics.pose().translate(0.0f, 0.0f, 100.0f)
-    if (itemstack.isEmpty && slot.isActive) {
+    if (itemStack.isEmpty && slot.isActive) {
       val pair = slot.noItemIcon
       if (pair != null) {
-        val textureatlassprite = minecraft!!.getTextureAtlas(pair.first).apply(pair.second)
-        guiGraphics.blit(i, j, 0, 16, 16, textureatlassprite)
-        flag1 = true
+        val sprite = Minecraft.getInstance().getTextureAtlas(pair.first).apply(pair.second)
+        guiGraphics.blit(i, j, 0, 16, 16, sprite)
+        drawItem = true
       }
     }
 
-    if (!flag1) {
-      if (flag) {
+    if (!drawItem) {
+      if (quickReplace) {
         guiGraphics.fill(i, j, i + 16, j + 16, -2130706433)
       }
 
-      renderSlotContents(guiGraphics, itemstack, slot, s)
+      renderSlotContents(guiGraphics, itemStack, slot, count)
     }
 
     guiGraphics.pose().popPose()
@@ -145,8 +146,8 @@ abstract class T7ContainerScreen<T : Menu>(menu: T, pPlayerInventory: Inventory,
       val padding = (slot.size - 16) / 2
       guiGraphics.fillGradient(
         RenderType.guiOverlay(),
-        slot.getX() + padding, slot.getY() + padding,
-        slot.getX() + padding + 16, slot.getY() + padding + 16,
+        slot.x + padding, slot.y + padding,
+        slot.x + padding + 16, slot.y + padding + 16,
         color, color,
         0
       )
@@ -157,8 +158,8 @@ abstract class T7ContainerScreen<T : Menu>(menu: T, pPlayerInventory: Inventory,
     if (slot !is DynamicSlot<*>) return super.renderSlotContents(guiGraphics, itemstack, slot, countString)
 
     val padding = (slot.size - 16) / 2
-    val i = slot.getX() + padding
-    val j = slot.getY() + padding
+    val i = slot.x + padding
+    val j = slot.y + padding
     val j1 = i + j * this.imageWidth
     if (slot.isFake) {
       guiGraphics.renderFakeItem(itemstack, i, j, j1)
@@ -171,6 +172,7 @@ abstract class T7ContainerScreen<T : Menu>(menu: T, pPlayerInventory: Inventory,
 
   override fun isHovering(slot: Slot, mouseX: Double, mouseY: Double): Boolean {
     if (slot !is DynamicSlot<*>) return super.isHovering(slot, mouseX, mouseY)
-    return this.isHovering(slot.getX(), slot.getY(), 16, 16, mouseX, mouseY)
+    val padding = (slot.size - 16) / 2
+    return this.isHovering(slot.x + padding, slot.y + padding, 16, 16, mouseX, mouseY)
   }
 }

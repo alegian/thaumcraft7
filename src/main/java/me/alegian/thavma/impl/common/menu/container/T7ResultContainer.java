@@ -19,7 +19,7 @@ public abstract class T7ResultContainer<T extends Menu> extends ResultContainer 
   }
 
   @Override
-  public SlotRange getRange() {
+  public SlotRange.Single getRange() {
     return this.range;
   }
 

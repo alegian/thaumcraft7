@@ -6,6 +6,7 @@ import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.inventory.ResultContainer;
 import net.minecraft.world.inventory.ResultSlot;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * A Sized ResultSlot, with a back-reference to a Menu
@@ -22,7 +23,7 @@ public class T7ResultSlot<T extends Menu> extends ResultSlot implements DynamicS
     this.menu = menu;
   }
 
-  public T getMenu() {
+  public @NotNull T getMenu() {
     return this.menu;
   }
 

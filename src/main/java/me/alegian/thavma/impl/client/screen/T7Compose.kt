@@ -135,14 +135,27 @@ class ComposeContext(var shape: Shape, var alignmentX: Alignment, var alignmentY
           val slot = slots[i * columns + j]
           if (slot is DynamicSlot<*>) {
             val pos = transformOrigin()
-            slot.setX(pos.x.roundToInt())
-            slot.setY(pos.y.roundToInt())
+            slot.x = pos.x.roundToInt()
+            slot.y = pos.y.roundToInt()
             slot.size = getTexture(i, j).width
           }
           translate(getTexture(0, 0).width.toDouble(), 0.0, 0.0)
         }
         popPose()
         translate(0.0, getTexture(0, 0).height.toDouble(), 0.0)
+      }
+    }
+  }
+
+  fun slot(slot: Slot, texture: Texture) = Renderable { guiGraphics: GuiGraphics, _: Int, _: Int, _: Float ->
+    guiGraphics.usePose {
+      translate(left.toDouble(), top.toDouble(), 0.0)
+      guiGraphics.blit(texture)
+      if (slot is DynamicSlot<*>) {
+        val pos = transformOrigin()
+        slot.x = pos.x.roundToInt()
+        slot.y = pos.y.roundToInt()
+        slot.size = texture.width
       }
     }
   }
