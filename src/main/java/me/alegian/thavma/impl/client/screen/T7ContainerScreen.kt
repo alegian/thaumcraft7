@@ -23,7 +23,7 @@ private const val HOTBAR_GAP = 4
 /**
  * The background texture's size is used to determine the size of the container
  */
-abstract class T7ContainerScreen<T : Menu>(pMenu: T, pPlayerInventory: Inventory, pTitle: Component, private val bgTexture: Texture) : AbstractContainerScreen<T>(pMenu, pPlayerInventory, pTitle) {
+abstract class T7ContainerScreen<T : Menu>(menu: T, pPlayerInventory: Inventory, pTitle: Component, private val bgTexture: Texture) : AbstractContainerScreen<T>(menu, pPlayerInventory, pTitle) {
   abstract fun ComposeContext.layout()
 
   override fun init() {
@@ -59,7 +59,7 @@ abstract class T7ContainerScreen<T : Menu>(pMenu: T, pPlayerInventory: Inventory
                   }
                 }
                 Column(Modifier().color(0xFF00FFFF.toInt())) {
-                  val inventorySlots = this@T7ContainerScreen.menu.playerInventory.range.slots
+                  val inventorySlots = menu.playerInventory.range.slots
                   Box(Modifier().height(SLOT_TEXTURE.height * 3)) {
                     addRenderableOnly(slotGrid(3, 9, inventorySlots) { _, _ -> SLOT_TEXTURE })
                   }
