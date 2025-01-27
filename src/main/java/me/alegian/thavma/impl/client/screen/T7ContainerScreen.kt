@@ -83,8 +83,9 @@ abstract class T7ContainerScreen<T : Menu>(menu: T, pPlayerInventory: Inventory,
   override fun renderSlot(guiGraphics: GuiGraphics, slot: Slot) {
     if (slot !is DynamicSlot<*>) return super.renderSlot(guiGraphics, slot)
 
-    val i = slot.getX()
-    val j = slot.getY()
+    val padding = (slot.size - 16) / 2
+    val i = slot.getX() + padding
+    val j = slot.getY() + padding
     var itemstack = slot.item
     var flag = false
     var flag1 = slot === this.clickedSlot && !draggingItem.isEmpty && !this.isSplittingStack
@@ -140,20 +141,24 @@ abstract class T7ContainerScreen<T : Menu>(menu: T, pPlayerInventory: Inventory,
     if (slot !is DynamicSlot<*>) return super.renderSlotHighlight(guiGraphics, slot, mouseX, mouseY, partialTick)
 
     if (slot.isHighlightable) {
-      renderSlotHighlight(guiGraphics, slot, getSlotColor(slot.index))
+      val color = getSlotColor(slot.index)
+      val padding = (slot.size - 16) / 2
+      guiGraphics.fillGradient(
+        RenderType.guiOverlay(),
+        slot.getX() + padding, slot.getY() + padding,
+        slot.getX() + padding + 16, slot.getY() + padding + 16,
+        color, color,
+        0
+      )
     }
-  }
-
-  private fun renderSlotHighlight(guiGraphics: GuiGraphics, slot: DynamicSlot<*>, color: Int) {
-    val padding = (slot.size - 16) / 2
-    guiGraphics.fillGradient(RenderType.guiOverlay(), slot.getX() + padding, slot.getY() + padding, slot.getX() + padding + 16, slot.getY() + padding + 16, color, color, 0)
   }
 
   override fun renderSlotContents(guiGraphics: GuiGraphics, itemstack: ItemStack, slot: Slot, countString: String?) {
     if (slot !is DynamicSlot<*>) return super.renderSlotContents(guiGraphics, itemstack, slot, countString)
 
-    val i = slot.getX() + 1
-    val j = slot.getY() + 1
+    val padding = (slot.size - 16) / 2
+    val i = slot.getX() + padding
+    val j = slot.getY() + padding
     val j1 = i + j * this.imageWidth
     if (slot.isFake) {
       guiGraphics.renderFakeItem(itemstack, i, j, j1)
