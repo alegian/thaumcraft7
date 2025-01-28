@@ -12,14 +12,13 @@ import org.jetbrains.annotations.NotNull;
  * A Sized ResultSlot, with a back-reference to a Menu
  */
 public class T7ResultSlot<T extends Menu> extends ResultSlot implements DynamicSlot<T> {
-  private int size;
+  private int size = 0;
   private boolean mayPickup = true;
   private final T menu;
   private int x,y;
 
-  public T7ResultSlot(T menu, CraftingContainer craftingContainer, ResultContainer container, int id, int size) {
-    super(menu.getPlayer(), craftingContainer, container, id, menu.getSlotPose().getX(), menu.getSlotPose().getY());
-    this.size = size;
+  public T7ResultSlot(T menu, CraftingContainer craftingContainer, ResultContainer container, int id) {
+    super(menu.getPlayer(), craftingContainer, container, id, 0, 0);
     this.menu = menu;
   }
 
@@ -28,22 +27,22 @@ public class T7ResultSlot<T extends Menu> extends ResultSlot implements DynamicS
   }
 
   @Override
-  public int getX() {
+  public int getActualX() {
     return x;
   }
 
   @Override
-  public int getY() {
+  public int getActualY() {
     return y;
   }
 
   @Override
-  public void setX(int x) {
+  public void setActualX(int x) {
     this.x = x;
   }
 
   @Override
-  public void setY(int y) {
+  public void setActualY(int y) {
     this.y = y;
   }
 

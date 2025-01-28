@@ -27,20 +27,16 @@ public class T7Inventory implements T7Container {
     this.range.start();
 
     for (int i = 0; i < 3; i++) {
-      this.menu.getSlotPose().pushX();
-      for (int j = 0; j < 9; j++) this.menu.addSlot(new T7Slot<>(this, j + i * 9 + 9, this.menu, 18));
-      this.menu.getSlotPose().popX();
-      this.menu.getSlotPose().translateY(18);
+      for (int j = 0; j < 9; j++) this.menu.addSlot(new T7Slot<>(this, j + i * 9 + 9, this.menu));
     }
 
-    this.menu.getSlotPose().translateY(4);
-    for (int i = 0; i < 9; i++) this.menu.addSlot(new T7Slot<>(this, i, this.menu, 18));
+    for (int i = 0; i < 9; i++) this.menu.addSlot(new T7Slot<>(this, i, this.menu));
 
     this.range.end();
   }
 
   @Override
-  public SlotRange getRange() {
+  public @NotNull SlotRange getRange() {
     return this.range;
   }
 

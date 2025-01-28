@@ -13,7 +13,7 @@ public class WorkbenchResultContainer extends T7ResultContainer<WorkbenchMenu> {
 
   @Override
   public void addSlots() {
-    this.menu.addSlot(new WorkbenchResultSlot(this.menu, 0, 26));
+    this.menu.addSlot(new WorkbenchResultSlot(this.menu, 0));
     this.range.track();
   }
 }

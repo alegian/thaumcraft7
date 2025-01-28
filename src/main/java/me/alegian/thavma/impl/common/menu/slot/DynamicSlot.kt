@@ -6,9 +6,9 @@ import me.alegian.thavma.impl.common.menu.Menu
  * Used for adding size to slots, allowing them to be dynamically positioned
  */
 interface DynamicSlot<T : Menu> {
-  var x: Int
+  var actualX: Int
 
-  var y: Int
+  var actualY: Int
 
   var size: Int
 

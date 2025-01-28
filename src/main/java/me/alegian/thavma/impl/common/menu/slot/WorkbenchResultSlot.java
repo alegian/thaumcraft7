@@ -7,8 +7,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 public class WorkbenchResultSlot extends T7ResultSlot<WorkbenchMenu> {
-  public WorkbenchResultSlot(WorkbenchMenu menu, int id, int size) {
-    super(menu, menu.getCraftingContainer(), menu.getResultContainer(), id, size);
+  public WorkbenchResultSlot(WorkbenchMenu menu, int id) {
+    super(menu, menu.getCraftingContainer(), menu.getResultContainer(), id);
   }
 
   /**

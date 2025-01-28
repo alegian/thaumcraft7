@@ -85,8 +85,8 @@ abstract class T7ContainerScreen<T : Menu>(menu: T, pPlayerInventory: Inventory,
     if (slot !is DynamicSlot<*>) return super.renderSlot(guiGraphics, slot)
 
     val padding = (slot.size - 16) / 2
-    val i = slot.x + padding
-    val j = slot.y + padding
+    val i = slot.actualX + padding
+    val j = slot.actualY + padding
     var itemStack = slot.item
     var quickReplace = false
     var drawItem = slot === this.clickedSlot && !draggingItem.isEmpty && !this.isSplittingStack
@@ -146,8 +146,8 @@ abstract class T7ContainerScreen<T : Menu>(menu: T, pPlayerInventory: Inventory,
       val padding = (slot.size - 16) / 2
       guiGraphics.fillGradient(
         RenderType.guiOverlay(),
-        slot.x + padding, slot.y + padding,
-        slot.x + padding + 16, slot.y + padding + 16,
+        slot.actualX + padding, slot.actualY + padding,
+        slot.actualX + padding + 16, slot.actualY + padding + 16,
         color, color,
         0
       )
@@ -158,8 +158,8 @@ abstract class T7ContainerScreen<T : Menu>(menu: T, pPlayerInventory: Inventory,
     if (slot !is DynamicSlot<*>) return super.renderSlotContents(guiGraphics, itemstack, slot, countString)
 
     val padding = (slot.size - 16) / 2
-    val i = slot.x + padding
-    val j = slot.y + padding
+    val i = slot.actualX + padding
+    val j = slot.actualY + padding
     val j1 = i + j * this.imageWidth
     if (slot.isFake) {
       guiGraphics.renderFakeItem(itemstack, i, j, j1)
@@ -173,6 +173,6 @@ abstract class T7ContainerScreen<T : Menu>(menu: T, pPlayerInventory: Inventory,
   override fun isHovering(slot: Slot, mouseX: Double, mouseY: Double): Boolean {
     if (slot !is DynamicSlot<*>) return super.isHovering(slot, mouseX, mouseY)
     val padding = (slot.size - 16) / 2
-    return this.isHovering(slot.x + padding, slot.y + padding, 16, 16, mouseX, mouseY)
+    return this.isHovering(slot.actualX + padding, slot.actualY + padding, 16, 16, mouseX, mouseY)
   }
 }

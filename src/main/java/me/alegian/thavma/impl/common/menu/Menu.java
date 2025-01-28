@@ -2,8 +2,6 @@ package me.alegian.thavma.impl.common.menu;
 
 import me.alegian.thavma.impl.common.menu.container.T7Container;
 import me.alegian.thavma.impl.common.menu.container.T7Inventory;
-import me.alegian.thavma.impl.common.menu.slot.DynamicSlot;
-import me.alegian.thavma.impl.common.menu.slot.SlotPose;
 import me.alegian.thavma.impl.common.menu.slot.SlotRange;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -23,7 +21,6 @@ import java.util.List;
  * quick-move operations between all children containers.
  */
 public abstract class Menu extends AbstractContainerMenu implements ContainerListener {
-  protected final SlotPose slotPose = new SlotPose();
   protected T7Inventory playerInventory;
 
   protected Menu(@Nullable MenuType<?> menuType, int containerId, Inventory playerInventory) {
@@ -31,19 +28,8 @@ public abstract class Menu extends AbstractContainerMenu implements ContainerLis
     this.playerInventory = new T7Inventory(playerInventory, this);
   }
 
-  @Override
-  public @NotNull Slot addSlot(@NotNull Slot slot) {
-    if (slot instanceof DynamicSlot<?> dynamicSlot) this.slotPose.translateX(dynamicSlot.getSize());
-    else this.slotPose.translateX(18);
-    return super.addSlot(slot);
-  }
-
   protected boolean moveItemStackToRange(ItemStack slotItem, SlotRange range) {
     return this.moveItemStackTo(slotItem, range.getStart(), range.getEnd() + 1, false);
-  }
-
-  public SlotPose getSlotPose() {
-    return this.slotPose;
   }
 
   public Player getPlayer() {

@@ -7,7 +7,7 @@ import net.minecraft.world.item.ItemStack;
 
 public class WandSlot<T extends Menu> extends T7Slot<T> {
   public WandSlot(Container container, int id, T menu) {
-    super(container, id, menu, 18);
+    super(container, id, menu);
   }
 
   @Override
