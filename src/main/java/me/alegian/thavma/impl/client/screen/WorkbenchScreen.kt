@@ -21,7 +21,7 @@ private val SLOTS = (0..8).map { Texture("gui/container/arcane_workbench/craftin
 private const val BORDER = 5
 private const val WOOD_SIZE = 122
 
-open class WorkbenchScreenRemake(val menu: WorkbenchMenu, pPlayerInventory: Inventory, pTitle: Component) : T7ContainerScreen<WorkbenchMenu>(menu, pPlayerInventory, pTitle, WORKBENCH_BG) {
+open class WorkbenchScreen(val menu: WorkbenchMenu, pPlayerInventory: Inventory, pTitle: Component) : T7ContainerScreen<WorkbenchMenu>(menu, pPlayerInventory, pTitle, WORKBENCH_BG) {
   override fun ComposeContext.layout() {
     Padding(BORDER) {
       Row {
@@ -32,13 +32,13 @@ open class WorkbenchScreenRemake(val menu: WorkbenchMenu, pPlayerInventory: Inve
         }
         Box(Modifier().width(BORDER))
         Box {
-          Box(Modifier().center()){
-            Box(Modifier().size(RESULT_SLOT)){
+          Box(Modifier().center()) {
+            Box(Modifier().size(RESULT_SLOT)) {
               addRenderableOnly(slot(menu.resultContainer.range.slot, RESULT_SLOT))
             }
           }
-          Box(Modifier().maxHeight(0.5f).center()){
-            Box(Modifier().size(WAND_SLOT)){
+          Box(Modifier().maxHeight(0.5f).center()) {
+            Box(Modifier().size(WAND_SLOT)) {
               addRenderableOnly(slot(menu.wandContainer.range.slot, WAND_SLOT))
             }
           }
@@ -52,6 +52,7 @@ open class WorkbenchScreenRemake(val menu: WorkbenchMenu, pPlayerInventory: Inve
     renderAspects(guiGraphics)
   }
 
+  // TODO: cleanup
   protected open fun renderAspects(guiGraphics: GuiGraphics) {
     val BASE_RADIUS = 56
     val ANGLE = 360f / PRIMAL_ASPECTS.size
@@ -73,7 +74,7 @@ open class WorkbenchScreenRemake(val menu: WorkbenchMenu, pPlayerInventory: Inve
       t7graphics.translateXY((BASE_RADIUS * (1 - 0.16 * fac * fac)).toFloat(), 0f)
       t7graphics.rotateZ(-ANGLE * i)
       t7graphics.blit(ASPECT_SOCKET.location, (SLOTS[0].width - ASPECT_SOCKET.width) / 2, (SLOTS[0].height - ASPECT_SOCKET.height) / 2, 0f, 0f, ASPECT_SOCKET.width, ASPECT_SOCKET.height, ASPECT_SOCKET.width, ASPECT_SOCKET.height)
-      if (requiredAmount != 0) AspectRenderer.renderAspect(t7graphics, requiredStack, 0, 0)
+      if (requiredAmount != 0) AspectRenderer.renderAspect(t7graphics, requiredStack, (SLOTS[0].width - AspectRenderer.getPixelResolution()) / 2, (SLOTS[0].height - AspectRenderer.getPixelResolution()) / 2)
       t7graphics.pop()
     }
 
